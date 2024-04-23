@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="primary">ELEVATE</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+
+  <ng-container *ngFor="let item of jsonData">
+    <ng-container *ngTemplateOutlet="typeTemplateMapping[item.type]"></ng-container>
+  </ng-container>
+  <ng-template #bannerTemplate>
+    <ion-list lines="none">
+      <div>
+        <swiper-container>
+          @for (abc of jsonData; track abc.id) {
+          @if (abc?.type == 'banner'){
+          @for (job of abc?.data; track job.id) {
+          <swiper-slide>
+            <ion-card class="banner">
+              <ion-card-content>
+                <h1>{{job?.title}}</h1>
+              </ion-card-content>
+            </ion-card>
+            
+          </swiper-slide>
+          }}
+          }
+        </swiper-container>
+      </div>
+
+    </ion-list>
+  </ng-template>
+
+  <ng-template #productTemplate>
+    <ion-list>
+
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            @for (abc of jsonData; track abc.id) {
+            @if (abc?.type == 'main'){
+            @for (job of abc?.data; track job.id) {
+            <ion-col size="6" size-md="3">
+              <ion-card class="tiels">
+                <ion-card-content>
+                  <img [src]="job?.img" alt="">
+                  <h1>{{job?.name}}</h1>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            }
+            }
+            }
+
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </ng-template>
+
+  <ng-template #recommendationTemplate>
+    <ion-list lines="none" class="ion-margin-bottom recentJobs">
+
+      <ion-list-header class="ion-margin-bottom">
+        <ion-label>
+          Recomendation
+        </ion-label>
+        <ion-button fill="clear" size="small" color="medium">
+          <ion-text>
+            Show all
+          </ion-text>
+        </ion-button>
+      </ion-list-header>
+
+      @for (job of recent; track job.id) {
+      <ion-item class="ion-margin-bottom" [routerLink]="['/', 'tabs', 'job', job.id]">
+        <ion-thumbnail slot="start">
+          <img [src]="'assets/imgs/' + job?.logo_light">
+        </ion-thumbnail>
+        <ion-label class="recent">
+          {{job?.post}}
+          <p>
+            {{job?.company}}
+            <span class="dot"></span>
+            {{job?.type}}
+          </p>
+        </ion-label>
+        <ion-text slot="end" color="dark">
+          4d Left
+        </ion-text>
+      </ion-item>
+      }
+
+    </ion-list>
+  </ng-template>
+
+
+</ion-content>

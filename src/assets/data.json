@@ -1,0 +1,44 @@
+[
+    {
+        "type": "banner",
+        "data": [
+            {
+                "title": "Hey Samay, Welcome back!",
+                "discription": ""
+            },
+            {
+                "title": "Hey Syed, Welcome back!",
+                "discription": ""
+            }
+        ]
+    },
+    {
+        "type": "main",
+        "data": [
+            {
+                "name": "Survey",
+                "img": "assets/images/ic_survey.svg",
+                "redirectionUrl": "/survey"
+            },
+            {
+                "name": "Program",
+                "img": "assets/images/ic_program.svg",
+                "redirectionUrl": ""
+            },
+            {
+                "name": "Observation",
+                "img": "assets/images/ic_observation.svg",
+                "redirectionUrl": ""
+            },
+            {
+                "name": "Project",
+                "img": "assets/images/ic_project.svg",
+                "redirectionUrl": ""
+            }
+        ]
+    },
+    {
+        "type": "Recommendation",
+        "name": "Survey 17"
+    }
+]
