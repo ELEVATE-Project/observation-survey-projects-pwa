@@ -40,42 +40,5 @@
     {
         "type": "Recommendation",
         "name": "Survey 17"
-    },
-    {
-        "type": "segment",
-        "data": [
-            {
-                "lable": "ameen",
-                "description": "ameen dfsdfsdfdsfdsfdsfsd"
-            },
-            {
-                "lable": "abrar",
-                "description": "abrar sdfsdfsdfdsfdsfdsfsd"
-            },
-            {
-                "lable": "syed",
-                "description": "syed sdfsdfsdfdsfdsfdsfsd"
-            },
-            {
-                "lable": "one",
-                "description": "one sdfsdfsdfdsfdsfdsfsd"
-            },
-            {
-                "lable": "two",
-                "description": "two dfsdfsdfdsfdsfdsfsd"
-            },
-            {
-                "lable": "three",
-                "description": "three sdfsdfsdfdsfdsfdsfsd"
-            },
-            {
-                "lable": "four",
-                "description": "four sdfsdfsdfdsfdsfdsfsd"
-            },
-            {
-                "lable": "five",
-                "description": "five sdfsdfsdfdsfdsfdsfsd"
-            } 
-        ]
     }
 ]

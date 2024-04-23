@@ -6,60 +6,9 @@
 
 <ion-content [fullscreen]="true" color="light">
 
-  <!-- <ion-header class="ion-no-border">
-    <ion-toolbar color="light" class="ion-padding-vertical">
-
-      <ion-title mode="ios">
-        <img [src]="'assets/imgs/logo.png'">
-      </ion-title>
-
-      <ion-buttons slot="start">
-        <ion-thumbnail>
-          <ion-icon name="apps-outline"></ion-icon>
-        </ion-thumbnail>
-      </ion-buttons>
-
-      <ion-buttons slot="end">
-        <ion-thumbnail>
-          <img src="assets/imgs/avatar.png">
-        </ion-thumbnail>
-      </ion-buttons>
-
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-row class="tagline">
-    <ion-col>
-      <ion-label>
-        <ion-text>
-          Find Your
-        </ion-text>
-        <p>
-          <ion-text color="dark">
-            Creative Job
-          </ion-text>
-        </p>
-      </ion-label>
-    </ion-col>
-  </ion-row>
-
-  <ion-row class="srch">
-    <ion-col size="10">
-      <ion-searchbar class="srchBar" placeholder="Search For Jobs"></ion-searchbar>
-    </ion-col>
-    <ion-col size="2">
-      <ion-button mode="ios">
-        <ion-icon name="options"></ion-icon>
-      </ion-button>
-    </ion-col>
-  </ion-row> -->
-
-
   <ng-container *ngFor="let item of jsonData">
     <ng-container *ngTemplateOutlet="typeTemplateMapping[item.type]"></ng-container>
   </ng-container>
-
-  <!-- Define templates for each type -->
   <ng-template #bannerTemplate>
     <ion-list lines="none">
       <div>
@@ -73,45 +22,7 @@
                 <h1>{{job?.title}}</h1>
               </ion-card-content>
             </ion-card>
-            <!-- <ion-card>
-
-                <ion-list lines="none">
-
-                  <ion-item class="ion-margin-bottom" color="primary">
-                    <ion-label>
-                      {{job?.post}}
-                      <p>
-                        {{job?.salary}}
-                        <ion-chip color="light">
-                          {{job?.type}}
-                        </ion-chip>
-                      </p>
-                    </ion-label>
-                    <ion-button slot="end" fill="clear" color="medium">
-                      <ion-icon name="bookmark"></ion-icon>
-                    </ion-button>
-                  </ion-item>
-
-                  <ion-item color="primary">
-                    <ion-thumbnail slot="start">
-                      <img [src]="'assets/imgs/' + job?.logo_dark">
-                    </ion-thumbnail>
-                    <ion-label class="company">
-                      {{job?.company}}
-                      <p>
-                        <ion-text color="medium">
-                          {{job?.location}}
-                        </ion-text>
-                      </p>
-                    </ion-label>
-                    <ion-text slot="end" color="light">
-                      4 Days Left
-                    </ion-text>
-                  </ion-item>
-
-                </ion-list>
-
-              </ion-card> -->
+            
           </swiper-slide>
           }}
           }
@@ -123,16 +34,7 @@
 
   <ng-template #productTemplate>
     <ion-list>
-      <!-- <ion-list-header class="ion-margin-bottom">
-          <ion-label>
-            
-          </ion-label>
-          <ion-button fill="clear" size="small" color="medium">
-            <ion-text>
-              Show all
-            </ion-text>
-          </ion-button>
-        </ion-list-header> -->
+
       <ion-item>
         <ion-grid>
           <ion-row>
@@ -189,6 +91,9 @@
         </ion-text>
       </ion-item>
       }
+
     </ion-list>
   </ng-template>
+
+
 </ion-content>
