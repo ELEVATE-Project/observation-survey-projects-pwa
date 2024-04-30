@@ -38,7 +38,17 @@
         ]
     },
     {
-        "type": "Recommendation",
-        "name": "Survey 17"
+        "type": "Recomendation",
+        "data": [
+            { "id": 4,
+            "status": "Completed",
+            "name": "Observation", 
+            "description": "Observation"
+            },
+            { "id": 2, "status": "Pending", "name": "Survey", "description": "Survey"
+            },
+            { "id": 3, "status": "Not Started", "name": "Program", "description": "Program"
+            }
+        ]
     }
 ]
