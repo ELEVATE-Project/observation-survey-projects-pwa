@@ -20,11 +20,11 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-    this.http.get<any>('assets/data.json').subscribe(data => {
+    this.http.get<any>('assets/listingData.json').subscribe(data => {
       this.jsonData = data;
       this.typeTemplateMapping = {
         "banner": this.bannerTemplate,
-        "main": this.productTemplate,
+        "solutionList": this.productTemplate,
         "Recomendation": this.recommendationTemplate
       };
     });

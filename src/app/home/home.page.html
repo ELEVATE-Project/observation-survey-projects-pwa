@@ -35,9 +35,9 @@
         <ion-grid>
           <ion-row>
             @for (item of jsonData; track item.id) {
-            @if (item?.type == 'main'){
+            @if (item?.type == 'solutionList'){
             @for (data of item?.data; track data.id) {
-            <ion-col size="6" size-md="3" routerLink="/listing">
+            <ion-col size="6" size-md="3" [routerLink]="data?.redirectionUrl">
               <ion-card class="tiels">
                 <ion-card-content>
                   <img [src]="data?.img" alt="">
@@ -54,7 +54,7 @@
     </ion-list>
   </ng-template>
 
-  <ng-template #recommendationTemplate>
+  <!-- <ng-template #recommendationTemplate>
     <ion-list lines="none" class="ion-margin-bottom recentJobs">
       @for (item of jsonData; track item.id) {
       @if (item?.type == 'Recomendation'){
@@ -89,5 +89,5 @@
       }
       }
     </ion-list>
-  </ng-template>
+  </ng-template> -->
 </ion-content>

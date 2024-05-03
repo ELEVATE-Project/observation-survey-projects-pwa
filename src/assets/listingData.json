@@ -13,27 +13,39 @@
         ]
     },
     {
-        "type": "main",
+        "type": "solutionList",
         "data": [
             {
                 "name": "Survey",
                 "img": "assets/images/ic_survey.svg",
-                "redirectionUrl": "/survey"
+                "redirectionUrl": "/listing/survey",
+                "listType": "survey",
+                "description": "Provide information and feedback through quick and easy surveys",
+                "expired_on" : "Aug 20, 2025"
             },
             {
                 "name": "Program",
                 "img": "assets/images/ic_program.svg",
-                "redirectionUrl": ""
+                "redirectionUrl": "/listing/program",
+                "listType": "program",
+                "description": "View and participate in educational programs active in your location and designed for the role you selected",
+                "expired_on" : "Feb 05, 2025"
             },
             {
                 "name": "Observation",
                 "img": "assets/images/ic_observation.svg",
-                "redirectionUrl": ""
+                "redirectionUrl": "/listing/observation",
+                "listType": "observation",
+                "description": "Access and record your classroom and school observations easily, and plan your improvement journeys",
+                "expired_on" : "Dec 30, 2024"
             },
             {
                 "name": "Project",
                 "img": "assets/images/ic_project.svg",
-                "redirectionUrl": ""
+                "redirectionUrl": "/listing/project",
+                "listType": "project",
+                "description": "Manage and track your school improvement easily, by creating tasks and planning project timelines",
+                "expired_on" : "Apr 24, 2024"
             }
         ]
     },
