@@ -1,0 +1,36 @@
+
+
+ion-row.srch {
+    padding-right: 1.5vh;
+    align-items: center;
+    ion-searchbar {
+      --background: #fff;
+      --border-radius: 10px;
+    }
+  }
+
+  ion-row.tagline {
+    padding-left: 1.5vh;
+    ion-text {
+      font-size: 2rem;
+      font-weight: 800;
+    }
+}
+
+.listTitle{
+  background: var(--ion-color-primary);
+  h1,p{
+    color: white;
+  }
+}
+
+h2{
+  color: var(--ion-color-primary);
+}
+
+.tiels{
+  h6{
+    color: #000000;
+  }
+}
+

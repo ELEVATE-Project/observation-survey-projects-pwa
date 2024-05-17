@@ -1,0 +1,7 @@
+{
+  "name": "first-pwa",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
