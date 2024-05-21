@@ -1,4 +1,4 @@
 window["env"] = {
-    baseURL: "https://portal.karmayogi.nic.in"
+    baseURL: "https://dev.elevate-apis.shikshalokam.org"
   };
   
