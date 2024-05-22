@@ -4,48 +4,26 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" color="light">
-  <ng-container *ngFor="let item of jsonData">
-    <ng-container *ngTemplateOutlet="typeTemplateMapping[item.type]"></ng-container>
+<ion-content [fullscreen]="true">
+  <ng-container *ngFor="let item of listResData">
+    <ng-container *ngTemplateOutlet="typeTemplateMapping[item?.type]"></ng-container>
   </ng-container>
-  <ng-template #bannerTemplate>
-    <ion-list lines="none">
-      <div>
-        <swiper-container>
-          @for (item of jsonData; track item.id) {
-          @if (item?.type == 'banner'){
-          @for (data of item?.data; track data.id) {
-          <swiper-slide>
-            <ion-card class="banner">
-              <ion-card-content>
-                <h1>{{data?.title}}</h1>
-              </ion-card-content>
-            </ion-card>
-          </swiper-slide>
-          }}
-          }
-        </swiper-container>
-      </div>
-    </ion-list>
-  </ng-template>
 
   <ng-template #productTemplate>
     <ion-list>
-      <ion-item>
+      <ion-item lines="none">
         <ion-grid>
           <ion-row>
-            @for (item of jsonData; track item.id) {
+            @for (item of listResData; track item.id) {
             @if (item?.type == 'solutionList'){
-            @for (data of item?.data; track data.id) {
-            <ion-col size="6" size-md="3" [routerLink]="data?.redirectionUrl">
+            <ion-col size="6" size-md="3" (click)="navigateTo(item?.listingData)">
               <ion-card class="tiels">
                 <ion-card-content>
-                  <img [src]="data?.img" alt="">
-                  <h1 style="color:black">{{data?.name}}</h1>
+                  <img [src]="item?.listingData?.img" alt="">
+                  <h1 style="color:black">{{item?.listingData?.name}}</h1>
                 </ion-card-content>
               </ion-card>
             </ion-col>
-            }
             }
             }
           </ion-row>
@@ -53,41 +31,4 @@
       </ion-item>
     </ion-list>
   </ng-template>
-
-  <!-- <ng-template #recommendationTemplate>
-    <ion-list lines="none" class="ion-margin-bottom recentJobs">
-      @for (item of jsonData; track item.id) {
-      @if (item?.type == 'Recomendation'){
-      <ion-list-header class="ion-margin-bottom">
-        <ion-label>
-          {{item?.type}}
-        </ion-label>
-        <ion-button fill="clear" size="small" color="medium">
-          <ion-text>
-            Show all
-          </ion-text>
-        </ion-button>
-      </ion-list-header>
-      @for (data of item?.data; track data.id) {
-      <ion-item class="ion-margin-bottom" [routerLink]="['/', 'tabs', 'job', data.id]">
-        <ion-thumbnail slot="start">
-          <img [src]="'assets/imgs/' + data?.logo_light">
-        </ion-thumbnail>
-        <ion-label class="recent">
-          {{data?.name}}
-          <p>
-            {{data?.company}}
-            <span class="dot"></span>
-            {{data?.type}}
-          </p>
-        </ion-label>
-        <ion-text slot="end" color="dark">
-          {{data?.status}}
-        </ion-text>
-      </ion-item>
-      }
-      }
-      }
-    </ion-list>
-  </ng-template> -->
 </ion-content>

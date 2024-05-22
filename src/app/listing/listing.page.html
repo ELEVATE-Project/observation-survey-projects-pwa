@@ -1,11 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
+      <ion-back-button defaultHref="/" (click)="goBack()"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 
 <ion-content>
   <ion-list class="listTitle">
@@ -17,48 +16,34 @@
         </ion-text>
       </ion-col>
     </ion-row>
-  
+
     <ion-row class="srch">
       <ion-col size="12">
-        <ion-searchbar class="srchBar" placeholder="Search your {{listType}} here"  [debounce]="1000" (ionInput)="handleInput($event)"></ion-searchbar>
+        <ion-searchbar class="srchBar" placeholder="Search your {{listType}} here" [debounce]="1000"
+          (ionInput)="handleInput($event)"></ion-searchbar>
       </ion-col>
-      <!-- <ion-col size="2">
-        <ion-button mode="ios" color="light">
-          <ion-icon name="options"></ion-icon>
-        </ion-button>
-      </ion-col> -->
     </ion-row>
-  </ion-list >
+  </ion-list>
 
-
-
-      <ion-grid>
-        <ion-row>
-          @for (abc of listData; track abc.id) {
-          @if (abc?.type == 'solutionList'){
-          @for (job of abc?.data; track job.id) {
-          <ion-col size="12" size-md="6">
-            <ion-card class="tiels">
-              <ion-card-content>
-                <!-- <img [src]="job?.img" alt=""> -->
-                <h2><b>{{job?.name}}</b></h2>
-                <h6>{{job?.description}}</h6>
-                <p>Expired On {{job?.expired_on}}</p>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-          }
-          }
-          }
-
-        </ion-row>
-      </ion-grid>
-
+  <ion-grid>
+    <ion-row>
+      @for (abc of listData; track abc.id) {
+      <ion-col size="12" size-md="6">
+        <ion-card class="tiels">
+          <ion-card-content>
+            <h2><b>{{abc?.title}}</b></h2>
+            <h6>{{abc?.description}}</h6>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      }
+    </ion-row>
+  </ion-grid>
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
-    <ion-button expand="block" fill="solid" shape="round">
+    <ion-button expand="block" fill="solid" shape="round" (click)="loadData()">
       Load More
     </ion-button>
   </ion-toolbar>
