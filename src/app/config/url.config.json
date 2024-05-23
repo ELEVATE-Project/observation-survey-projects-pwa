@@ -1,11 +1,14 @@
 {
     "survey": {
-        "listingUrl": "project/v1/solutions/list"
+        "listingUrl": "/project/v1/solutions/list"
     },
     "observation": {
-        "listingUrl": "project/v1/solutions/list"
+        "listingUrl": "/project/v1/solutions/list"
     },
     "project": {
-        "listingUrl": "project/v1/solutions/list"
+        "listingUrl": "/project/v1/userProjects/list"
+    },
+    "homeListing": {
+        "listingUrl": "/project/v1/forms/read"
     }
 }

@@ -6,8 +6,9 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { LIBRARY_CONFIG, SlAuthLibModule } from 'authentication_frontend_library';
+import { ApiInterceptor } from './services/interceptor/api.interceptor';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
@@ -18,6 +19,11 @@ import { LIBRARY_CONFIG, SlAuthLibModule } from 'authentication_frontend_library
       provide: LIBRARY_CONFIG,
       useFactory: configFactory,
       deps: [HttpClient]
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiInterceptor,
+      multi: true
     }
   ],
   bootstrap: [AppComponent],
