@@ -21,7 +21,7 @@ export class ListingPage implements OnInit {
   searchTerm: any = "";
   toastService: ToastService;
   stateData: any;
-  page:number = 1
+  page: number = 1
 
   constructor(private http: HttpClient, private navCtrl: NavController, private router: Router) {
     this.baseApiService = inject(ApiBaseService);
@@ -49,7 +49,7 @@ export class ListingPage implements OnInit {
       .post(
         urlConfig[this.listType].listingUrl + `?page=${this.page}&limit=10&filter=createdByMe&search=${this.searchTerm}`)
       .subscribe((res: any) => {
-      this.loader.dismissLoading();
+        this.loader.dismissLoading();
         if (res?.message == "Successfully fetched projects") {
           this.listData = res?.result
         } else {
@@ -57,14 +57,14 @@ export class ListingPage implements OnInit {
         }
       },
         (err: any) => {
-      this.loader.dismissLoading();
+          this.loader.dismissLoading();
           this.toastService.presentToast(err?.error?.message);
         }
       );
   }
 
-  loadData(){
-    this.page = this.page+1;
+  loadData() {
+    this.page = this.page + 1;
     this.getListData();
   }
 

@@ -25,7 +25,7 @@ export class HomePage implements OnInit {
   @ViewChild('productTemplate') productTemplate!: TemplateRef<any>;
   @ViewChild('recommendationTemplate') recommendationTemplate!: TemplateRef<any>;
 
-  constructor(private http: HttpClient, private router:Router) {
+  constructor(private http: HttpClient, private router: Router) {
     this.baseApiService = inject(ApiBaseService);
     this.loader = inject(LoaderService)
     this.toastService = inject(ToastService)
@@ -41,16 +41,29 @@ export class HomePage implements OnInit {
       .post(
         urlConfig['homeListing'].listingUrl)
       .subscribe((res: any) => {
-        this.loader.dismissLoading();
-        if (res?.result) {
-          this.listResData = res?.result?.data
-        } else {
+        if (res?.message == 'Forms version fetched successfully') {
+          const formData = res?.result;
+          const homeListData = formData.find((item: any) => item.type === "home");
+
+          this.baseApiService
+            .post(
+              urlConfig['homeListing'].listingUrl + `/${homeListData?._id}`)
+            .subscribe((res: any) => {
+              if (res?.result) {
+                this.listResData = res?.result?.data;
+              }
+              this.typeTemplateMapping = {
+                "banner": this.bannerTemplate,
+                "solutionList": this.productTemplate,
+                "Recomendation": this.recommendationTemplate
+              };
+            },
+              (err: any) => {
+                this.toastService.presentToast(err?.error?.message);
+              }
+            );
+          this.loader.dismissLoading();
         }
-        this.typeTemplateMapping = {
-          "banner": this.bannerTemplate,
-          "solutionList": this.productTemplate,
-          "Recomendation": this.recommendationTemplate
-        };
       },
         (err: any) => {
           this.loader.dismissLoading();
@@ -59,7 +72,7 @@ export class HomePage implements OnInit {
       );
   }
 
-  navigateTo(data:any){
-    this.router.navigate([data?.redirectionUrl],{state:data});
+  navigateTo(data: any) {
+    this.router.navigate([data?.redirectionUrl], { state: data });
   }
 }
