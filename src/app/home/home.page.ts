@@ -23,7 +23,7 @@ export class HomePage implements OnInit {
   listResData: any = [];
   typeTemplateMapping: { [key: string]: TemplateRef<any> } = {};
   @ViewChild('bannerTemplate') bannerTemplate!: TemplateRef<any>;
-  @ViewChild('productTemplate') productTemplate!: TemplateRef<any>;
+  @ViewChild('solutionTemplate') solutionTemplate!: TemplateRef<any>;
   @ViewChild('recommendationTemplate') recommendationTemplate!: TemplateRef<any>;
 
   constructor(private http: HttpClient, private router: Router) {
@@ -59,9 +59,9 @@ export class HomePage implements OnInit {
                 this.listResData = res?.result?.data;
               }
               this.typeTemplateMapping = {
-                "banner": this.bannerTemplate,
-                "solutionList": this.productTemplate,
-                "Recomendation": this.recommendationTemplate
+                "bannerList": this.bannerTemplate,
+                "solutionList": this.solutionTemplate,
+                "recomendationList": this.recommendationTemplate
               };
             },
               (err: any) => {
