@@ -5,8 +5,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ng-container *ngFor="let item of listResData">
-    <ng-container *ngTemplateOutlet="typeTemplateMapping[item?.type]"></ng-container>
+  <ng-container *ngFor="let listData of listResData">
+    <ng-container *ngTemplateOutlet="typeTemplateMapping[listData?.type]"></ng-container>
   </ng-container>
 
   <ng-template #solutionTemplate>
@@ -14,13 +14,13 @@
       <ion-item lines="none">
         <ion-grid>
           <ion-row>
-            @for (item of listResData; track item.id) {
-            @if (item?.type == 'solutionList'){
-            <ion-col size="6" size-md="3" (click)="navigateTo(item?.listingData)">
+            @for (listData of listResData; track listData.id) {
+            @if (listData?.type == 'solutionList'){
+            <ion-col size="6" size-md="3" (click)="navigateTo(listData?.listingData)">
               <ion-card class="tiels">
                 <ion-card-content>
-                  <img [src]="item?.listingData?.img" alt="">
-                  <h1 style="color:black">{{item?.listingData?.name}}</h1>
+                  <img [src]="listData?.listingData?.img" alt="">
+                  <h1 style="color:black">{{listData?.listingData?.name}}</h1>
                 </ion-card-content>
               </ion-card>
             </ion-col>
