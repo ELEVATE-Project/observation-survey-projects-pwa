@@ -7,6 +7,7 @@ import { ApiBaseService } from '../services/base-api/api-base.service';
 import { LoaderService } from '../services/loader/loader.service';
 import { ToastService } from '../services/toast/toast.service';
 import { NavController } from '@ionic/angular';
+import { finalize } from 'rxjs';
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.page.html',
@@ -48,16 +49,19 @@ export class ListingPage implements OnInit {
     this.baseApiService
       .post(
         urlConfig[this.listType].listingUrl + `?page=${this.page}&limit=10&filter=createdByMe&search=${this.searchTerm}`)
+        .pipe(
+          finalize(() => {
+            this.loader.dismissLoading();
+          })
+        )
       .subscribe((res: any) => {
-        this.loader.dismissLoading();
         if (res?.message == "Successfully fetched projects") {
           this.listData = res?.result
         } else {
-          this.toastService.presentToast("Error");
+          this.toastService.presentToast(res?.message);
         }
       },
         (err: any) => {
-          this.loader.dismissLoading();
           this.toastService.presentToast(err?.error?.message);
         }
       );

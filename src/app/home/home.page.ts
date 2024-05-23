@@ -7,6 +7,7 @@ import { ApiBaseService } from '../services/base-api/api-base.service';
 import urlConfig from 'src/app/config/url.config.json';
 import { ToastService } from '../services/toast/toast.service';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs';
 register();
 @Component({
   selector: 'app-home',
@@ -40,6 +41,11 @@ export class HomePage implements OnInit {
     this.baseApiService
       .post(
         urlConfig['homeListing'].listingUrl)
+        .pipe(
+          finalize(() => {
+            this.loader.dismissLoading();
+          })
+        )
       .subscribe((res: any) => {
         if (res?.message == 'Forms version fetched successfully') {
           const formData = res?.result;
@@ -62,11 +68,9 @@ export class HomePage implements OnInit {
                 this.toastService.presentToast(err?.error?.message);
               }
             );
-          this.loader.dismissLoading();
         }
       },
         (err: any) => {
-          this.loader.dismissLoading();
           this.toastService.presentToast(err?.error?.message);
         }
       );
