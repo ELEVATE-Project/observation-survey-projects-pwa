@@ -11,15 +11,15 @@
     <ion-row class="ion-margin">
       <ion-col size="12">
         <ion-text color="primary">
-          <h1>{{listTitle}}</h1>
-          <p>{{listDescription}}</p>
+          <h1>{{stateData?.name}}</h1>
+          <p>{{stateData?.description}}</p>
         </ion-text>
       </ion-col>
     </ion-row>
 
     <ion-row class="srch">
       <ion-col size="12">
-        <ion-searchbar class="srchBar" placeholder="Search your {{listType}} here" [debounce]="1000"
+        <ion-searchbar class="srchBar" placeholder="Search your {{stateData?.listType}} here" [debounce]="1000"
           (ionInput)="handleInput($event)"></ion-searchbar>
       </ion-col>
     </ion-row>

@@ -18,8 +18,6 @@ export class ListingPage implements OnInit {
   loader: LoaderService;
   solutionId!: string;
   listType!: keyof UrlConfig;
-  listTitle!: string;
-  listDescription!: string;
   searchTerm: any = "";
   toastService: ToastService;
   stateData: any;
@@ -35,9 +33,6 @@ export class ListingPage implements OnInit {
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras?.state) {
       this.stateData = navigation.extras.state;
-      console.log('statee', this.stateData);
-      this.listTitle = this.stateData?.name;
-      this.listDescription = this.stateData?.description;
       this.listType = this.stateData?.listType;
       this.getListData();
     }
@@ -54,7 +49,7 @@ export class ListingPage implements OnInit {
       .post(
         urlConfig[this.listType].listingUrl + `?page=${this.page}&limit=10&filter=createdByMe&search=${this.searchTerm}`)
       .subscribe((res: any) => {
-        this.loader.dismissLoading();
+      this.loader.dismissLoading();
         if (res?.message == "Successfully fetched projects") {
           this.listData = res?.result
         } else {
@@ -62,7 +57,7 @@ export class ListingPage implements OnInit {
         }
       },
         (err: any) => {
-          this.loader.dismissLoading();
+      this.loader.dismissLoading();
           this.toastService.presentToast(err?.error?.message);
         }
       );
