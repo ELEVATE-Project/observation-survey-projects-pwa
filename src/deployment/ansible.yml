@@ -13,7 +13,7 @@
       register: vaultCurl
     - name: Create directory
       shell: mkdir {{project_path}}
-      name: Change directory
+    - name: Change directory
       shell: cd {{project_path}}
     - name: Fetch the latest code
       git:
