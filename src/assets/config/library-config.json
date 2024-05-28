@@ -2,6 +2,7 @@
     "projectName": "PWA",
     "baseUrl": "https://dev.elevate-apis.shikshalokam.org",
     "redirectRouteOnLoginSuccess": "home",
+    "loginApiPathNew": "/elevate-interface/v2/account/login",
     "loginApiPath": "/user/v1/account/login",
     "signUpApiPath": "/user/v1/account/signup",
     "supportEmail":"mentoredtest1@yopmail.com",
