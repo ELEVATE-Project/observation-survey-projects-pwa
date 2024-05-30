@@ -11,8 +11,6 @@
     - name: Run vault credentials
       shell: "curl --location --request GET '{{ vaultAddress }}elevate-project-pws' --header 'X-Vault-Token: {{ slurpfile['content'] | b64decode }}' | jq '.data' > '{{root_path}}/data2.json'"
       register: vaultCurl
-    - name: Create directory
-      shell: mkdir {{project_path}}
     - name: Change directory
       shell: cd {{project_path}}
     - name: Fetch the latest code
@@ -31,11 +29,11 @@
     - debug: msg=" cred {{ envConfig }} "
     - name: Change directory
       shell: chdir {{project_path}}
+    - name: Change directory
+      shell: cd {{project_path}}
     - name: Fetch pm2 config file
       shell: "curl --location --request GET '{{ vaultAddress }}projetcsPWAPm2Config' --header 'X-Vault-Token: {{ slurpfile['content'] | b64decode }}' | jq '.data.data' > '{{ project_path }}/pm2.config.json'"
       register: pm2
-    - name: Change directory
-      shell: cd {{project_path}}
     - name: Remove www folder
       shell: rm -rf www
     - name: Build pwa app
