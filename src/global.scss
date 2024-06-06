@@ -35,3 +35,25 @@
   opacity: 0 !important;
 }
 
+.mdc-text-field {
+  padding: 0px !important;
+}
+
+.ion-page {
+  overflow-y: auto !important;
+ }
+ 
+
+:root {
+  --color-primary: #832215;
+  --color-secondary: #8C2E23;
+  --color-light: #ffffff;
+  --color-dark: #000000;
+  --color-grey: #808080;
+  --color-danger: #ff0000;
+  --color-disable-text : #7F7F7F;
+  --color-disable-bg : #cac7c1;
+  
+  /* Borders */
+  --border-color: #ccc;
+  }

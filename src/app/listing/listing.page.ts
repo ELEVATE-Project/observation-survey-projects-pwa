@@ -8,6 +8,7 @@ import { LoaderService } from '../services/loader/loader.service';
 import { ToastService } from '../services/toast/toast.service';
 import { NavController } from '@ionic/angular';
 import { finalize } from 'rxjs';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.page.html',
@@ -46,16 +47,17 @@ export class ListingPage implements OnInit {
 
   getListData() {
     this.loader.showLoading("Please wait while loading...");
+
     this.baseApiService
       .post(
-        urlConfig[this.listType].listingUrl + `?page=${this.page}&limit=10&filter=createdByMe&search=${this.searchTerm}`)
+        urlConfig[this.listType].listingUrl + `?type=improvementProject&page=${this.page}&limit=10&filter=&search=${this.searchTerm}`, environment?.entityData)
         .pipe(
           finalize(() => {
             this.loader.dismissLoading();
           })
         )
       .subscribe((res: any) => {
-        if (res?.message == "Successfully fetched projects") {
+        if (res?.message == "Successfully targeted solutions fetched") {
           this.listData = res?.result
         } else {
           this.toastService.presentToast(res?.message);

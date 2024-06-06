@@ -1,11 +1,14 @@
 {
     "projectName": "PWA",
+    "landingPageTitle": "Create account to connect, solve & share.",
     "baseUrl": "https://dev.elevate-apis.shikshalokam.org",
     "redirectRouteOnLoginSuccess": "home",
-    "loginApiPathNew": "/elevate-interface/v2/account/login",
-    "loginApiPath": "/user/v1/account/login",
-    "signUpApiPath": "/user/v1/account/signup",
+    "loginApiPath": "/elevate-interface/v2/account/login",
+    "signUpApiPath": "/elevate-interface/v2/account/create",
+    "resetPasswordApiPath": "/elevate-user/v1/account/resetPassword",
+    "otpGenerationApiPathForRegistration": "/elevate-user/v1/account/registrationOtp",
+    "otpGenerationApiPathForResetPassword": "/elevate-user/v1/account/generateOtp",
     "supportEmail":"mentoredtest1@yopmail.com",
-    "privacyPolicyUrl":"www.privacyploicy.com",
-    "termOfUseUrl":"www.termsofuse.com"
+    "privacyPolicyUrl":"https://www.privacyploicy.com",
+    "termOfUseUrl":"https://www.termsofuse.com"
 }

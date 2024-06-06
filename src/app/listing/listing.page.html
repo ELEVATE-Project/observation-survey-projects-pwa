@@ -26,24 +26,28 @@
   </ion-list>
 
   <ion-grid>
-    <ion-row>
-      @for (item of listData; track item.id) {
+    <ion-row *ngIf="listData?.count > 0; else noData">
+      @for (item of listData?.data; track item.id) {
       <ion-col size="12" size-md="6">
         <ion-card class="tiels">
           <ion-card-content>
-            <h2><b>{{item?.title}}</b></h2>
+            <h2><b>{{item?.name}}</b></h2>
             <h6 class="ion-padding-top">{{item?.description}}</h6>
           </ion-card-content>
         </ion-card>
       </ion-col>
       }
     </ion-row>
+
+    <ng-template #noData>
+      <h4>No project found</h4>
+    </ng-template>
   </ion-grid>
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
-    <ion-button expand="block" fill="solid" shape="round" (click)="loadData()">
+    <ion-button [disabled]="listData?.count === 0" expand="block" fill="solid" shape="round" (click)="loadData()">
       Load More
     </ion-button>
   </ion-toolbar>
