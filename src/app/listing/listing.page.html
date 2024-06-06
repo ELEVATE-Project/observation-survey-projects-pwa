@@ -26,13 +26,13 @@
   </ion-list>
 
   <ion-grid>
-    <ion-row *ngIf="listData?.count > 0; else noData">
-      @for (item of listData?.data; track item.id) {
-      <ion-col size="12" size-md="6" class="listing-card" (click)="navigateToProject(item)">
+    <ion-row *ngIf="solutionList?.count > 0; else noData">
+      @for (solution of solutionList?.data; track solution.id) {
+      <ion-col size="12" size-md="6" class="listing-card" (click)="navigateToProject(solution)">
         <ion-card class="tiels">
           <ion-card-content>
-            <h2><b>{{item?.name}}</b></h2>
-            <h6 class="ion-padding-top">{{item?.description}}</h6>
+            <h2><b>{{solution?.name}}</b></h2>
+            <h6 class="ion-padding-top">{{solution?.description}}</h6>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -47,7 +47,7 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-button [disabled]="listData?.count === 0" expand="block" fill="solid" shape="round" (click)="loadData()">
+    <ion-button [disabled]="solutionList?.count === 0" expand="block" fill="solid" shape="round" (click)="loadData()">
       Load More
     </ion-button>
   </ion-toolbar>

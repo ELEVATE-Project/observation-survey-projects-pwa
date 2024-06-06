@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./listing.page.scss'],
 })
 export class ListingPage implements OnInit {
-  listData: any;
+  solutionList: any;
   baseApiService: any;
   loader: LoaderService;
   solutionId!: string;
@@ -58,7 +58,7 @@ export class ListingPage implements OnInit {
         )
       .subscribe((res: any) => {
         if (res?.message =="Successfully targeted solutions fetched") {
-          this.listData = res?.result
+          this.solutionList = res?.result
         } else {
           this.toastService.presentToast(res?.message);
         }
