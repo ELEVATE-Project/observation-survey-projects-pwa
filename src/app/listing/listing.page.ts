@@ -77,4 +77,8 @@ export class ListingPage implements OnInit {
   goBack() {
     this.navCtrl.back();
   }
+
+  navigateToProject(data:any){
+    this.router.navigate(['project-details'], { state: data });
+  }
 }

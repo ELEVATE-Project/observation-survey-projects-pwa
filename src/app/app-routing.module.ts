@@ -9,7 +9,12 @@ const routes: Routes = [
   },
   {
     path: 'listing/:type',
-    loadChildren: () => import('./listing/listing.module').then( m => m.ListingPageModule), 
+    loadChildren: () => import('./listing/listing.module').then( m => m.ListingPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'project-details',
+    loadChildren: () => import('./project/project.module').then( m => m.ProjectPageModule),
     canActivate: [AuthGuard]
   },
   { path: '', loadChildren: () => import('authentication_frontend_library').then(m => m.SlRoutingRoutingModule) },
