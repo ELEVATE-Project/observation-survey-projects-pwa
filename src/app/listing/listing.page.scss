@@ -40,3 +40,22 @@ h2 {
 .listing-card{
   cursor: pointer;
 }
+
+.tiels{
+  cursor: pointer;
+  background-color: #fff;
+  border-color: var(--ion-color-primary) !important;
+
+   transition: transform 0.3s ease-in-out;
+
+}
+
+.tiels:hover {
+  transform: scale(1.05); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.no-data{
+  display: flex;
+  justify-content: center;
+}
