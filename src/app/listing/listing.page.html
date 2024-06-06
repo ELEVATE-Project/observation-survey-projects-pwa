@@ -28,7 +28,7 @@
   <ion-grid>
     <ion-row *ngIf="listData?.count > 0; else noData">
       @for (item of listData?.data; track item.id) {
-      <ion-col size="12" size-md="6">
+      <ion-col size="12" size-md="6" class="listing-card" (click)="navigateToProject(item)">
         <ion-card class="tiels">
           <ion-card-content>
             <h2><b>{{item?.name}}</b></h2>

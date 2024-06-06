@@ -16,8 +16,7 @@ export class ApiInterceptor implements HttpInterceptor {
     if (token) {
       authReq = req.clone({
         setHeaders: {
-          'X-authenticated-user-token': token,
-          'internal-access-token':  environment?.internalAccessToken
+          'X-authenticated-user-token': token
         }
       });
     }
