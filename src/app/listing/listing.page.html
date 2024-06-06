@@ -28,7 +28,7 @@
   <ion-grid>
     <ion-row>
       @for (item of listData; track item.id) {
-      <ion-col size="12" size-md="6">
+      <ion-col size="12" size-md="6" (click)="navigateToProject(item)">
         <ion-card class="tiels">
           <ion-card-content>
             <h2><b>{{item?.title}}</b></h2>
