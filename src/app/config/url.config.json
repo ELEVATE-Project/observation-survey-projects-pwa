@@ -6,7 +6,7 @@
         "listingUrl": "/project/v1/solutions/list"
     },
     "project": {
-        "listingUrl": "/project/v1/userProjects/list"
+        "listingUrl": "/project/v1/solutions/targetedSolutions"
     },
     "homeListing": {
         "listingUrl": "/project/v1/forms/read"

@@ -57,7 +57,7 @@ export class ListingPage implements OnInit {
           })
         )
       .subscribe((res: any) => {
-        if (res?.message == "Successfully targeted solutions fetched") {
+        if (res?.message =="Successfully targeted solutions fetched") {
           this.listData = res?.result
         } else {
           this.toastService.presentToast(res?.message);
