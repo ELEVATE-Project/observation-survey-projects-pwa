@@ -8,6 +8,7 @@ import urlConfig from 'src/app/config/url.config.json';
 import { ToastService } from '../services/toast/toast.service';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
+import { FETCH_SESSION_FORM } from '../core/constants/formConstant';
 register();
 @Component({
   selector: 'app-home',
@@ -40,34 +41,22 @@ export class HomePage implements OnInit {
     this.loader.showLoading("Please wait while loading...");
     this.baseApiService
       .post(
-        urlConfig['homeListing'].listingUrl)
+        urlConfig['homeListing'].listingUrl, FETCH_SESSION_FORM)
         .pipe(
           finalize(() => {
             this.loader.dismissLoading();
           })
         )
       .subscribe((res: any) => {
-        if (res?.message == 'Forms version fetched successfully') {
-          const formData = res?.result;
-          const homeListData = formData.find((item: any) => item.type === "home");
-
-          this.baseApiService
-            .post(
-              urlConfig['homeListing'].listingUrl + `/${homeListData?._id}`)
-            .subscribe((res: any) => {
-              if (res?.result) {
-                this.listResData = res?.result?.data;
-              }
-              this.typeTemplateMapping = {
-                "bannerList": this.bannerTemplate,
-                "solutionList": this.solutionTemplate,
-                "recomendationList": this.recommendationTemplate
-              };
-            },
-              (err: any) => {
-                this.toastService.presentToast(err?.error?.message);
-              }
-            );
+        if (res?.message === 'Form fetched successfully') {
+          if (res?.result) {
+            this.listResData = res?.result?.data;
+          }
+          this.typeTemplateMapping = {
+            "bannerList": this.bannerTemplate,
+            "solutionList": this.solutionTemplate,
+            "recomendationList": this.recommendationTemplate
+          };
         }
       },
         (err: any) => {
