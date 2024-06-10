@@ -1,5 +1,6 @@
 import {  Component, OnInit, inject } from '@angular/core';
 import {  NavigationEnd, Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-project',
@@ -8,7 +9,12 @@ import {  NavigationEnd, Router } from '@angular/router';
 export class ProjectDetailsPage  implements OnInit {
   router: Router;
   projectData:any;
-    constructor() {
+  config = {
+    maxFileSize: 50,
+    baseUrl: window['env' as any]['baseURL' as any],
+    accessToken: localStorage.getItem('accToken')
+  }
+    constructor(private navCtrl: NavController) {
       this.router = inject(Router);
     }
 
@@ -18,6 +24,10 @@ export class ProjectDetailsPage  implements OnInit {
           this.projectData = this.router.getCurrentNavigation()?.extras.state;
         }
       });
+    }
+
+    goBack(){
+      this.navCtrl.back();
     }
 
 
