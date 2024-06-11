@@ -13,9 +13,9 @@
       register: vaultCurl
     - name: Ensure project directory exists
       file:
-      path: "{{ project_path }}"
-      state: directory
-      mode: '0755'
+        path: "{{ project_path }}"
+        state: directory
+        mode: '0755'
     - name: Change directory
       shell: cd {{project_path}}
     - name: Fetch the latest code
