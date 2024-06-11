@@ -48,7 +48,7 @@ export class HomePage implements OnInit {
           })
         )
       .subscribe((res: any) => {
-        if (res?.message === 'Form fetched successfully') {
+        if (res?.status === 200) {
           if (res?.result) {
             this.listResData = res?.result?.data;
           }

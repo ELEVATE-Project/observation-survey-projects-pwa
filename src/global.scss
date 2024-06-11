@@ -28,10 +28,10 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 .mdc-text-field--filled {
-    background-color: white !important;
+  background-color: white !important;
 }
 
-.mat-mdc-form-field-focus-overlay{
+.mat-mdc-form-field-focus-overlay {
   opacity: 0 !important;
 }
 
@@ -39,21 +39,77 @@
   padding: 0px !important;
 }
 
-.ion-page {
-  overflow-y: auto !important;
- }
- 
+mat-label {
+  color: black;
+  font-weight: 500;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+  border-bottom-color: black !important;
+}
+
+
+
+
+
+
+
 
 :root {
+  --ion-default-font: "NotoSans-Regular";
+  --ion-font-family: "NotoSans-Regular";
   --color-primary: #832215;
   --color-secondary: #8C2E23;
   --color-light: #ffffff;
   --color-dark: #000000;
   --color-grey: #808080;
   --color-danger: #ff0000;
-  --color-disable-text : #7F7F7F;
-  --color-disable-bg : #cac7c1;
-  
+  --color-disable-text: #7F7F7F;
+  --color-disable-bg: #cac7c1;
+
+  --mdc-outlined-text-field-caret-color: var(--color-primary);
+    --mdc-outlined-text-field-focus-outline-color: var(--color-primary);
+    --mdc-outlined-text-field-focus-label-text-color: var(--color-primary);
+    --mdc-filled-text-field-focus-active-indicator-color: var(--color-primary);
+
   /* Borders */
   --border-color: #ccc;
-  }
+}
+
+
+
+
+// Mentoring app fonts
+@font-face {
+  font-family: 'NotoSans-Bold';
+  font-style: normal;
+  font-weight: bold;
+  src: url('./assets/fonts/noto_Sans/NotoSans-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'NotoSans-Regular';
+  src: url('./assets/fonts/noto_Sans/NotoSans-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NotoSans-Italic';
+  font-style: italic;
+  font-weight: normal;
+  src: url('./assets/fonts/noto_Sans/NotoSans-Italic.ttf');
+}
+
+@font-face {
+  font-family: 'NotoSans-BoldItalic';
+  font-style: italic;
+  font-weight: bold;
+  src: url('./assets/fonts/noto_Sans/NotoSans-BoldItalic.ttf');
+}
+
+// html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
