@@ -4,7 +4,7 @@ ion-row.srch {
 
   ion-searchbar {
     --background: #fff;
-    --border-radius: 10px;
+    --border-radius: 0.625rem;
   }
 }
 
@@ -20,6 +20,9 @@ ion-row.tagline {
 .listTitle {
   background: var(--ion-color-primary);
 
+  h1{
+    font-size: 1.563rem;
+  }
   h1,
   p {
     color: white;
