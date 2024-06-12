@@ -49,7 +49,9 @@ mat-label {
 }
 
 
-
+.ion-page {
+  overflow-y: auto !important;
+ }
 
 
 
@@ -65,7 +67,7 @@ mat-label {
   --color-grey: #808080;
   --color-danger: #ff0000;
   --color-disable-text: #7F7F7F;
-  --color-disable-bg: #cac7c1;
+  --color-disable-bg: #E4E3E0;
 
   --mdc-outlined-text-field-caret-color: var(--color-primary);
     --mdc-outlined-text-field-focus-outline-color: var(--color-primary);
@@ -77,9 +79,6 @@ mat-label {
 }
 
 
-
-
-// Mentoring app fonts
 @font-face {
   font-family: 'NotoSans-Bold';
   font-style: normal;
@@ -108,7 +107,6 @@ mat-label {
   src: url('./assets/fonts/noto_Sans/NotoSans-BoldItalic.ttf');
 }
 
-// html, body { height: 100%; }
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
