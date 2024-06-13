@@ -14,11 +14,19 @@ export class ApiInterceptor implements HttpInterceptor {
     let authReq = req;
 
     if (token) {
-      authReq = req.clone({
-        setHeaders: {
-          'X-authenticated-user-token': token
-        }
-      });
+      if (req.url.includes('/logout')) {
+        authReq = req.clone({
+          setHeaders: {
+            'X-auth-token': `bearer ${token}`
+          }
+        });
+      } else {
+        authReq = req.clone({
+          setHeaders: {
+            'X-authenticated-user-token': token
+          }
+        });
+      }
     }
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {

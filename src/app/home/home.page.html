@@ -1,6 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title color="primary">ELEVATE</ion-title>
+    <ion-title slot="start">
+      <img src="../../assets/images/logo.png" alt="Elevate Logo" class="header-logo" />
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        Logout
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -8,6 +16,28 @@
   <ng-container *ngFor="let listData of listResData">
     <ng-container *ngTemplateOutlet="typeTemplateMapping[listData?.type]"></ng-container>
   </ng-container>
+
+  <ng-template #bannerTemplate>
+    <ion-list lines="none">
+      <div>
+        <swiper-container>
+          @for (listData of listResData; track listData.id) {
+          @if (listData?.type == 'bannerList'){
+          @for (banner of listData?.listingData; track banner.id) {
+          <swiper-slide>
+            <ion-card class="banner">
+              <ion-card-content>
+                <h1>{{banner?.title}}</h1>
+              </ion-card-content>
+            </ion-card>
+
+          </swiper-slide>
+          }}
+          }
+        </swiper-container>
+      </div>
+    </ion-list>
+  </ng-template>
 
   <ng-template #solutionTemplate>
     <ion-list>

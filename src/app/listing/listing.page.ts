@@ -22,8 +22,8 @@ export class ListingPage implements OnInit {
   searchTerm: any = "";
   toastService: ToastService;
   stateData: any;
-  page: number = 1
-
+  page: number = 1;
+    limit: number = 10;
   constructor(private http: HttpClient, private navCtrl: NavController, private router: Router) {
     this.baseApiService = inject(ApiBaseService);
     this.loader = inject(LoaderService)
@@ -58,14 +58,14 @@ export class ListingPage implements OnInit {
     }
     this.baseApiService
       .post(
-        urlConfig[this.listType].listingUrl + `?type=improvementProject&page=${this.page}&limit=10&filter=&search=${this.searchTerm}`, entityData)
+        urlConfig[this.listType].listingUrl + `?type=improvementProject&page=${this.page}&limit=${this.limit}&filter=&search=${this.searchTerm}`, entityData)
         .pipe(
           finalize(() => {
             this.loader.dismissLoading();
           })
         )
       .subscribe((res: any) => {
-        if (res?.message =="Successfully targeted solutions fetched") {
+        if (res?.status == 200) {
           this.solutionList = res?.result
         } else {
           this.toastService.presentToast(res?.message);

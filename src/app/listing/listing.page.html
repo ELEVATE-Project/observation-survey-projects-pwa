@@ -40,12 +40,14 @@
     </ion-row>
 
     <ng-template #noData>
-      <h6 class="no-data">No project found</h6>
+      <div class="no-data-container ion-margin-top">
+        <img src="assets/images/no_data.jpg" alt="No data">
+      </div>
     </ng-template>
   </ion-grid>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="solutionList?.count > limit">
   <ion-toolbar>
     <ion-button [disabled]="solutionList?.count === 0" expand="block" fill="solid" shape="round" (click)="loadData()">
       Load More
