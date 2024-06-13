@@ -9,6 +9,7 @@ import { ToastService } from '../services/toast/toast.service';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { FETCH_SESSION_FORM } from '../core/constants/formConstant';
+import { AuthService } from 'authentication_frontend_library';
 register();
 @Component({
   selector: 'app-home',
@@ -19,6 +20,7 @@ export class HomePage implements OnInit {
   swiperModules = [IonicSlides];
   jsonData: any;
   baseApiService: any;
+  authService:AuthService;
   toastService: any;
   loader: LoaderService;
   listResData: any = [];
@@ -30,6 +32,7 @@ export class HomePage implements OnInit {
   constructor(private http: HttpClient, private router: Router) {
     this.baseApiService = inject(ApiBaseService);
     this.loader = inject(LoaderService)
+    this.authService = inject(AuthService)
     this.toastService = inject(ToastService)
   }
 
@@ -68,4 +71,9 @@ export class HomePage implements OnInit {
   navigateTo(data: any) {
     this.router.navigate([data?.redirectionUrl], { state: data });
   }
+
+logout() {
+ this.authService.logout();
+}
+
 }

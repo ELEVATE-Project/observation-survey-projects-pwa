@@ -1,8 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
+    <ion-title slot="start">
       <img src="../../assets/images/logo.png" alt="Elevate Logo" class="header-logo" />
     </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        Logout
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

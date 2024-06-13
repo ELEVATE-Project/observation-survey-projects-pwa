@@ -28,7 +28,7 @@
     "@capacitor/keyboard": "6.0.0",
     "@capacitor/status-bar": "6.0.0",
     "@ionic/angular": "^7.0.0",
-    "authentication_frontend_library": "^0.0.27",
+    "authentication_frontend_library": "^0.0.32",
     "ionicons": "^7.0.0",
     "project-player": "^1.0.0",
     "rxjs": "~7.8.0",
