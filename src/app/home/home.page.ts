@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
+import { Component, TemplateRef, ViewChild, inject } from '@angular/core';
 import { IonicSlides } from '@ionic/angular';
 import { register } from 'swiper/element/bundle';
 import { HttpClient } from '@angular/common/http';
@@ -16,7 +16,7 @@ register();
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage {
   swiperModules = [IonicSlides];
   jsonData: any;
   baseApiService: any;
@@ -34,9 +34,6 @@ export class HomePage implements OnInit {
     this.loader = inject(LoaderService)
     this.authService = inject(AuthService)
     this.toastService = inject(ToastService)
-  }
-
-  ngOnInit() {
   }
 
   ionViewWillEnter(){
