@@ -9,13 +9,13 @@ export class LoaderService {
   constructor(private loadingCtrl : LoadingController) { }
 
   async showLoading(message:string){
-    // this.loading = await this.loadingCtrl.create({
-    //   message: message
-    // });
-    // await this.loading.present();
+    this.loading = await this.loadingCtrl.create({
+      message: message
+    });
+    await this.loading.present();
   }
 
   async dismissLoading(){
-    // await this.loading.dismiss();
+    await this.loading.dismiss();
   }
 }

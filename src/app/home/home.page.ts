@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
+import { Component, TemplateRef, ViewChild, inject } from '@angular/core';
 import { IonicSlides } from '@ionic/angular';
 import { register } from 'swiper/element/bundle';
 import { HttpClient } from '@angular/common/http';
@@ -16,7 +16,7 @@ register();
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage {
   swiperModules = [IonicSlides];
   jsonData: any;
   baseApiService: any;
@@ -36,18 +36,18 @@ export class HomePage implements OnInit {
     this.toastService = inject(ToastService)
   }
 
-  ngOnInit() {
+  ionViewWillEnter(){
     this.getHomeListing();
   }
 
-  getHomeListing() {
-    this.loader.showLoading("Please wait while loading...");
+  async getHomeListing() {
+   await this.loader.showLoading("Please wait while loading...");
     this.baseApiService
       .post(
         urlConfig['homeListing'].listingUrl, FETCH_SESSION_FORM)
         .pipe(
-          finalize(() => {
-            this.loader.dismissLoading();
+          finalize(async () => {
+           await this.loader.dismissLoading();
           })
         )
       .subscribe((res: any) => {

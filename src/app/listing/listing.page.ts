@@ -23,7 +23,7 @@ export class ListingPage implements OnInit {
   toastService: ToastService;
   stateData: any;
   page: number = 1;
-    limit: number = 10;
+  limit: number = 10;
   constructor(private http: HttpClient, private navCtrl: NavController, private router: Router) {
     this.baseApiService = inject(ApiBaseService);
     this.loader = inject(LoaderService)
@@ -35,8 +35,11 @@ export class ListingPage implements OnInit {
     if (navigation?.extras?.state) {
       this.stateData = navigation.extras.state;
       this.listType = this.stateData?.listType;
-      this.getListData();
     }
+  }
+
+  ionViewWillEnter() {
+    this.getListData();
   }
 
   handleInput(event: any) {
@@ -44,26 +47,26 @@ export class ListingPage implements OnInit {
     this.getListData();
   }
 
-  getListData() {
-    this.loader.showLoading("Please wait while loading...");
+  async getListData() {
+    await this.loader.showLoading("Please wait while loading...");
     const entityData = {
-        "entityType" : "block",
-        "entities" : [
-            "5fd1b52ab53a6416aaeefc80",
-            "5fd098e2e049735a86b748ac",
-            "5fd1b52ab53a6416aaeefc83",
-            "5fd1b52ab53a6416aaeefb20"
-        ],
-        "role" :"HM,BEO"
+      "entityType": "block",
+      "entities": [
+        "5fd1b52ab53a6416aaeefc80",
+        "5fd098e2e049735a86b748ac",
+        "5fd1b52ab53a6416aaeefc83",
+        "5fd1b52ab53a6416aaeefb20"
+      ],
+      "role": "HM,BEO"
     }
     this.baseApiService
       .post(
         urlConfig[this.listType].listingUrl + `?type=improvementProject&page=${this.page}&limit=${this.limit}&filter=&search=${this.searchTerm}`, entityData)
-        .pipe(
-          finalize(() => {
-            this.loader.dismissLoading();
-          })
-        )
+      .pipe(
+        finalize(async () => {
+          await this.loader.dismissLoading();
+        })
+      )
       .subscribe((res: any) => {
         if (res?.status == 200) {
           this.solutionList = res?.result
@@ -86,7 +89,7 @@ export class ListingPage implements OnInit {
     this.navCtrl.back();
   }
 
-  navigateToProject(data:any){
+  navigateToProject(data: any) {
     this.router.navigate(['project-details'], { state: data });
   }
 }
