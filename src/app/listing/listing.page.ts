@@ -14,7 +14,7 @@ import { finalize } from 'rxjs';
   styleUrls: ['./listing.page.scss'],
 })
 export class ListingPage implements OnInit {
-  solutionList: any;
+  solutionList: any = { data: [], count: 0 };
   baseApiService: any;
   loader: LoaderService;
   solutionId!: string;
@@ -39,11 +39,15 @@ export class ListingPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.page = 1;
+    this.solutionList = { data: [], count: 0 }
     this.getListData();
   }
 
   handleInput(event: any) {
     this.searchTerm = event.target.value;
+    this.page = 1;
+    this.solutionList = { data: [], count: 0 };
     this.getListData();
   }
 
@@ -69,7 +73,8 @@ export class ListingPage implements OnInit {
       )
       .subscribe((res: any) => {
         if (res?.status == 200) {
-          this.solutionList = res?.result
+          this.solutionList.data = this.solutionList?.data.concat(res?.result?.data);
+          this.solutionList.count = res?.result?.count;
         } else {
           this.toastService.presentToast(res?.message);
         }
