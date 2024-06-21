@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit, ViewChild, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { UrlConfig } from 'src/app/interfaces/main.interface';
 import urlConfig from 'src/app/config/url.config.json';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { ApiBaseService } from '../services/base-api/api-base.service';
 import { LoaderService } from '../services/loader/loader.service';
 import { ToastService } from '../services/toast/toast.service';
-import { IonContent, NavController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { finalize } from 'rxjs';
 @Component({
   selector: 'app-listing',
@@ -24,8 +24,6 @@ export class ListingPage implements OnInit {
   stateData: any;
   page: number = 1;
   limit: number = 10;
-  @ViewChild(IonContent, { static: false }) content!: IonContent;
-  shouldScrollToBottom = false;
   constructor(private http: HttpClient, private navCtrl: NavController, private router: Router,
     private cdRef: ChangeDetectorRef
   ) {
@@ -79,8 +77,6 @@ export class ListingPage implements OnInit {
         if (res?.status == 200) {
           this.solutionList.data = this.solutionList?.data.concat(res?.result?.data);
           this.solutionList.count = res?.result?.count;
-          this.shouldScrollToBottom = true;
-          this.cdRef.detectChanges();
         } else {
           this.toastService.presentToast(res?.message);
         }
@@ -89,13 +85,6 @@ export class ListingPage implements OnInit {
           this.toastService.presentToast(err?.error?.message);
         }
       );
-  }
-
-  ngAfterViewChecked() {
-    if (this.shouldScrollToBottom) {
-      this.content.scrollToBottom(400);
-      this.shouldScrollToBottom = false;
-    }
   }
 
   loadData() {
