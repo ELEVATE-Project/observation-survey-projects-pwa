@@ -1,5 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UrlConfig } from 'src/app/interfaces/main.interface';
 import urlConfig from 'src/app/config/url.config.json';
 import {  Router } from '@angular/router';
@@ -24,8 +23,7 @@ export class ListingPage implements OnInit {
   stateData: any;
   page: number = 1;
   limit: number = 10;
-  constructor(private http: HttpClient, private navCtrl: NavController, private router: Router,
-    private cdRef: ChangeDetectorRef
+  constructor(private navCtrl: NavController, private router: Router
   ) {
     this.baseApiService = inject(ApiBaseService);
     this.loader = inject(LoaderService)
