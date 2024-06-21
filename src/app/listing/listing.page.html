@@ -6,7 +6,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content #content>
   <ion-list class="listTitle">
     <ion-row class="ion-margin">
       <ion-col size="12">
@@ -46,7 +46,7 @@
     </ng-template>
   </ion-grid>
 </ion-content>
-<ion-footer *ngIf="solutionList?.count !== 0">
+<ion-footer *ngIf="!(solutionList?.count === 0 || solutionList?.count === solutionList?.data?.length)">
   <ion-toolbar>
     <ion-button [disabled]="solutionList?.count === solutionList?.data?.length" expand="block" fill="solid" shape="round" (click)="loadData()">
       Load More

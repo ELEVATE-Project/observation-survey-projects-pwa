@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { UrlConfig } from 'src/app/interfaces/main.interface';
 import urlConfig from 'src/app/config/url.config.json';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiBaseService } from '../services/base-api/api-base.service';
 import { LoaderService } from '../services/loader/loader.service';
 import { ToastService } from '../services/toast/toast.service';
-import { NavController } from '@ionic/angular';
+import { IonContent, NavController } from '@ionic/angular';
 import { finalize } from 'rxjs';
 @Component({
   selector: 'app-listing',
@@ -24,6 +24,7 @@ export class ListingPage implements OnInit {
   stateData: any;
   page: number = 1;
   limit: number = 10;
+  @ViewChild(IonContent, { static: false }) content!: IonContent;
   constructor(private http: HttpClient, private navCtrl: NavController, private router: Router) {
     this.baseApiService = inject(ApiBaseService);
     this.loader = inject(LoaderService)
@@ -75,6 +76,9 @@ export class ListingPage implements OnInit {
         if (res?.status == 200) {
           this.solutionList.data = this.solutionList?.data.concat(res?.result?.data);
           this.solutionList.count = res?.result?.count;
+          setTimeout(() => {
+            this.content.scrollToBottom(300);
+          }, 300);
         } else {
           this.toastService.presentToast(res?.message);
         }
