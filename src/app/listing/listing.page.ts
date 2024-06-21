@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, inject } from '@angular/core';
 import { UrlConfig } from 'src/app/interfaces/main.interface';
 import urlConfig from 'src/app/config/url.config.json';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -25,7 +25,10 @@ export class ListingPage implements OnInit {
   page: number = 1;
   limit: number = 10;
   @ViewChild(IonContent, { static: false }) content!: IonContent;
-  constructor(private http: HttpClient, private navCtrl: NavController, private router: Router) {
+  shouldScrollToBottom = false;
+  constructor(private http: HttpClient, private navCtrl: NavController, private router: Router,
+    private cdRef: ChangeDetectorRef
+  ) {
     this.baseApiService = inject(ApiBaseService);
     this.loader = inject(LoaderService)
     this.toastService = inject(ToastService)
@@ -76,9 +79,8 @@ export class ListingPage implements OnInit {
         if (res?.status == 200) {
           this.solutionList.data = this.solutionList?.data.concat(res?.result?.data);
           this.solutionList.count = res?.result?.count;
-          setTimeout(() => {
-            this.content.scrollToBottom(300);
-          }, 300);
+          this.shouldScrollToBottom = true;
+          this.cdRef.detectChanges();
         } else {
           this.toastService.presentToast(res?.message);
         }
@@ -87,6 +89,13 @@ export class ListingPage implements OnInit {
           this.toastService.presentToast(err?.error?.message);
         }
       );
+  }
+
+  ngAfterViewChecked() {
+    if (this.shouldScrollToBottom) {
+      this.content.scrollToBottom(400);
+      this.shouldScrollToBottom = false;
+    }
   }
 
   loadData() {

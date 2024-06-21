@@ -48,7 +48,7 @@
 </ion-content>
 <ion-footer *ngIf="!(solutionList?.count === 0 || solutionList?.count === solutionList?.data?.length)">
   <ion-toolbar>
-    <ion-button [disabled]="solutionList?.count === solutionList?.data?.length" expand="block" fill="solid" shape="round" (click)="loadData()">
+    <ion-button expand="block" fill="solid" shape="round" (click)="loadData()">
       Load More
     </ion-button>
   </ion-toolbar>
