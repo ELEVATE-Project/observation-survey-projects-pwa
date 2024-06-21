@@ -1,8 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { UrlConfig } from 'src/app/interfaces/main.interface';
 import urlConfig from 'src/app/config/url.config.json';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { ApiBaseService } from '../services/base-api/api-base.service';
 import { LoaderService } from '../services/loader/loader.service';
 import { ToastService } from '../services/toast/toast.service';
@@ -24,7 +23,8 @@ export class ListingPage implements OnInit {
   stateData: any;
   page: number = 1;
   limit: number = 10;
-  constructor(private http: HttpClient, private navCtrl: NavController, private router: Router) {
+  constructor(private navCtrl: NavController, private router: Router
+  ) {
     this.baseApiService = inject(ApiBaseService);
     this.loader = inject(LoaderService)
     this.toastService = inject(ToastService)
