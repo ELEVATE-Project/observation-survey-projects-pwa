@@ -1,5 +1,5 @@
 {
-    "projectName": "PWA",
+    "projectName": "Elevate",
     "landingPageTitle": "Create account to connect, solve & share.",
     "baseUrl": "https://dev.elevate-apis.shikshalokam.org",
     "redirectRouteOnLoginSuccess": "observation",
