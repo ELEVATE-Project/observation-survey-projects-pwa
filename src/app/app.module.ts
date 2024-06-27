@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { LIBRARY_CONFIG, SlAuthLibModule } from 'authentication_frontend_library';
 import { ApiInterceptor } from './services/interceptor/api.interceptor';
-import { ServiceWorkerModule } from '@angular/service-worker';
+import { ServiceWorkerModule, SwUpdate } from '@angular/service-worker';
 import { environment } from 'src/environments/environment';
 @NgModule({
   declarations: [AppComponent],
@@ -30,7 +30,8 @@ import { environment } from 'src/environments/environment';
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptor,
       multi: true
-    }
+    },
+    SwUpdate
   ],
   bootstrap: [AppComponent],
 })
