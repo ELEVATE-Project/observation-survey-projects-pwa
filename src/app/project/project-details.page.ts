@@ -1,6 +1,7 @@
 import {  Component, OnInit, inject } from '@angular/core';
 import {  NavigationEnd, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-project',
@@ -12,7 +13,7 @@ export class ProjectDetailsPage  implements OnInit {
   projectData:any;
   config = {
     maxFileSize: 50,
-    baseUrl: window['env' as any]['baseURL' as any],
+    baseUrl: environment.baseURL,
     accessToken: localStorage.getItem('accToken'),
     profileInfo: {
       "entityType" : "block",
