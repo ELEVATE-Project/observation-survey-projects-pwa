@@ -19,7 +19,17 @@ export class ApiInterceptor implements HttpInterceptor {
             'X-auth-token': token
           }
         });
+<<<<<<< HEAD
 
+=======
+      } else {
+        authReq = req.clone({
+          setHeaders: {
+            'X-auth-token': token
+          }
+        });
+      }
+>>>>>>> 5ced4070db8b02e61066dc72d4969080a7e87559
     }
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
