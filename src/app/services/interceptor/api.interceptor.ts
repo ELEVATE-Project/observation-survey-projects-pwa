@@ -14,14 +14,12 @@ export class ApiInterceptor implements HttpInterceptor {
     let authReq = req;
 
     if (token) {
+      if (req.url.includes('/logout')) {
         authReq = req.clone({
           setHeaders: {
-            'X-auth-token': token
+            'X-auth-token': `bearer ${token}`
           }
         });
-<<<<<<< HEAD
-
-=======
       } else {
         authReq = req.clone({
           setHeaders: {
@@ -29,7 +27,6 @@ export class ApiInterceptor implements HttpInterceptor {
           }
         });
       }
->>>>>>> 5ced4070db8b02e61066dc72d4969080a7e87559
     }
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
