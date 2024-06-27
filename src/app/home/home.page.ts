@@ -8,7 +8,7 @@ import urlConfig from 'src/app/config/url.config.json';
 import { ToastService } from '../services/toast/toast.service';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
-import { FETCH_SESSION_FORM } from '../core/constants/formConstant';
+import { FETCH_Home_FORM } from '../core/constants/formConstant';
 import { AuthService } from 'authentication_frontend_library';
 register();
 @Component({
@@ -20,7 +20,7 @@ export class HomePage {
   swiperModules = [IonicSlides];
   jsonData: any;
   baseApiService: any;
-  authService:AuthService;
+  authService: AuthService;
   toastService: any;
   loader: LoaderService;
   listResData: any = [];
@@ -36,20 +36,20 @@ export class HomePage {
     this.toastService = inject(ToastService)
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.getHomeListing();
   }
 
   async getHomeListing() {
-   await this.loader.showLoading("Please wait while loading...");
+    await this.loader.showLoading("Please wait while loading...");
     this.baseApiService
       .post(
-        urlConfig['homeListing'].listingUrl, FETCH_SESSION_FORM)
-        .pipe(
-          finalize(async () => {
-           await this.loader.dismissLoading();
-          })
-        )
+        urlConfig['formListing'].listingUrl, FETCH_Home_FORM)
+      .pipe(
+        finalize(async () => {
+          await this.loader.dismissLoading();
+        })
+      )
       .subscribe((res: any) => {
         if (res?.status === 200) {
           if (res?.result) {
@@ -72,8 +72,7 @@ export class HomePage {
     this.router.navigate([data?.redirectionUrl], { state: data });
   }
 
-logout() {
- this.authService.logout();
-}
-
+  logout() {
+    this.authService.logout();
+  }
 }

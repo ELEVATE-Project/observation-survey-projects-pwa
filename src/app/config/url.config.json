@@ -8,7 +8,13 @@
     "project": {
         "listingUrl": "/project/v1/solutions/targetedSolutions"
     },
-    "homeListing": {
+    "formListing": {
         "listingUrl": "/project/v1/forms/read"
+    },
+    "entityListing":{
+        "listingUrl": "/entity-management/v1/entities/entityListBasedOnEntityType"
+    },
+    "profileListing": {
+        "listingUrl": "/project/v1/profile/read"
     }
 }

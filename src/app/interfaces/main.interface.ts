@@ -8,7 +8,13 @@ export interface UrlConfig {
     project: {
         listingUrl: string;
     };
-    homeListing: {
+    formListing: {
         listingUrl: string;
     };
+    entityListing: {
+        listingUrl: string;
+    };
+    profileListing: {
+        listingUrl: string;
+    }
   }
