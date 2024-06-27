@@ -23,7 +23,7 @@ export class ApiInterceptor implements HttpInterceptor {
       } else {
         authReq = req.clone({
           setHeaders: {
-            'X-authenticated-user-token': token
+            'X-auth-token': token
           }
         });
       }

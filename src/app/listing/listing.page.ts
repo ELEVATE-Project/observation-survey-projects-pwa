@@ -23,6 +23,7 @@ export class ListingPage implements OnInit {
   stateData: any;
   page: number = 1;
   limit: number = 10;
+  filter = "assignedToMe"
   constructor(private navCtrl: NavController, private router: Router
   ) {
     this.baseApiService = inject(ApiBaseService);
@@ -65,7 +66,7 @@ export class ListingPage implements OnInit {
     }
     this.baseApiService
       .post(
-        urlConfig[this.listType].listingUrl + `?type=improvementProject&page=${this.page}&limit=${this.limit}&filter=&search=${this.searchTerm}`, entityData)
+        urlConfig[this.listType].listingUrl + `?type=improvementProject&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}`, entityData)
       .pipe(
         finalize(async () => {
           await this.loader.dismissLoading();
