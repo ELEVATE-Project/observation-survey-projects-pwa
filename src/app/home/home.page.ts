@@ -8,7 +8,7 @@ import urlConfig from 'src/app/config/url.config.json';
 import { ToastService } from '../services/toast/toast.service';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
-import { FETCH_SESSION_FORM } from '../core/constants/formConstant';
+import { FETCH_HOME_FORM } from '../core/constants/formConstant';
 import { AuthService } from 'authentication_frontend_library';
 register();
 @Component({
@@ -44,7 +44,7 @@ export class HomePage {
     await this.loader.showLoading("Please wait while loading...");
     this.baseApiService
       .post(
-        urlConfig['formListing'].listingUrl, FETCH_SESSION_FORM)
+        urlConfig['formListing'].listingUrl, FETCH_HOME_FORM)
       .pipe(
         finalize(async () => {
           await this.loader.dismissLoading();
