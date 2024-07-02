@@ -1,0 +1,15 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="ion-margin-top" *ngIf="formJson.length">
+    <dynamic-form [formJson]="formJson" #formLib (ionChange)="onOptionChange($event)"></dynamic-form>
+  </div>
+  <ion-button (click)="updateProfile()" expand="block" fill="clear" shape="round">
+    Update
+  </ion-button>
+  <!-- <button (click)="submitData()" [disabled]="this.formLib?.myForm?.invalid" mat-raised-button style="margin: 30px 0px;">SUBMIT</button> -->
+</ion-content>

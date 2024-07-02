@@ -9,10 +9,12 @@ import { LIBRARY_CONFIG, SlAuthLibModule } from 'authentication_frontend_library
 import { ApiInterceptor } from './services/interceptor/api.interceptor';
 import { ServiceWorkerModule, SwUpdate } from '@angular/service-worker';
 import { environment } from 'src/environments/environment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
-    SlAuthLibModule,
+    SlAuthLibModule, BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable
