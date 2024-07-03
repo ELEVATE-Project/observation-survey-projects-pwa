@@ -16,6 +16,8 @@
     },
     "profileListing": {
         "listingUrl": "/project/v1/profile/read",
-        "updateUrl": "/elevate-user/v1/user/update"
+        "updateUrl": "/elevate-user/v1/user/update",
+        "entityUrl": "/entityListBasedOnEntityType?entityType=",
+        "subEntityUrl": "/subEntityList"
     }
 }

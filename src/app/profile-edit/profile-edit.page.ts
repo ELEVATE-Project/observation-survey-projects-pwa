@@ -7,14 +7,6 @@ import { ToastService } from '../services/toast/toast.service';
 import urlConfig from 'src/app/config/url.config.json';
 import { FETCH_Profile_FORM } from '../core/constants/formConstant';
 import { MainFormComponent } from 'elevate-dynamic-form';
-
-enum EntityType {
-  State = 'state',
-  District = 'district',
-  Block = 'block',
-  Cluster = 'cluster',
-}
-
 @Component({
   selector: 'app-profile-edit',
   templateUrl: './profile-edit.page.html',
@@ -23,10 +15,10 @@ enum EntityType {
 export class ProfileEditPage implements OnInit {
   @ViewChild('formLib') formLib: MainFormComponent | undefined;
   formJson: any = [];
-  currentSelectedOption: EntityType = EntityType.State;
+  urlProfilePath = urlConfig['profileListing']
 
   constructor(
-    private baseApiService: ApiBaseService,
+    private apiBaseService: ApiBaseService,
     private loader: LoaderService,
     private toastService: ToastService
   ) {}
@@ -37,7 +29,7 @@ export class ProfileEditPage implements OnInit {
 
   async getFormJson() {
     await this.loader.showLoading("Please wait while loading...");
-    this.baseApiService.post(urlConfig['formListing'].listingUrl, FETCH_Profile_FORM)
+    this.apiBaseService.post(urlConfig['formListing'].listingUrl, FETCH_Profile_FORM)
       .pipe(
         finalize(() => this.loader.dismissLoading()),
         catchError(err => {
@@ -48,17 +40,23 @@ export class ProfileEditPage implements OnInit {
       .subscribe((res:any) => {
         if (res?.status === 200) {
           this.formJson = res?.result?.data;
-          this.getOptionsData(EntityType.State);
+          this.formJson.forEach((control: any) => {
+            if (control.dynamicEntity) {
+              this.getOptionsData(control.name);
+            }
+          });
         }
       });
   }
 
-  getOptionsData(entityType: EntityType, entityId?: string) {
-    const urlPath = entityType === EntityType.State
-      ? `/entityListBasedOnEntityType?entityType=${entityType}`
-      : `/subEntityList/${entityId}?type=${entityType}&search=&page=1&limit=100`;
-      
-    this.baseApiService.get(urlConfig['entityListing'].listingUrl + urlPath)
+  getOptionsData(entityType: string, entityId?: string) {
+    const control = this.formJson.find((control: any) => control.name === entityType);
+    if (!control) return;
+    const urlPath = control.dynamicEntity
+      ? this.urlProfilePath.entityUrl+`${entityType}`
+      : this.urlProfilePath.subEntityUrl+`/${entityId}?type=${entityType}&search=&page=1&limit=100`;
+
+    this.apiBaseService.get(urlConfig['entityListing'].listingUrl + urlPath)
       .pipe(
         catchError(err => {
           this.toastService.presentToast(err?.error?.message);
@@ -67,18 +65,21 @@ export class ProfileEditPage implements OnInit {
       )
       .subscribe((res:any) => {
         if (res?.status === 200) {
-          const options = (entityId ? res?.result?.data : res?.result)?.map((entity: any) => ({
-            label: entity.name,
-            value: entity._id,
-          }));
-          this.updateFormOptions(entityType, options);
+          const result = control.dynamicEntity ? res?.result : res?.result?.data;
+          if(result){
+            const options = result.map((entity: any) => ({
+              label: entity.name,
+              value: entity._id,
+            }));
+            this.updateFormOptions(entityType, options);
+          }
         } else {
-          this.toastService.presentToast(res?.message);
+          this.toastService.presentToast(res.message);
         }
       });
   }
 
-  updateFormOptions(entityType: EntityType, options: any) {
+  updateFormOptions(entityType: string, options: any) {
     const control = this.formJson.find((control: any) => control.name === entityType);
     if (control) {
       control.options = options;
@@ -89,30 +90,20 @@ export class ProfileEditPage implements OnInit {
     const { event: selectedEvent, control } = event;
     const selectedValue = selectedEvent?.value;
     this.updateFormValue(control.name, selectedValue?.value);
-
-    const nextEntityType = this.getNextEntityType(control.name as EntityType);
-    if (nextEntityType) {
-      this.resetDependentControls(nextEntityType);
-      this.getOptionsData(nextEntityType, selectedValue?.value);
-    }
+    this.formJson.forEach((formControl: any) => {
+      if (formControl.dependsOn === control.name) {
+        this.resetFormControl(formControl.name);
+        this.getOptionsData(formControl.name, selectedValue?.value);
+      }
+    });
   }
 
-  getNextEntityType(current: EntityType): EntityType | null {
-    switch (current) {
-      case EntityType.State: return EntityType.District;
-      case EntityType.District: return EntityType.Block;
-      case EntityType.Block: return EntityType.Cluster;
-      default: return null;
-    }
+  getNextEntityType(currentEntityType: string): string | null {
+    const nextControl = this.formJson.find((ctrl: any) => ctrl.dependsOn === currentEntityType);
+    return nextControl ? nextControl.name : null;
   }
 
-  resetDependentControls(startingEntity: EntityType) {
-    const entityTypes = [EntityType.District, EntityType.Block, EntityType.Cluster];
-    const startIndex = entityTypes.indexOf(startingEntity);
-    entityTypes.slice(startIndex).forEach(entityType => this.resetFormControl(entityType));
-  }
-
-  resetFormControl(controlName: EntityType) {
+  resetFormControl(controlName: string) {
     const control = this.formLib?.myForm.get(controlName);
     if (control) {
       control.patchValue('');
@@ -121,7 +112,7 @@ export class ProfileEditPage implements OnInit {
     }
   }
 
-  updateFormValue(controlName: EntityType, value: any) {
+  updateFormValue(controlName: string, value: any) {
     const control = this.formJson.find((formControl: any) => formControl.name === controlName);
     if (control) {
       control.value = value;
@@ -130,7 +121,7 @@ export class ProfileEditPage implements OnInit {
 
   updateProfile() {
     if (this.formLib?.myForm.valid) {
-      this.baseApiService.patch(urlConfig['profileListing'].updateUrl, this.formLib.myForm.value)
+      this.apiBaseService.patch(this.urlProfilePath.updateUrl, this.formLib.myForm.value)
         .pipe(
           catchError(err => {
             this.toastService.presentToast(err?.error?.message);
