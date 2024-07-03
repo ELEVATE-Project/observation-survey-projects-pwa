@@ -1,13 +1,19 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LoaderService } from '../services/loader/loader.service';
-import { finalize } from 'rxjs';
+import { finalize, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 import { ApiBaseService } from '../services/base-api/api-base.service';
 import { ToastService } from '../services/toast/toast.service';
 import urlConfig from 'src/app/config/url.config.json';
 import { FETCH_Profile_FORM } from '../core/constants/formConstant';
-import { UrlConfig } from '../interfaces/main.interface';
 import { MainFormComponent } from 'elevate-dynamic-form';
+
+enum EntityType {
+  State = 'state',
+  District = 'district',
+  Block = 'block',
+  Cluster = 'cluster',
+}
 
 @Component({
   selector: 'app-profile-edit',
@@ -15,99 +21,98 @@ import { MainFormComponent } from 'elevate-dynamic-form';
   styleUrls: ['./profile-edit.page.scss'],
 })
 export class ProfileEditPage implements OnInit {
-
-  @ViewChild('formLib') formLib: MainFormComponent | undefined
-  formData: any;
-  baseApiService: any;
-  toastService: any;
-  loader: LoaderService;
+  @ViewChild('formLib') formLib: MainFormComponent | undefined;
   formJson: any = [];
-  pathType = 'formDataUrl';
-  currentSelectedOption = 'state'
+  currentSelectedOption: EntityType = EntityType.State;
 
-  constructor(private http: HttpClient) {
-    this.baseApiService = inject(ApiBaseService);
-    this.loader = inject(LoaderService)
-    this.toastService = inject(ToastService)
-  }
+  constructor(
+    private baseApiService: ApiBaseService,
+    private loader: LoaderService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit() {
     this.getFormJson();
-    this.getOptionsData(this.currentSelectedOption);
-  }
-  async getFormJson() {
-    await this.loader.showLoading("Please wait while loading...");
-    this.baseApiService
-      .post(
-        urlConfig['formListing'].listingUrl, FETCH_Profile_FORM)
-      .pipe(
-        finalize(async () => {
-          await this.loader.dismissLoading();
-        })
-      )
-      .subscribe((res: any) => {
-        if (res?.status === 200) {
-          this.formJson = res?.result?.data;
-          this.getOptionsData('state');
-        }
-      },
-        (err: any) => {
-          this.toastService.presentToast(err?.error?.message);
-        }
-      );
   }
 
-  getOptionsData(entityType: any, entityId?: any) {
-    const urlPath = entityType == 'state' ? `/entityListBasedOnEntityType?entityType=${entityType}` : `/subEntityList/${entityId}?type=${entityType}&search=&page=1&limit=100`
-    this.baseApiService
-      .get(
-        urlConfig['entityListing'].listingUrl + urlPath
-      )
+  async getFormJson() {
+    await this.loader.showLoading("Please wait while loading...");
+    this.baseApiService.post(urlConfig['formListing'].listingUrl, FETCH_Profile_FORM)
       .pipe(
-        finalize(async () => {
+        finalize(() => this.loader.dismissLoading()),
+        catchError(err => {
+          this.toastService.presentToast(err?.error?.message);
+          return of(null);
         })
       )
-      .subscribe((res: any) => {
-        console.log(res)
+      .subscribe((res:any) => {
         if (res?.status === 200) {
-          const result = entityId ? res?.result?.data : res?.result
-          const entityOptions = result?.map((entityList: any) => {
-            return { label: entityList.name, value: entityList._id };
-          });
-          this.formJson.find((control: any) => control.name === entityType).options = entityOptions;
+          this.formJson = res?.result?.data;
+          this.getOptionsData(EntityType.State);
+        }
+      });
+  }
+
+  getOptionsData(entityType: EntityType, entityId?: string) {
+    const urlPath = entityType === EntityType.State
+      ? `/entityListBasedOnEntityType?entityType=${entityType}`
+      : `/subEntityList/${entityId}?type=${entityType}&search=&page=1&limit=100`;
+      
+    this.baseApiService.get(urlConfig['entityListing'].listingUrl + urlPath)
+      .pipe(
+        catchError(err => {
+          this.toastService.presentToast(err?.error?.message);
+          return of(null);
+        })
+      )
+      .subscribe((res:any) => {
+        if (res?.status === 200) {
+          const options = (entityId ? res?.result?.data : res?.result)?.map((entity: any) => ({
+            label: entity.name,
+            value: entity._id,
+          }));
+          this.updateFormOptions(entityType, options);
         } else {
           this.toastService.presentToast(res?.message);
         }
-      },
-        (err: any) => {
-          this.toastService.presentToast(err?.error?.message);
-        }
-      );
+      });
+  }
+
+  updateFormOptions(entityType: EntityType, options: any) {
+    const control = this.formJson.find((control: any) => control.name === entityType);
+    if (control) {
+      control.options = options;
+    }
   }
 
   onOptionChange(event: any) {
     const { event: selectedEvent, control } = event;
     const selectedValue = selectedEvent?.value;
-    this.currentSelectedOption = control.name;
-    this.formJson.find((formControl: any) => formControl.name === control.name).value = selectedValue?.value;
-    if (control.name === 'state') {
-      this.resetFormControl('district');
-      this.resetFormControl('block');
-      this.resetFormControl('cluster');
-      this.currentSelectedOption = 'district';
-    } else if (control.name === 'district') {
-      this.resetFormControl('block');
-      this.resetFormControl('cluster');
-      this.currentSelectedOption = 'block';
-    } else if (control.name === 'block') {
-      this.resetFormControl('cluster');
-      this.currentSelectedOption = 'cluster';
-    }
+    this.updateFormValue(control.name, selectedValue?.value);
 
-    this.getOptionsData(this.currentSelectedOption, selectedValue?.value);
+    const nextEntityType = this.getNextEntityType(control.name as EntityType);
+    if (nextEntityType) {
+      this.resetDependentControls(nextEntityType);
+      this.getOptionsData(nextEntityType, selectedValue?.value);
+    }
   }
 
-  resetFormControl(controlName: any) {
+  getNextEntityType(current: EntityType): EntityType | null {
+    switch (current) {
+      case EntityType.State: return EntityType.District;
+      case EntityType.District: return EntityType.Block;
+      case EntityType.Block: return EntityType.Cluster;
+      default: return null;
+    }
+  }
+
+  resetDependentControls(startingEntity: EntityType) {
+    const entityTypes = [EntityType.District, EntityType.Block, EntityType.Cluster];
+    const startIndex = entityTypes.indexOf(startingEntity);
+    entityTypes.slice(startIndex).forEach(entityType => this.resetFormControl(entityType));
+  }
+
+  resetFormControl(controlName: EntityType) {
     const control = this.formLib?.myForm.get(controlName);
     if (control) {
       control.patchValue('');
@@ -116,31 +121,28 @@ export class ProfileEditPage implements OnInit {
     }
   }
 
+  updateFormValue(controlName: EntityType, value: any) {
+    const control = this.formJson.find((formControl: any) => formControl.name === controlName);
+    if (control) {
+      control.value = value;
+    }
+  }
+
   updateProfile() {
     if (this.formLib?.myForm.valid) {
-      console.log('Form is valid:', this.formLib.myForm.value);
-  
-      // Proceed with the API call to update the profile
-      // this.baseApiService.patch(
-      //   urlConfig['profileListing'].updateUrl, this.formLib.myForm.value)
-      // .pipe(
-      //   finalize(() => {
-      //   })
-      // )
-      // .subscribe((res: any) => {
-      //   console.log('response', res);
-      //   if (res?.status === 200) {
-      //     console.log('response', res);
-      //   }
-      // },
-      //   (err: any) => {
-      //     this.toastService.presentToast(err?.error?.message);
-      //   }
-      // );
-  
+      this.baseApiService.patch(urlConfig['profileListing'].updateUrl, this.formLib.myForm.value)
+        .pipe(
+          catchError(err => {
+            this.toastService.presentToast(err?.error?.message);
+            return of(null);
+          })
+        )
+        .subscribe((res:any) => {
+          if (res?.status === 200) {
+          }
+        });
     } else {
       this.toastService.presentToast('Please fill out the form correctly.');
     }
   }
-  
 }

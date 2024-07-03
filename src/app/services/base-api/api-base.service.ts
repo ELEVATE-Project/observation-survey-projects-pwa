@@ -21,6 +21,10 @@ export class ApiBaseService {
     return this.http.put<T>(this.baseURL+url, body, { headers });
   }
 
+  patch<T>(url: string, body: any, headers?: HttpHeaders): Observable<T> {
+    return this.http.patch<T>(this.baseURL + url, body, { headers });
+  }
+
   delete<T>(url: string): Observable<T> {
     return this.http.delete<T>(this.baseURL+url);
   }
