@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiBaseService {
-  baseURL = window['env' as any]['baseURL' as any];
+  baseURL = environment.baseURL;
   constructor(public http: HttpClient) { }
 
   get<T>(url: string, params?: HttpParams): Observable<T> {

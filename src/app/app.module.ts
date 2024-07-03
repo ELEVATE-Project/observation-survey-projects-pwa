@@ -9,6 +9,7 @@ import { LIBRARY_CONFIG, SlAuthLibModule } from 'authentication_frontend_library
 import { ApiInterceptor } from './services/interceptor/api.interceptor';
 import { ServiceWorkerModule, SwUpdate } from '@angular/service-worker';
 import { environment } from 'src/environments/environment';
+import { of, switchMap } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -38,5 +39,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 export class AppModule {}
 
 export function configFactory(http: HttpClient): any {
-  return http.get('assets/config/library-config.json');
+  return http.get("../assets/config/library-config.json").pipe(switchMap((data:any)=>{
+    data.baseUrl = environment.baseURL
+    return of(data)
+  }))
 }
