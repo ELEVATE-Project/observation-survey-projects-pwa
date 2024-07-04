@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LoaderService } from '../services/loader/loader.service';
 import { finalize, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { ApiBaseService } from '../services/base-api/api-base.service';
 import { ToastService } from '../services/toast/toast.service';
 import urlConfig from 'src/app/config/url.config.json';
@@ -34,7 +34,7 @@ export class ProfileEditPage implements OnInit {
         finalize(() => this.loader.dismissLoading()),
         catchError(err => {
           this.toastService.presentToast(err?.error?.message);
-          return of(null);
+          return throwError(() => err);
         })
       )
       .subscribe((res:any) => {
@@ -60,7 +60,7 @@ export class ProfileEditPage implements OnInit {
       .pipe(
         catchError(err => {
           this.toastService.presentToast(err?.error?.message);
-          return of(null);
+          return throwError(() => err);
         })
       )
       .subscribe((res:any) => {
@@ -125,11 +125,12 @@ export class ProfileEditPage implements OnInit {
         .pipe(
           catchError(err => {
             this.toastService.presentToast(err?.error?.message);
-            return of(null);
+            return throwError(() => err);
           })
         )
         .subscribe((res:any) => {
           if (res?.status === 200) {
+            this.toastService.presentToast(res?.message || 'Profile Updated Sucessfully');
           }
         });
     } else {
