@@ -7,6 +7,7 @@ import { ToastService } from '../services/toast/toast.service';
 import urlConfig from 'src/app/config/url.config.json';
 import { FETCH_Profile_FORM } from '../core/constants/formConstant';
 import { MainFormComponent } from 'elevate-dynamic-form';
+
 @Component({
   selector: 'app-profile-edit',
   templateUrl: './profile-edit.page.html',
@@ -40,7 +41,7 @@ export class ProfileEditPage implements OnInit {
       .subscribe((res:any) => {
         if (res?.status === 200) {
           this.formJson = res?.result?.data;
-          this.formJson.forEach((control: any) => {
+          this.formJson.map((control: any) => {
             if (control.dynamicEntity) {
               this.getOptionsData(control.name);
             }
@@ -52,9 +53,9 @@ export class ProfileEditPage implements OnInit {
   getOptionsData(entityType: string, entityId?: string) {
     const control = this.formJson.find((control: any) => control.name === entityType);
     if (!control) return;
-    const urlPath = control.dynamicEntity
-      ? this.urlProfilePath.entityUrl+`${entityType}`
-      : this.urlProfilePath.subEntityUrl+`/${entityId}?type=${entityType}&search=&page=1&limit=100`;
+    const urlPath = control.dependsOn
+      ? this.urlProfilePath.subEntityUrl + `/${entityId}?type=${entityType}&search=&page=1&limit=100`
+      : this.urlProfilePath.entityUrl + `${entityType}`;
 
     this.apiBaseService.get(urlConfig['entityListing'].listingUrl + urlPath)
       .pipe(
@@ -90,17 +91,17 @@ export class ProfileEditPage implements OnInit {
     const { event: selectedEvent, control } = event;
     const selectedValue = selectedEvent?.value;
     this.updateFormValue(control.name, selectedValue?.value);
-    this.formJson.forEach((formControl: any) => {
-      if (formControl.dependsOn === control.name) {
-        this.resetFormControl(formControl.name);
-        this.getOptionsData(formControl.name, selectedValue?.value);
-      }
-    });
+    this.resetDependentControls(control.name, selectedValue?.value);
   }
 
-  getNextEntityType(currentEntityType: string): string | null {
-    const nextControl = this.formJson.find((ctrl: any) => ctrl.dependsOn === currentEntityType);
-    return nextControl ? nextControl.name : null;
+  resetDependentControls(controlName: string, selectedValue: any) {
+    const dependentControls = this.formJson.filter((formControl: any) => formControl.dependsOn === controlName);
+
+    for (const formControl of dependentControls) {
+      this.resetFormControl(formControl.name);
+      this.getOptionsData(formControl.name, selectedValue);
+      this.resetDependentControls(formControl.name, selectedValue);
+    }
   }
 
   resetFormControl(controlName: string) {
