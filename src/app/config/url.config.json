@@ -12,9 +12,12 @@
         "listingUrl": "/project/v1/forms/read"
     },
     "entityListing":{
-        "listingUrl": "/entity-management/v1/entities/entityListBasedOnEntityType"
+        "listingUrl": "/entity-management/v1/entities"
     },
     "profileListing": {
-        "listingUrl": "/project/v1/profile/read"
+        "listingUrl": "/project/v1/profile/read",
+        "updateUrl": "/elevate-user/v1/user/update",
+        "entityUrl": "/entityListBasedOnEntityType?entityType=",
+        "subEntityUrl": "/subEntityList"
     }
 }

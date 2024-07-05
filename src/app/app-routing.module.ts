@@ -17,10 +17,13 @@ const routes: Routes = [
     loadChildren: () => import('./project/project.module').then( m => m.ProjectPageModule),
     canActivate: [AuthGuard]
   },
-  { path: '', loadChildren: () => import('authentication_frontend_library').then(m => m.SlRoutingRoutingModule) },
-
   {
-    path: '**', // Catch-all route, in case no previous routes match
+    path: 'profile-edit',
+    loadChildren: () => import('./profile-edit/profile-edit.module').then( m => m.ProfileEditPageModule)
+  },
+  { path: '', loadChildren: () => import('authentication_frontend_library').then(m => m.SlRoutingRoutingModule) },
+  {
+    path: '**',
     redirectTo: 'home'
   }
 ];
