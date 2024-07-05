@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LoaderService } from '../services/loader/loader.service';
 import { finalize, catchError } from 'rxjs/operators';
-import { of, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import { ApiBaseService } from '../services/base-api/api-base.service';
 import { ToastService } from '../services/toast/toast.service';
 import urlConfig from 'src/app/config/url.config.json';
@@ -90,18 +90,27 @@ export class ProfileEditPage implements OnInit {
   onOptionChange(event: any) {
     const { event: selectedEvent, control } = event;
     const selectedValue = selectedEvent?.value;
+
     this.updateFormValue(control.name, selectedValue?.value);
     this.resetDependentControls(control.name, selectedValue?.value);
+    const nextEntityType = this.getNextEntityType(control.name);
+    if (nextEntityType) {
+      this.getOptionsData(nextEntityType, selectedValue?.value);
+    }
+  }
+
+  getNextEntityType(currentEntityType: string): string | null {
+    const nextControl = this.formJson.find((ctrl: any) => ctrl.dependsOn === currentEntityType);
+    return nextControl ? nextControl.name : null;
   }
 
   resetDependentControls(controlName: string, selectedValue: any) {
     const dependentControls = this.formJson.filter((formControl: any) => formControl.dependsOn === controlName);
-
     for (const formControl of dependentControls) {
       this.resetFormControl(formControl.name);
-      this.getOptionsData(formControl.name, selectedValue);
       this.resetDependentControls(formControl.name, selectedValue);
     }
+
   }
 
   resetFormControl(controlName: string) {
@@ -132,6 +141,8 @@ export class ProfileEditPage implements OnInit {
         .subscribe((res:any) => {
           if (res?.status === 200) {
             this.toastService.presentToast(res?.message || 'Profile Updated Sucessfully');
+          }else{
+            this.toastService.presentToast(res?.message);
           }
         });
     } else {
