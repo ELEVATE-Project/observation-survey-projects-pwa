@@ -7,6 +7,7 @@ import { ToastService } from '../services/toast/toast.service';
 import urlConfig from 'src/app/config/url.config.json';
 import { FETCH_Profile_FORM } from '../core/constants/formConstant';
 import { MainFormComponent } from 'elevate-dynamic-form';
+import { NavController } from '@ionic/angular';
 @Component({
   selector: 'app-profile-edit',
   templateUrl: './profile-edit.page.html',
@@ -20,7 +21,8 @@ export class ProfileEditPage implements OnInit {
   constructor(
     private apiBaseService: ApiBaseService,
     private loader: LoaderService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private navCtrl: NavController
   ) {}
 
   ngOnInit() {
@@ -69,7 +71,7 @@ export class ProfileEditPage implements OnInit {
           if(result){
             const options = result.map((entity: any) => ({
               label: entity.name,
-              value: entity._id,
+              value: entity._id
             }));
             this.updateFormOptions(entityType, options);
           }
@@ -155,10 +157,12 @@ export class ProfileEditPage implements OnInit {
     if (control && control.dependsOn) {
       const dependentControl = this.formLib?.myForm.get(control.dependsOn);
       if (dependentControl && !dependentControl.value) {
-        this.toastService.presentToast(`Please select a value for ${control.dependsOn} first.`);
-        // control.errorMessage.required = `Please select a value for ${control.dependsOn} first.`
+        dependentControl.markAsTouched();
       }
     }
   }
-  
+
+  goBack() {
+    this.navCtrl.back();
+  }
 }

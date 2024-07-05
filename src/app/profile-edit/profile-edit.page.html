@@ -1,15 +1,18 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>profile</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" (click)="goBack()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Profile Edit</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="ion-margin-top" *ngIf="formJson.length">
+  <div class="ion-margin-top container" *ngIf="formJson.length">
     <dynamic-form [formJson]="formJson" #formLib (ionChange)="onOptionChange($event)" 
     (ionFocus)="handleSelectFocus($event)"></dynamic-form>
   </div>
-  <ion-button (click)="updateProfile()" expand="block" fill="clear" shape="round">
-    Update
+  <ion-button (click)="updateProfile()" expand="block" fill="primary" shape="solid">
+    Update Profile
   </ion-button>
 </ion-content>
