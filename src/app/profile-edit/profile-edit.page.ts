@@ -7,7 +7,6 @@ import { ToastService } from '../services/toast/toast.service';
 import urlConfig from 'src/app/config/url.config.json';
 import { FETCH_Profile_FORM } from '../core/constants/formConstant';
 import { MainFormComponent } from 'elevate-dynamic-form';
-
 @Component({
   selector: 'app-profile-edit',
   templateUrl: './profile-edit.page.html',
@@ -107,10 +106,10 @@ export class ProfileEditPage implements OnInit {
   resetDependentControls(controlName: string, selectedValue: any) {
     const dependentControls = this.formJson.filter((formControl: any) => formControl.dependsOn === controlName);
     for (const formControl of dependentControls) {
+      formControl.options = [];
       this.resetFormControl(formControl.name);
       this.resetDependentControls(formControl.name, selectedValue);
     }
-
   }
 
   resetFormControl(controlName: string) {
@@ -146,7 +145,20 @@ export class ProfileEditPage implements OnInit {
           }
         });
     } else {
-      this.toastService.presentToast('Please fill out the form correctly.');
+      this.formLib?.myForm.markAllAsTouched();
+      this.toastService.presentToast('Please fill out all the required fields.');
     }
   }
+
+  async handleSelectFocus(controlName: string) {
+    const control = this.formJson.find((ctrl: any) => ctrl.name === controlName);
+    if (control && control.dependsOn) {
+      const dependentControl = this.formLib?.myForm.get(control.dependsOn);
+      if (dependentControl && !dependentControl.value) {
+        this.toastService.presentToast(`Please select a value for ${control.dependsOn} first.`);
+        // control.errorMessage.required = `Please select a value for ${control.dependsOn} first.`
+      }
+    }
+  }
+  
 }

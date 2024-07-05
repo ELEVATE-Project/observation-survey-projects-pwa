@@ -6,7 +6,8 @@
 
 <ion-content [fullscreen]="true">
   <div class="ion-margin-top" *ngIf="formJson.length">
-    <dynamic-form [formJson]="formJson" #formLib (ionChange)="onOptionChange($event)"></dynamic-form>
+    <dynamic-form [formJson]="formJson" #formLib (ionChange)="onOptionChange($event)" 
+    (ionFocus)="handleSelectFocus($event)"></dynamic-form>
   </div>
   <ion-button (click)="updateProfile()" expand="block" fill="clear" shape="round">
     Update
