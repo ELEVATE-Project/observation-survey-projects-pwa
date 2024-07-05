@@ -53,7 +53,7 @@ export class ProfileEditPage implements OnInit {
     const control = this.formJson.find((control: any) => control.name === entityType);
     if (!control) return;
     const urlPath = control.dependsOn
-      ? this.urlProfilePath.subEntityUrl + `/${entityId}?type=${entityType}&search=&page=1&limit=100`
+      ? this.urlProfilePath.subEntityUrl + `/${entityId}?type=${entityType}`
       : this.urlProfilePath.entityUrl + `${entityType}`;
 
     this.apiBaseService.get(urlConfig['entityListing'].listingUrl + urlPath)
@@ -150,7 +150,7 @@ export class ProfileEditPage implements OnInit {
     }
   }
 
-  async handleSelectFocus(controlName: string) {
+   handleSelectFocus(controlName: string) {
     const control = this.formJson.find((ctrl: any) => ctrl.name === controlName);
     if (control && control.dependsOn) {
       const dependentControl = this.formLib?.myForm.get(control.dependsOn);
