@@ -29,26 +29,34 @@ export class ProfileImagePage{
   }
 
   async uploadPhoto(source: string) {
+    const handleFileUpload = (captureValue: string | null) => {
+      if (captureValue) {
+        this.fileUpload.nativeElement.setAttribute('capture', captureValue);
+      } else {
+        this.fileUpload.nativeElement.removeAttribute('capture');
+      }
+      this.fileUpload.nativeElement.click();
+    };
+  
     switch (source) {
       case 'CAMERA':
-        this.fileUpload.nativeElement.setAttribute('capture', 'environment');
-        this.fileUpload.nativeElement.click();
+        handleFileUpload('environment');
         break;
-
+  
       case 'ADD_PHOTO':
-        this.fileUpload.nativeElement.removeAttribute('capture');
-        this.fileUpload.nativeElement.click();
+        handleFileUpload(null);
         break;
-
+  
       case 'REMOVE_PHOTO':
         this.imageRemoveEvent.emit();
         this.toast.presentToast("REMOVE CURRENT PHOTO", "success");
         break;
-
+  
       default:
         break;
     }
   }
+  
 
   upload(event: any) {
     const allowedFormats = ['image/jpeg', 'image/png'];

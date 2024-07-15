@@ -15,7 +15,6 @@ export class ToastService {
       message: message,
       duration: 1500,
       position: 'top',
-      icon:"globe",
       color: color
     });
 
