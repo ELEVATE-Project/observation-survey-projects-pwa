@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { UtilService } from 'src/app/services/util/util.service';
 
@@ -7,7 +7,7 @@ import { UtilService } from 'src/app/services/util/util.service';
   templateUrl: './profile-image.page.html',
   styleUrls: ['./profile-image.page.scss'],
 })
-export class ProfileImagePage implements OnInit {
+export class ProfileImagePage{
   @ViewChild('fileUpload') fileUpload!: ElementRef;
   @Input() profileImageData: any;
   @Input() showProfileDetails: any;
@@ -21,8 +21,6 @@ export class ProfileImagePage implements OnInit {
     private toast: ToastService,
     private utilService: UtilService,
   ) { }
-
-  ngOnInit() { }
 
   clearFileInput() {
     if (this.fileUpload) {

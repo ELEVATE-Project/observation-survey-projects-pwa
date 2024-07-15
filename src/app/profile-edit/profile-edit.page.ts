@@ -48,7 +48,6 @@ export class ProfileEditPage {
         if (res.formJson?.status === 200 && res.profileFormData?.status === 200) {
           this.formJson = res.formJson?.result?.data;
           this.formData = res.profileFormData?.result;
-          this.formJson.isUploaded = true;
           this.mapProfileDataToFormJson(this.formData);
           this.formJson.map((control: any) => {
             if (control.dynamicEntity) {
@@ -61,8 +60,9 @@ export class ProfileEditPage {
   }
 
   mapProfileDataToFormJson(formData?: any) {
-    this.getDownloadImage();
-    Object.entries(formData).forEach(([key, value]: any) => {
+    this.formJson.image = this.formData.image;
+    this.formJson.isUploaded = true;
+    Object.entries(formData).map(([key, value]: any) => {
       const control = this.formJson.find((control: any) => control.name === key);
       if (control) {
         control.value = typeof (value) === 'string' ? String(value) : value?.value;
@@ -158,6 +158,10 @@ export class ProfileEditPage {
         payload.location = "bangalore";
         payload.about = "PWA";
         payload.image = this.formJson?.image;
+        payload.district = [payload?.district];
+        payload.block = [payload?.block];
+        payload.cluster = [payload?.cluster];
+        
         this.apiBaseService.patch(this.urlProfilePath.updateUrl, payload)
           .pipe(
             catchError(err => {
@@ -195,7 +199,7 @@ export class ProfileEditPage {
 
   async imageUploadEvent(event: any) {
     this.localImage = event.target.files[0];
-    var reader = new FileReader();
+    let reader = new FileReader();
     reader.readAsDataURL(event.target.files[0]);
     reader.onload = (file: any) => {
       this.formJson.image = file.target.result
