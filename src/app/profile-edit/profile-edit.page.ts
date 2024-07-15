@@ -60,12 +60,17 @@ export class ProfileEditPage {
   }
 
   mapProfileDataToFormJson(formData?: any) {
-    this.formJson.image = this.formData.image;
-    this.formJson.isUploaded = true;
-    Object.entries(formData).map(([key, value]: any) => {
+      this.formJson.image = this.formData.image;
+
+    Object.entries(formData).forEach(([key, value]: any) => {
       const control = this.formJson.find((control: any) => control.name === key);
       if (control) {
         control.value = typeof (value) === 'string' ? String(value) : value?.value;
+
+        const nextEntityType = this.getNextEntityType(control.name);
+        if (nextEntityType) {
+          this.getOptionsData(nextEntityType, control?.value);
+        }
       }
     });
   }
@@ -153,15 +158,11 @@ export class ProfileEditPage {
       if (this.formJson.image && !this.formJson.isUploaded) {
         this.getImageUploadUrl(this.localImage);
       } else {
-        this.formJson.isUploaded = false;
         let payload = this.formLib?.myForm.value;
         payload.location = "bangalore";
         payload.about = "PWA";
         payload.image = this.formJson?.image;
-        payload.district = [payload?.district];
-        payload.block = [payload?.block];
-        payload.cluster = [payload?.cluster];
-        
+        console.log(payload);
         this.apiBaseService.patch(this.urlProfilePath.updateUrl, payload)
           .pipe(
             catchError(err => {
@@ -210,7 +211,7 @@ export class ProfileEditPage {
   imageRemoveEvent(event: any) {
     this.formJson.image = '';
     this.formLib?.myForm.markAsDirty();
-    this.formJson.isUploaded = true;
+    this.formJson.isUploaded = false;
   }
 
   async getImageUploadUrl(file: any) {
@@ -228,26 +229,10 @@ export class ProfileEditPage {
       });
   }
 
-
-  getDownloadImage() {
-    this.apiBaseService.get(this.urlProfilePath.getDownloadableUrl + this.formData?.image)
-      .pipe(
-        finalize(async () => await this.loader.dismissLoading()),
-        catchError(err => {
-          this.toastService.presentToast(err?.error?.message, 'danger');
-          return throwError(() => err);
-        })
-      )
-      .subscribe((res: any) => {
-        this.formJson.image = res.result
-        this.formJson.isUploaded = false;
-      });
-  }
-
   upload(data: any, uploadUrl: any) {
     return this.attachment.cloudImageUpload(data, uploadUrl).pipe(
       map((() => {
-        this.formJson.image = uploadUrl.destFilePath;
+        this.formJson.image = uploadUrl?.destFilePath;
         this.formJson.isUploaded = true;
         this.updateProfile();
       })))
