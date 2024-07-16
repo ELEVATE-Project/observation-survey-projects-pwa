@@ -8,15 +8,17 @@ import { ProfileEditPageRoutingModule } from './profile-edit-routing.module';
 
 import { ProfileEditPage } from './profile-edit.page';
 import { DynamicFormModule } from 'elevate-dynamic-form';
+import { ProfileImagePageModule } from "../shared/profile-image/profile-image.module";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    ProfileEditPageRoutingModule,
-    DynamicFormModule
-  ],
-  declarations: [ProfileEditPage]
+    declarations: [ProfileEditPage],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        ProfileEditPageRoutingModule,
+        DynamicFormModule,
+        ProfileImagePageModule
+    ]
 })
 export class ProfileEditPageModule {}

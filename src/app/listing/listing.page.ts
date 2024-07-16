@@ -77,11 +77,11 @@ export class ListingPage implements OnInit {
           this.solutionList.data = this.solutionList?.data.concat(res?.result?.data);
           this.solutionList.count = res?.result?.count;
         } else {
-          this.toastService.presentToast(res?.message);
+          this.toastService.presentToast(res?.message, 'warning');
         }
       },
         (err: any) => {
-          this.toastService.presentToast(err?.error?.message);
+          this.toastService.presentToast(err?.error?.message, 'danger');
         }
       );
   }
