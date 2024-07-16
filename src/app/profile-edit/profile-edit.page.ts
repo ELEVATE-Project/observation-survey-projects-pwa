@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { LoaderService } from '../services/loader/loader.service';
 import { finalize, catchError, map } from 'rxjs/operators';
-import { forkJoin, throwError } from 'rxjs';
+import { combineLatest, forkJoin, of, throwError } from 'rxjs';
 import { ApiBaseService } from '../services/base-api/api-base.service';
 import { ToastService } from '../services/toast/toast.service';
 import urlConfig from 'src/app/config/url.config.json';
@@ -27,27 +27,37 @@ export class ProfileEditPage {
     private toastService: ToastService,
     private navCtrl: NavController,
     private attachment: AttachmentService
-  ) {
+  ) { }
+
+  ionViewWillEnter() {
     this.getFormJsonAndData();
   }
 
   async getFormJsonAndData() {
     await this.loader.showLoading("Please wait while loading...");
-    forkJoin({
-      formJson: this.apiBaseService.post(urlConfig['formListing'].listingUrl, FETCH_Profile_FORM),
-      profileFormData: this.apiBaseService.get(urlConfig['profileListing'].listingUrl)
-    })
+    const handleError = (message: string) => catchError(err => {
+      this.toastService.presentToast(err?.error?.message || message, 'danger');
+      return of({ status: 'error', result: {} });
+    });
+
+    combineLatest([
+      this.apiBaseService.post(urlConfig['formListing'].listingUrl, FETCH_Profile_FORM)
+        .pipe(handleError('Error loading form JSON')),
+      this.apiBaseService.get(urlConfig['profileListing'].listingUrl)
+        .pipe(handleError('Error loading profile data'))
+    ])
       .pipe(
-        finalize(async () => await this.loader.dismissLoading()),
-        catchError(err => {
-          this.toastService.presentToast(err?.error?.message, 'danger');
-          return throwError(() => err);
-        })
+        finalize(async () => await this.loader.dismissLoading())
       )
-      .subscribe((res: any) => {
-        if (res.formJson?.status === 200 && res.profileFormData?.status === 200) {
-          this.formJson = res.formJson?.result?.data;
-          this.formData = res.profileFormData?.result;
+      .subscribe(([formJsonRes, profileFormDataRes]: any) => {
+        if (formJsonRes?.status === 200) {
+          this.formJson = formJsonRes?.result?.data;
+        }
+        if (profileFormDataRes?.status === 200) {
+          this.formData = profileFormDataRes?.result;
+        }
+
+        if (this.formJson && this.formData) {
           this.mapProfileDataToFormJson(this.formData);
           this.formJson.map((control: any) => {
             if (control.dynamicEntity) {
@@ -55,14 +65,14 @@ export class ProfileEditPage {
             }
           });
         }
-      }
-      );
+      });
   }
 
-  mapProfileDataToFormJson(formData?: any) {
-      this.formJson.image = this.formData.image;
 
-    Object.entries(formData).forEach(([key, value]: any) => {
+  mapProfileDataToFormJson(formData?: any) {
+    this.formJson.image = this.formData.image;
+    this.formJson.isUploaded = true;
+    Object.entries(formData).map(([key, value]: any) => {
       const control = this.formJson.find((control: any) => control.name === key);
       if (control) {
         control.value = typeof (value) === 'string' ? String(value) : value?.value;
@@ -161,8 +171,7 @@ export class ProfileEditPage {
         let payload = this.formLib?.myForm.value;
         payload.location = "bangalore";
         payload.about = "PWA";
-        payload.image = this.formJson?.image;
-        console.log(payload);
+        this.formJson?.destFilePath ? payload.image = this.formJson?.destFilePath:"";
         this.apiBaseService.patch(this.urlProfilePath.updateUrl, payload)
           .pipe(
             catchError(err => {
@@ -171,7 +180,7 @@ export class ProfileEditPage {
             })
           )
           .subscribe((res: any) => {
-            if (res?.status === 200) {
+            if (res?.result) {
               this.toastService.presentToast(res?.message || 'Profile Updated Sucessfully', 'success');
             } else {
               this.toastService.presentToast(res?.message, 'warning');
@@ -203,7 +212,7 @@ export class ProfileEditPage {
     let reader = new FileReader();
     reader.readAsDataURL(event.target.files[0]);
     reader.onload = (file: any) => {
-      this.formJson.image = file.target.result
+      this.formJson.image = file.target.result;
       this.formJson.isUploaded = false;
     }
   }
@@ -216,7 +225,10 @@ export class ProfileEditPage {
 
   async getImageUploadUrl(file: any) {
     this.loader.showLoading("Please wait while uploading...");
-    this.apiBaseService.get(this.urlProfilePath.getSessionImageUploadUrl + file?.name.replace(/[^A-Z0-9]+/ig, "_").toLowerCase())
+    const lowerCase = file?.name.replace(/[^A-Z0-9]+/ig, "_").toLowerCase();
+    const apiUrl = this.urlProfilePath.getSessionImageUploadUrl + lowerCase;
+
+    this.apiBaseService.get(apiUrl)
       .pipe(
         finalize(async () => await this.loader.dismissLoading()),
         catchError(err => {
@@ -225,14 +237,22 @@ export class ProfileEditPage {
         })
       )
       .subscribe((res: any) => {
-        return this.upload(file, res.result).subscribe()
+        this.upload(file, res.result)
+          .subscribe({
+            next: () => {
+              this.toastService.presentToast('Image uploaded successfully', 'success');
+            },
+            error: (err) => {
+              this.toastService.presentToast(err?.error?.message || 'Upload failed', 'danger');
+            }
+          });
       });
   }
 
   upload(data: any, uploadUrl: any) {
     return this.attachment.cloudImageUpload(data, uploadUrl).pipe(
       map((() => {
-        this.formJson.image = uploadUrl?.destFilePath;
+        this.formJson.destFilePath = uploadUrl?.destFilePath;
         this.formJson.isUploaded = true;
         this.updateProfile();
       })))
