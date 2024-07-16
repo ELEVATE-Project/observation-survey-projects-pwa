@@ -27,7 +27,7 @@ export class ProfileEditPage {
     private toastService: ToastService,
     private navCtrl: NavController,
     private attachment: AttachmentService
-  ) { }
+  ) {}
 
   ionViewWillEnter() {
     this.getFormJsonAndData();
