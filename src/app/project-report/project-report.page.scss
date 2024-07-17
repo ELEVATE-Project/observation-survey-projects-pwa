@@ -1,0 +1,42 @@
+ion-select{
+    width: 100%;
+}
+
+.filter{
+    display: flex;
+    gap: 20px;
+    padding: 10px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.filter:hover{
+    color: var(--ion-color-primary);
+}
+
+.filter-true{
+    color: var(--ion-color-primary);
+}
+
+
+.ripple-parent {
+    position: relative;
+    overflow: hidden;
+
+    border: 1px solid #ddd;
+  }
+
+  .chart-container { /* Adjust as necessary */
+    height: 300px; /* Set a fixed height or use percentages for relative height */
+    position: relative;
+  }
+
+  #doughnutChart {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  ion-modal{
+    --height: 150px;
+    --width: 450px;
+  }

@@ -9,41 +9,66 @@
 <ion-content>
   <ion-list class="listTitle">
     <ion-row class="ion-margin">
-      <ion-col size="12">
+      <ion-col >
         <ion-text color="primary">
           <h1>{{stateData?.name}}</h1>
           <p>{{stateData?.description}}</p>
         </ion-text>
       </ion-col>
+      @if (listType === 'project') {
+        <ion-col  class="add-project-col" size="4">
+          <ion-button (click)="navigateToAddProject()"  color="light"><ion-icon name="add-outline" class="add-button" ></ion-icon><span class="add-button"> Create New Project </span> </ion-button>
+        </ion-col>
+      }
     </ion-row>
-
-    <ion-row class="srch">
-      <ion-col size="12">
-        <ion-searchbar class="srchBar" placeholder="Search your {{stateData?.listType}} here" [debounce]="1000"
-          (ionInput)="handleInput($event)"></ion-searchbar>
-      </ion-col>
-    </ion-row>
+    @if (listType === 'project') {
+      <ion-row class="srch">
+        <ion-col size="12">
+          <ion-searchbar class="srchBar" placeholder="Search your {{stateData?.listType}} here" [debounce]="1000"
+            (ionInput)="handleInput($event)"></ion-searchbar>
+        </ion-col>
+      </ion-row>
+    }
   </ion-list>
 
   <ion-grid>
+
+    @if (listType === 'project') {
     <ion-row *ngIf="solutionList?.count > 0; else noData">
-      @for (solution of solutionList?.data; track solution.id) {
-      <ion-col size="12" size-md="6" class="listing-card" (click)="navigateToProject(solution)">
-        <ion-card class="tiels">
-          <ion-card-content>
-            <h2><b>{{solution?.name}}</b></h2>
-            <h6 class="ion-padding-top">{{solution?.description}}</h6>
-          </ion-card-content>
+        @for (solution of solutionList?.data; track solution.id) {
+        <ion-col size="12" size-md="6" class="listing-card" (click)="navigateToProject(solution)">
+          <ion-card class="tiels">
+            <ion-card-content>
+              <h2><b>{{solution?.name}}</b></h2>
+              <h6 class="ion-padding-top">{{solution?.description}}</h6>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        }
+      </ion-row>
+      <ng-template #noData>
+        <div class="no-data-container ion-margin-top">
+          <img src="assets/images/no_data.jpg" alt="No data">
+        </div>
+      </ng-template>
+    } @else {
+      <ion-row>
+      <ion-col size="12" size-md="6" class="listing-card" (click)="navigateToProjectReport()">
+        <ion-card class="tiel">
+          <div class="small-tiel"></div>
+          <div style="padding:10px;">
+            <h2 style="font-size: 18px;padding-bottom: 8px;"><b>Improvement Reports</b></h2>
+            <h6>View Project Reports</h6>
+          </div>
+          <div class="arrow-container">
+            <ion-icon name="arrow-forward-outline" class="arrow-icon"  size="large"></ion-icon>
+          </div>
         </ion-card>
       </ion-col>
-      }
     </ion-row>
+    }
 
-    <ng-template #noData>
-      <div class="no-data-container ion-margin-top">
-        <img src="assets/images/no_data.jpg" alt="No data">
-      </div>
-    </ng-template>
+
   </ion-grid>
 </ion-content>
 <ion-footer *ngIf="!(solutionList?.count === 0 || solutionList?.count === solutionList?.data?.length)">

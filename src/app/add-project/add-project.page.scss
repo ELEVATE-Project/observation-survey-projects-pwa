@@ -1,0 +1,13 @@
+.formCard{
+    width: 100%;
+    margin: auto;
+    margin-top: 5%;
+}
+
+@media (min-width: 768px) {
+    .formCard{
+        width: 60vw;
+        margin: auto;
+        margin-top: 5%;
+    }
+}

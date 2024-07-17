@@ -1,0 +1,16 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" (click)="goBack()"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  [fullscreen]="true">
+<div class="formCard">
+  <dynamic-form [formJson]="data" #formLib></dynamic-form>
+  <ion-button shape="round"  expand="block" (click)="submitData()" [disabled]="this.formLib?.myForm?.invalid"
+  >SUBMIT</ion-button>
+</div>
+
+</ion-content>

@@ -16,5 +16,11 @@ export interface UrlConfig {
     };
     profileListing: {
         listingUrl: string;
+    },
+    report:{
+        listingUrl: string;
+    },
+    program:{
+        listingUrl: string;
     }
   }
