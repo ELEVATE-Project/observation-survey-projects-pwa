@@ -53,13 +53,6 @@ mat-label {
   overflow-y: auto !important;
  }
 
- .mat-mdc-standard-chip.mdc-evolution-chip--selected:not(.mdc-evolution-chip--disabled){
-  background-color: var(--color-primary) !important;
- }
-
- .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled) {
-  background-color: var(--color-primary) !important;
- }
 
 
 
@@ -84,7 +77,7 @@ mat-label {
     --primary-color: #832215;
     --disabled-btn-bg: #0000001f;
     --disabled-btn-text: #00000061;
-
+    
   /* Borders */
   --border-color: #ccc;
 }

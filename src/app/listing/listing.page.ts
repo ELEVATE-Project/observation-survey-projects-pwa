@@ -40,20 +40,16 @@ export class ListingPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    if (this.listType == 'project') {
-      this.page = 1;
-      this.solutionList = { data: [], count: 0 }
-      this.getListData();
-    }
+    this.page = 1;
+    this.solutionList = { data: [], count: 0 }
+    this.getListData();
   }
 
   handleInput(event: any) {
-    if (this.listType == 'project') {
     this.searchTerm = event.target.value;
     this.page = 1;
     this.solutionList = { data: [], count: 0 };
     this.getListData();
-    }
   }
 
   async getListData() {
@@ -104,9 +100,6 @@ export class ListingPage implements OnInit {
   }
 
   navigateToAddProject(){
-    this.router.navigate(['add-project']);
-  }
-  navigateToProjectReport(){
-    this.router.navigate(['project-report'])
+    this.router.navigateByUrl('/add-project');
   }
 }

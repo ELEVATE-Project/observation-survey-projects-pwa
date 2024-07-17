@@ -32,8 +32,8 @@
               },
               "src/manifest.webmanifest"
             ],
-            "styles": ["src/global.scss", "src/theme/variables.scss","/Users/farhan.p/Desktop/workspace/project-player/project-webcomponent/styles.css"],
-            "scripts": ["/Users/farhan.p/Desktop/workspace/project-player/project-webcomponent/project-player-component.js"],
+            "styles": ["src/global.scss", "src/theme/variables.scss","node_modules/project-player/styles.css"],
+            "scripts": ["node_modules/project-player/project-player-component.js"],
             "serviceWorker": true,
             "ngswConfigPath": "ngsw-config.json"
           },
@@ -140,8 +140,7 @@
   "cli": {
     "schematicCollections": [
       "@ionic/angular-toolkit"
-    ],
-    "analytics": false
+    ]
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {
