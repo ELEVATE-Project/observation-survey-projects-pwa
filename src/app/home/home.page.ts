@@ -29,13 +29,6 @@ export class HomePage {
   @ViewChild('solutionTemplate') solutionTemplate!: TemplateRef<any>;
   @ViewChild('recommendationTemplate') recommendationTemplate!: TemplateRef<any>;
 
-  reportListingData = {
-    "name": "Reports",
-    "img": "assets/images/ic_project.svg",
-    "redirectionUrl": "/listing/report",
-    "listType": "report",
-    "description": "Make sense of data to enable your decision-making based on your programs with ease"
-}
 
   constructor(private http: HttpClient, private router: Router) {
     this.baseApiService = inject(ApiBaseService);

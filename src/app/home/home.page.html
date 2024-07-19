@@ -47,26 +47,26 @@
       <ion-item lines="none">
         <ion-grid>
           <ion-row>
-            @for (listData of listResData; track listData.id) {
-            @if (listData?.type == 'solutionList'){
-            <ion-col size="6" size-md="3" (click)="navigateTo(listData?.listingData)">
+            @if (listResData[1]?.type === 'solutionList'){
+              @for (listData of listResData[1].listingData; track listData.id) {
+            <ion-col size="6" size-md="3" (click)="navigateTo(listData)">
               <ion-card class="tiels">
                 <ion-card-content>
-                  <img [src]="listData?.listingData?.img" alt="">
-                  <h1 style="color:black">{{listData?.listingData?.name}}</h1>
+                  <img [src]="listData?.img" alt="">
+                  <h1 style="color:black">{{listData?.name}}</h1>
                 </ion-card-content>
               </ion-card>
             </ion-col>
             }
             }
-          <ion-col size="6" size-md="3" (click)="navigateTo(reportListingData)">
+          <!-- <ion-col size="6" size-md="3" (click)="navigateTo(reportListingData)">
             <ion-card class="tiels">
               <ion-card-content>
                 <img [src]="reportListingData.img" alt="">
                  <h1 style="color:black">{{reportListingData.name}}</h1>
               </ion-card-content>
             </ion-card>
-          </ion-col>
+          </ion-col> -->
           </ion-row>
         </ion-grid>
       </ion-item>

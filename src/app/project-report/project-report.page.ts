@@ -130,7 +130,6 @@ export class ProjectReportPage implements OnInit {
       .subscribe((res: any) => {
         if (res?.status === 200) {
           this.programList = res.result.data;
-          console.log(this.programList);
         }
       })
   }
@@ -175,14 +174,14 @@ export class ProjectReportPage implements OnInit {
       datasets: [{
         data: Object.values(filteredTaskData),
         backgroundColor: [
-          'rgb(255, 99, 132)',  // Red
-          'rgb(54, 162, 235)',  // Blue
-          'rgb(255, 205, 86)',  // Yellow
-          'rgb(255, 159, 64)',  // Orange
-          'rgb(75, 192, 192)',  // Green
-          'rgb(255, 99, 132)',  // Red
-          'rgb(54, 162, 235)',  // Blue
-          'rgb(255, 205, 86)',  // Yellow
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 205, 86)',
+          'rgb(255, 159, 64)',
+          'rgb(75, 192, 192)',
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 205, 86)',
         ],
         hoverOffset: 4
       }]
@@ -193,14 +192,14 @@ export class ProjectReportPage implements OnInit {
       datasets: [{
         data: Object.values(filteredCategoryData),
         backgroundColor: [
-          'rgb(255, 99, 132)',  // Red
-          'rgb(54, 162, 235)',  // Blue
-          'rgb(255, 205, 86)',  // Yellow
-          'rgb(255, 159, 64)',  // Orange
-          'rgb(75, 192, 192)',  // Green
-          'rgb(255, 99, 132)',  // Red
-          'rgb(54, 162, 235)',  // Blue
-          'rgb(255, 205, 86)',  // Yellow
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 205, 86)',
+          'rgb(255, 159, 64)',
+          'rgb(75, 192, 192)',
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 205, 86)',
         ],
         hoverOffset: 4
       }]
@@ -221,7 +220,7 @@ export class ProjectReportPage implements OnInit {
           options: {
             plugins: {
               legend: {
-                position: 'bottom', // Position legend at the bottom
+                position: 'bottom',
               },
               datalabels: {
                 formatter: (value, context) => {
@@ -229,7 +228,7 @@ export class ProjectReportPage implements OnInit {
                   const percentage = (value / total * 100).toFixed(1) + '%';
                   return percentage;
                 },
-                color: '#fff', // Data label color
+                color: '#fff',
                 anchor: 'end',
                 align: 'start'
               }
@@ -255,7 +254,7 @@ export class ProjectReportPage implements OnInit {
           options: {
             plugins: {
               legend: {
-                position: 'bottom', // Position legend at the bottom
+                position: 'bottom',
               },
               datalabels: {
                 formatter: (value, context) => {
@@ -263,7 +262,7 @@ export class ProjectReportPage implements OnInit {
                   const percentage = (value / total * 100).toFixed(1) + '%';
                   return percentage;
                 },
-                color: '#fff', // Data label color
+                color: '#fff',
                 anchor: 'end',
                 align: 'start'
               }
