@@ -98,11 +98,11 @@ export class ProjectReportPage implements OnInit {
               this.reportData = res.result.data;
               this.renderChart(this.reportData.tasks, this.reportData.categories); // Update charts after data fetch
             } else {
-              this.toastService.presentToast('No data available');
+              this.setOpen(true);
             }
           }
         }, (err: any) => {
-          this.toastService.presentToast(err?.error?.message);
+          this.toastService.presentToast(err?.error?.message,'danger');
         });
     } else {
       this.baseApiService.get(urlConfig[this.listType].listingUrl + `?reportType=${reportType}&programId=${this.programId}`)
