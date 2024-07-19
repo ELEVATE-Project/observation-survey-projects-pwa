@@ -1,6 +1,6 @@
 {
     "projectName": "Elevate",
-    "landingPageTitle": "Create account to connect, solve & share.",
+    "landingPageTitle": "Create account",
     "baseUrl": "https://dev.elevate-apis.shikshalokam.org",
     "redirectRouteOnLoginSuccess": "observation",
     "loginApiPath": "/elevate-interface/v2/account/login",

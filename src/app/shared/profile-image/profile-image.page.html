@@ -1,0 +1,32 @@
+<div class="profile-container ion-padding">
+  <div class="profile-image-container">
+    <div *ngIf="!profileImageData?.image || profileImageData?.image==''; else Img">
+      <img src="../../../../assets/prof-img/user.png" class="profile-image" />
+      <div *ngIf="isMobile" class="camera-icon-container">
+        <ion-icon name="camera" (click)="uploadPhoto('CAMERA'); clearFileInput();" class="camera-icon"></ion-icon>
+      </div>
+    </div>
+    <ng-template #Img>
+      <img src="{{profileImageData?.image}}" class="profile-image" />
+    </ng-template>
+  </div>
+  <div *ngIf="uploadImage" class="upload-button-container ion-margin">
+    <input type="file" (change)="upload($event)" #fileUpload accept="image/*" hidden>
+    <ion-button *ngIf="!profileImageData?.image || profileImageData?.image==''; else removePhoto;" fill="clear" expand="block" (click)="uploadPhoto('ADD_PHOTO'); clearFileInput();" class="upload-button">
+      {{ "ADD PHOTO" }}
+    </ion-button>
+    <ng-template #removePhoto>
+      <ion-button fill="clear" expand="block" (click)="uploadPhoto('REMOVE_PHOTO')" class="upload-button">
+        {{ ("REMOVE CURRENT PHOTO") }}
+      </ion-button>
+    </ng-template>
+  </div>
+  <div *ngIf="profileImageData" class="profile-info ion-text-center">
+    <div *ngIf="profileImageData?.name">
+      <p class="profile-name">{{ profileImageData?.name }}</p>
+    </div>
+    <div *ngIf="profileImageData?.location">
+      <p class="profile-location">{{ profileImageData?.location[0]?.label }}</p>
+    </div>
+  </div>
+</div>
