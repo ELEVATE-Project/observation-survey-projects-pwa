@@ -1,0 +1,25 @@
+
+.report-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.report-header h1{
+    color: black;
+}
+
+.report-header-select{
+    display: flex;
+}
+
+.report-header-menu{
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+}
+
+.report-header-menu ion-icon{
+    cursor: pointer;
+    color: black;
+}

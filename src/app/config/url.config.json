@@ -16,5 +16,12 @@
     },
     "profileListing": {
         "listingUrl": "/project/v1/profile/read"
+    },
+    "report":{
+        "listingUrl":"/project/v1/reports/entity"
+    },
+    "program":{
+        "listingUrl":"/project/v1/programs/list"
     }
+
 }

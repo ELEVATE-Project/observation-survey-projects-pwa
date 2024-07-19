@@ -17,6 +17,10 @@ const routes: Routes = [
     loadChildren: () => import('./project/project.module').then( m => m.ProjectPageModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'project-report',
+    loadChildren: () => import('./project-report/project-report.module').then( m => m.ProjectReportPageModule)
+  },
   { path: '', loadChildren: () => import('authentication_frontend_library').then(m => m.SlRoutingRoutingModule) },
 
   {
