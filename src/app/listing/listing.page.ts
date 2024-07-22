@@ -40,20 +40,17 @@ export class ListingPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    if (this.listType == 'project') {
       this.page = 1;
       this.solutionList = { data: [], count: 0 }
       this.getListData();
-    }
+
   }
 
   handleInput(event: any) {
-    if (this.listType == 'project') {
     this.searchTerm = event.target.value;
     this.page = 1;
     this.solutionList = { data: [], count: 0 };
     this.getListData();
-    }
   }
 
   async getListData() {
@@ -103,7 +100,4 @@ export class ListingPage implements OnInit {
     this.router.navigate(['project-details'], { state: data });
   }
 
-  navigateToProjectReport(){
-    this.router.navigate(['project-report'])
-  }
 }

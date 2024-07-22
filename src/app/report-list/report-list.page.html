@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" (click)="goBack()"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list class="listTitle">
+    <ion-row class="ion-margin">
+      <ion-col >
+        <ion-text color="primary">
+          <h1>{{stateData?.name}}</h1>
+          <p>{{stateData?.description}}</p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-md="6" class="listing-card" (click)="navigateToProjectReport()">
+        <ion-card class="tiel">
+          <div class="small-tiel"></div>
+          <div style="padding:10px;">
+            <h2 style="font-size: 18px;padding-bottom: 8px;"><b>Improvement Reports</b></h2>
+            <h6>View Project Reports</h6>
+          </div>
+          <div class="arrow-container">
+            <ion-icon name="arrow-forward-outline" class="arrow-icon"  size="large"></ion-icon>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

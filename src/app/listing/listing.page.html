@@ -16,19 +16,18 @@
         </ion-text>
       </ion-col>
     </ion-row>
-    @if (listType === 'project') {
       <ion-row class="srch">
         <ion-col size="12">
           <ion-searchbar class="srchBar" placeholder="Search your {{stateData?.listType}} here" [debounce]="1000"
             (ionInput)="handleInput($event)"></ion-searchbar>
         </ion-col>
       </ion-row>
-    }
+
   </ion-list>
 
   <ion-grid>
 
-    @if (listType === 'project') {
+
     <ion-row *ngIf="solutionList?.count > 0; else noData">
         @for (solution of solutionList?.data; track solution.id) {
         <ion-col size="12" size-md="6" class="listing-card" (click)="navigateToProject(solution)">
@@ -46,22 +45,9 @@
           <img src="assets/images/no_data.jpg" alt="No data">
         </div>
       </ng-template>
-    } @else {
-      <ion-row>
-      <ion-col size="12" size-md="6" class="listing-card" (click)="navigateToProjectReport()">
-        <ion-card class="tiel">
-          <div class="small-tiel"></div>
-          <div style="padding:10px;">
-            <h2 style="font-size: 18px;padding-bottom: 8px;"><b>Improvement Reports</b></h2>
-            <h6>View Project Reports</h6>
-          </div>
-          <div class="arrow-container">
-            <ion-icon name="arrow-forward-outline" class="arrow-icon"  size="large"></ion-icon>
-          </div>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-    }
+
+
+
 
 
   </ion-grid>
