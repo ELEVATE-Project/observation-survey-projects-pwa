@@ -158,7 +158,6 @@ export class ProjectReportPage implements OnInit {
       .subscribe((res: any) => {
         if (res?.status === 200) {
           this.downloadFile(res.result.data.downloadUrl, "data");
-          console.log(res.result.data);
         }
       })
   }
