@@ -15,11 +15,6 @@
           <p>{{stateData?.description}}</p>
         </ion-text>
       </ion-col>
-      @if (listType === 'project') {
-        <ion-col  class="add-project-col" size="4">
-          <ion-button (click)="navigateToAddProject()"  color="light"><ion-icon name="add-outline" class="add-button" ></ion-icon><span class="add-button"> Create New Project </span> </ion-button>
-        </ion-col>
-      }
     </ion-row>
     @if (listType === 'project') {
       <ion-row class="srch">

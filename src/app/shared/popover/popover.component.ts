@@ -12,7 +12,7 @@ export class PopoverComponent   {
   constructor(public popoverController:PopoverController ) { }
 
   onEvent(menu:any) {
-    this.popoverController.dismiss(menu.VALUE);
+    this.popoverController.dismiss(menu.value);
   }
 
 }

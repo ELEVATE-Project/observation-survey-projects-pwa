@@ -31,8 +31,6 @@
     "authentication_frontend_library": "^0.0.57",
     "chart.js": "^4.4.3",
     "chartjs-plugin-datalabels": "^2.2.0",
-    "dynamic-form-farhan": "^0.0.6",
-    "dynamic-form-ramkumar": "^0.0.13",
     "elevate-dynamic-form": "^0.0.8",
     "ionicons": "^7.0.0",
     "project-player": "^1.0.5",

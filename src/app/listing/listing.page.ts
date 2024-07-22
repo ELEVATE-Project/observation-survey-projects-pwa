@@ -103,9 +103,6 @@ export class ListingPage implements OnInit {
     this.router.navigate(['project-details'], { state: data });
   }
 
-  navigateToAddProject(){
-    this.router.navigate(['add-project']);
-  }
   navigateToProjectReport(){
     this.router.navigate(['project-report'])
   }

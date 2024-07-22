@@ -47,8 +47,9 @@
       <ion-item lines="none">
         <ion-grid>
           <ion-row>
-            @if (listResData[1]?.type === 'solutionList'){
-              @for (listData of listResData[1].listingData; track listData.id) {
+            @for (item of listResData; track $index) {
+              @if (item.type === 'solutionList'){
+                @for (listData of item.listingData; track listData.id) {
             <ion-col size="6" size-md="3" (click)="navigateTo(listData)">
               <ion-card class="tiels">
                 <ion-card-content>
@@ -59,14 +60,7 @@
             </ion-col>
             }
             }
-          <!-- <ion-col size="6" size-md="3" (click)="navigateTo(reportListingData)">
-            <ion-card class="tiels">
-              <ion-card-content>
-                <img [src]="reportListingData.img" alt="">
-                 <h1 style="color:black">{{reportListingData.name}}</h1>
-              </ion-card-content>
-            </ion-card>
-          </ion-col> -->
+            }
           </ion-row>
         </ion-grid>
       </ion-item>
