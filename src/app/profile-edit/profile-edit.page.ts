@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { LoaderService } from '../services/loader/loader.service';
 import { finalize, catchError, map } from 'rxjs/operators';
-import { combineLatest, forkJoin, of, throwError } from 'rxjs';
+import { combineLatest, of, throwError } from 'rxjs';
 import { ApiBaseService } from '../services/base-api/api-base.service';
 import { ToastService } from '../services/toast/toast.service';
 import urlConfig from 'src/app/config/url.config.json';
@@ -9,6 +9,7 @@ import { FETCH_Profile_FORM } from '../core/constants/formConstant';
 import { MainFormComponent } from 'elevate-dynamic-form';
 import { NavController } from '@ionic/angular';
 import { AttachmentService } from '../services/attachment/attachment.service';
+import { ProfileService } from '../services/profile/profile.service';
 @Component({
   selector: 'app-profile-edit',
   templateUrl: './profile-edit.page.html',
@@ -26,48 +27,39 @@ export class ProfileEditPage {
     private loader: LoaderService,
     private toastService: ToastService,
     private navCtrl: NavController,
-    private attachment: AttachmentService
-  ) {}
+    private attachment: AttachmentService,
+    private profileService: ProfileService
+  ) { }
 
   ionViewWillEnter() {
-    this.getFormJsonAndData();
+    this.loadFormAndData();
   }
 
-  async getFormJsonAndData() {
+  async loadFormAndData() {
     await this.loader.showLoading("Please wait while loading...");
-    const handleError = (message: string) => catchError(err => {
-      this.toastService.presentToast(err?.error?.message || message, 'danger');
-      return of({ status: 'error', result: {} });
+    this.profileService.getFormJsonAndData()
+    .pipe(
+      catchError((err) => {
+        this.toastService.presentToast(err?.error?.message || 'Error loading profile data. Please try again later.', 'danger');
+        throw err;
+      }),
+      finalize(async () => await this.loader.dismissLoading())
+    )
+    .subscribe(([formJsonRes, profileFormDataRes]: any) => {
+      if (formJsonRes?.status === 200 || profileFormDataRes?.status === 200) {
+        this.formJson = formJsonRes?.result?.data;
+        this.formData = profileFormDataRes?.result;
+        this.mapProfileDataToFormJson(this.formData);
+        this.formJson.map((control: any) => {
+          if (control.dynamicEntity) {
+            this.getOptionsData(control.name);
+          }
+        });
+      } else {
+        this.toastService.presentToast('Failed to load profile data. Please try again later.', 'danger');
+      }
     });
-
-    combineLatest([
-      this.apiBaseService.post(urlConfig['formListing'].listingUrl, FETCH_Profile_FORM)
-        .pipe(handleError('Error loading form JSON')),
-      this.apiBaseService.get(urlConfig['profileListing'].listingUrl)
-        .pipe(handleError('Error loading profile data'))
-    ])
-      .pipe(
-        finalize(async () => await this.loader.dismissLoading())
-      )
-      .subscribe(([formJsonRes, profileFormDataRes]: any) => {
-        if (formJsonRes?.status === 200) {
-          this.formJson = formJsonRes?.result?.data;
-        }
-        if (profileFormDataRes?.status === 200) {
-          this.formData = profileFormDataRes?.result;
-        }
-
-        if (this.formJson && this.formData) {
-          this.mapProfileDataToFormJson(this.formData);
-          this.formJson.map((control: any) => {
-            if (control.dynamicEntity) {
-              this.getOptionsData(control.name);
-            }
-          });
-        }
-      });
   }
-
 
   mapProfileDataToFormJson(formData?: any) {
     this.formJson.image = this.formData.image;
@@ -76,7 +68,6 @@ export class ProfileEditPage {
       const control = this.formJson.find((control: any) => control.name === key);
       if (control) {
         control.value = typeof (value) === 'string' ? String(value) : value?.value;
-
         const nextEntityType = this.getNextEntityType(control.name);
         if (nextEntityType) {
           this.getOptionsData(nextEntityType, control?.value);
@@ -171,7 +162,7 @@ export class ProfileEditPage {
         let payload = this.formLib?.myForm.value;
         payload.location = "bangalore";
         payload.about = "PWA";
-        this.formJson?.destFilePath ? payload.image = this.formJson?.destFilePath:"";
+        this.formJson?.destFilePath ? payload.image = this.formJson?.destFilePath : "";
         this.apiBaseService.patch(this.urlProfilePath.updateUrl, payload)
           .pipe(
             catchError(err => {
