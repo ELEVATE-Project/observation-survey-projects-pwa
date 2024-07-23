@@ -2,6 +2,8 @@ import { Component} from '@angular/core';
 import { ProfileService } from '../services/profile/profile.service';
 import { NavController } from '@ionic/angular';
 import { LoaderService } from '../services/loader/loader.service';
+import { catchError, finalize } from 'rxjs';
+import { ToastService } from '../services/toast/toast.service';
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +17,7 @@ export class ProfilePage {
   constructor(private profileService: ProfileService,
     private navCtrl: NavController,
     private loader: LoaderService,
+    private toastService: ToastService
   ){}
 
   ionViewWillEnter() {
@@ -24,15 +27,21 @@ export class ProfilePage {
   async loadFormAndData() {
     await this.loader.showLoading("Please wait while loading...");
 
-    this.profileService.getFormJsonAndData().subscribe(([formJsonRes, profileFormDataRes]: any) => {
-      if (formJsonRes?.status === 200) {
+    this.profileService.getFormJsonAndData()
+    .pipe(
+      catchError((err) => {
+        this.toastService.presentToast(err?.error?.message || 'Error loading profile data. Please try again later.', 'danger');
+        throw err;
+      }),
+      finalize(async () => await this.loader.dismissLoading())
+    )
+    .subscribe(([formJsonRes, profileFormDataRes]: any) => {
+      if(formJsonRes?.status === 200 || profileFormDataRes?.status === 200){
         this.formJson = formJsonRes?.result?.data;
-      }
-      if (profileFormDataRes?.status === 200) {
         this.formData = profileFormDataRes?.result;
-      }
-      if (this.formJson && this.formData) {
         this.mapProfileDataToFormJson(this.formData);
+      }else{
+        this.toastService.presentToast('Failed to load profile data. Please try again later.', 'danger');
       }
     });
   }

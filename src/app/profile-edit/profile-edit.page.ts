@@ -29,7 +29,7 @@ export class ProfileEditPage {
     private navCtrl: NavController,
     private attachment: AttachmentService,
     private profileService: ProfileService
-  ) {}
+  ) { }
 
   ionViewWillEnter() {
     this.loadFormAndData();
@@ -37,20 +37,26 @@ export class ProfileEditPage {
 
   async loadFormAndData() {
     await this.loader.showLoading("Please wait while loading...");
-    this.profileService.getFormJsonAndData().subscribe(([formJsonRes, profileFormDataRes]: any) => {
-      if (formJsonRes?.status === 200) {
+    this.profileService.getFormJsonAndData()
+    .pipe(
+      catchError((err) => {
+        this.toastService.presentToast(err?.error?.message || 'Error loading profile data. Please try again later.', 'danger');
+        throw err;
+      }),
+      finalize(async () => await this.loader.dismissLoading())
+    )
+    .subscribe(([formJsonRes, profileFormDataRes]: any) => {
+      if (formJsonRes?.status === 200 || profileFormDataRes?.status === 200) {
         this.formJson = formJsonRes?.result?.data;
-      }
-      if (profileFormDataRes?.status === 200) {
         this.formData = profileFormDataRes?.result;
-      }
-      if (this.formJson && this.formData) {
         this.mapProfileDataToFormJson(this.formData);
         this.formJson.map((control: any) => {
           if (control.dynamicEntity) {
             this.getOptionsData(control.name);
           }
         });
+      } else {
+        this.toastService.presentToast('Failed to load profile data. Please try again later.', 'danger');
       }
     });
   }
@@ -156,7 +162,7 @@ export class ProfileEditPage {
         let payload = this.formLib?.myForm.value;
         payload.location = "bangalore";
         payload.about = "PWA";
-        this.formJson?.destFilePath ? payload.image = this.formJson?.destFilePath:"";
+        this.formJson?.destFilePath ? payload.image = this.formJson?.destFilePath : "";
         this.apiBaseService.patch(this.urlProfilePath.updateUrl, payload)
           .pipe(
             catchError(err => {
