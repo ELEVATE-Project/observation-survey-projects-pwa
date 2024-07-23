@@ -1,0 +1,19 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" (click)="goBack()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Profile Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <app-profile-image [profileImageData]='formJson'></app-profile-image>
+
+  <ion-button routerLink="/profile-edit" expand="block" fill="primary" shape="solid">
+    Edit Profile
+  </ion-button>
+  <div class="ion-margin-top" *ngIf="formJson.length">
+    <dynamic-form [formJson]="formJson" #formLib></dynamic-form>
+  </div>
+</ion-content>
