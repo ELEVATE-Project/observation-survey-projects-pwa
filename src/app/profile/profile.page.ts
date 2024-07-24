@@ -55,13 +55,25 @@ export class ProfilePage {
         control.disabled =true;
         if (control.type === 'select') {
           control.type = 'text';
+        }else if(control.type === 'checkbox'){
+          control.type = 'chip'
         }
         control.value = typeof (value) === 'string' ? String(value) : value?.label;
+        // control.label = control.name;
+        control.validators = false
+        control.label = this.capitalizeLabel(control.name);
       }
     });
   }
 
   goBack() {
     this.navCtrl.back();
+  }
+
+  capitalizeLabel(label: string): string {
+    return label
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
   }
 }
