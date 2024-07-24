@@ -2,9 +2,9 @@
   <h1 >{{reportTitle}}</h1>
   <div class="report-header-select">
     <ion-select style="color: black;" aria-label="Program" interface="popover" placeholder="Select" [multiple]="false" [(ngModel)]="reportType" (ionChange)="getReportType(reportType)">
-      <ion-select-option value="0">Weekly</ion-select-option>
-      <ion-select-option value="1" selected>Monthly</ion-select-option>
-      <ion-select-option value="2">Quarterly</ion-select-option>
+      <ion-select-option value="0">{{period.weekly}}</ion-select-option>
+      <ion-select-option value="1" selected>{{period.monthly}}</ion-select-option>
+      <ion-select-option value="2">{{period.quarterly}}</ion-select-option>
     </ion-select>
     <div class="report-header-menu">
       <ion-icon   name="ellipsis-vertical-outline" (click)="openPopover($event)"></ion-icon>

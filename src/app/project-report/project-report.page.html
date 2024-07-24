@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-grid>
+  <!-- <ion-grid>
     <ion-row class="program-listing">
       <ion-col size="12" >
         <ion-list>
@@ -21,7 +21,7 @@
         </ion-list>
       </ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
 
   <ion-grid>
     <ion-row>
@@ -29,7 +29,7 @@
         <app-report-header [reportType]="reportType" [reportTitle]="'Project overview'" (emitReportType)="getReportType($event)" (emitReportAction)="getAction($event)"></app-report-header>
         <div>
           <ion-row>
-            @for (item of projectsArr; track $index) {
+            @for (item of projectsCategories; track $index) {
               <ion-col size="6" sizeSm="3">
                 <ion-card class="overview-cards">
                   <div class="overview-div">
@@ -76,7 +76,7 @@
           Sorry there is no data available for the entity or program you selected
         </p>
         <div class="modal-button">
-          <ion-button shape="round" (click)="setOpen(false)" fill="solid">ok</ion-button>
+          <ion-button shape="round" (click)="setOpen(false)" fill="solid">Ok</ion-button>
         </div>
       </ion-content>
     </ng-template>

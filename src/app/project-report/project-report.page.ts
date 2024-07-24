@@ -27,7 +27,7 @@ export class ProjectReportPage implements OnInit {
   isModalOpen = false;
   selectedProgram: string = "";
   programList: any;
-  projectsArr:any;
+  projectsCategories:any;
 
 
   constructor(
@@ -44,7 +44,7 @@ export class ProjectReportPage implements OnInit {
   ngOnInit() {
     this.listType = 'report';
     this.getReportData(this.reportType);
-     this.projectsArr = [
+     this.projectsCategories = [
       {
         name: 'Total Projects',
         img: '/assets/images/report-imgs/Note 1.svg',
@@ -66,7 +66,7 @@ export class ProjectReportPage implements OnInit {
         key: 'started',
       },
     ];
-    this.getPrograms();
+    // this.getPrograms();
     setTimeout(() => {
       this.renderChart(this.reportData?.tasks, this.reportData?.categories);
     });
@@ -87,7 +87,7 @@ export class ProjectReportPage implements OnInit {
 
   async getReportData(reportType: string) {
     await this.loader.showLoading('Please wait while loading...');
-    if (!this.programId) {
+    // if (!this.programId) {
       this.baseApiService.get(urlConfig[this.listType].listingUrl + `?reportType=${reportType}`)
         .pipe(finalize(async () => {
           await this.loader.dismissLoading();
@@ -104,35 +104,35 @@ export class ProjectReportPage implements OnInit {
         }, (err: any) => {
           this.toastService.presentToast(err?.error?.message,'danger');
         });
-    } else {
-      this.baseApiService.get(urlConfig[this.listType].listingUrl + `?reportType=${reportType}&programId=${this.programId}`)
-        .pipe(finalize(async () => {
-          await this.loader.dismissLoading();
-        }))
-        .subscribe((res: any) => {
-          if (res?.status === 200) {
-            if (res.result.dataAvailable) {
-              this.reportData = res.result.data;
-              this.renderChart(this.reportData.tasks, this.reportData.categories);
-            } else {
-              this.selectedProgram = "";
-              this.programId = "";
-              this.setOpen(true);
-            }
-          }
-        })
-    }
+    // } else {
+    //   this.baseApiService.get(urlConfig[this.listType].listingUrl + `?reportType=${reportType}&programId=${this.programId}`)
+    //     .pipe(finalize(async () => {
+    //       await this.loader.dismissLoading();
+    //     }))
+    //     .subscribe((res: any) => {
+    //       if (res?.status === 200) {
+    //         if (res.result.dataAvailable) {
+    //           this.reportData = res.result.data;
+    //           this.renderChart(this.reportData.tasks, this.reportData.categories);
+    //         } else {
+    //           this.selectedProgram = "";
+    //           this.programId = "";
+    //           this.setOpen(true);
+    //         }
+    //       }
+    //     })
+    // }
   }
 
-  async getPrograms() {
-    this.baseApiService.get(urlConfig["program"].listingUrl + `?pageNo=1&pageSize=1`)
-      .pipe(finalize(async () => { }))
-      .subscribe((res: any) => {
-        if (res?.status === 200) {
-          this.programList = res.result.data;
-        }
-      })
-  }
+  // async getPrograms() {
+  //   this.baseApiService.get(urlConfig["program"].listingUrl + `?pageNo=1&pageSize=1`)
+  //     .pipe(finalize(async () => { }))
+  //     .subscribe((res: any) => {
+  //       if (res?.status === 200) {
+  //         this.programList = res.result.data;
+  //       }
+  //     })
+  // }
 
   share() {
     console.log('this is share');
@@ -140,10 +140,10 @@ export class ProjectReportPage implements OnInit {
 
   getAction(event: any) {
     switch (event) {
-      case 'Download':
+      case 'download':
         this.download();
         break;
-      case 'Share':
+      case 'share':
         this.share();
         break;
     }
@@ -168,38 +168,30 @@ export class ProjectReportPage implements OnInit {
 
   const { total: categoryTotal, ...filteredCategoryData } = categoryData || {};
 
-    const data = {
+  const backgroundColors = [
+    'rgb(255, 99, 132)',
+    'rgb(54, 162, 235)',
+    'rgb(255, 205, 86)',
+    'rgb(255, 159, 64)',
+    'rgb(75, 192, 192)',
+    'rgb(255, 99, 132)',
+    'rgb(54, 162, 235)',
+    'rgb(255, 205, 86)',
+  ]
+    const dataForTask = {
       labels: Object.keys(filteredTaskData),
       datasets: [{
         data: Object.values(filteredTaskData),
-        backgroundColor: [
-          'rgb(255, 99, 132)',
-          'rgb(54, 162, 235)',
-          'rgb(255, 205, 86)',
-          'rgb(255, 159, 64)',
-          'rgb(75, 192, 192)',
-          'rgb(255, 99, 132)',
-          'rgb(54, 162, 235)',
-          'rgb(255, 205, 86)',
-        ],
+        backgroundColor: backgroundColors,
         hoverOffset: 4
       }]
     };
 
-    const data2 = {
+    const dataForCategory = {
       labels: Object.keys(filteredCategoryData),
       datasets: [{
         data: Object.values(filteredCategoryData),
-        backgroundColor: [
-          'rgb(255, 99, 132)',
-          'rgb(54, 162, 235)',
-          'rgb(255, 205, 86)',
-          'rgb(255, 159, 64)',
-          'rgb(75, 192, 192)',
-          'rgb(255, 99, 132)',
-          'rgb(54, 162, 235)',
-          'rgb(255, 205, 86)',
-        ],
+        backgroundColor: backgroundColors,
         hoverOffset: 4
       }]
     };
@@ -215,7 +207,7 @@ export class ProjectReportPage implements OnInit {
       if (ctx) {
         new Chart(ctx, {
           type: 'doughnut',
-          data: data,
+          data: dataForTask,
           options: {
             plugins: {
               legend: {
@@ -249,7 +241,7 @@ export class ProjectReportPage implements OnInit {
       if (ctx2) {
         new Chart(ctx2, {
           type: 'doughnut',
-          data: data2,
+          data: dataForCategory,
           options: {
             plugins: {
               legend: {

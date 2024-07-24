@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { PopoverComponent } from '../popover/popover.component';
+import { actions } from 'src/app/config/actionContants';
 
 @Component({
   selector: 'app-report-header',
@@ -12,10 +13,13 @@ export class ReportHeaderComponent {
   @Input() reportTitle: any;
   @Output() emitReportType = new EventEmitter<any>();
   @Output() emitReportAction = new EventEmitter<any>();
+  period:any;
 
   isOpen = false;
 
-  constructor(public popoverController: PopoverController,) {}
+  constructor(public popoverController: PopoverController,) {
+    this.setOptionList();
+  }
 
   getReportType(type: any) {
     this.emitReportType.emit(type);
@@ -29,11 +33,11 @@ export class ReportHeaderComponent {
     let menu:any =[
       {
         title: 'Share',
-        value: 'Share',
+        value: 'share',
       },
       {
         title: 'Download',
-        value: 'Download',
+        value: 'download',
       }
     ];
 
@@ -51,5 +55,9 @@ export class ReportHeaderComponent {
       }
     });
     return await popover.present();
+  }
+  setOptionList(){
+    let options:any = actions.PERIODS;
+    this.period= options;
   }
 }
