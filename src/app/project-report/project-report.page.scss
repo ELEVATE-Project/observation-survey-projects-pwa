@@ -57,7 +57,7 @@ ion-select{
   .overview-div{
     width: 30%;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
   }
 
   .overview-div img{
@@ -84,11 +84,15 @@ ion-select{
 
   .modal-button{
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
   }
 
   .modal-heading{
     padding-bottom: 5px;
   }
 
+  .chart-card h1{
+    color: black;
+    margin: 10px 0px 10px 0px;
+}
 

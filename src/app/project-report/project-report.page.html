@@ -48,8 +48,8 @@
       </ion-col>
       <ion-col size="12" sizeSm="6">
         <ion-card class="chart-card">
-          <app-report-header [reportType]="reportType" [reportTitle]="'Task overview'" (emitReportType)="getReportType($event)" (emitReportAction)="getAction($event)"></app-report-header>
-          <div style="display: flex;justify-content: center; padding-top: 10px;">
+          <h1 >Task overview</h1>
+          <div class="chart-card-div">
             <div class="chart-container">
               <canvas id="doughnutChart" ></canvas>
             </div>
@@ -58,7 +58,7 @@
       </ion-col>
       <ion-col size="12" sizeSm="6">
         <ion-card class="chart-card">
-          <app-report-header [reportType]="reportType" [reportTitle]="'Category overview'" (emitReportType)="getReportType($event)" (emitReportAction)="getAction($event)"></app-report-header>
+          <h1 >Category overview</h1>
           <div class="chart-card-div">
             <div class="chart-container">
               <canvas id="doughnutChartforcategory" ></canvas>
