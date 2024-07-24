@@ -3,10 +3,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .report-header h1{
     color: black;
+    font-size: 1rem !important;
 }
 
 .report-header-select{

@@ -28,7 +28,16 @@ export class ProjectReportPage implements OnInit {
   selectedProgram: string = "";
   programList: any;
   projectsCategories:any;
-
+   backgroundColors = [
+    'rgb(255, 99, 132)',
+    'rgb(54, 162, 235)',
+    'rgb(255, 205, 86)',
+    'rgb(255, 159, 64)',
+    'rgb(75, 192, 192)',
+    'rgb(255, 99, 132)',
+    'rgb(54, 162, 235)',
+    'rgb(255, 205, 86)',
+  ]
 
   constructor(
     private navCtrl: NavController,
@@ -150,14 +159,25 @@ export class ProjectReportPage implements OnInit {
   }
 
   async download() {
-    await this.loader.showLoading('Please wait while loading...');
+    await this.loader.showLoading('Please wait while downloading...');
     this.baseApiService.get(urlConfig[this.listType].listingUrl + `?requestPdf=true&reportType=${this.reportType}&programId=${this.programId}`)
       .pipe(finalize(async () => {
         await this.loader.dismissLoading();
       }))
       .subscribe((res: any) => {
         if (res?.status === 200) {
-          this.downloadFile(res.result.data.downloadUrl, "data");
+          if (res.result.data) {
+            const today = new Date();
+            const day = String(today.getDate()).padStart(2, '0');
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const year = today.getFullYear();
+            const formattedDate = `${day}-${month}-${year}`;
+            const name = `project-report_${formattedDate}`;
+            this.downloadFile(res.result.data.downloadUrl, name);
+          }
+          else{
+            this.toastService.presentToast("Downloading failed !!", 'danger');
+          }
         }
       })
   }
@@ -168,21 +188,11 @@ export class ProjectReportPage implements OnInit {
 
   const { total: categoryTotal, ...filteredCategoryData } = categoryData || {};
 
-  const backgroundColors = [
-    'rgb(255, 99, 132)',
-    'rgb(54, 162, 235)',
-    'rgb(255, 205, 86)',
-    'rgb(255, 159, 64)',
-    'rgb(75, 192, 192)',
-    'rgb(255, 99, 132)',
-    'rgb(54, 162, 235)',
-    'rgb(255, 205, 86)',
-  ]
     const dataForTask = {
       labels: Object.keys(filteredTaskData),
       datasets: [{
         data: Object.values(filteredTaskData),
-        backgroundColor: backgroundColors,
+        backgroundColor: this.backgroundColors,
         hoverOffset: 4
       }]
     };
@@ -191,7 +201,7 @@ export class ProjectReportPage implements OnInit {
       labels: Object.keys(filteredCategoryData),
       datasets: [{
         data: Object.values(filteredCategoryData),
-        backgroundColor: backgroundColors,
+        backgroundColor: this.backgroundColors,
         hoverOffset: 4
       }]
     };
