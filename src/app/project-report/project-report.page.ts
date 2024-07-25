@@ -102,12 +102,12 @@ export class ProjectReportPage implements OnInit {
         }))
         .subscribe((res: any) => {
           if (res?.status === 200) {
-            // if (res.result.dataAvailable) {
-            //   this.reportData = res.result.data;
-            //   this.renderChart(this.reportData.tasks, this.reportData.categories); // Update charts after data fetch
-            // } else {
+            if (res.result.dataAvailable) {
+              this.reportData = res.result.data;
+              this.renderChart(this.reportData.tasks, this.reportData.categories); // Update charts after data fetch
+            } else {
               this.setOpen(true);
-            // }
+            }
           }
         }, (err: any) => {
           this.toastService.presentToast(err?.error?.message,'danger');
