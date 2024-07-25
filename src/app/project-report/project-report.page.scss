@@ -88,12 +88,22 @@ ion-select{
   }
 
   .modal-heading{
-    padding-bottom: 5px;
+    margin-bottom: 8px;
+    font-size: 1.5rem;
   }
 
   .chart-card h1{
     color: black;
     margin: 10px 0px 10px 0px;
     font-size: 1rem !important;
+}
+
+.listTitle {
+  background: var(--ion-color-primary);
+
+  h1{
+    font-size: 1.563rem;
+    color: white;
+  }
 }
 

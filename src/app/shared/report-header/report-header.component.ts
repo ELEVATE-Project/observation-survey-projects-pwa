@@ -13,7 +13,7 @@ export class ReportHeaderComponent {
   @Input() reportTitle: any;
   @Output() emitReportType = new EventEmitter<any>();
   @Output() emitReportAction = new EventEmitter<any>();
-  period:any;
+  interval:any;
 
   isOpen = false;
 
@@ -57,7 +57,7 @@ export class ReportHeaderComponent {
     return await popover.present();
   }
   setOptionList(){
-    let options:any = actions.PERIODS;
-    this.period= options;
+    let options:any = actions.INTERVALS;
+    this.interval = options;
   }
 }

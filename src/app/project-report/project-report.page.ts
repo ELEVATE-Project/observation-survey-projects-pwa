@@ -60,17 +60,17 @@ export class ProjectReportPage implements OnInit {
         key: 'total',
       },
       {
-        name: 'Projects submitted',
+        name: 'Projects Submitted',
         img: '/assets/images/report-imgs/note.svg',
         key: 'submitted',
       },
       {
-        name: 'Projects inProgress',
+        name: 'Projects In Progress',
         img: '/assets/images/report-imgs/Note 4.svg',
         key: 'inProgress',
       },
       {
-        name: 'Projects started',
+        name: 'Projects Started',
         img: '/assets/images/report-imgs/Note 3.svg',
         key: 'started',
       },
@@ -96,41 +96,23 @@ export class ProjectReportPage implements OnInit {
 
   async getReportData(reportType: string) {
     await this.loader.showLoading('Please wait while loading...');
-    // if (!this.programId) {
       this.baseApiService.get(urlConfig[this.listType].listingUrl + `?reportType=${reportType}`)
         .pipe(finalize(async () => {
           await this.loader.dismissLoading();
         }))
         .subscribe((res: any) => {
           if (res?.status === 200) {
-            if (res.result.dataAvailable) {
-              this.reportData = res.result.data;
-              this.renderChart(this.reportData.tasks, this.reportData.categories); // Update charts after data fetch
-            } else {
+            // if (res.result.dataAvailable) {
+            //   this.reportData = res.result.data;
+            //   this.renderChart(this.reportData.tasks, this.reportData.categories); // Update charts after data fetch
+            // } else {
               this.setOpen(true);
-            }
+            // }
           }
         }, (err: any) => {
           this.toastService.presentToast(err?.error?.message,'danger');
         });
-    // } else {
-    //   this.baseApiService.get(urlConfig[this.listType].listingUrl + `?reportType=${reportType}&programId=${this.programId}`)
-    //     .pipe(finalize(async () => {
-    //       await this.loader.dismissLoading();
-    //     }))
-    //     .subscribe((res: any) => {
-    //       if (res?.status === 200) {
-    //         if (res.result.dataAvailable) {
-    //           this.reportData = res.result.data;
-    //           this.renderChart(this.reportData.tasks, this.reportData.categories);
-    //         } else {
-    //           this.selectedProgram = "";
-    //           this.programId = "";
-    //           this.setOpen(true);
-    //         }
-    //       }
-    //     })
-    // }
+
   }
 
   // async getPrograms() {
@@ -183,24 +165,35 @@ export class ProjectReportPage implements OnInit {
   }
 
   renderChart(taskData: any, categoryData: any): void {
+    const capitalizeAndSpaceKeys = (obj:any) => {
+      return Object.keys(obj).reduce((acc:any, key) => {
+        const spacedKey = key.replace(/([a-z])([A-Z])/g, '$1 $2');
+        const capitalizedKey = spacedKey.charAt(0).toUpperCase() + spacedKey.slice(1);
+        acc[capitalizedKey] = obj[key];
+        return acc;
+      }, {});
+    };
 
-  const { total: taskTotal, ...filteredTaskData } = taskData || {};
+    const { total: taskTotal, ...filteredTaskData } = taskData || {};
+    const { total: categoryTotal, ...filteredCategoryData } = categoryData || {};
 
-  const { total: categoryTotal, ...filteredCategoryData } = categoryData || {};
+    const capitalizedTaskData = capitalizeAndSpaceKeys(filteredTaskData);
+    const capitalizedCategoryData = capitalizeAndSpaceKeys(filteredCategoryData);
+
 
     const dataForTask = {
-      labels: Object.keys(filteredTaskData),
+      labels: Object.keys(capitalizedTaskData),
       datasets: [{
-        data: Object.values(filteredTaskData),
+        data: Object.values(capitalizedTaskData),
         backgroundColor: this.backgroundColors,
         hoverOffset: 4
       }]
     };
 
     const dataForCategory = {
-      labels: Object.keys(filteredCategoryData),
+      labels: Object.keys(capitalizedCategoryData),
       datasets: [{
-        data: Object.values(filteredCategoryData),
+        data: Object.values(capitalizedCategoryData),
         backgroundColor: this.backgroundColors,
         hoverOffset: 4
       }]

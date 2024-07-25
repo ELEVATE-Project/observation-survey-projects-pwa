@@ -40,10 +40,9 @@ export class ListingPage implements OnInit {
   }
 
   ionViewWillEnter() {
-      this.page = 1;
-      this.solutionList = { data: [], count: 0 }
-      this.getListData();
-
+    this.page = 1;
+    this.solutionList = { data: [], count: 0 }
+    this.getListData();
   }
 
   handleInput(event: any) {
@@ -99,5 +98,4 @@ export class ListingPage implements OnInit {
   navigateToProject(data: any) {
     this.router.navigate(['project-details'], { state: data });
   }
-
 }

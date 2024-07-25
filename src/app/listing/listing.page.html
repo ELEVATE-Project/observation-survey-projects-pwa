@@ -9,25 +9,22 @@
 <ion-content>
   <ion-list class="listTitle">
     <ion-row class="ion-margin">
-      <ion-col >
+      <ion-col size="12">
         <ion-text color="primary">
           <h1>{{stateData?.name}}</h1>
           <p>{{stateData?.description}}</p>
         </ion-text>
       </ion-col>
     </ion-row>
+
       <ion-row class="srch">
         <ion-col size="12">
           <ion-searchbar class="srchBar" placeholder="Search your {{stateData?.listType}} here" [debounce]="1000"
             (ionInput)="handleInput($event)"></ion-searchbar>
         </ion-col>
       </ion-row>
-
   </ion-list>
-
   <ion-grid>
-
-
     <ion-row *ngIf="solutionList?.count > 0; else noData">
         @for (solution of solutionList?.data; track solution.id) {
         <ion-col size="12" size-md="6" class="listing-card" (click)="navigateToProject(solution)">
@@ -45,11 +42,6 @@
           <img src="assets/images/no_data.jpg" alt="No data">
         </div>
       </ng-template>
-
-
-
-
-
   </ion-grid>
 </ion-content>
 <ion-footer *ngIf="!(solutionList?.count === 0 || solutionList?.count === solutionList?.data?.length)">

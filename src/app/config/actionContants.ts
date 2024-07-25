@@ -1,5 +1,5 @@
 export const actions = {
-    PERIODS : {
+    INTERVALS : {
         weekly:"Weekly",
         monthly:"Monthly",
         quarterly:"Quarterly"
