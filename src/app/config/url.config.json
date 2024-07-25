@@ -21,5 +21,11 @@
         "subEntityUrl": "/subEntityList",
         "getSessionImageUploadUrl":"/elevate-user/v1/cloud-services/file/getSignedUrl?fileName=",
         "getDownloadableUrl":"/elevate-user/v1/cloud-services/file/getDownloadableUrl?filePath="
+    },
+    "report":{
+        "listingUrl":"/project/v1/reports/entity"
+    },
+    "program":{
+        "listingUrl":"/project/v1/programs/list"
     }
 }

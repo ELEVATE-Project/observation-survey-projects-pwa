@@ -16,7 +16,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ng-container *ngFor="let listData of listResData">
+  <ng-container *ngFor="let listData of solutionList">
     <ng-container *ngTemplateOutlet="typeTemplateMapping[listData?.type]"></ng-container>
   </ng-container>
 
@@ -24,8 +24,8 @@
     <ion-list lines="none">
       <div>
         <swiper-container>
-          @for (listData of listResData; track listData.id) {
-          @if (listData?.type == 'bannerList'){
+          @for (listData of solutionList; track listData.id) {
+          @if (listData?.type === 'bannerList'){
           @for (banner of listData?.listingData; track banner.id) {
           <swiper-slide>
             <ion-card class="banner">
@@ -47,16 +47,18 @@
       <ion-item lines="none">
         <ion-grid>
           <ion-row>
-            @for (listData of listResData; track listData.id) {
-            @if (listData?.type == 'solutionList'){
-            <ion-col size="6" size-md="3" (click)="navigateTo(listData?.listingData)">
+            @for (item of solutionList; track $index) {
+              @if (item.type === 'solutionList'){
+                @for (listData of item.listingData; track listData.id) {
+            <ion-col size="6" size-md="3" (click)="navigateTo(listData)">
               <ion-card class="tiels">
                 <ion-card-content>
-                  <img [src]="listData?.listingData?.img" alt="">
-                  <h1 style="color:black">{{listData?.listingData?.name}}</h1>
+                  <img [src]="listData?.img" alt="">
+                  <h1 style="color:black">{{listData?.name}}</h1>
                 </ion-card-content>
               </ion-card>
             </ion-col>
+            }
             }
             }
           </ion-row>

@@ -23,11 +23,12 @@ export class HomePage {
   authService: AuthService;
   toastService: any;
   loader: LoaderService;
-  listResData: any = [];
+  solutionList: any = [];
   typeTemplateMapping: { [key: string]: TemplateRef<any> } = {};
   @ViewChild('bannerTemplate') bannerTemplate!: TemplateRef<any>;
   @ViewChild('solutionTemplate') solutionTemplate!: TemplateRef<any>;
   @ViewChild('recommendationTemplate') recommendationTemplate!: TemplateRef<any>;
+
 
   constructor(private http: HttpClient, private router: Router) {
     this.baseApiService = inject(ApiBaseService);
@@ -53,7 +54,7 @@ export class HomePage {
       .subscribe((res: any) => {
         if (res?.status === 200) {
           if (res?.result) {
-            this.listResData = res?.result?.data;
+            this.solutionList = res?.result?.data;
           }
           this.typeTemplateMapping = {
             "bannerList": this.bannerTemplate,

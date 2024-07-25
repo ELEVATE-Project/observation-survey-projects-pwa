@@ -4,8 +4,15 @@ import { AuthGuard } from 'authentication_frontend_library';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
-    canActivate: [AuthGuard]
+    loadChildren: () => import('./home/home.module').then((m) => m.HomePageModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'list/report',
+    loadChildren: () =>
+      import('./report-list/report-list.module').then(
+        (m) => m.ReportListPageModule
+      ),
   },
   {
     path: 'listing/:type',
@@ -18,6 +25,12 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'project-report',
+    loadChildren: () => import('./project-report/project-report.module').then( m => m.ProjectReportPageModule)
+  },
+  { path: '', loadChildren: () => import('authentication_frontend_library').then(m => m.SlRoutingRoutingModule) },
+  {
+
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   },

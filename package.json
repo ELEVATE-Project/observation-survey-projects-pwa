@@ -29,11 +29,14 @@
     "@capacitor/status-bar": "6.0.0",
     "@ionic/angular": "^7.0.0",
     "authentication_frontend_library": "^0.0.59",
+    "chart.js": "^4.4.3",
+    "chartjs-plugin-datalabels": "^2.2.0",
+    "elevate-dynamic-form": "^0.0.8",
     "ionicons": "^7.0.0",
     "project-player": "^1.0.5",
     "rxjs": "~7.8.0",
     "swiper": "^11.1.1",
-    "tslib": "^2.3.0",
+    "tslib": "^2.6.3",
     "zone.js": "~0.14.2"
   },
   "devDependencies": {
