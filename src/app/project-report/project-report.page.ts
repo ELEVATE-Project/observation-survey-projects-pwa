@@ -199,14 +199,14 @@ export class ProjectReportPage implements OnInit {
       }]
     };
 
-    const canvas = document.getElementById('doughnutChart') as HTMLCanvasElement;
-    const canvas2 = document.getElementById('doughnutChartforcategory') as HTMLCanvasElement;
-    if (canvas) {
-      const existingChart = Chart.getChart(canvas);
+    const taskCanvas = document.getElementById('doughnutChart') as HTMLCanvasElement;
+    const Categoriescanvas = document.getElementById('doughnutChartforcategory') as HTMLCanvasElement;
+    if (taskCanvas) {
+      const existingChart = Chart.getChart(taskCanvas);
       if (existingChart) {
         existingChart.destroy();
       }
-      const ctx = canvas.getContext('2d');
+      const ctx = taskCanvas.getContext('2d');
       if (ctx) {
         new Chart(ctx, {
           type: 'doughnut',
@@ -235,12 +235,12 @@ export class ProjectReportPage implements OnInit {
       console.error('Canvas element not found');
     }
 
-    if (canvas2) {
-      const existingChart2 = Chart.getChart(canvas2);
+    if (Categoriescanvas) {
+      const existingChart2 = Chart.getChart(Categoriescanvas);
       if(        existingChart2) {
         existingChart2.destroy();
       }
-      const ctx2 = canvas2.getContext('2d');
+      const ctx2 = Categoriescanvas.getContext('2d');
       if (ctx2) {
         new Chart(ctx2, {
           type: 'doughnut',

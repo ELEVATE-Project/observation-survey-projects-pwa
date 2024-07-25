@@ -53,16 +53,6 @@ mat-label {
   overflow-y: auto !important;
  }
 
- .mat-mdc-standard-chip.mdc-evolution-chip--selected:not(.mdc-evolution-chip--disabled){
-  background-color: var(--color-primary) !important;
- }
-
- .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled) {
-  background-color: var(--color-primary) !important;
- }
-
-
-
 
 :root {
   --ion-default-font: "NotoSans-Regular";
