@@ -60,7 +60,7 @@ export class ProfilePage {
         }
         control.value = typeof (value) === 'string' ? String(value) : value?.label;
         control.validators = false
-        control.label = this.capitalizeLabel(control.name);
+        control.label = this.capitalizeLabelFirstLetter(control.name);
       }
     });
   }
@@ -69,7 +69,7 @@ export class ProfilePage {
     this.navCtrl.back();
   }
 
-  capitalizeLabel(label: string): string {
+  capitalizeLabelFirstLetter(label: string): string {
     if (!label) return '';
     return label.charAt(0).toUpperCase() + label.slice(1).toLowerCase();
   }
