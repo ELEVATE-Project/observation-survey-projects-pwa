@@ -4,7 +4,6 @@ import { NavController } from '@ionic/angular';
 import { LoaderService } from '../services/loader/loader.service';
 import { catchError, finalize } from 'rxjs';
 import { ToastService } from '../services/toast/toast.service';
-
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -26,7 +25,6 @@ export class ProfilePage {
 
   async loadFormAndData() {
     await this.loader.showLoading("Please wait while loading...");
-
     this.profileService.getFormJsonAndData()
     .pipe(
       catchError((err) => {
@@ -55,13 +53,24 @@ export class ProfilePage {
         control.disabled =true;
         if (control.type === 'select') {
           control.type = 'text';
+        }else if(control.type === 'checkbox'){
+          control.type = 'chip'
+        }else{
+          control.type = 'text';
         }
         control.value = typeof (value) === 'string' ? String(value) : value?.label;
+        control.validators = false
+        control.label = this.capitalizeLabelFirstLetter(control.name);
       }
     });
   }
 
   goBack() {
     this.navCtrl.back();
+  }
+
+  capitalizeLabelFirstLetter(label: string): string {
+    if (!label) return '';
+    return label.charAt(0).toUpperCase() + label.slice(1).toLowerCase();
   }
 }

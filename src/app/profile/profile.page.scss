@@ -1,0 +1,63 @@
+.container {
+    margin: 1.563rem 2.5rem;
+}
+
+.details {
+    margin-top: 3.125rem;
+}
+
+.top-screen {
+    background-color: var(--color-primary);
+}
+
+ion-label {
+
+    h2,
+    p {
+        color: white;
+    }
+
+    h2 {
+        font-weight: bolder;
+        font-size: larger;
+    }
+}
+
+ion-button {
+    color: var(--color-primary);
+}
+
+mat-label {
+    font-weight: 700 !important;
+}
+
+.mdc-text-field--filled.mdc-text-field--disabled .mdc-text-field__input {
+    color: var(--color-grey) !important;
+}
+
+.center-aligned {
+    justify-content: center;
+    align-items: center;
+    height: 12.5rem;
+}
+
+app-profile-image {
+    float: right;
+}
+
+@media (max-width:768px) {
+    .center-aligned {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: auto;
+    }
+
+    .details {
+        margin-top: -1.25rem;
+    }
+
+    app-profile-image {
+        float: none;
+    }
+}

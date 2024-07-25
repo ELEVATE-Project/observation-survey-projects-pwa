@@ -8,12 +8,27 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-profile-image [profileImageData]='formJson'></app-profile-image>
+  <div class="top-screen">
 
-  <ion-button routerLink="/profile-edit" expand="block" fill="primary" shape="solid">
-    Edit Profile
-  </ion-button>
-  <div class="ion-margin-top" *ngIf="formJson.length">
+    <ion-grid>
+      <ion-row class="center-aligned">
+        <ion-col size="12" size-md="4">
+          <app-profile-image [profileImageData]='formJson'></app-profile-image>
+        </ion-col>
+        <ion-col size="12" size-md="8" class="details">
+          <ion-label>
+            <h2>{{formData?.name}}</h2>
+            <p>{{formData?.email}}</p>
+          </ion-label>
+          <ion-button routerLink="/profile-edit" fill="light" shape="round" class="mt-5">
+            Edit Profile
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div class="ion-margin-top container" *ngIf="formJson.length">
     <dynamic-form [formJson]="formJson" #formLib></dynamic-form>
   </div>
 </ion-content>
