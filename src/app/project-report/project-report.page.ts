@@ -154,7 +154,7 @@ export class ProjectReportPage implements OnInit {
             const month = String(today.getMonth() + 1).padStart(2, '0');
             const year = today.getFullYear();
             const formattedDate = `${day}-${month}-${year}`;
-            const name = `project-report_${formattedDate}`;
+            const name = `report_${formattedDate}`;
             this.downloadFile(res.result.data.downloadUrl, name);
           }
           else{
