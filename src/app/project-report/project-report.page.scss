@@ -55,7 +55,6 @@ ion-select{
   }
 
   .overview-div{
-    width: 30%;
     display: flex;
     justify-content: flex-start;
   }
@@ -68,6 +67,7 @@ ion-select{
   .overview-description{
     display: flex;
     flex-direction: column;
+    margin-left: 20px;
   }
 
   .chart-card{
