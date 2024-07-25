@@ -70,9 +70,7 @@ export class ProfilePage {
   }
 
   capitalizeLabel(label: string): string {
-    return label
-      .split(' ')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(' ');
+    if (!label) return '';
+    return label.charAt(0).toUpperCase() + label.slice(1).toLowerCase();
   }
 }
