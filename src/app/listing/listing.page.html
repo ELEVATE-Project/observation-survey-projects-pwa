@@ -24,6 +24,16 @@
         </ion-col>
       </ion-row>
   </ion-list>
+  
+  <ion-segment class="custom-segment" [(ngModel)]="filter" (ionChange)="filterChanged($event)">
+    <ion-segment-button value="assignedToMe">
+      <ion-label>Assigned to me</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="discoveredByMe">
+      <ion-label>Discovered by me</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  
   <ion-grid>
     <ion-row *ngIf="solutionList?.count > 0; else noData">
         @for (solution of solutionList?.data; track solution.id) {

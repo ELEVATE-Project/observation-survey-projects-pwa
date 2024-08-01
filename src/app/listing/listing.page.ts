@@ -51,6 +51,11 @@ export class ListingPage implements OnInit {
     this.solutionList = { data: [], count: 0 };
     this.getListData();
   }
+  filterChanged(event:any){
+    this.solutionList={data:[],count:0}
+    this.page = 1;
+    this.getListData()
+  }
 
   async getListData() {
     await this.loader.showLoading("Please wait while loading...");

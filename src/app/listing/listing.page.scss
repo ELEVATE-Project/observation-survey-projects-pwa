@@ -91,3 +91,41 @@ h2 {
     max-width: 26%;
   }
 }
+
+.custom-segment {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto;
+  padding: 2px;
+}
+
+
+.custom-segment ion-segment-button {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #fff;
+  padding: 2px; 
+  margin: 0 2px; 
+  font-size: 16px;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-segment ion-segment-button ion-label {
+  white-space: normal; 
+  overflow: visible; 
+  text-align: center; 
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
+}
+
+@media (max-width: 767px) {
+  .custom-segment ion-segment-button {
+    font-size: 12px;
+  }
+}
