@@ -24,14 +24,12 @@
         </ion-col>
       </ion-row>
   </ion-list>
-  
   <ion-segment class="custom-segment" [(ngModel)]="filter" (ionChange)="filterChanged($event)">
-    <ion-segment-button value="assignedToMe">
-      <ion-label>Assigned to me</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="discoveredByMe">
-      <ion-label>Discovered by me</ion-label>
-    </ion-segment-button>
+    @for (filter of filters;track filter) {
+      <ion-segment-button [value]="filter.value">
+        <ion-label>{{ filter.label }}</ion-label>
+      </ion-segment-button>
+    }
   </ion-segment>
   
   <ion-grid>

@@ -7,6 +7,7 @@ import { LoaderService } from '../services/loader/loader.service';
 import { ToastService } from '../services/toast/toast.service';
 import { NavController } from '@ionic/angular';
 import { finalize } from 'rxjs';
+import { actions } from 'src/app/config/actionContants';
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.page.html',
@@ -23,7 +24,9 @@ export class ListingPage implements OnInit {
   stateData: any;
   page: number = 1;
   limit: number = 10;
-  filter = "assignedToMe"
+  filter = "assignedToMe";
+  filters=actions.FILTERS;
+
   constructor(private navCtrl: NavController, private router: Router
   ) {
     this.baseApiService = inject(ApiBaseService);
