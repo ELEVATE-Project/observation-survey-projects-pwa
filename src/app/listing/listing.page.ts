@@ -25,7 +25,7 @@ export class ListingPage implements OnInit {
   page: number = 1;
   limit: number = 10;
   filter = "assignedToMe";
-  filters=actions.FILTERS;
+  filters=actions.PROJECT_FILTERS;
 
   constructor(private navCtrl: NavController, private router: Router
   ) {

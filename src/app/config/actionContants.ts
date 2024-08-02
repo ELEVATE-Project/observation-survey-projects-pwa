@@ -4,7 +4,7 @@ export const actions = {
         monthly:"Monthly",
         quarterly:"Quarterly"
     },
-    FILTERS : [
+    PROJECT_FILTERS : [
         { value: 'assignedToMe', label: 'Assigned to me' },
         { value: 'discoveredByMe', label: 'Discovered by me' }
     ]
