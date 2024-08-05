@@ -9,6 +9,7 @@ import { ProjectReportPageRoutingModule } from './project-report-routing.module'
 import { ProjectReportPage } from './project-report.page';
 import { PopoverComponent } from '../shared/popover/popover.component';
 import { ReportHeaderComponent } from '../shared/report-header/report-header.component';
+
 @NgModule({
   imports: [
     CommonModule,
