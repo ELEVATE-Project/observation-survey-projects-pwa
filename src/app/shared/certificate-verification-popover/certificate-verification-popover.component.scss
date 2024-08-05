@@ -29,8 +29,8 @@
     align-items: center;
   } 
   .pop-icon-container img {
-    width: 5rem;
-    height: 5rem;
+    width: 80%;
+    height: 80%;
 }
 .certificate-details {
     display: flex;
@@ -65,8 +65,8 @@
   }
   
   .pop-footer button {
-    background-color: rgb(131, 34, 21) !important; 
-    color: #fff !important; 
+    background-color: var(--color-primary);
+    color:var(--color-light);
     border-radius: 50px;
     margin:0.5rem;
     padding: 10px 20px; 
