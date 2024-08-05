@@ -1,0 +1,75 @@
+.pop-contianer {
+    padding:1rem;
+    margin: 1rem;
+}
+.pop-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+}
+.pop-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+  
+.pop-close {
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+.pop-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.pop-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  } 
+  .pop-icon-container img {
+    width: 5rem;
+    height: 5rem;
+}
+.certificate-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 2px;
+  }
+  
+  .certificate-issued-to {
+    color: blue;
+    font-size: 1rem;
+  }
+  
+  .certificate-recipient {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .certificate-message,
+  .certificate-project,
+  .certificate-date {
+    margin-top: 2px;
+    font-size: 0.9rem;
+  }
+
+  .pop-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .pop-footer button {
+    background-color: rgb(131, 34, 21) !important; 
+    color: #fff !important; 
+    border-radius: 50px;
+    margin:0.5rem;
+    padding: 10px 20px; 
+    font-size: 1rem;
+    font-weight: bold; 
+  }

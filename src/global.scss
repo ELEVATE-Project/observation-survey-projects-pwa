@@ -127,3 +127,13 @@ body {
 ion-segment-button {
   text-transform:none;
 }
+
+.my-custom-class {
+  --min-width: 38%;
+  --max-width: 38%;
+
+@media (max-width: 600px) {
+  --min-width: 80%;
+  --max-width: 80%;
+}
+}
