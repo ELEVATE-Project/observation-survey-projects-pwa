@@ -19,16 +19,16 @@
   </ion-list>
   <ion-grid>
     <ion-row>
-      @for(project of projects;track project){
+      @for(certificate of certificates;track certificate){
         <ion-col size="12" size-md="6">
           <ion-card class="card-container">
             <ion-card-content class="card-content">
-              <div class="training-1">
-                <div class="certificate-title">{{ project.title }}</div>
-                <div class="certificate-details">{{ project.completedDate | date: 'dd/MM/yyyy' }}</div>
-                <div class="certificate-status">{{ project?.status | titlecase }}</div>
+              <div class="certificate">
+                <div class="certificate-title">{{ certificate.title }}</div>
+                <div class="certificate-details">{{ certificate.completedDate | date: 'dd/MM/yyyy' }}</div>
+                <div class="certificate-status">{{ certificate?.status | titlecase }}</div>
               </div>
-              <div class="training-2">
+              <div class="certificate-icon">
                 <button class="certificate-icon-button">
                   <ion-icon class="view-icon" name="eye"></ion-icon>
                   <span class="certificate-text">View</span>

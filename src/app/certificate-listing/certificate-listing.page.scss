@@ -23,7 +23,7 @@
     justify-content: space-between;
     align-items: center;
 }
-.training-1{
+.certificate{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -32,7 +32,7 @@
     color: var(--ion-color-primary);
     font-size:16px;
     font-weight: bold;
-    white-space: nowrap;
+    white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
     margin-bottom: 0.5rem;
@@ -48,7 +48,7 @@
     color: green;
 }
 
-.training-2{
+.certificate-icon {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -75,27 +75,3 @@
     font-size: 1rem;
     color: var(--ion-color-primary);
 }
-  @media (max-width: 600px) {
-    .main-content {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .training-1 {
-      margin-right: 0;
-      margin-bottom: 1rem;
-    }
-  
-    .certificate-title {
-      white-space: normal;
-    }
-    .training-2{
-        justify-content: center;
-        width: auto;
-    }
-  
-    .certificate-icon-button {
-      width: auto;
-      justify-content: center;
-    }
-  }

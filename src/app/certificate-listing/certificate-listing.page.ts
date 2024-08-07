@@ -7,7 +7,7 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./certificate-listing.page.scss'],
 })
 export class CertificateListingPage implements OnInit {
-  projects:any;
+  certificates:any;
   constructor(private navCtrl: NavController) { }
 
   ngOnInit() {
