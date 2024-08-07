@@ -47,19 +47,30 @@ export class ProfilePage {
   mapProfileDataToFormJson(formData?: any) {
     this.formJson.image = this.formData.image;
     this.formJson.isUploaded = true;
+    if (formData.user_roles) {
+      formData.user_roles = formData.user_roles.map((role: any) => ({
+        ...role,
+        value: role.title
+      }));
+    }
+    if (!this.formJson.find((control: any) => control.name === 'user_roles')) {
+      this.formJson.push({ name: 'user_roles', type:'text' });
+    }
     Object.entries(formData).map(([key, value]: any) => {
       const control = this.formJson.find((control: any) => control.name === key);
       if (control) {
-        control.disabled =true;
-        if (control.type === 'select') {
+        control.disabled = true;
+        if (control.type === 'select' || control.type === 'chip') {
           control.type = 'text';
-        }else if(control.type === 'checkbox'){
-          control.type = 'chip'
-        }else{
-          control.type = 'text';
+        } else {
+          control.type = control.type;
         }
-        control.value = typeof (value) === 'string' ? String(value) : value?.label;
-        control.validators = false
+        if(Array.isArray(value)) {
+          control.value = value.map((item: any) => item.value || item);
+        } else {
+          control.value = typeof value === 'string' ? String(value) : value?.label;
+        }
+        control.validators = false;
         control.label = this.capitalizeLabelFirstLetter(control.name);
       }
     });
