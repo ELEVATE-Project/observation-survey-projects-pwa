@@ -6,6 +6,7 @@ import { ProfilePageRoutingModule } from './profile-routing.module';
 import { ProfilePage } from './profile.page';
 import { DynamicFormModule } from 'elevate-dynamic-form';
 import { ProfileImagePageModule } from "../shared/profile-image/profile-image.module";
+import { CertificateListingPage } from '../certificate-listing/certificate-listing.page';
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { ProfileImagePageModule } from "../shared/profile-image/profile-image.mo
     DynamicFormModule,
     ProfileImagePageModule
 ],
-  declarations: [ProfilePage]
+  declarations: [ProfilePage,CertificateListingPage]
 })
 export class ProfilePageModule {}
