@@ -6,7 +6,10 @@
         "listingUrl": "/project/v1/solutions/list"
     },
     "project": {
-        "listingUrl": "/project/v1/solutions/targetedSolutions"
+        "listingUrl": "/project/v1/solutions/targetedSolutions",
+        "verifyLink": "/project/v1/solutions/verifyLink/",
+        "categoriesList": "/project/v1/library/categories/list",
+        "projectCategories": "/project/v1/library/categories/projects/"
     },
     "formListing": {
         "listingUrl": "/project/v1/forms/read"
