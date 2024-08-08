@@ -47,17 +47,20 @@ export class ProfilePage {
   mapProfileDataToFormJson(formData?: any) {
     this.formJson.image = this.formData.image;
     this.formJson.isUploaded = true;
+    this.formJson.forEach((control: any) => {
+      if (!(control.name in formData)) {
+        formData[control.name] = control.defaultValue || '';
+      }
+    });
+
     if (formData.user_roles) {
       formData.user_roles = formData.user_roles.map((role: any) => ({
         ...role,
         value: role.title
-      }));
+      }
+    ));
     }
-    this.formJson.push({ name: 'user_roles', type: 'chip' });
-    const rolesIndex = this.formJson.findIndex((control: any) => control.name === 'roles');
-    if (rolesIndex !== -1) {
-      this.formJson.splice(rolesIndex, 1);
-    }
+    this.formData.roles = this.formData.user_roles
 
     Object.entries(formData).forEach(([key, value]: any) => {
       const control = this.formJson.find((control: any) => control.name === key);
@@ -67,12 +70,14 @@ export class ProfilePage {
           control.type = 'text';
         }
 
+       
+
         control.value = Array.isArray(value)
           ? value.map((item: any) => item.value || item)
           : typeof value === 'string'
             ? String(value)
             : value?.label;
-            
+
         control.validators = false;
         control.label = this.capitalizeLabelFirstLetter(control.name);
       }
