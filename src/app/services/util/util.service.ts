@@ -10,4 +10,9 @@ export class UtilService {
   isMobile(){
     return /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
   }
+
+  isLoggedIn(){
+    let token = localStorage.getItem('accToken')
+    return token ? true : false
+  }
 }
