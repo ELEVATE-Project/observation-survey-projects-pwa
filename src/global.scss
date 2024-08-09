@@ -91,6 +91,14 @@ mat-label {
   --mdc-snackbar-supporting-text-color: #fff;
 }
 
+.mat-mdc-standard-chip.mdc-evolution-chip--selected:not(.mdc-evolution-chip--disabled){
+  background-color: var(--color-primary) !important;
+}
+
+.mat-mdc-standard-chip.mdc-evolution-chip--selectable:not(.mdc-evolution-chip--with-primary-icon) {
+  --mdc-chip-graphic-selected-width: var(--color-primary) !important;
+}
+
 @font-face {
   font-family: 'NotoSans-Bold';
   font-style: normal;

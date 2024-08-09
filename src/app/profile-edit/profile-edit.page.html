@@ -9,7 +9,7 @@
 
 <ion-content [fullscreen]="true">
   <app-profile-image [profileImageData]='formJson' [uploadImage]="true" (imageUploadEvent)="imageUploadEvent($event)" (imageRemoveEvent)="imageRemoveEvent($event)"></app-profile-image>
-  <div class="ion-margin-top container" *ngIf="formJson.length">
+  <div class="ion-margin-top container" *ngIf="enableForm">
     <dynamic-form [formJson]="formJson" #formLib (ionChange)="onOptionChange($event)" 
     (ionFocus)="handleSelectFocus($event)"></dynamic-form>
   </div>
