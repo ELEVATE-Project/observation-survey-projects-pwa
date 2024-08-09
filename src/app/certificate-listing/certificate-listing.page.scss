@@ -1,0 +1,77 @@
+.certificate-header {
+    background: var(--ion-color-primary);
+    h2 {
+        font-size: 1.563rem;
+        color: white;
+    }
+}
+
+.content {
+    padding: 1rem;
+}
+.card-container {
+    cursor: pointer;
+    padding: 0.5rem;
+    background-color: #fff;
+    border: 1px solid var(--ion-color-light);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+.card-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.certificate{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.certificate-title {
+    color: var(--ion-color-primary);
+    font-size:16px;
+    font-weight: bold;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0.5rem;
+}
+.certificate-details {
+    font-size: 1rem;
+    color: var(--ion-color-medium);
+    margin-bottom: 0.5rem;
+}
+  
+.certificate-status {
+    font-size: 0.9rem;
+    color: green;
+}
+
+.certificate-icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.certificate-icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.3rem;
+    background-color: #fff;
+    color: var(--ion-color-primary);
+    border: 1px solid var(--ion-color-primary);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    position: relative;
+}
+.view-icon {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+}
+  
+.certificate-text {
+    font-size: 1rem;
+    color: var(--ion-color-primary);
+}
