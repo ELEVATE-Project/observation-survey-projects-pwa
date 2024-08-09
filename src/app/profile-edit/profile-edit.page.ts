@@ -90,6 +90,7 @@ export class ProfileEditPage {
   getOptionsData(entityType: string, entityId?: string) {
     const control = this.formJson.find((control: any) => control.name === entityType);
     if (!control) return;
+
     const hasDynamicUrl = this.formJson.find((control: any) => control.dynamicUrl);
     const urlPath = this.buildUrlPath(control, entityId);
     this.apiBaseService.get(urlPath)
@@ -102,29 +103,33 @@ export class ProfileEditPage {
       .subscribe((res: any) => {
         if (res?.status === 200) {
           let result;
+          let options;
+
           if (control.dynamicUrl) {
             result = res?.result;
+            if (result) {
+                options = result.map((entity: any) => ({
+                  label: entity.label,
+                  value: entity.value
+                }));
+
+              this.updateFormOptions(entityType, options);
+              this.enableForm = true;
+
+            }
           } else {
             result = control.dynamicEntity ? res?.result : res?.result?.data;
-          }
-          let options;
-          if (result) {
-            if (control.dynamicUrl) {
-              options = result.map((entity: any) => ({
-                label: entity.label,
-                value: entity.value
-              }));
-              this.enableForm = true;
-            } else {
-              options = result.map((entity: any) => ({
-                label: entity.name,
-                value: entity._id
-              }));
+            if (result) {
+                options = result.map((entity: any) => ({
+                  label: entity.name,
+                  value: entity._id
+                }));
+               
+              this.updateFormOptions(entityType, options);
               if(!hasDynamicUrl){
                 this.enableForm = true;
               }
             }
-            this.updateFormOptions(entityType, options);
           }
         } else {
           this.toastService.presentToast(res.message, 'warning');

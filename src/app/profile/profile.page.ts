@@ -35,7 +35,7 @@ export class ProfilePage {
       )
       .subscribe(([formJsonRes, profileFormDataRes]: any) => {
         if (formJsonRes?.status === 200 || profileFormDataRes?.status === 200) {
-          this.formJson = formJsonRes?.result?.data;
+          this.formJson = formJsonRes?.result?.data || [];
           this.formData = profileFormDataRes?.result;
           this.mapProfileDataToFormJson(this.formData);
         } else {
@@ -56,40 +56,36 @@ export class ProfilePage {
 
     if (formData.user_roles) {
       formData.user_roles = formData.user_roles.map((role: any) => ({
-        value: role.title
+        label: role?.title,
+        value: role?.id
       }));
     }
+
     this.formData.roles = formData.user_roles;
 
-    Object.entries(formData).forEach(([key, value]: [string, any]) => {
+    Object.entries(formData).forEach(([key, value]: any) => {
       const control = this.formJson.find((control: any) => control.name === key);
 
       if (control) {
         switch (control.type) {
           case 'select':
-            control.type = "text";
-            control.value = Array.isArray(value)
-              ? value.map((item: any) => item.label || item)
-              : value.label || value;
+            const selectOption = this.formData[control.name];
+            control.options = [selectOption]
+            control.value = value?.value;
             break;
 
           case 'chip':
-            control.type = "text";
-            control.value = Array.isArray(value)
-              ? value.map((item: any) => item.value || item)
-              : typeof value === 'string'
-                ? String(value)
-                : value?.value || value;
+            const chipOptions = this.formData[control.name];
+            control.options = chipOptions
+            control.value = value;
             break;
 
-          case 'text':
           default:
-            control.value = Array.isArray(value)
-              ? value.map((item: any) => item.value || item)
-              : typeof value === 'string'
+            control.value = typeof value === 'string'
                 ? String(value)
                 : value?.value || value;
         }
+
         control.disabled = true;
         control.validators = false;
         control.label = this.capitalizeLabelFirstLetter(control.name);
