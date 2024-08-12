@@ -71,10 +71,18 @@ export class ProfileEditPage {
       }
       ));
     }
-    Object.entries(formData || {}).map(([key, value, i]: any) => {
+   
+
+    Object.entries(formData || {}).forEach(([key, value]) => {
       const control = this.formJson.find((control: any) => control.name === key);
       if (control) {
         this.updateControlValue(control, value);
+      }
+    });
+  
+    this.formJson.forEach((control: any) => {
+      if (!Object.keys(formData || {}).includes(control.name)) {
+        this.enableForm = true;
       }
     });
   }
@@ -108,10 +116,10 @@ export class ProfileEditPage {
           if (control.dynamicUrl) {
             result = res?.result;
             if (result) {
-                options = result.map((entity: any) => ({
-                  label: entity.label,
-                  value: entity.value
-                }));
+              options = result.map((entity: any) => ({
+                label: entity.label,
+                value: entity.value
+              }));
 
               this.updateFormOptions(entityType, options);
               this.enableForm = true;
@@ -120,13 +128,13 @@ export class ProfileEditPage {
           } else {
             result = control.dynamicEntity ? res?.result : res?.result?.data;
             if (result) {
-                options = result.map((entity: any) => ({
-                  label: entity.name,
-                  value: entity._id
-                }));
-               
+              options = result.map((entity: any) => ({
+                label: entity.name,
+                value: entity._id
+              }));
+
               this.updateFormOptions(entityType, options);
-              if(!hasDynamicUrl){
+              if (!hasDynamicUrl) {
                 this.enableForm = true;
               }
             }

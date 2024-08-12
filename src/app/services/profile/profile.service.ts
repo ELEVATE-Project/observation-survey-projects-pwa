@@ -5,6 +5,8 @@ import { ApiBaseService } from '../base-api/api-base.service';
 import { ToastService } from '../toast/toast.service';
 import { LoaderService } from '../loader/loader.service';
 import { FETCH_Profile_FORM } from 'src/app/core/constants/formConstant';
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -13,9 +15,11 @@ export class ProfileService {
   constructor(
     private apiBaseService: ApiBaseService,
     private loader: LoaderService,
-    private toastService: ToastService
-  ) {}
-  
+    private toastService: ToastService,
+    private alertController: AlertController,
+    private router: Router
+  ) { }
+
   getFormJsonAndData(): Observable<any> {
     return combineLatest([
       this.apiBaseService.post(urlConfig['formListing'].listingUrl, FETCH_Profile_FORM).pipe(
@@ -33,7 +37,7 @@ export class ProfileService {
     ]).pipe(finalize(async () => await this.loader.dismissLoading()));
   }
 
-  getProfileAndEntityConfigData(): Observable<any> {
+  getProfileAndEntityConfigData() {
     return combineLatest([
       this.apiBaseService.get(urlConfig['project'].entityConfigUrl).pipe(
         catchError((err) => {
@@ -48,19 +52,23 @@ export class ProfileService {
         })
       ),
     ])
-    .pipe(
-      map(([entityConfigRes, profileFormDataRes]: any) => {
-        if (entityConfigRes?.status === 200 && profileFormDataRes?.status === 200) {
-          const profileData = entityConfigRes?.result?.meta?.profileKeys;
-          const profileDetails = profileFormDataRes?.result;
-          return this.fetchEntitieIds(profileDetails, profileData);
-        } else {
-          this.toastService.presentToast('Failed to load profile data. Please try again later.', 'danger');
-          return null;
-        }
-      }),
-      finalize(async () => await this.loader.dismissLoading())
-    );
+      .pipe(
+        map(([entityConfigRes, profileFormDataRes]: any) => {
+          if (entityConfigRes?.status === 200 && profileFormDataRes?.status === 200) {
+            const profileData = entityConfigRes?.result?.meta?.profileKeys;
+            const profileDetails = profileFormDataRes?.result;
+            if (profileDetails?.state) {
+              return this.fetchEntitieIds(profileDetails, profileData);
+            } else {
+              this.presentAlert();
+            }
+          } else {
+            this.toastService.presentToast('Failed to load profile data. Please try again later.', 'danger');
+            return null;
+          }
+        }),
+        finalize(async () => await this.loader.dismissLoading())
+      );
   }
 
   private fetchEntitieIds(data: any, keys: any) {
@@ -78,5 +86,31 @@ export class ProfileService {
     });
     return result;
   }
-  
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Alert',
+      message: 'Please update your profile to access the feature.',
+      buttons: [
+        {
+          text: 'Back',
+          role: 'cancel',
+          cssClass: 'cancel-button',
+          handler: () => {
+            this.router.navigate(['/home']);
+          }
+        },
+        {
+          text: 'Update Profile',
+          cssClass: 'update-button',
+          handler: () => {
+            this.router.navigate(['/profile-edit']);
+          }
+        }
+      ],
+      cssClass: 'custom-alert',
+      backdropDismiss: false
+    });
+    await alert.present();
+  }
 }

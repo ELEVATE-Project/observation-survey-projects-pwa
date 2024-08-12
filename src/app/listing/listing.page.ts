@@ -43,12 +43,12 @@ export class ListingPage implements OnInit {
       this.stateData = navigation.extras.state;
       this.listType = this.stateData?.listType;
     }
-    this.getProfileDetails();
   }
 
   ionViewWillEnter() {
     this.page = 1;
     this.solutionList = { data: [], count: 0 }
+    this.getProfileDetails();
     this.getListData();
   }
 
@@ -67,9 +67,8 @@ export class ListingPage implements OnInit {
   getProfileDetails() {
     this.profileService.getProfileAndEntityConfigData().subscribe((mappedIds) => {
       if (mappedIds) {
-        this.entityData = mappedIds
-      } else {
-        this.toastService.presentToast('Failed to load processed profile data.', 'danger');
+        this.entityData = mappedIds;
+        console.log(this.entityData)
       }
     });
   }
