@@ -2,6 +2,8 @@ import {  Component, OnInit, inject } from '@angular/core';
 import {  NavigationEnd, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
+import { ProfileService } from '../services/profile/profile.service';
+import { ToastService } from '../services/toast/toast.service';
 
 @Component({
   selector: 'app-project',
@@ -32,12 +34,10 @@ export class ProjectDetailsPage  implements OnInit {
     }
 
     ngOnInit(): void {
-      this.projectData = this.router.getCurrentNavigation()?.extras.state
+      this.projectData = this.router.getCurrentNavigation()?.extras.state;
     }
 
     goBack(){
       this.navCtrl.back();
     }
-
-
 }

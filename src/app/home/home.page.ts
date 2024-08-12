@@ -7,10 +7,9 @@ import { ApiBaseService } from '../services/base-api/api-base.service';
 import urlConfig from 'src/app/config/url.config.json';
 import { ToastService } from '../services/toast/toast.service';
 import { Router } from '@angular/router';
-import { catchError, finalize } from 'rxjs';
+import { finalize } from 'rxjs';
 import { FETCH_HOME_FORM } from '../core/constants/formConstant';
 import { AuthService } from 'authentication_frontend_library';
-import { ProfileService } from '../services/profile/profile.service';
 register();
 @Component({
   selector: 'app-home',
@@ -31,9 +30,7 @@ export class HomePage {
   @ViewChild('recommendationTemplate') recommendationTemplate!: TemplateRef<any>;
 
 
-  constructor(private http: HttpClient, private router: Router,
-    private profileService: ProfileService
-  ) {
+  constructor(private http: HttpClient, private router: Router) {
     this.baseApiService = inject(ApiBaseService);
     this.loader = inject(LoaderService)
     this.authService = inject(AuthService)
@@ -42,45 +39,7 @@ export class HomePage {
 
   ionViewWillEnter() {
     this.getHomeListing();
-    this.getProfileDetails();
   }
-
-  async getProfileDetails() {
-    this.profileService.getProfileAndEntityConfigData()
-      .pipe(
-        catchError((err) => {
-          this.toastService.presentToast(err?.error?.message || 'Error loading profile data. Please try again later.', 'danger');
-          throw err;
-        })
-      )
-      .subscribe(([entityConfigRes, profileFormDataRes]: any) => {
-        if (entityConfigRes?.status === 200 || profileFormDataRes?.status === 200) {
-          const profileData = entityConfigRes?.result?.meta?.profileKeys;
-          const profileDetails = profileFormDataRes?.result;
-          const mappedIds = this.fetchEntitieIds(profileDetails, profileData);
-          console.log(mappedIds);
-        } else {
-          this.toastService.presentToast('Failed to load profile data. Please try again later.', 'danger');
-        }
-      });
-  }
-
-  fetchEntitieIds(data: any, keys: any) {
-    let result: any = {};
-    keys.forEach((key: any) => {
-      if (key === 'roles' && data.user_roles) {
-        console.log("key", key, data[key])
-        result[key] = data.user_roles.map((role: any) => role.title);
-      } else if (data[key]) {
-        if (Array.isArray(data[key])) {
-          result[key] = data[key].map((item: any) => item);
-        } else if (data[key].value) {
-          result[key] = data[key].value;
-        }
-      }
-    });
-    return result;
-  };
 
   async getHomeListing() {
     await this.loader.showLoading("Please wait while loading...");
