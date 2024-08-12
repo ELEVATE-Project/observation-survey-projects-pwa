@@ -32,4 +32,22 @@ export class ProfileService {
       ),
     ]).pipe(finalize(async () => await this.loader.dismissLoading()));
   }
+
+    
+  getProfileAndEntityConfigData(): Observable<any> {
+    return combineLatest([
+      this.apiBaseService.get(urlConfig['project'].entityConfigUrl).pipe(
+        catchError((err) => {
+          this.toastService.presentToast(err?.error?.message || 'Error loading form JSON', 'danger');
+          return of({ status: 'error', result: {} });
+        })
+      ),
+      this.apiBaseService.get(urlConfig['profileListing'].listingUrl).pipe(
+        catchError((err) => {
+          this.toastService.presentToast(err?.error?.message || 'Error loading profile data', 'danger');
+          return of({ status: 'error', result: {} });
+        })
+      ),
+    ]).pipe(finalize(async () => await this.loader.dismissLoading()));
+  }
 }
