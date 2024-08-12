@@ -1,11 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { LoaderService } from '../services/loader/loader.service';
 import { finalize, catchError, map } from 'rxjs/operators';
-import { combineLatest, of, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import { ApiBaseService } from '../services/base-api/api-base.service';
 import { ToastService } from '../services/toast/toast.service';
 import urlConfig from 'src/app/config/url.config.json';
-import { FETCH_Profile_FORM } from '../core/constants/formConstant';
 import { MainFormComponent } from 'elevate-dynamic-form';
 import { NavController } from '@ionic/angular';
 import { AttachmentService } from '../services/attachment/attachment.service';
@@ -21,6 +20,7 @@ export class ProfileEditPage {
   urlProfilePath = urlConfig['profileListing'];
   formData: any;
   localImage: any;
+  enableForm: boolean = false;
 
   constructor(
     private apiBaseService: ApiBaseService,
@@ -35,55 +35,65 @@ export class ProfileEditPage {
     this.loadFormAndData();
   }
 
-  async loadFormAndData() {
-    await this.loader.showLoading("Please wait while loading...");
+  loadFormAndData() {
+    this.loader.showLoading("Please wait while loading...");
     this.profileService.getFormJsonAndData()
-    .pipe(
-      catchError((err) => {
-        this.toastService.presentToast(err?.error?.message || 'Error loading profile data. Please try again later.', 'danger');
-        throw err;
-      }),
-      finalize(async () => await this.loader.dismissLoading())
-    )
-    .subscribe(([formJsonRes, profileFormDataRes]: any) => {
-      if (formJsonRes?.status === 200 || profileFormDataRes?.status === 200) {
-        this.formJson = formJsonRes?.result?.data;
-        this.formData = profileFormDataRes?.result;
-        this.mapProfileDataToFormJson(this.formData);
-        this.formJson.map((control: any) => {
-          if (control.dynamicEntity) {
-            this.getOptionsData(control.name);
-          }
-        });
-      } else {
-        this.toastService.presentToast('Failed to load profile data. Please try again later.', 'danger');
+      .pipe(
+        catchError((err) => {
+          this.toastService.presentToast(err?.error?.message || 'Error loading profile data. Please try again later.', 'danger');
+          throw err;
+        }),
+        finalize(async () => await this.loader.dismissLoading())
+      )
+      .subscribe(([formJsonRes, profileFormDataRes]: any) => {
+        if (formJsonRes?.status === 200 || profileFormDataRes?.status === 200) {
+          this.formJson = formJsonRes?.result?.data || [];
+          this.formData = profileFormDataRes?.result;
+          this.mapProfileDataToFormJson(this.formData);
+          this.formJson.map((control: any) => {
+            if (control.dynamicEntity) {
+              this.getOptionsData(control.name);
+            }
+          });
+        } else {
+          this.toastService.presentToast('Failed to load profile data. Please try again later.', 'danger');
+        }
+      });
+  }
+
+  mapProfileDataToFormJson(formData?: any) {
+    this.formJson.image = this.formData.image || "";
+    this.formJson.isUploaded = true;
+    if (formData.user_roles) {
+      formData.roles = formData.user_roles.map((role: any) => ({
+        label: role?.title,
+        value: role?.id
+      }
+      ));
+    }
+    Object.entries(formData || {}).map(([key, value, i]: any) => {
+      const control = this.formJson.find((control: any) => control.name === key);
+      if (control) {
+        this.updateControlValue(control, value);
       }
     });
   }
 
-  mapProfileDataToFormJson(formData?: any) {
-    this.formJson.image = this.formData.image;
-    this.formJson.isUploaded = true;
-    Object.entries(formData).map(([key, value]: any) => {
-      const control = this.formJson.find((control: any) => control.name === key);
-      if (control) {
-        control.value = typeof (value) === 'string' ? String(value) : value?.value;
-        const nextEntityType = this.getNextEntityType(control.name);
-        if (nextEntityType) {
-          this.getOptionsData(nextEntityType, control?.value);
-        }
-      }
-    });
+  updateControlValue(control: any, value: any) {
+    const nextEntityType = this.getNextEntityType(control.name);
+    control.value = control.dynamicUrl ? value : (typeof value === 'string' ? String(value) : value?.value);
+    if (nextEntityType) {
+      nextEntityType.map((ctrl: any) => this.getOptionsData(ctrl, control?.value));
+    }
   }
 
   getOptionsData(entityType: string, entityId?: string) {
     const control = this.formJson.find((control: any) => control.name === entityType);
     if (!control) return;
-    const urlPath = control.dependsOn
-      ? this.urlProfilePath.subEntityUrl + `/${entityId}?type=${entityType}`
-      : this.urlProfilePath.entityUrl + `${entityType}`;
 
-    this.apiBaseService.get(urlConfig['entityListing'].listingUrl + urlPath)
+    const hasDynamicUrl = this.formJson.find((control: any) => control.dynamicUrl);
+    const urlPath = this.buildUrlPath(control, entityId);
+    this.apiBaseService.get(urlPath)
       .pipe(
         catchError(err => {
           this.toastService.presentToast(err?.error?.message, 'danger');
@@ -92,18 +102,49 @@ export class ProfileEditPage {
       )
       .subscribe((res: any) => {
         if (res?.status === 200) {
-          const result = control.dynamicEntity ? res?.result : res?.result?.data;
-          if (result) {
-            const options = result.map((entity: any) => ({
-              label: entity.name,
-              value: entity._id
-            }));
-            this.updateFormOptions(entityType, options);
+          let result;
+          let options;
+
+          if (control.dynamicUrl) {
+            result = res?.result;
+            if (result) {
+                options = result.map((entity: any) => ({
+                  label: entity.label,
+                  value: entity.value
+                }));
+
+              this.updateFormOptions(entityType, options);
+              this.enableForm = true;
+
+            }
+          } else {
+            result = control.dynamicEntity ? res?.result : res?.result?.data;
+            if (result) {
+                options = result.map((entity: any) => ({
+                  label: entity.name,
+                  value: entity._id
+                }));
+               
+              this.updateFormOptions(entityType, options);
+              if(!hasDynamicUrl){
+                this.enableForm = true;
+              }
+            }
           }
         } else {
           this.toastService.presentToast(res.message, 'warning');
         }
       });
+  }
+
+  buildUrlPath(control: any, entityId?: string): string {
+    if (control.dynamicUrl) {
+      return `${control.dynamicUrl}${entityId}`;
+    }
+    const url = control.dependsOn
+      ? `${this.urlProfilePath.subEntityUrl}/${entityId}?type=${control.name}`
+      : `${this.urlProfilePath.entityUrl}${control.name}`;
+    return `${urlConfig['entityListing'].listingUrl}${url}`;
   }
 
   updateFormOptions(entityType: string, options: any) {
@@ -120,14 +161,17 @@ export class ProfileEditPage {
     this.resetDependentControls(control.name, selectedValue?.value);
     const nextEntityType = this.getNextEntityType(control.name);
     if (nextEntityType) {
-      this.getOptionsData(nextEntityType, selectedValue?.value);
+      nextEntityType.map((ctrl: any) => {
+        this.getOptionsData(ctrl, selectedValue?.value);
+      })
     }
   }
 
-  getNextEntityType(currentEntityType: string): string | null {
-    const nextControl = this.formJson.find((ctrl: any) => ctrl.dependsOn === currentEntityType);
-    return nextControl ? nextControl.name : null;
+  getNextEntityType(currentEntityType: string): any {
+    const nextControls = this.formJson.filter((ctrl: any) => ctrl.dependsOn === currentEntityType);
+    return nextControls ? nextControls.map((ctrl: any) => ctrl.name) : null
   }
+
 
   resetDependentControls(controlName: string, selectedValue: any) {
     const dependentControls = this.formJson.filter((formControl: any) => formControl.dependsOn === controlName);
@@ -162,6 +206,13 @@ export class ProfileEditPage {
         let payload = this.formLib?.myForm.value;
         payload.location = "bangalore";
         payload.about = "PWA";
+        this.formJson.forEach((control: any) => {
+          if (control.dynamicUrl) {
+            const controlValues = payload[control.name]
+            const result = controlValues.map((option: any) => +(option.value));
+            payload[control.name] = result;
+          }
+        });
         this.formJson?.destFilePath ? payload.image = this.formJson?.destFilePath : "";
         this.apiBaseService.patch(this.urlProfilePath.updateUrl, payload)
           .pipe(
