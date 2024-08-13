@@ -36,16 +36,19 @@ const routes: Routes = [
     path: 'project-library',
     loadChildren: () => import('./project-library/project-library.module').then(m => m.ProjectLibraryModule)
   },
-  { path: '', loadChildren: () => import('authentication_frontend_library').then(m => m.SlRoutingRoutingModule) },
   {
 
     path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'profile-edit',
-    loadChildren: () => import('./profile-edit/profile-edit.module').then( m => m.ProfileEditPageModule)
+    loadChildren: () => import('./profile-edit/profile-edit.module').then( m => m.ProfileEditPageModule),
+    canActivate: [AuthGuard]
   },
+  { path: '', loadChildren: () => import('authentication_frontend_library').then(m => m.SlRoutingRoutingModule) },
+
   {
     path: '**',
     redirectTo: 'home'

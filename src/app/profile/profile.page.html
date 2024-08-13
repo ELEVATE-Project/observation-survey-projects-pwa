@@ -23,12 +23,15 @@
           <ion-button routerLink="/profile-edit" fill="light" shape="round" class="mt-5">
             Edit Profile
           </ion-button>
+          <ion-button routerLink="/profile/certificate" fill="light" shape="round" class="mt-5">
+            Certificate
+          </ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
   </div>
 
-  <div class="ion-margin-top container" *ngIf="formJson.length">
+  <div class="ion-margin-top container" *ngIf="formJson?.length">
     <dynamic-form [formJson]="formJson" #formLib></dynamic-form>
   </div>
 </ion-content>
