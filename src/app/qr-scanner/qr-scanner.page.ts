@@ -107,7 +107,7 @@ export class QrScannerPage implements OnInit {
               this.utilService.openCertificateVerificationPopover(res.result);
             }, 1000);
           } else {
-            this.toastService.presentToast('Invalid QR code.', 'danger');
+            this.toastService.presentToast('Something went wrong', 'danger');
           }
         },
         (err: any) => {
