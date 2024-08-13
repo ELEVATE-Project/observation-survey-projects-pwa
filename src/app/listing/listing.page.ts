@@ -8,6 +8,7 @@ import { ToastService } from '../services/toast/toast.service';
 import { NavController } from '@ionic/angular';
 import { finalize } from 'rxjs';
 import { actions } from 'src/app/config/actionContants';
+import { ProfileService } from '../services/profile/profile.service';
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.page.html',
@@ -26,8 +27,10 @@ export class ListingPage implements OnInit {
   limit: number = 10;
   filter = "assignedToMe";
   filters=actions.PROJECT_FILTERS;
+  entityData:any;
 
-  constructor(private navCtrl: NavController, private router: Router
+  constructor(private navCtrl: NavController, private router: Router,
+    private profileService: ProfileService
   ) {
     this.baseApiService = inject(ApiBaseService);
     this.loader = inject(LoaderService)
@@ -45,6 +48,7 @@ export class ListingPage implements OnInit {
   ionViewWillEnter() {
     this.page = 1;
     this.solutionList = { data: [], count: 0 }
+    this.getProfileDetails();
     this.getListData();
   }
 
@@ -58,6 +62,15 @@ export class ListingPage implements OnInit {
     this.solutionList={data:[],count:0}
     this.page = 1;
     this.getListData()
+  }
+
+  getProfileDetails() {
+    this.profileService.getProfileAndEntityConfigData().subscribe((mappedIds) => {
+      if (mappedIds) {
+        this.entityData = mappedIds;
+        console.log(this.entityData)
+      }
+    });
   }
 
   async getListData() {

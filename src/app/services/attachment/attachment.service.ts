@@ -9,6 +9,6 @@ export class AttachmentService {
   constructor(private http: HttpClient) { }
 
   cloudImageUpload(fileDetails:any, uploadUrl:any) {
-    return this.http.put(uploadUrl.signedUrl, fileDetails)
+    return this.http.put(uploadUrl.signedUrl[0], fileDetails)
 }
 }
