@@ -9,7 +9,8 @@
         "listingUrl": "/project/v1/solutions/targetedSolutions",
         "verifyLink": "/project/v1/solutions/verifyLink/",
         "categoriesList": "/project/v1/library/categories/list",
-        "projectCategories": "/project/v1/library/categories/projects/"
+        "projectCategories": "/project/v1/library/categories/projects/",
+        "entityConfigUrl" : "/project/v1/configurations/read"
     },
     "formListing": {
         "listingUrl": "/project/v1/forms/read"
