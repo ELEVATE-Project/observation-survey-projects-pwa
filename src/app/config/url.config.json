@@ -27,9 +27,5 @@
     },
     "program":{
         "listingUrl":"/project/v1/programs/list"
-    },
-    "certificate":{
-        "verifyCertificateUrl":"/project/v1/userProjects/verifyCertificate",
-        "certificateListing":"/project/v1/userProjects/certificates"
     }
 }
