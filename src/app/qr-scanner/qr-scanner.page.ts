@@ -62,7 +62,7 @@ export class QrScannerPage implements OnInit {
       if (result) {
         this.handleScanResult(result);
       } else if (err) {
-        console.error(err);
+        this.toastService.presentToast('No QR code detected. Please try again', 'danger');
       }
     });
   }

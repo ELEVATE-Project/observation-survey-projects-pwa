@@ -19,7 +19,7 @@ export class UtilService {
         data: res
       },
       cssClass: 'certificate-popup',
-      backdropDismiss: false
+      backdropDismiss: true
     });
     await popover.present();
     await popover.onDidDismiss(); 
