@@ -38,7 +38,6 @@ export class CertificateListingPage implements OnInit {
         })
       )
       .subscribe((res: any) => {
-        console.log(res)
         this.certificates=res.result.data
       },
         (err: any) => {
