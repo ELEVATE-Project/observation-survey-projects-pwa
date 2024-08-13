@@ -12,12 +12,12 @@ import { ToastService } from '../services/toast/toast.service';
 export class ProfilePage {
   formJson: any = [];
   formData: any;
-  
+
   constructor(private profileService: ProfileService,
     private navCtrl: NavController,
     private loader: LoaderService,
     private toastService: ToastService
-  ){}
+  ) { }
 
   ionViewWillEnter() {
     this.loadFormAndData();
