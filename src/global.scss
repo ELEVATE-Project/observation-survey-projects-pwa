@@ -105,12 +105,10 @@ mat-label {
   }
 
   .alert-button-group {
-    display: flex;
-    justify-content: space-between;
     margin-bottom: 10px;
   }
 
-  .cancel-button {
+  .secondary-button {
     background: transparent;
     border-color: var(--ion-color-primary);
     color: var(--ion-color-primary);
@@ -122,7 +120,7 @@ mat-label {
     padding: .375rem 1.313rem;
   }
 
-  .update-button {
+  .primary-button {
     background: var(--ion-color-primary);
     color: #ffff;
     min-width: 4rem;

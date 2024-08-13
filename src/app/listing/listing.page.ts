@@ -9,6 +9,7 @@ import { NavController } from '@ionic/angular';
 import { finalize } from 'rxjs';
 import { actions } from 'src/app/config/actionContants';
 import { ProfileService } from '../services/profile/profile.service';
+import { AlertService } from '../services/alert/alert.service';
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.page.html',
@@ -30,7 +31,8 @@ export class ListingPage implements OnInit {
   entityData:any;
 
   constructor(private navCtrl: NavController, private router: Router,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private alertService : AlertService
   ) {
     this.baseApiService = inject(ApiBaseService);
     this.loader = inject(LoaderService)
@@ -52,6 +54,10 @@ export class ListingPage implements OnInit {
     this.getListData();
   }
 
+  ionViewWillLeave() {
+    this.alertService.dismissAlert();
+  }
+
   handleInput(event: any) {
     this.searchTerm = event.target.value;
     this.page = 1;
@@ -68,7 +74,6 @@ export class ListingPage implements OnInit {
     this.profileService.getProfileAndEntityConfigData().subscribe((mappedIds) => {
       if (mappedIds) {
         this.entityData = mappedIds;
-        console.log(this.entityData)
       }
     });
   }
@@ -87,7 +92,7 @@ export class ListingPage implements OnInit {
     }
     this.baseApiService
       .post(
-        urlConfig[this.listType].listingUrl + `?type=improvementProject&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}`, entityData)
+        urlConfig[this.listType].listingUrl + `?type=improvementProject&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}`, this.entityData)
       .pipe(
         finalize(async () => {
           await this.loader.dismissLoading();
