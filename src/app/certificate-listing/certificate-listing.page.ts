@@ -23,6 +23,7 @@ export class CertificateListingPage implements OnInit {
   }
 
   ngOnInit() {
+    this.getCertificateList()
   }
   goBack() {
     this.navCtrl.back();
