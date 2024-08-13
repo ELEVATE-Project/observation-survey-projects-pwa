@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button icon-only aria-label="back" (click)="headerback()">
+        <ion-icon class="back-icon"  name="arrow-back" role="button" aria-label="back" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Scan QR Code</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="scanner-ui">
+    <video #video class="video-stream"></video>
+
+    <div class="scanner-overlay">
+      <div class="scanner-border"></div>
+    </div>
+  </div>
+</ion-content>
