@@ -29,6 +29,7 @@ const routes: Routes = [
     loadChildren: () => import('./project-report/project-report.module').then( m => m.ProjectReportPageModule)
   },
   {
+
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule),
     canActivate: [AuthGuard]
@@ -39,6 +40,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { path: '', loadChildren: () => import('authentication_frontend_library').then(m => m.SlRoutingRoutingModule) },
+  
   {
     path: '**',
     redirectTo: 'home'
