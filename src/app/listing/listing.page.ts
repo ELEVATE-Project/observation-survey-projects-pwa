@@ -8,6 +8,8 @@ import { ToastService } from '../services/toast/toast.service';
 import { NavController } from '@ionic/angular';
 import { finalize } from 'rxjs';
 import { actions } from 'src/app/config/actionContants';
+import { ProfileService } from '../services/profile/profile.service';
+import { AlertService } from '../services/alert/alert.service';
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.page.html',
@@ -27,8 +29,11 @@ export class ListingPage implements OnInit {
   filter = "assignedToMe";
   filters=actions.PROJECT_FILTERS;
   solutionType!: string;
+  entityData:any;
 
-  constructor(private navCtrl: NavController, private router: Router
+  constructor(private navCtrl: NavController, private router: Router,
+    private profileService: ProfileService,
+    private alertService : AlertService
   ) {
     this.baseApiService = inject(ApiBaseService);
     this.loader = inject(LoaderService)
@@ -48,7 +53,12 @@ export class ListingPage implements OnInit {
   ionViewWillEnter() {
     this.page = 1;
     this.solutionList = { data: [], count: 0 }
+    this.getProfileDetails();
     this.getListData();
+  }
+
+  ionViewWillLeave() {
+    this.alertService.dismissAlert();
   }
 
   handleInput(event: any) {
@@ -61,6 +71,14 @@ export class ListingPage implements OnInit {
     this.solutionList={data:[],count:0}
     this.page = 1;
     this.getListData()
+  }
+
+  getProfileDetails() {
+    this.profileService.getProfileAndEntityConfigData().subscribe((mappedIds) => {
+      if (mappedIds) {
+        this.entityData = mappedIds;
+      }
+    });
   }
 
   async getListData() {
@@ -77,7 +95,7 @@ export class ListingPage implements OnInit {
     }
     this.baseApiService
       .post(
-        urlConfig[this.listType].listingUrl + `?type=${this.solutionType}&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}`, entityData)
+        urlConfig[this.listType].listingUrl + `?type=${this.solutionType}&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}`, this.entityData)
       .pipe(
         finalize(async () => {
           await this.loader.dismissLoading();

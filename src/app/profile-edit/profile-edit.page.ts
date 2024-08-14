@@ -9,12 +9,14 @@ import { MainFormComponent } from 'elevate-dynamic-form';
 import { NavController } from '@ionic/angular';
 import { AttachmentService } from '../services/attachment/attachment.service';
 import { ProfileService } from '../services/profile/profile.service';
+import { AlertService } from '../services/alert/alert.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-profile-edit',
   templateUrl: './profile-edit.page.html',
   styleUrls: ['./profile-edit.page.scss'],
 })
-export class ProfileEditPage {
+export class ProfileEditPage{
   @ViewChild('formLib') formLib: MainFormComponent | undefined;
   formJson: any = [];
   urlProfilePath = urlConfig['profileListing'];
@@ -28,11 +30,17 @@ export class ProfileEditPage {
     private toastService: ToastService,
     private navCtrl: NavController,
     private attachment: AttachmentService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private alertService: AlertService,
+    private router : Router
   ) { }
 
   ionViewWillEnter() {
     this.loadFormAndData();
+  }
+
+  ionViewWillLeave() {
+    this.alertService.dismissAlert();
   }
 
   loadFormAndData() {
@@ -71,10 +79,18 @@ export class ProfileEditPage {
       }
       ));
     }
-    Object.entries(formData || {}).map(([key, value, i]: any) => {
+
+
+    Object.entries(formData || {}).forEach(([key, value]) => {
       const control = this.formJson.find((control: any) => control.name === key);
       if (control) {
         this.updateControlValue(control, value);
+      }
+    });
+
+    this.formJson.forEach((control: any) => {
+      if (!Object.keys(formData || {}).includes(control.name)) {
+        this.enableForm = true;
       }
     });
   }
@@ -108,10 +124,10 @@ export class ProfileEditPage {
           if (control.dynamicUrl) {
             result = res?.result;
             if (result) {
-                options = result.map((entity: any) => ({
-                  label: entity.label,
-                  value: entity.value
-                }));
+              options = result.map((entity: any) => ({
+                label: entity.label,
+                value: entity.value
+              }));
 
               this.updateFormOptions(entityType, options);
               this.enableForm = true;
@@ -120,13 +136,13 @@ export class ProfileEditPage {
           } else {
             result = control.dynamicEntity ? res?.result : res?.result?.data;
             if (result) {
-                options = result.map((entity: any) => ({
-                  label: entity.name,
-                  value: entity._id
-                }));
-               
+              options = result.map((entity: any) => ({
+                label: entity.name,
+                value: entity._id
+              }));
+
               this.updateFormOptions(entityType, options);
-              if(!hasDynamicUrl){
+              if (!hasDynamicUrl) {
                 this.enableForm = true;
               }
             }
@@ -223,7 +239,9 @@ export class ProfileEditPage {
           )
           .subscribe((res: any) => {
             if (res?.result) {
+              this.formLib?.myForm.markAsPristine();
               this.toastService.presentToast(res?.message || 'Profile Updated Sucessfully', 'success');
+              this.router.navigateByUrl('/profile');
             } else {
               this.toastService.presentToast(res?.message, 'warning');
             }
@@ -245,9 +263,46 @@ export class ProfileEditPage {
     }
   }
 
-  goBack() {
-    this.navCtrl.back();
+  async canPageLeave(event?: any) {
+    if (!this.formLib?.myForm.pristine) {
+      this.alertService.presentAlert(
+        'Save Data?',
+        'You have unsaved data, would you like to save it before exiting?',
+        [
+          {
+            text: "Don't Save",
+            cssClass: 'secondary-button',
+            role: 'exit',
+            handler: () => {
+              this.navCtrl.back();
+            }
+          },
+          {
+            text: 'Save',
+            cssClass: 'primary-button',
+            role: 'cancel'
+          }
+        ]
+      );
+      if (!event) {
+        let data = await this.alertService.alert.onDidDismiss();
+        if (data.role == 'exit') {
+          return true;
+        }
+      }
+      return false;
+
+    }
+    else {
+      if(event){
+        this.navCtrl.back();
+        return false;
+      }else{
+        return true;
+      }
+    }
   }
+
 
   async imageUploadEvent(event: any) {
     this.localImage = event.target.files[0];

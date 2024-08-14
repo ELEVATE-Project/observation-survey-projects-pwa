@@ -6,7 +6,8 @@
         "listingUrl": "/project/v1/solutions/list"
     },
     "project": {
-        "listingUrl": "/project/v1/solutions/targetedSolutions"
+        "listingUrl": "/project/v1/solutions/targetedSolutions",
+        "entityConfigUrl" : "/project/v1/configurations/read"
     },
     "formListing": {
         "listingUrl": "/project/v1/forms/read"
@@ -27,5 +28,9 @@
     },
     "program":{
         "listingUrl":"/project/v1/programs/list"
+    },
+    "certificate":{
+        "verifyCertificateUrl":"/project/v1/userProjects/verifyCertificate",
+        "certificateListing":"/project/v1/userProjects/certificates"
     }
 }

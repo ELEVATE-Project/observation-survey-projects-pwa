@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { FETCH_HOME_FORM } from '../core/constants/formConstant';
 import { AuthService } from 'authentication_frontend_library';
+import { UtilService } from 'src/app/services/util/util.service';
 register();
 @Component({
   selector: 'app-home',
@@ -24,13 +25,14 @@ export class HomePage {
   toastService: any;
   loader: LoaderService;
   solutionList: any = [];
+  isMobile = this.utilService.isMobile();
   typeTemplateMapping: { [key: string]: TemplateRef<any> } = {};
   @ViewChild('bannerTemplate') bannerTemplate!: TemplateRef<any>;
   @ViewChild('solutionTemplate') solutionTemplate!: TemplateRef<any>;
   @ViewChild('recommendationTemplate') recommendationTemplate!: TemplateRef<any>;
 
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router,private utilService: UtilService) {
     this.baseApiService = inject(ApiBaseService);
     this.loader = inject(LoaderService)
     this.authService = inject(AuthService)
@@ -39,6 +41,9 @@ export class HomePage {
 
   ionViewWillEnter() {
     this.getHomeListing();
+  }
+  startScan() {
+    this.router.navigate(['/qr-scanner']);
   }
 
   async getHomeListing() {
