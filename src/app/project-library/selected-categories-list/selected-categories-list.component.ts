@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './selected-categories-list.component.html',
   styleUrls: ['./selected-categories-list.component.scss'],
 })
-export class SelectedCategoriesListComponent  implements OnInit {
+export class SelectedCategoriesListComponent {
   apiService:any
   projectsList:any = { data: [], count: 0 }
   selectedCategory:any = ''
@@ -27,8 +27,6 @@ export class SelectedCategoriesListComponent  implements OnInit {
     this.stateData = this.router.getCurrentNavigation()?.extras.state
   }
 
-  ngOnInit() {
-  }
 
   ionViewWillEnter() {
     this.page = 1;

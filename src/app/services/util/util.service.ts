@@ -14,10 +14,9 @@ export class UtilService {
   }
 
   isLoggedIn(){
-    let token = localStorage.getItem('accToken')
-    return token ? true : false
+    return !!localStorage.getItem('accToken')
   }
-  
+
   async openCertificateVerificationPopover(res: any) {
     const popover = await this.popoverController.create({
       component: CertificateVerificationPopoverComponent,

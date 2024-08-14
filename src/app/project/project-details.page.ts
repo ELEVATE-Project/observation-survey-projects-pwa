@@ -38,10 +38,8 @@ export class ProjectDetailsPage  implements OnInit {
       this.profileService.getProfileAndEntityConfigData().subscribe((mappedIds) => {
         if (mappedIds) {
           this.config.profileInfo = mappedIds;
-          this.showDetails = true
-        }else{
-          this.showDetails = true
         }
+        this.showDetails = true
       });
     }
 }
