@@ -5,6 +5,7 @@ import urlConfig from 'src/app/config/url.config.json'
 import { UtilService } from '../services/util/util.service';
 import { ToastService } from '../services/toast/toast.service';
 import { NavController } from '@ionic/angular';
+import { ProfileService } from '../services/profile/profile.service';
 
 @Component({
   selector: 'app-redirection-handler',
@@ -16,31 +17,30 @@ export class RedirectionHandlerComponent  implements OnInit {
   linkId:any = ''
   apiService:any
   utils:any
-  profileInfo:any = {
-    "entityType" : "block",
-    "entityTypeId" : "5f32d8228e0dc8312404056e",
-    "entities" : [
-        "5fd1b52ab53a6416aaeefc80",
-        "5fd098e2e049735a86b748ac",
-        "5fd1b52ab53a6416aaeefc83",
-        "5fd1b52ab53a6416aaeefb20"
-    ],
-    "role" : "BEO,HM"
-  }
+  profileInfo:any = {}
   toastService: any;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private navCtrl: NavController) {
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private navCtrl: NavController, private profileService: ProfileService) {
     this.apiService = inject(ApiBaseService)
     this.utils = inject(UtilService)
     this.toastService = inject(ToastService)
     activatedRoute.paramMap.subscribe((param:any)=>{
       this.type = param.get("type")
       this.linkId = param.get("id")
-      this.checkLinkType()
+      this.getProfileDetails()
     })
   }
 
   ngOnInit() {
+  }
+
+  getProfileDetails() {
+    this.profileService.getProfileAndEntityConfigData().subscribe((mappedIds) => {
+      if (mappedIds) {
+        this.profileInfo = mappedIds;
+        this.checkLinkType()
+      }
+    });
   }
 
   checkLinkType(){

@@ -49,7 +49,6 @@ export class ListingPage implements OnInit {
     this.page = 1;
     this.solutionList = { data: [], count: 0 }
     this.getProfileDetails();
-    this.getListData();
   }
 
   handleInput(event: any) {
@@ -69,25 +68,16 @@ export class ListingPage implements OnInit {
       if (mappedIds) {
         this.entityData = mappedIds;
         console.log(this.entityData)
+        this.getListData();
       }
     });
   }
 
   async getListData() {
     await this.loader.showLoading("Please wait while loading...");
-    const entityData = {
-      "entityType": "block",
-      "entities": [
-        "5fd1b52ab53a6416aaeefc80",
-        "5fd098e2e049735a86b748ac",
-        "5fd1b52ab53a6416aaeefc83",
-        "5fd1b52ab53a6416aaeefb20"
-      ],
-      "role": "HM,BEO"
-    }
     this.baseApiService
       .post(
-        urlConfig[this.listType].listingUrl + `?type=improvementProject&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}`, entityData)
+        urlConfig[this.listType].listingUrl + `?type=improvementProject&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}`, this.entityData)
       .pipe(
         finalize(async () => {
           await this.loader.dismissLoading();
