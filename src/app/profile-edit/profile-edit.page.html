@@ -1,7 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/" (click)="goBack()"></ion-back-button>
+      <ion-button (click)="canPageLeave($event)">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-title>Profile Edit</ion-title>
   </ion-toolbar>

@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ProfileEditPage } from './profile-edit.page';
-import { GuardService } from '../services/guard/guard.service';
+import { QrScannerPage } from './qr-scanner.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: ProfileEditPage,
-    canDeactivate: [GuardService]
+    component: QrScannerPage
   }
 ];
 
@@ -16,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ProfileEditPageRoutingModule {}
+export class QrScannerPageRoutingModule {}

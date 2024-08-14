@@ -11,11 +11,11 @@
   </div>
   <div class="certificate-details">
     <div class="certificate-issued-to">Certificate issued to</div>
-    <div class="certificate-recipient">{{ data.issuedTo }}</div>
+    <div class="certificate-recipient">{{ data.userName }}</div>
     <div class="certificate-message">For successfully completing the project</div>
-    <div class="certificate-project">{{ data.trainingName }}</div>
+    <div class="certificate-project">{{ data.projectName }}</div>
     <div class="certificate-date">
-      On {{ data.appName }} on {{ data.issuanceDate | date: 'dd/MM/yyyy' }}
+      On Elevate on {{ data.completedDate | date: 'dd/MM/yyyy' }}
     </div>
   </div>
 </div>

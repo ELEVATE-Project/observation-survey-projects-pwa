@@ -5,8 +5,8 @@ import { ApiBaseService } from '../base-api/api-base.service';
 import { ToastService } from '../toast/toast.service';
 import { LoaderService } from '../loader/loader.service';
 import { FETCH_Profile_FORM } from 'src/app/core/constants/formConstant';
-import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { AlertService } from '../alert/alert.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,8 +16,8 @@ export class ProfileService {
     private apiBaseService: ApiBaseService,
     private loader: LoaderService,
     private toastService: ToastService,
-    private alertController: AlertController,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) { }
 
   getFormJsonAndData(): Observable<any> {
@@ -89,29 +89,26 @@ export class ProfileService {
   }
 
   async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'Alert',
-      message: 'Please update your profile to access the feature.',
-      buttons: [
+    this.alertService.presentAlert(
+      'Alert',
+      'Please update your profile to access the feature.',
+      [
         {
           text: 'Back',
           role: 'cancel',
-          cssClass: 'cancel-button',
+          cssClass: 'secondary-button',
           handler: () => {
             this.router.navigate(['/home']);
           }
         },
         {
           text: 'Update Profile',
-          cssClass: 'update-button',
+          cssClass: 'primary-button',
           handler: () => {
             this.router.navigate(['/profile-edit']);
           }
         }
-      ],
-      cssClass: 'custom-alert',
-      backdropDismiss: false
-    });
-    await alert.present();
+      ]
+    );
   }
 }

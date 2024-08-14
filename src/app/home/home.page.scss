@@ -47,6 +47,29 @@
   display: block;
   margin: 0 auto;
 }
+.scanner-button-container {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+.scanner-button {
+  --background: var(--ion-color-primary); 
+  --border-radius: 50%;
+  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 70px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scanner-button ion-icon {
+  font-size: 36px;
+  color: #fff; 
+}
 
 @media (max-width:560px) {
   .tiels h1{

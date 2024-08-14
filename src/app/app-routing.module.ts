@@ -16,6 +16,10 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'qr-scanner',
+    loadChildren: () => import('./qr-scanner/qr-scanner.module').then( m => m.QrScannerPageModule)
+  },
+  {
     path: 'listing/:type',
     loadChildren: () => import('./listing/listing.module').then( m => m.ListingPageModule),
     canActivate: [AuthGuard]
