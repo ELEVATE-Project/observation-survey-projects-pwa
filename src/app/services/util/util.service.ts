@@ -12,6 +12,11 @@ export class UtilService {
   isMobile(){
     return /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
   }
+
+  isLoggedIn(){
+    return !!localStorage.getItem('accToken')
+  }
+
   async openCertificateVerificationPopover(res: any) {
     const popover = await this.popoverController.create({
       component: CertificateVerificationPopoverComponent,

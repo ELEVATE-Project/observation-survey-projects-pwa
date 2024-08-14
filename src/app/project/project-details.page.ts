@@ -4,6 +4,7 @@ import { NavController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { ProfileService } from '../services/profile/profile.service';
 import { ToastService } from '../services/toast/toast.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-project',
@@ -17,20 +18,12 @@ export class ProjectDetailsPage  implements OnInit {
     maxFileSize: 50,
     baseUrl: environment.baseURL,
     accessToken: localStorage.getItem('accToken'),
-    profileInfo: {
-      "entityType" : "block",
-      "entityTypeId" : "5f32d8228e0dc8312404056e",
-      "entities" : [
-          "5fd1b52ab53a6416aaeefc80",
-          "5fd098e2e049735a86b748ac",
-          "5fd1b52ab53a6416aaeefc83",
-          "5fd1b52ab53a6416aaeefb20"
-      ],
-      "role" : "BEO,HM"
-    }
+    profileInfo: {}
   }
-    constructor(private navCtrl: NavController) {
+  showDetails = false
+    constructor(private navCtrl: NavController, private profileService: ProfileService, private location: Location) {
       this.router = inject(Router);
+      this.getProfileDetails()
     }
 
     ngOnInit(): void {
@@ -39,5 +32,14 @@ export class ProjectDetailsPage  implements OnInit {
 
     goBack(){
       this.navCtrl.back();
+    }
+
+    getProfileDetails() {
+      this.profileService.getProfileAndEntityConfigData().subscribe((mappedIds) => {
+        if (mappedIds) {
+          this.config.profileInfo = mappedIds;
+        }
+        this.showDetails = true
+      });
     }
 }

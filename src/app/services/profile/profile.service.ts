@@ -74,15 +74,16 @@ export class ProfileService {
   private fetchEntitieIds(data: any, keys: any) {
     let result: any = {};
     keys.forEach((key: any) => {
-      if (key === 'roles' && data.user_roles) {
-        result[key] = data.user_roles.map((role: any) => role.title).join(',');
-      } else if (data[key]) {
-        if (Array.isArray(data[key])) {
-          result[key] = data[key].map((item: any) => item).join(',');
-        } else if (data[key].value) {
-          result[key] = data[key].value;
-        }
-      }
+      // if (key === 'roles' && data.user_roles) {
+      //   result[key] = data.user_roles.map((role: any) => role.title).join(',');
+      // } else if (data[key]) {
+      //   if (Array.isArray(data[key])) {
+      //     result[key] = data[key].map((item: any) => item).join(',');
+      //   } else if (data[key].value) {
+      //     result[key] = data[key].value;
+      //   }
+      // }
+      result["role"] = data.user_roles.map((role: any) => role.title).join(',');
     });
     return result;
   }

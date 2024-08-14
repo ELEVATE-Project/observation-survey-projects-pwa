@@ -5,6 +5,7 @@ import { LoaderService } from '../services/loader/loader.service';
 import { ToastService } from '../services/toast/toast.service';
 import { finalize } from 'rxjs';
 import urlConfig from 'src/app/config/url.config.json';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-certificate-listing',
@@ -16,7 +17,7 @@ export class CertificateListingPage implements OnInit {
   toastService: ToastService;
   baseApiService: any;
   loader: LoaderService;
-  constructor(private navCtrl: NavController) { 
+  constructor(private navCtrl: NavController, private router: Router) { 
     this.baseApiService = inject(ApiBaseService);
     this.loader = inject(LoaderService)
     this.toastService = inject(ToastService)
@@ -44,5 +45,9 @@ export class CertificateListingPage implements OnInit {
           this.toastService.presentToast(err?.error?.message, 'danger');
         }
       );
+  }
+
+  viewCertificate(data:any){
+    this.router.navigate(["project-details"],{ queryParams: {type: "certificate", projectId: data._id }, state: {referenceFrom: "certificate"} })
   }
 }

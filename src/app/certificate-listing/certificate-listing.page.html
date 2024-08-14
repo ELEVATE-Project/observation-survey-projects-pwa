@@ -29,7 +29,7 @@
                 <div class="certificate-status">{{ certificate?.status | titlecase }}</div>
               </div>
               <div class="certificate-icon">
-                <button class="certificate-icon-button">
+                <button class="certificate-icon-button" (click)="viewCertificate(certificate)">
                   <ion-icon class="view-icon" name="eye"></ion-icon>
                   <span class="certificate-text">View</span>
                   <ion-ripple-effect type="unbounded"></ion-ripple-effect>
