@@ -23,8 +23,8 @@ export class ReportListPage implements OnInit {
     }
   }
 
-  navigateToProjectReport(){
-    this.router.navigate(['project-report'])
+  navigateToPage(data:string){
+    this.router.navigate([data])
   }
 
   goBack() {

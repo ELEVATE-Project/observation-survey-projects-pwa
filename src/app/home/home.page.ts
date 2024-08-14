@@ -55,6 +55,47 @@ export class HomePage {
         if (res?.status === 200) {
           if (res?.result) {
             this.solutionList = res?.result?.data;
+            this.solutionList = [
+              {
+                  "type": "bannerList",
+                  "listingData": [
+                      {
+                          "title": "Hey, Welcome back!",
+                          "discription": ""
+                      }
+                  ]
+              },
+              {
+                  "type": "solutionList",
+                  "listingData": [
+                      {
+                          "name": "Projects",
+                          "img": "assets/images/ic_project.svg",
+                          "redirectionUrl": "/listing/project",
+                          "listType": "project",
+                          "solutionType":"improvementProject",
+                          "reportPage":false,
+                          "description": "Manage and track your school improvement easily, by creating tasks and planning project timelines"
+                      },
+                      {
+                        "name": "Survey",
+                        "img": "assets/images/ic_project.svg",
+                        "redirectionUrl": "/listing/survey",
+                        "listType": "survey",
+                        "solutionType":"survey",
+                        "reportPage":false,
+                        "description": "Provide information and feedback through quick and easy surveys"
+                    },
+                      {
+                          "name": "Reports",
+                          "img": "assets/images/ic_report.svg",
+                          "redirectionUrl": "/list/report",
+                          "listType": "report",
+                          "description": "Make sense of data to enable your decision-making based on your programs with ease"
+                      }
+                  ]
+              }
+          ]
           }
           this.typeTemplateMapping = {
             "bannerList": this.bannerTemplate,

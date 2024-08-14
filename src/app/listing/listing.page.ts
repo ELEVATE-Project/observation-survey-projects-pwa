@@ -26,6 +26,7 @@ export class ListingPage implements OnInit {
   limit: number = 10;
   filter = "assignedToMe";
   filters=actions.PROJECT_FILTERS;
+  solutionType!: string;
 
   constructor(private navCtrl: NavController, private router: Router
   ) {
@@ -39,6 +40,8 @@ export class ListingPage implements OnInit {
     if (navigation?.extras?.state) {
       this.stateData = navigation.extras.state;
       this.listType = this.stateData?.listType;
+      this.solutionType = 'improvementProject'
+      console.log(this.listType)
     }
   }
 
@@ -74,7 +77,7 @@ export class ListingPage implements OnInit {
     }
     this.baseApiService
       .post(
-        urlConfig[this.listType].listingUrl + `?type=improvementProject&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}`, entityData)
+        urlConfig[this.listType].listingUrl + `?type=${this.solutionType}&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}`, entityData)
       .pipe(
         finalize(async () => {
           await this.loader.dismissLoading();

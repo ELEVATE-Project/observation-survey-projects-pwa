@@ -20,12 +20,24 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col size="12" size-md="6" class="card-list" (click)="navigateToProjectReport()">
+      <ion-col size="12" size-md="6" class="card-list" (click)="navigateToPage('project-report')">
         <ion-card class="tiel">
           <div class="small-tiel"></div>
           <div style="padding:10px;">
             <h2 style="font-size: 18px;padding-bottom: 8px;"><b>Improvement Reports</b></h2>
             <h6>View Project Reports</h6>
+          </div>
+          <div class="arrow-container">
+            <ion-icon name="arrow-forward-outline" class="arrow-icon"  size="large"></ion-icon>
+          </div>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-md="6" class="card-list" (click)="navigateToPage('listing/survey')">
+        <ion-card class="tiel">
+          <div class="small-tiel"></div>
+          <div style="padding:10px;">
+            <h2 style="font-size: 18px;padding-bottom: 8px;"><b>Survey Reports</b></h2>
+            <h6>View Survey Reports</h6>
           </div>
           <div class="arrow-container">
             <ion-icon name="arrow-forward-outline" class="arrow-icon"  size="large"></ion-icon>
