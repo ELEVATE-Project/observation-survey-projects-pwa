@@ -40,7 +40,9 @@ export class ProfileEditPage{
   }
 
   ionViewWillLeave() {
-    this.alertService.dismissAlert();
+    if(this.alertService.alert){
+      this.alertService.dismissAlert();
+    }
   }
 
   loadFormAndData() {
