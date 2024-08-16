@@ -244,7 +244,7 @@ export class ProfileEditPage{
             if (res?.result) {
               this.formLib?.myForm.markAsPristine();
               this.toastService.presentToast(res?.message || 'Profile Updated Sucessfully', 'success');
-              this.navCtrl.back();
+              this.router.navigateByUrl('/profile');
             } else {
               this.toastService.presentToast(res?.message, 'warning');
             }
