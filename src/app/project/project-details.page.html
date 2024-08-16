@@ -9,7 +9,9 @@
 <ion-content >
   <div class="details-background">
     <div class="details-section">
-      <project-player [config]="config" [projectData]="projectData"></project-player>
+      @if(showDetails){
+        <project-player [config]="config" [projectData]="projectData"></project-player>
+      }
     </div>
   </div>
 </ion-content>

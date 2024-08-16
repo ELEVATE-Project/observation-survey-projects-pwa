@@ -1,0 +1,56 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" (click)="goBack()"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list class="list-title">
+    <ion-row class="ion-margin">
+      <ion-col>
+        <ion-text color="primary">
+          <h1>Projects under {{ stateData?.name }}</h1>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row class="search">
+      <ion-col size="12">
+        <ion-searchbar class="srchBar" placeholder="Search here" [debounce]="1000"
+          (ionInput)="handleInput($event)"></ion-searchbar>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+
+  <ion-grid>
+    @if(projectsList?.count > 0){
+      <ion-row>
+        @for (project of projectsList?.data; track $index) {
+        <ion-col size="12" size-md="6" class="listing-card">
+          <ion-card class="project-card" (click)="navigateToTemplatePage(project)">
+            <ion-card-content>
+              <div>{{ project.title }}</div>
+              {{ project.description }}
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        }
+      </ion-row>
+    }@else{
+      <div class="no-data ion-margin-top">
+        <img src="assets/images/no_data.jpg" alt="No data">
+      </div>
+    }
+  </ion-grid>
+</ion-content>
+
+@if(!(projectsList?.count === 0 || projectsList?.count === projectsList?.data?.length)){
+  <ion-footer>
+    <ion-toolbar>
+      <ion-button expand="block" fill="solid" shape="round" (click)="loadMore()">
+        Load More
+      </ion-button>
+    </ion-toolbar>
+  </ion-footer>
+}
