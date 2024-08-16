@@ -224,6 +224,7 @@ export class ProfileEditPage{
         let payload = this.formLib?.myForm.value;
         payload.location = "bangalore";
         payload.about = "PWA";
+        !this.formJson.isUploaded ? payload.image = "" : payload?.image;
         this.formJson.forEach((control: any) => {
           if (control.dynamicUrl) {
             const controlValues = payload[control.name]
@@ -266,7 +267,7 @@ export class ProfileEditPage{
   }
 
   async canPageLeave(event?: any): Promise<boolean> {
-    if (!this.formLib?.myForm.pristine) {
+    if (this.formLib && !this.formLib?.myForm.pristine || !this.formJson.isUploaded) {
       await this.alertService.presentAlert(
         'Save Data?',
         'You have unsaved data, would you like to save it before exiting?',
@@ -277,6 +278,7 @@ export class ProfileEditPage{
             role: 'exit',
             handler: () => {
               this.formLib?.myForm.markAsPristine();
+              !this.formJson.isUploaded ? this.formJson.isUploaded = true:  this.formJson.isUploaded;
               this.router.navigateByUrl('/profile');
               return true; 
             }
@@ -285,8 +287,9 @@ export class ProfileEditPage{
             text: 'Save',
             cssClass: 'primary-button',
             role: 'cancel',
-            handler: async () => {
-              await this.updateProfile(); 
+            handler:() => {
+              this.updateProfile(); 
+              this.formJson.isUploaded = true
               return false; 
             }
           }
@@ -294,7 +297,6 @@ export class ProfileEditPage{
       );
       return false;
     } else {
-      // return true;
       if(event){
         this.navCtrl.back();
         return false;
