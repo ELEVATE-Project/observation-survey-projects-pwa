@@ -45,7 +45,7 @@ export class QrScannerPage implements OnInit {
     this.stopScan()
   }
   headerback(){
-    this.router.navigate(['/home'])
+    this.location.back();
   }
   async startScan() {
     this.stopScanning = false;
@@ -61,8 +61,6 @@ export class QrScannerPage implements OnInit {
       if (this.stopScanning) return;
       if (result) {
         this.handleScanResult(result);
-      } else if (err) {
-        this.toastService.presentToast('No QR code detected. Please try again', 'danger');
       }
     });
   }

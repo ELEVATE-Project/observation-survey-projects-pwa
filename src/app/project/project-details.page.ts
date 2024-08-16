@@ -1,10 +1,9 @@
 import {  Component, OnInit, inject } from '@angular/core';
-import {  NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { ProfileService } from '../services/profile/profile.service';
-import { ToastService } from '../services/toast/toast.service';
-import { Location } from '@angular/common';
+import { UtilService } from '../services/util/util.service';
 
 @Component({
   selector: 'app-project',
@@ -21,7 +20,7 @@ export class ProjectDetailsPage  implements OnInit {
     profileInfo: {}
   }
   showDetails = false
-    constructor(private navCtrl: NavController, private profileService: ProfileService, private location: Location) {
+    constructor(private navCtrl: NavController, private profileService: ProfileService, private utils: UtilService) {
       this.router = inject(Router);
       this.getProfileDetails()
     }
@@ -35,9 +34,16 @@ export class ProjectDetailsPage  implements OnInit {
     }
 
     getProfileDetails() {
+      if(!this.utils.isLoggedIn()){
+        this.showDetails = true
+        return
+      }
       this.profileService.getProfileAndEntityConfigData().subscribe((mappedIds) => {
         if (mappedIds) {
           this.config.profileInfo = mappedIds;
+        }else{
+          history.replaceState(null, '','/');
+          this.navCtrl.back()
         }
         this.showDetails = true
       });

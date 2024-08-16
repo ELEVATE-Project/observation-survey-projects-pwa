@@ -7,6 +7,7 @@ import { LoaderService } from '../loader/loader.service';
 import { FETCH_Profile_FORM } from 'src/app/core/constants/formConstant';
 import { Router } from '@angular/router';
 import { AlertService } from '../alert/alert.service';
+import { Location } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,8 @@ export class ProfileService {
     private loader: LoaderService,
     private toastService: ToastService,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private location: Location
   ) { }
 
   getFormJsonAndData(): Observable<any> {
@@ -98,7 +100,7 @@ export class ProfileService {
           role: 'cancel',
           cssClass: 'secondary-button',
           handler: () => {
-            this.router.navigate(['/home']);
+            this.location.back()
           }
         },
         {

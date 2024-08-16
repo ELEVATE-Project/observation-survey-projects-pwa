@@ -26,6 +26,6 @@ export class AlertService {
   }
 
   async dismissAlert(){
-    await this.alert.dismiss();
+    await this.alert ? this.alert.dismiss() : null
   }
 }
