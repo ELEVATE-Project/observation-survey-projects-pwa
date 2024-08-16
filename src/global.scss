@@ -100,12 +100,7 @@ mat-label {
 }
 
 .profileView{
-  .mat-mdc-standard-chip.mdc-evolution-chip--selected:not(.mdc-evolution-chip--disabled) {
-    background-color: var(--color-grey) !important;
-  }
-  
   .mat-mdc-standard-chip.mdc-evolution-chip--selectable:not(.mdc-evolution-chip--with-primary-icon) {
-    --mdc-chip-graphic-selected-width: var(--color-grey) !important;
     padding-right: 10px;
   }
   .mat-icon{
