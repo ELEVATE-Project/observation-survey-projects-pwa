@@ -61,15 +61,15 @@ export class HomePage {
           if (res?.result) {
             this.solutionList = res?.result?.data;
             this.solutionList = [
-              {
-                  "type": "bannerList",
-                  "listingData": [
-                      {
-                          "title": "Hey, Welcome back!",
-                          "discription": ""
-                      }
-                  ]
-              },
+              // {
+              //     "type": "bannerList",
+              //     "listingData": [
+              //         {
+              //             "title": "Hey, Welcome back!",
+              //             "discription": ""
+              //         }
+              //     ]
+              // },
               {
                   "type": "solutionList",
                   "listingData": [
@@ -96,6 +96,7 @@ export class HomePage {
                           "img": "assets/images/ic_report.svg",
                           "redirectionUrl": "/list/report",
                           "listType": "report",
+                          "reportPage":true,
                           "description": "Make sense of data to enable your decision-making based on your programs with ease"
                       }
                   ]
