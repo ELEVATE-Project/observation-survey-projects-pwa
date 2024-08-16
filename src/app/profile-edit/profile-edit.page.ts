@@ -265,9 +265,9 @@ export class ProfileEditPage{
     }
   }
 
-  async canPageLeave(event?: any) {
+  async canPageLeave(event?: any): Promise<boolean> {
     if (!this.formLib?.myForm.pristine) {
-      this.alertService.presentAlert(
+      await this.alertService.presentAlert(
         'Save Data?',
         'You have unsaved data, would you like to save it before exiting?',
         [
@@ -276,26 +276,25 @@ export class ProfileEditPage{
             cssClass: 'secondary-button',
             role: 'exit',
             handler: () => {
-              this.navCtrl.back();
+              this.formLib?.myForm.markAsPristine();
+              this.router.navigateByUrl('/profile');
+              return true; 
             }
           },
           {
             text: 'Save',
             cssClass: 'primary-button',
-            role: 'cancel'
+            role: 'cancel',
+            handler: async () => {
+              await this.updateProfile(); 
+              return false; 
+            }
           }
         ]
       );
-      if (!event) {
-        let data = await this.alertService.alert.onDidDismiss();
-        if (data.role == 'exit') {
-          return true;
-        }
-      }
       return false;
-
-    }
-    else {
+    } else {
+      // return true;
       if(event){
         this.navCtrl.back();
         return false;
@@ -304,6 +303,7 @@ export class ProfileEditPage{
       }
     }
   }
+  
 
 
   async imageUploadEvent(event: any) {
