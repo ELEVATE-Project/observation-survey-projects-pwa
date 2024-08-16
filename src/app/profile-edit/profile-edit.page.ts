@@ -224,6 +224,7 @@ export class ProfileEditPage{
         let payload = this.formLib?.myForm.value;
         payload.location = "bangalore";
         payload.about = "PWA";
+        !this.formJson.isUploaded ? payload.image = "" : payload?.image;
         this.formJson.forEach((control: any) => {
           if (control.dynamicUrl) {
             const controlValues = payload[control.name]
@@ -265,9 +266,9 @@ export class ProfileEditPage{
     }
   }
 
-  async canPageLeave(event?: any) {
-    if (!this.formLib?.myForm.pristine) {
-      this.alertService.presentAlert(
+  async canPageLeave(event?: any): Promise<boolean> {
+    if (this.formLib && !this.formLib?.myForm.pristine || !this.formJson.isUploaded) {
+      await this.alertService.presentAlert(
         'Save Data?',
         'You have unsaved data, would you like to save it before exiting?',
         [
@@ -276,26 +277,26 @@ export class ProfileEditPage{
             cssClass: 'secondary-button',
             role: 'exit',
             handler: () => {
-              this.navCtrl.back();
+              this.formLib?.myForm.markAsPristine();
+              !this.formJson.isUploaded ? this.formJson.isUploaded = true:  this.formJson.isUploaded;
+              this.router.navigateByUrl('/profile');
+              return true; 
             }
           },
           {
             text: 'Save',
             cssClass: 'primary-button',
-            role: 'cancel'
+            role: 'cancel',
+            handler:() => {
+              this.updateProfile(); 
+              this.formJson.isUploaded = true
+              return false; 
+            }
           }
         ]
       );
-      if (!event) {
-        let data = await this.alertService.alert.onDidDismiss();
-        if (data.role == 'exit') {
-          return true;
-        }
-      }
       return false;
-
-    }
-    else {
+    } else {
       if(event){
         this.navCtrl.back();
         return false;
@@ -304,6 +305,7 @@ export class ProfileEditPage{
       }
     }
   }
+  
 
 
   async imageUploadEvent(event: any) {
