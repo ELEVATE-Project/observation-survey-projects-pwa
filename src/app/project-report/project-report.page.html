@@ -90,4 +90,17 @@
       </ion-content>
     </ng-template>
   </ion-modal>
+  <ion-modal [isOpen]="OpenForCopyLink" class="copy-link-popup" (ionModalDidDismiss)="onModalDismiss()">
+    <ng-template>
+      <ion-content class="ion-padding " style="--padding-end:20px;">
+        <div style="margin-top: 10px; height: 3vh; display:flex;justify-content: space-between; align-items: center; cursor: pointer;">
+          <p >Copy link</p>
+          <ion-icon style="height: 3vh; width: 3vw;"  (click)="copyLink()" name="copy-outline"></ion-icon>
+        </div>
+      </ion-content>
+      <ion-footer  style="display: flex; justify-content: end; padding: 10px;">
+        <ion-button  fill="solid" shape="round" (click)="onModalDismiss()">Cancel</ion-button>
+      </ion-footer>
+    </ng-template>
+  </ion-modal>
 </ion-content>

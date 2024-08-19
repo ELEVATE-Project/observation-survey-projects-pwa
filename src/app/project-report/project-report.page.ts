@@ -9,6 +9,11 @@ import { ToastService } from '../services/toast/toast.service';
 import { Chart, registerables } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { ActivatedRoute } from '@angular/router';
+import { Platform } from '@ionic/angular';
+import { Share } from '@capacitor/share';
+import { Clipboard } from '@capacitor/clipboard';
+import { UtilService } from '../services/util/util.service';
+
 
 @Component({
   selector: 'app-project-report',
@@ -38,10 +43,15 @@ export class ProjectReportPage implements OnInit {
     'rgb(54, 162, 235)',
     'rgb(255, 205, 86)',
   ]
+  OpenForCopyLink = false;
+  downloadUrl: any;
 
   constructor(
     private navCtrl: NavController,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private utilService: UtilService,
+    private platform: Platform,
+
   ) {
     this.loader = inject(LoaderService);
     this.baseApiService = inject(ApiBaseService);
@@ -115,18 +125,54 @@ export class ProjectReportPage implements OnInit {
 
   }
 
-  // async getPrograms() {
-  //   this.baseApiService.get(urlConfig["program"].listingUrl + `?pageNo=1&pageSize=1`)
-  //     .pipe(finalize(async () => { }))
-  //     .subscribe((res: any) => {
-  //       if (res?.status === 200) {
-  //         this.programList = res.result.data;
-  //       }
-  //     })
-  // }
+  async share() {
+    await this.loader.showLoading('Preparing the report for sharing...');
+    try {
+      const res = await this.baseApiService.get(urlConfig[this.listType].listingUrl + `?requestPdf=true&reportType=${this.reportType}&programId=${this.programId}`).toPromise();
+      if (res?.status === 200 && res.result.data) {
+        this.downloadUrl = res.result.data.downloadUrl;
+        await this.loader.dismissLoading();
+        if (this.utilService.isMobile()) {
+          try {
+            const shareOptions = {
+              title: 'Project Report',
+              text: 'Check out this project report',
+              url: this.downloadUrl
+            };
+            await Share.share(shareOptions);
+          } catch (err) {
+            console.error("Error during file download or sharing", err);
+            this.toastService.presentToast('Error during file download or sharing', 'danger');
+          }
+        } else {
+          this.setOpenForCopyLink(true);
+        }
+      } else {
+        this.toastService.presentToast('Failed to fetch report data for sharing.', 'danger');
+      }
+    } catch (error) {
+      console.error('Sharing failed', error);
+      this.toastService.presentToast('Sharing failed', 'danger');
+    } finally {
+      await this.loader.dismissLoading();
+    }
+  }
 
-  share() {
-    console.log('this is share');
+
+  setOpenForCopyLink(open: boolean) {
+    this.OpenForCopyLink = open;
+  }
+
+
+
+  copyLink() {
+    Clipboard.write({ string: this.downloadUrl });
+    this.toastService.presentToast('Link copied to clipboard', 'success');
+    this.setOpenForCopyLink(false);
+  }
+
+  onModalDismiss() {
+    this.OpenForCopyLink = false;
   }
 
   getAction(event: any) {
