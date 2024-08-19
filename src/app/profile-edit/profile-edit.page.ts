@@ -266,44 +266,48 @@ export class ProfileEditPage{
     }
   }
 
-  async canPageLeave(event?: any): Promise<boolean> {
-    if (this.formLib && !this.formLib?.myForm.pristine || !this.formJson.isUploaded) {
-      await this.alertService.presentAlert(
-        'Save Data?',
-        'You have unsaved data, would you like to save it before exiting?',
-        [
-          {
-            text: "Don't Save",
-            cssClass: 'secondary-button',
-            role: 'exit',
-            handler: () => {
-              this.formLib?.myForm.markAsPristine();
-              !this.formJson.isUploaded ? this.formJson.isUploaded = true:  this.formJson.isUploaded;
-              this.router.navigateByUrl('/profile');
-              return true; 
-            }
-          },
-          {
-            text: 'Save',
-            cssClass: 'primary-button',
-            role: 'cancel',
-            handler:() => {
-              this.updateProfile(); 
-              this.formJson.isUploaded = true
-              return false; 
-            }
-          }
-        ]
-      );
-      return false;
-    } else {
-      if(event){
-        this.navCtrl.back();
-        return false;
-      }else{
-        return true;
-      }
-    }
+  // async canPageLeave(event?: any): Promise<boolean> {
+  //   if (this.formLib && !this.formLib?.myForm.pristine || !this.formJson.isUploaded) {
+  //     await this.alertService.presentAlert(
+  //       'Save Data?',
+  //       'You have unsaved data, would you like to save it before exiting?',
+  //       [
+  //         {
+  //           text: "Don't Save",
+  //           cssClass: 'secondary-button',
+  //           role: 'exit',
+  //           handler: () => {
+  //             this.formLib?.myForm.markAsPristine();
+  //             !this.formJson.isUploaded ? this.formJson.isUploaded = true:  this.formJson.isUploaded;
+  //             this.navCtrl.back();
+  //             return true; 
+  //           }
+  //         },
+  //         {
+  //           text: 'Save',
+  //           cssClass: 'primary-button',
+  //           role: 'cancel',
+  //           handler:() => {
+  //             this.updateProfile(); 
+  //             this.formJson.isUploaded = true
+  //             return false; 
+  //           }
+  //         }
+  //       ]
+  //     );
+  //     return false;
+  //   } else {
+  //     if(event){
+  //       this.navCtrl.back();
+  //       return false;
+  //     }else{
+  //       return true;
+  //     }
+  //   }
+  // }
+
+  canPageLeave(event?:any){
+    this.navCtrl.back()
   }
   
 
