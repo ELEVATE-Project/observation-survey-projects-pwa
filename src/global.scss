@@ -99,6 +99,19 @@ mat-label {
   --mdc-chip-graphic-selected-width: var(--color-primary) !important;
 }
 
+.profileView{
+  .mat-mdc-standard-chip.mdc-evolution-chip--selectable:not(.mdc-evolution-chip--with-primary-icon) {
+    padding-right: 10px;
+  }
+  .mat-icon{
+    display: none;
+  }
+
+  .mat-mdc-select-arrow{
+    display: none;
+  }
+}
+
 .custom-alert {
   .alert-wrapper {
     pointer-events: auto;

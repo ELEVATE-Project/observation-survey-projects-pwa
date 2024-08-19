@@ -12,6 +12,7 @@ import { ToastService } from '../services/toast/toast.service';
 export class ProfilePage {
   formJson: any = [];
   formData: any;
+  enableForm:boolean=false;
 
   constructor(private profileService: ProfileService,
     private navCtrl: NavController,
@@ -20,6 +21,7 @@ export class ProfilePage {
   ) { }
 
   ionViewWillEnter() {
+    this.enableForm = false;
     this.loadFormAndData();
   }
 
@@ -47,51 +49,58 @@ export class ProfilePage {
   mapProfileDataToFormJson(formData?: any) {
     this.formJson.image = this.formData.image;
     this.formJson.isUploaded = true;
-
-    this.formJson.forEach((control: any) => {
+  
+    this.formJson.map((control: any) => {
       if (!(control.name in formData)) {
         formData[control.name] = control.defaultValue || '';
       }
     });
-
+  
     if (formData.user_roles) {
       formData.user_roles = formData.user_roles.map((role: any) => ({
         label: role?.title,
         value: role?.id
       }));
     }
-
     this.formData.roles = formData.user_roles;
-
-    Object.entries(formData).forEach(([key, value]: any) => {
+  
+    const formDataEntries = Object.entries(formData);
+    const lastIndex = formDataEntries?.length - 1;
+  
+    formDataEntries.map(([key, value]: any, index) => {
       const control = this.formJson.find((control: any) => control.name === key);
-
+  
       if (control) {
         switch (control.type) {
           case 'select':
             const selectOption = this.formData[control.name];
-            control.options = [selectOption]
+            control.options = [selectOption];
             control.value = value?.value;
             break;
-
+  
           case 'chip':
             const chipOptions = this.formData[control.name];
-            control.options = chipOptions
+            control.options = chipOptions;
             control.value = value;
             break;
-
+  
           default:
             control.value = typeof value === 'string'
-                ? String(value)
-                : value?.value || value;
+              ? String(value)
+              : value?.value || value;
         }
-
+  
         control.disabled = true;
         control.validators = false;
         control.label = this.capitalizeLabelFirstLetter(control.name);
       }
+
+      if (index === lastIndex) {
+        this.enableForm = true;
+      }
     });
   }
+  
 
   goBack() {
     this.navCtrl.back();

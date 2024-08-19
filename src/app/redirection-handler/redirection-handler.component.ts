@@ -27,7 +27,11 @@ export class RedirectionHandlerComponent  implements OnInit {
     activatedRoute.paramMap.subscribe((param:any)=>{
       this.type = param.get("type")
       this.linkId = param.get("id")
-      this.getProfileDetails()
+      if(!this.utils.isLoggedIn()){
+        this.checkLinkType()
+      }else{
+        this.getProfileDetails()
+      }
     })
   }
 
@@ -39,6 +43,8 @@ export class RedirectionHandlerComponent  implements OnInit {
       if (mappedIds) {
         this.profileInfo = mappedIds;
         this.checkLinkType()
+      }else{
+        this.router.navigate(['/home'],{ replaceUrl:true })
       }
     });
   }

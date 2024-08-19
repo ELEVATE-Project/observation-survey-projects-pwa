@@ -1,20 +1,19 @@
-import { Injectable } from "@angular/core";
-import {
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot
-} from "@angular/router";
-import { Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { CanDeactivate } from '@angular/router';
+import { Observable } from 'rxjs';
 
 export interface isDeactivatable {
   canPageLeave: () => Observable<boolean> | Promise<boolean> | boolean;
 }
+
 @Injectable({
   providedIn: 'root'
 })
 export class GuardService {
+  
   canDeactivate(
     component: isDeactivatable
   ): Observable<boolean> | Promise<boolean> | boolean {
-    return component?.canPageLeave ? component?.canPageLeave() : true;
+    return component?.canPageLeave ? component.canPageLeave() : true;
   }
 }

@@ -40,7 +40,9 @@ export class ProfileEditPage{
   }
 
   ionViewWillLeave() {
-    this.alertService.dismissAlert();
+    if(this.alertService.alert){
+      this.alertService.dismissAlert();
+    }
   }
 
   loadFormAndData() {
@@ -222,6 +224,7 @@ export class ProfileEditPage{
         let payload = this.formLib?.myForm.value;
         payload.location = "bangalore";
         payload.about = "PWA";
+        !this.formJson.isUploaded ? payload.image = "" : payload?.image;
         this.formJson.forEach((control: any) => {
           if (control.dynamicUrl) {
             const controlValues = payload[control.name]
@@ -241,7 +244,7 @@ export class ProfileEditPage{
             if (res?.result) {
               this.formLib?.myForm.markAsPristine();
               this.toastService.presentToast(res?.message || 'Profile Updated Sucessfully', 'success');
-              this.router.navigateByUrl('/profile');
+              this.navCtrl.back();
             } else {
               this.toastService.presentToast(res?.message, 'warning');
             }
@@ -263,45 +266,50 @@ export class ProfileEditPage{
     }
   }
 
-  async canPageLeave(event?: any) {
-    if (!this.formLib?.myForm.pristine) {
-      this.alertService.presentAlert(
-        'Save Data?',
-        'You have unsaved data, would you like to save it before exiting?',
-        [
-          {
-            text: "Don't Save",
-            cssClass: 'secondary-button',
-            role: 'exit',
-            handler: () => {
-              this.navCtrl.back();
-            }
-          },
-          {
-            text: 'Save',
-            cssClass: 'primary-button',
-            role: 'cancel'
-          }
-        ]
-      );
-      if (!event) {
-        let data = await this.alertService.alert.onDidDismiss();
-        if (data.role == 'exit') {
-          return true;
-        }
-      }
-      return false;
+  // async canPageLeave(event?: any): Promise<boolean> {
+  //   if (this.formLib && !this.formLib?.myForm.pristine || !this.formJson.isUploaded) {
+  //     await this.alertService.presentAlert(
+  //       'Save Data?',
+  //       'You have unsaved data, would you like to save it before exiting?',
+  //       [
+  //         {
+  //           text: "Don't Save",
+  //           cssClass: 'secondary-button',
+  //           role: 'exit',
+  //           handler: () => {
+  //             this.formLib?.myForm.markAsPristine();
+  //             !this.formJson.isUploaded ? this.formJson.isUploaded = true:  this.formJson.isUploaded;
+  //             this.navCtrl.back();
+  //             return true; 
+  //           }
+  //         },
+  //         {
+  //           text: 'Save',
+  //           cssClass: 'primary-button',
+  //           role: 'cancel',
+  //           handler:() => {
+  //             this.updateProfile(); 
+  //             this.formJson.isUploaded = true
+  //             return false; 
+  //           }
+  //         }
+  //       ]
+  //     );
+  //     return false;
+  //   } else {
+  //     if(event){
+  //       this.navCtrl.back();
+  //       return false;
+  //     }else{
+  //       return true;
+  //     }
+  //   }
+  // }
 
-    }
-    else {
-      if(event){
-        this.navCtrl.back();
-        return false;
-      }else{
-        return true;
-      }
-    }
+  canPageLeave(event?:any){
+    this.navCtrl.back()
   }
+  
 
 
   async imageUploadEvent(event: any) {
