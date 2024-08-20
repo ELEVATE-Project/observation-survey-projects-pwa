@@ -55,7 +55,7 @@ export class QrScannerPage implements OnInit {
         this.toastService.presentToast(
           'Camera permission is required to scan QR code. Please enable it in your browser or app settings.',
           'danger',
-          5000
+          9000
         );
         return;
       } else if (permissionStatus.state === 'prompt' || permissionStatus.state === 'granted') {
