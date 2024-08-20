@@ -91,7 +91,7 @@ export class QrScannerPage implements OnInit {
     if (scannedUrl.includes('verifyCertificate')) {
       await this.getCertificate();
     } else if (scannedUrl.includes('view/project')) {
-      this.solutionType=scannedUrl.split('/').find(part => part === 'project')
+      this.solutionType='project'
       await this.handleProjectUrl();
     } else {
       this.headerback()
