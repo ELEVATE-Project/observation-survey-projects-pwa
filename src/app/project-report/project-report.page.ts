@@ -13,7 +13,7 @@ import { Platform } from '@ionic/angular';
 import { Share } from '@capacitor/share';
 import { Clipboard } from '@capacitor/clipboard';
 import { UtilService } from '../services/util/util.service';
-import { DialogPopupComponent } from '../shared/dialog-popup/dialog-popup.component';
+import { ShareLinkPopupComponent } from '../shared/share-link-popup/share-link-popupcomponent';
 
 
 @Component({
@@ -162,7 +162,7 @@ export class ProjectReportPage implements OnInit {
 
  async setOpenForCopyLink() {
      const popover = await this.popoverController.create({
-      component: DialogPopupComponent,
+      component: ShareLinkPopupComponent,
       componentProps: {
         data: {
           downloadUrl:this.downloadUrl

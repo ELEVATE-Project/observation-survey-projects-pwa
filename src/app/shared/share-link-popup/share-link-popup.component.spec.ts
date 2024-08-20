@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { DialogPopupComponent } from './dialog-popup.component';
+import { ShareLinkPopupComponent } from './share-link-popupcomponent';
 
-describe('DialogPopupComponent', () => {
-  let component: DialogPopupComponent;
-  let fixture: ComponentFixture<DialogPopupComponent>;
+describe('ShareLinkPopupComponent', () => {
+  let component: ShareLinkPopupComponent;
+  let fixture: ComponentFixture<ShareLinkPopupComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ DialogPopupComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [ShareLinkPopupComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DialogPopupComponent);
+    fixture = TestBed.createComponent(ShareLinkPopupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

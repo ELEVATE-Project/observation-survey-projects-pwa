@@ -5,10 +5,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ShortUrlPipe implements PipeTransform {
 
-  transform(value: string, ...args: unknown[]): string {
-    // Simple example to shorten URL
+  transform(value: string, trimLength: number = 20): string {
     if (!value) return value;
-    return value.length > 20 ? `${value.substr(0, 20)}...` : value;
+    return value.length > trimLength ? `${value.substr(0, trimLength)}...` : value;
   }
 
 }

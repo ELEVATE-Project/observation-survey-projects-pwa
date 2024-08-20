@@ -3,10 +3,10 @@ import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-dialog-popup',
-  templateUrl: './dialog-popup.component.html',
-  styleUrls: ['./dialog-popup.component.scss'],
+  templateUrl: './share-link-popup.component.html',
+  styleUrls: ['./share-link-popup.component.scss'],
 })
-export class DialogPopupComponent   {
+export class ShareLinkPopupComponent   {
 @Input() data:any;
   constructor(private popoverController: PopoverController) { }
 
