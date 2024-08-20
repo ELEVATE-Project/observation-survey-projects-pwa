@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild, inject } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, PopoverController } from '@ionic/angular';
 import { LoaderService } from '../services/loader/loader.service';
 import { ApiBaseService } from '../services/base-api/api-base.service';
 import urlConfig from 'src/app/config/url.config.json';
@@ -13,6 +13,7 @@ import { Platform } from '@ionic/angular';
 import { Share } from '@capacitor/share';
 import { Clipboard } from '@capacitor/clipboard';
 import { UtilService } from '../services/util/util.service';
+import { DialogPopupComponent } from '../shared/dialog-popup/dialog-popup.component';
 
 
 @Component({
@@ -43,7 +44,6 @@ export class ProjectReportPage implements OnInit {
     'rgb(54, 162, 235)',
     'rgb(255, 205, 86)',
   ]
-  OpenForCopyLink = false;
   downloadUrl: any;
 
   constructor(
@@ -51,6 +51,7 @@ export class ProjectReportPage implements OnInit {
     private router: ActivatedRoute,
     private utilService: UtilService,
     private platform: Platform,
+    private popoverController: PopoverController
 
   ) {
     this.loader = inject(LoaderService);
@@ -145,7 +146,7 @@ export class ProjectReportPage implements OnInit {
             this.toastService.presentToast('Error during file download or sharing', 'danger');
           }
         } else {
-          this.setOpenForCopyLink(true);
+          this.setOpenForCopyLink();
         }
       } else {
         this.toastService.presentToast('Failed to fetch report data for sharing.', 'danger');
@@ -159,20 +160,24 @@ export class ProjectReportPage implements OnInit {
   }
 
 
-  setOpenForCopyLink(open: boolean) {
-    this.OpenForCopyLink = open;
-  }
-
-
-
-  copyLink() {
-    Clipboard.write({ string: this.downloadUrl });
-    this.toastService.presentToast('Link copied to clipboard', 'success');
-    this.setOpenForCopyLink(false);
-  }
-
-  onModalDismiss() {
-    this.OpenForCopyLink = false;
+ async setOpenForCopyLink() {
+     const popover = await this.popoverController.create({
+      component: DialogPopupComponent,
+      componentProps: {
+        data: {
+          downloadUrl:this.downloadUrl
+        }
+      },
+      cssClass: 'popup-class',
+      backdropDismiss: true
+    });
+    await popover.present();
+      popover.onDidDismiss().then((data)=>{
+        if(data.data){
+          Clipboard.write({ string: this.downloadUrl });
+          this.toastService.presentToast('Link copied to clipboard', 'success');
+        }
+      })
   }
 
   getAction(event: any) {
