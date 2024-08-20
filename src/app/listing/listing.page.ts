@@ -30,7 +30,6 @@ export class ListingPage implements OnInit {
   filters=actions.PROJECT_FILTERS;
   solutionType!: string;
   entityData:any;
-  reportPage: any;
 
   constructor(private navCtrl: NavController, private router: Router,
     private profileService: ProfileService,
@@ -46,8 +45,10 @@ export class ListingPage implements OnInit {
     if (navigation?.extras?.state) {
       this.stateData = navigation.extras.state;
       this.listType = this.stateData?.listType;
+      if(this.listType !== 'project'){
+        this.filters = null as any;
+      }
       this.solutionType = this.stateData?.solutionType;
-      this.reportPage = this.stateData?.reportPage
       console.log(this.listType)
     }
   }
@@ -87,7 +88,7 @@ export class ListingPage implements OnInit {
     await this.loader.showLoading("Please wait while loading...");
     this.baseApiService
       .post(
-        urlConfig[this.listType].listingUrl + `?type=${this.solutionType}&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}&`, this.entityData)
+        urlConfig[this.listType].listingUrl + `?type=${this.solutionType}&page=${this.page}&limit=${this.limit}${this.listType == 'project' ? '&filter='+ this.filter:''}&search=${this.searchTerm}${this.stateData.reportIdentifier ? `&` +this.stateData.reportIdentifier+`=`+this.stateData.reportPage : ''}`, this.entityData)
       .pipe(
         finalize(async () => {
           await this.loader.dismissLoading();

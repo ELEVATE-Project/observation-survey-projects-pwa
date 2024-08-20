@@ -20,11 +20,12 @@ export class ReportListPage implements OnInit {
     if (navigation?.extras?.state) {
       this.stateData = navigation.extras.state;
       this.listType = this.stateData?.listType;
+      console.log(this.stateData)
     }
   }
 
-  navigateToPage(data:string){
-    this.router.navigate([data])
+  navigateTo(data: any) {
+    this.router.navigate([data?.redirectionUrl], { state: data });
   }
 
   goBack() {
