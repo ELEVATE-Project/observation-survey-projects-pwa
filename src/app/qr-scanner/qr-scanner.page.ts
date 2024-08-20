@@ -23,6 +23,7 @@ export class QrScannerPage implements OnInit {
   toastService: ToastService;
   userId: string | undefined;
   baseApiService: ApiBaseService;
+  solutionType:any;
   @ViewChild('video', { static: false }) video!: ElementRef<HTMLVideoElement>;
 
   constructor(private router: Router,private utilService: UtilService,private location:Location) {
@@ -85,14 +86,22 @@ export class QrScannerPage implements OnInit {
   }
 
   async handleScanResult(result: Result) {
-    const scannedUserId = result.getText().split('/').pop();
-
-    if (this.userId !== scannedUserId) {
-      this.userId = scannedUserId;
+    const scannedUrl = result.getText();
+    this.userId = scannedUrl.split('/').pop();
+    if (scannedUrl.includes('verifyCertificate')) {
       await this.getCertificate();
+    } else if (scannedUrl.includes('view/project')) {
+      this.solutionType=scannedUrl.split('/').find(part => part === 'project')
+      await this.handleProjectUrl();
+    } else {
+      this.headerback()
+      this.toastService.presentToast('Invalid Link, please try with other link', 'danger');
     }
   }
-
+  async handleProjectUrl() {
+    this.router.navigate([`/view/${this.solutionType}/${this.userId}`],{replaceUrl:true})
+  }
+  
   stopScan() {
     this.stopScanning = true;
     if (this.codeReader) {
