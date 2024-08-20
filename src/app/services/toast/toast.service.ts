@@ -10,10 +10,10 @@ export class ToastService {
     this.toastController = inject(ToastController)
   }
 
-  async presentToast(message:any,color:any) {
+  async presentToast(message:any,color:any,duration:any=1500) {
     const toast = await this.toastController.create({
       message: message,
-      duration: 1500,
+      duration: duration,
       position: 'top',
       color: color
     });

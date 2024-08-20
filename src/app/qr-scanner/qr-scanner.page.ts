@@ -39,7 +39,7 @@ export class QrScannerPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.startScan();
+    this.checkCameraPermission();
   }
   ionViewWillLeave(){
     this.stopScan()
@@ -47,6 +47,25 @@ export class QrScannerPage implements OnInit {
   headerback(){
     this.location.back();
   }
+
+  async checkCameraPermission() {
+    try {
+      const permissionStatus = await navigator.permissions.query({ name: 'camera' as any });
+      if (permissionStatus.state === 'denied') {
+        this.toastService.presentToast(
+          'Camera permission is required to scan QR code. Please enable it in your browser or app settings.',
+          'danger',
+          5000
+        );
+        return;
+      } else if (permissionStatus.state === 'prompt' || permissionStatus.state === 'granted') {
+        this.startScan();
+      }
+    } catch (err) {
+      this.toastService.presentToast('Error checking camera permissions.', 'danger');
+    }
+  }
+  
   async startScan() {
     this.stopScanning = false;
     const stream = await navigator.mediaDevices.getUserMedia({
