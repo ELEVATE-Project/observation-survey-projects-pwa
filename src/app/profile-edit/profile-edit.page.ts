@@ -234,6 +234,8 @@ export class ProfileEditPage implements isDeactivatable{
           }
         });
         this.formJson?.destFilePath ? payload.image = this.formJson?.destFilePath : "";
+        console.log(this.formJson)
+        this.formJson.isUploaded = true;
         this.apiBaseService.patch(this.urlProfilePath.updateUrl, payload)
           .pipe(
             catchError(err => {
@@ -291,7 +293,6 @@ export class ProfileEditPage implements isDeactivatable{
             cssClass: 'primary-button',
             role: 'cancel',
             handler:() => {
-              this.formJson.isUploaded = true
               return false; 
             }
           }
