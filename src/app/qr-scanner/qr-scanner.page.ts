@@ -55,7 +55,7 @@ export class QrScannerPage implements OnInit {
         this.toastService.presentToast(
           'Camera permission is required to scan QR code. Please enable it in your browser or app settings.',
           'danger',
-          5000
+          9000
         );
         return;
       } else if (permissionStatus.state === 'prompt' || permissionStatus.state === 'granted') {
@@ -85,14 +85,21 @@ export class QrScannerPage implements OnInit {
   }
 
   async handleScanResult(result: Result) {
-    const scannedUserId = result.getText().split('/').pop();
-
-    if (this.userId !== scannedUserId) {
-      this.userId = scannedUserId;
+    const scannedUrl = result.getText();
+    this.userId = scannedUrl.split('/').pop();
+    if (scannedUrl.includes('verifyCertificate')) {
       await this.getCertificate();
+    } else if (scannedUrl.includes('view/project')) {
+      await this.handleProjectUrl();
+    } else {
+      this.headerback()
+      this.toastService.presentToast('Invalid Link, please try with other link', 'danger');
     }
   }
-
+  async handleProjectUrl() {
+    this.router.navigate([`/view/project/${this.userId}`],{replaceUrl:true})
+  }
+  
   stopScan() {
     this.stopScanning = true;
     if (this.codeReader) {

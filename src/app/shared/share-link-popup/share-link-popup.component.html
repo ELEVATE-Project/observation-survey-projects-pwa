@@ -1,0 +1,18 @@
+<ion-content class="pop-container">
+  <div class="pop-content">
+  <div class="copy-link-div">
+    <p >{{ data.downloadUrl | shortUrl:25 }}</p>
+    <div>
+      <button class="button-copy" (click)="onModalDismiss(false)" >
+        <ion-icon class="button-icon"  name="close"></ion-icon>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="cancel-button">
+  <ion-button (click)="onModalDismiss(true)"  fill="solid" shape="round" >
+      <ion-icon class="button-icon"  name="copy-outline"></ion-icon>
+      <span>copy</span>
+    </ion-button>
+  </div>
+</ion-content>
