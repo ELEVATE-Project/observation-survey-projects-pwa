@@ -38,8 +38,15 @@
         <ion-col size="12" size-md="6" class="listing-card" (click)="navigateToProject(solution)">
           <ion-card class="tiels">
             <ion-card-content>
-              <h2><b>{{solution?.name}}</b></h2>
-              <h6 class="ion-padding-top">{{solution?.description}}</h6>
+              <div class="flex justify-between items-center">
+                <h2><b>{{solution?.name}}</b></h2>
+                @if (solution?.certificate) {
+                  <span class="certificate-tag">Certificate</span>
+                }
+              </div>
+              <div class="ion-padding-top">
+                <h6>{{solution?.description}}</h6>
+              </div>
             </ion-card-content>
           </ion-card>
         </ion-col>
