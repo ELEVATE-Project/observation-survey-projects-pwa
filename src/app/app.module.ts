@@ -12,9 +12,11 @@ import { environment } from 'src/environments/environment';
 import { of, switchMap } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CertificateVerificationPopoverComponent } from './shared/certificate-verification-popover/certificate-verification-popover.component';
+import { ShareLinkPopupComponent } from './shared/share-link-popup/share-link-popupcomponent';
+import { ShortUrlPipe } from './shared/pipes/short-url.pipe';
 
 @NgModule({
-  declarations: [AppComponent,CertificateVerificationPopoverComponent],
+  declarations: [AppComponent,CertificateVerificationPopoverComponent,ShareLinkPopupComponent,ShortUrlPipe],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
     SlAuthLibModule, BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
@@ -33,7 +35,8 @@ import { CertificateVerificationPopoverComponent } from './shared/certificate-ve
       useClass: ApiInterceptor,
       multi: true
     },
-    SwUpdate
+    SwUpdate,
+    ShortUrlPipe
   ],
   bootstrap: [AppComponent],
 })
