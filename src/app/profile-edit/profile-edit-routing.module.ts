@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path: '',
     component: ProfileEditPage,
-    // canDeactivate: [GuardService]
+    canDeactivate: [GuardService]
   }
 ];
 
