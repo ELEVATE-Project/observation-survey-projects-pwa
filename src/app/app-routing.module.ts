@@ -16,6 +16,10 @@ const routes: Routes = [
       ),
   },
   {
+    path:'report-details',
+    loadChildren:() => import('./generic-report/generic-report.module').then(m => m.GenericReportModule)
+  },
+  {
     path: 'qr-scanner',
     loadChildren: () => import('./qr-scanner/qr-scanner.module').then( m => m.QrScannerPageModule)
   },

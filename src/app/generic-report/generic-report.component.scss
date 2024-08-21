@@ -1,0 +1,55 @@
+.report-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    padding: 15px;
+  }
+  
+  .question-card {
+    border-left: solid 10px transparent;
+    transition: border-left 0.5s ease;
+    border-radius: 0.5rem;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .question-card:hover {
+    border-left-color: solid 0.625rem var(--color-primary);
+  }
+  
+  ion-card-content {
+    padding: 10px;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .report-container {
+      padding: 10px;
+    }
+  
+    .question-card {
+      margin: 15px 0;
+      padding: 10px;
+    }
+  
+    ion-card-title {
+      font-size: 1rem;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .question-card {
+      margin: 10px 0;
+      padding: 8px;
+    }
+  
+    ion-card-title {
+      font-size: 0.9rem;
+    }
+  }
+
+.evidence-preview {
+    width: 50px;
+    margin: 10px 0;
+    padding: 10px;
+    height: 50px;
+}

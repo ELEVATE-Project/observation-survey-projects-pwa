@@ -12,7 +12,6 @@ import { environment } from 'src/environments/environment';
 import { of, switchMap } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CertificateVerificationPopoverComponent } from './shared/certificate-verification-popover/certificate-verification-popover.component';
-
 @NgModule({
   declarations: [AppComponent,CertificateVerificationPopoverComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,

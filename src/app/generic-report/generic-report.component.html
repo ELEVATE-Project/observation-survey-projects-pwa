@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Report Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="report-container">
+    <ion-list>
+      <ion-card *ngFor="let question of reportDetails; let qi = index" class="question-card">
+        <ion-card-header>
+          <ion-card-title>{{qi+1}}. {{ question.question }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ng-container [ngSwitch]="question.responseType">
+            <ion-item *ngSwitchCase="'radio'">
+                  <ion-label>{{ question.answers[0]}}</ion-label>
+            </ion-item>
+            <ion-item *ngSwitchCase="'multiselect'">
+              <ion-chip *ngFor="let answer of question.answers">
+                <ion-label>{{ answer }}</ion-label>
+              </ion-chip>
+            </ion-item>
+            <ion-item *ngSwitchCase="'number'">
+              <ion-label>{{ question.answers[0] }}</ion-label>
+            </ion-item>
+          </ng-container>
+        </ion-card-content>
+
+        <div style="margin: 10px 20px;">
+          <h4 *ngIf="question.evidences">Evidences : {{ question.evidence_count}}</h4>
+        </div>
+
+        <div style="display: flex;flex-direction: row;gap: 10px;">
+          <ng-container *ngFor="let evidence of question.evidences" >
+            <ng-container [ngSwitch]="evidence.extension">
+              <img *ngSwitchCase="'jpg'"  (click)="openUrl(evidence.url)" [src]="evidence.url" alt="Image Preview" class="evidence-preview"/>
+              <img *ngSwitchCase="'png'" (click)="openUrl(evidence.url)" [src]="evidence.url" alt="Image Preview" class="evidence-preview"/>
+
+              <video *ngSwitchCase="'mp4'" controls class="evidence-preview">
+                <source [src]="evidence.url" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+      
+              <audio *ngSwitchCase="'mp3'" controls class="evidence-preview">
+                <source [src]="evidence.url" type="audio/mp3">
+                Your browser does not support the audio element.
+              </audio>
+              <ion-icon *ngSwitchCase="'pdf'"  class="evidence-preview" (click)="openUrl(evidence.url)" name="document-outline"></ion-icon>
+      
+              <!-- <iframe *ngSwitchCase="'pdf'" class="evidence-preview" [src]="evidence.url | sanitizeUrl"></iframe>       -->
+              <p *ngSwitchDefault>Unsupported file format: {{ evidence.extension }}</p>
+            </ng-container>
+            </ng-container>
+        </div>
+
+      </ion-card>
+    </ion-list>
+  </div>
+</ion-content>
+
+
