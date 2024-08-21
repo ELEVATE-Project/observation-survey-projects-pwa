@@ -234,7 +234,6 @@ export class ProfileEditPage implements isDeactivatable{
           }
         });
         this.formJson?.destFilePath ? payload.image = this.formJson?.destFilePath : "";
-        console.log(this.formJson)
         this.formJson.isUploaded = true;
         this.apiBaseService.patch(this.urlProfilePath.updateUrl, payload)
           .pipe(
@@ -246,8 +245,8 @@ export class ProfileEditPage implements isDeactivatable{
           .subscribe((res: any) => {
             if (res?.result) {
               this.formLib?.myForm.markAsPristine();
+              this.navCtrl.back();
               this.toastService.presentToast(res?.message || 'Profile Updated Sucessfully', 'success');
-              this.router.navigateByUrl('/profile');
             } else {
               this.toastService.presentToast(res?.message, 'warning');
             }
