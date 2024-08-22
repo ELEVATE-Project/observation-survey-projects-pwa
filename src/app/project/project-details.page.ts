@@ -30,19 +30,19 @@ export class ProjectDetailsPage  implements OnInit {
     }
 
     ngOnInit(): void {
-      window.addEventListener('customEvent', this.handleEvent.bind(this));
-      this.projectData = this.router.getCurrentNavigation()?.extras.state;
+      window.addEventListener('message', this.handleMessage.bind(this));
+            this.projectData = this.router.getCurrentNavigation()?.extras.state;
     }
 
-    async handleEvent(event: Event) {
-      const customEvent = event as CustomEvent<string>;
-      const downloadUrl = customEvent.detail;
+    async handleMessage(event: MessageEvent) {
+      if (event.data && event.data.type === 'SHARE_LINK') {
+        const url = event.data.url;
       if (this.utils.isMobile()) {
         try {
           const shareOptions = {
             title: 'Project Report',
             text: 'Check out this project report',
-            url: downloadUrl,
+            url: url,
           };
           await Share.share(shareOptions);
         } catch (err) {
@@ -53,7 +53,8 @@ export class ProjectDetailsPage  implements OnInit {
           );
         }
       } else {
-        this.setOpenForCopyLink(downloadUrl);
+        this.setOpenForCopyLink(url);
+        }
       }
     }
 
@@ -99,7 +100,7 @@ export class ProjectDetailsPage  implements OnInit {
     }
     // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
     ngOnDestroy() {
-      window.removeEventListener('customEvent', this.handleEvent.bind(this));
+      window.removeEventListener('message', this.handleMessage.bind(this));
     }
 
 }
