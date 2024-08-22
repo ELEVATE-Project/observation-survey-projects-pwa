@@ -129,9 +129,9 @@ export class ProjectReportPage implements OnInit {
   async share() {
     await this.loader.showLoading('Preparing the report for sharing...');
     try {
-      const res = await this.baseApiService.get(urlConfig[this.listType].listingUrl + `?requestPdf=true&reportType=${this.reportType}&programId=${this.programId}`).toPromise();
-      if (res?.status === 200 && res.result.data) {
-        this.downloadUrl = res.result.data.downloadUrl;
+      const res = await this.baseApiService.get(urlConfig[this.listType].listingUrl +`?requestPdf=true&reportType=${this.reportType}&programId=${this.programId}`).toPromise();
+      if (res?.status === 200 && res.result) {
+        this.downloadUrl = res.result.downloadUrl;
         await this.loader.dismissLoading();
         if (this.utilService.isMobile()) {
           try {
@@ -206,7 +206,7 @@ export class ProjectReportPage implements OnInit {
             const year = today.getFullYear();
             const formattedDate = `${day}-${month}-${year}`;
             const name = `report_${formattedDate}.pdf`;
-            this.downloadFile(res.result.data.downloadUrl, name);
+            this.downloadFile(res.result.downloadUrl, name);
           }
           else{
             this.toastService.presentToast("Downloading failed !!", 'danger');
