@@ -20,6 +20,7 @@ export class AlertService {
         handler: button.handler
       })),
       cssClass: 'custom-alert',
+      backdropDismiss: false
     });
 
     await this.alert.present();

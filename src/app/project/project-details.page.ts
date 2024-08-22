@@ -1,9 +1,13 @@
 import {  Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, PopoverController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { ProfileService } from '../services/profile/profile.service';
 import { UtilService } from '../services/util/util.service';
+import { Share } from '@capacitor/share';
+import { Clipboard } from '@capacitor/clipboard'
+import { ToastService } from '../services/toast/toast.service';
+import { ShareLinkPopupComponent } from '../shared/share-link-popup/share-link-popupcomponent';
 
 @Component({
   selector: 'app-project',
@@ -20,14 +24,60 @@ export class ProjectDetailsPage  implements OnInit {
     profileInfo: {}
   }
   showDetails = false
-    constructor(private navCtrl: NavController, private profileService: ProfileService, private utils: UtilService) {
+    constructor(private navCtrl: NavController, private profileService: ProfileService, private utils: UtilService,private toastService:ToastService,private popoverController:PopoverController) {
       this.router = inject(Router);
       this.getProfileDetails()
     }
 
     ngOnInit(): void {
-      this.projectData = this.router.getCurrentNavigation()?.extras.state;
+      window.addEventListener('message', this.handleMessage.bind(this));
+            this.projectData = this.router.getCurrentNavigation()?.extras.state;
     }
+
+    async handleMessage(event: MessageEvent) {
+      if (event.data && event.data.type === 'SHARE_LINK') {
+        const url = event.data.url;
+      if (this.utils.isMobile()) {
+        try {
+          const shareOptions = {
+            title: 'Project Report',
+            text: 'Check out this project report',
+            url: url,
+          };
+          await Share.share(shareOptions);
+        } catch (err) {
+          console.error('Error during file download or sharing', err);
+          this.toastService.presentToast(
+            'Error during file download or sharing',
+            'danger'
+          );
+        }
+      } else {
+        this.setOpenForCopyLink(url);
+        }
+      }
+    }
+
+    async setOpenForCopyLink(value:any) {
+      const popover = await this.popoverController.create({
+       component: ShareLinkPopupComponent,
+       componentProps: {
+         data: {
+           downloadUrl: value,
+         },
+       },
+       cssClass: 'popup-class',
+       backdropDismiss: true,
+     });String
+     await popover.present();
+     popover.onDidDismiss().then((data) => {
+      if (data.data) {
+        Clipboard.write({ string: value });
+        this.toastService.presentToast('Link copied to clipboard', 'success');
+      }
+    });
+   }
+
 
     goBack(){
       this.navCtrl.back();
@@ -48,4 +98,9 @@ export class ProjectDetailsPage  implements OnInit {
         this.showDetails = true
       });
     }
+    // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
+    ngOnDestroy() {
+      window.removeEventListener('message', this.handleMessage.bind(this));
+    }
+
 }
