@@ -8,6 +8,8 @@ import { FETCH_Profile_FORM } from 'src/app/core/constants/formConstant';
 import { Router } from '@angular/router';
 import { AlertService } from '../alert/alert.service';
 import { Location } from '@angular/common';
+import { FETCH_HOME_FORM } from '../../core/constants/formConstant';
+
 
 @Injectable({
   providedIn: 'root',
@@ -112,5 +114,17 @@ export class ProfileService {
         }
       ]
     );
+  }
+
+   getFormListing() {
+     this.loader.showLoading("Please wait while loading...");
+  
+    return this.apiBaseService
+      .post(urlConfig['formListing'].listingUrl, FETCH_HOME_FORM)
+      .pipe(
+        finalize(async() => {
+          await this.loader.dismissLoading();
+        })
+      );
   }
 }
