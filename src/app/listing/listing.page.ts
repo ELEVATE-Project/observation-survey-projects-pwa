@@ -1,7 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UrlConfig } from 'src/app/interfaces/main.interface';
 import urlConfig from 'src/app/config/url.config.json';
-import {  Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ApiBaseService } from '../services/base-api/api-base.service';
 import { LoaderService } from '../services/loader/loader.service';
 import { ToastService } from '../services/toast/toast.service';
@@ -15,7 +15,7 @@ import { AlertService } from '../services/alert/alert.service';
   templateUrl: './listing.page.html',
   styleUrls: ['./listing.page.scss'],
 })
-export class ListingPage implements OnInit {
+export class ListingPage {
   solutionList: any = { data: [], count: 0 };
   baseApiService: any;
   loader: LoaderService;
@@ -33,30 +33,41 @@ export class ListingPage implements OnInit {
 
   constructor(private navCtrl: NavController, private router: Router,
     private profileService: ProfileService,
-    private alertService : AlertService
+    private alertService: AlertService
   ) {
     this.baseApiService = inject(ApiBaseService);
     this.loader = inject(LoaderService)
     this.toastService = inject(ToastService)
   }
 
-  ngOnInit() {
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation?.extras?.state) {
-      this.stateData = navigation.extras.state;
-      this.listType = this.stateData?.listType;
-      if(this.listType !== 'project'){
-        this.filters = null as any;
-      }
-      this.solutionType = this.stateData?.solutionType;
-      console.log(this.listType)
-    }
-  }
-
   ionViewWillEnter() {
     this.page = 1;
-    this.solutionList = { data: [], count: 0 }
-    this.getProfileDetails();
+    this.solutionList = { data: [], count: 0 };
+    this.getFormListing();
+  }
+
+  async getFormListing() {
+    const urlSegments = this.router.url.split('/');
+    const lastPathSegment: any = urlSegments[urlSegments.length - 1];
+    this.listType = lastPathSegment;
+
+    this.profileService.getFormListing().subscribe({
+      next: (res: any) => {
+        if (res?.status === 200 && res?.result) {
+          const result = res.result.data;
+          const solutionList = result.find((item: any) => item.type === 'solutionList');
+
+          if (solutionList) {
+            this.stateData = solutionList.listingData.find((data: any) => data.listType === this.listType);
+            this.getProfileDetails();
+          }
+        }
+      },
+      error: (err: any) => {
+        this.toastService.presentToast(err?.error?.message, 'danger');
+      }
+    }
+    );
   }
 
   ionViewWillLeave() {
@@ -69,8 +80,8 @@ export class ListingPage implements OnInit {
     this.solutionList = { data: [], count: 0 };
     this.getListData();
   }
-  filterChanged(event:any){
-    this.solutionList={data:[],count:0}
+  filterChanged(event: any) {
+    this.solutionList = { data: [], count: 0 }
     this.page = 1;
     this.getListData()
   }
