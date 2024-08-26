@@ -199,7 +199,7 @@ export class ProjectReportPage implements OnInit {
       }))
       .subscribe((res: any) => {
         if (res?.status === 200) {
-          if (res.result.data) {
+            if (res.result) {
             const today = new Date();
             const day = String(today.getDate()).padStart(2, '0');
             const month = String(today.getMonth() + 1).padStart(2, '0');
