@@ -11,12 +11,13 @@ import { AttachmentService } from '../services/attachment/attachment.service';
 import { ProfileService } from '../services/profile/profile.service';
 import { AlertService } from '../services/alert/alert.service';
 import { Router } from '@angular/router';
+import { isDeactivatable } from '../services/guard/guard.service';
 @Component({
   selector: 'app-profile-edit',
   templateUrl: './profile-edit.page.html',
   styleUrls: ['./profile-edit.page.scss'],
 })
-export class ProfileEditPage{
+export class ProfileEditPage implements isDeactivatable{
   @ViewChild('formLib') formLib: MainFormComponent | undefined;
   formJson: any = [];
   urlProfilePath = urlConfig['profileListing'];
@@ -233,6 +234,7 @@ export class ProfileEditPage{
           }
         });
         this.formJson?.destFilePath ? payload.image = this.formJson?.destFilePath : "";
+        this.formJson.isUploaded = true;
         this.apiBaseService.patch(this.urlProfilePath.updateUrl, payload)
           .pipe(
             catchError(err => {
@@ -243,8 +245,8 @@ export class ProfileEditPage{
           .subscribe((res: any) => {
             if (res?.result) {
               this.formLib?.myForm.markAsPristine();
-              this.toastService.presentToast(res?.message || 'Profile Updated Sucessfully', 'success');
               this.navCtrl.back();
+              this.toastService.presentToast(res?.message || 'Profile Updated Sucessfully', 'success');
             } else {
               this.toastService.presentToast(res?.message, 'warning');
             }
@@ -266,51 +268,49 @@ export class ProfileEditPage{
     }
   }
 
-  // async canPageLeave(event?: any): Promise<boolean> {
-  //   if (this.formLib && !this.formLib?.myForm.pristine || !this.formJson.isUploaded) {
-  //     await this.alertService.presentAlert(
-  //       'Save Data?',
-  //       'You have unsaved data, would you like to save it before exiting?',
-  //       [
-  //         {
-  //           text: "Don't Save",
-  //           cssClass: 'secondary-button',
-  //           role: 'exit',
-  //           handler: () => {
-  //             this.formLib?.myForm.markAsPristine();
-  //             !this.formJson.isUploaded ? this.formJson.isUploaded = true:  this.formJson.isUploaded;
-  //             this.navCtrl.back();
-  //             return true; 
-  //           }
-  //         },
-  //         {
-  //           text: 'Save',
-  //           cssClass: 'primary-button',
-  //           role: 'cancel',
-  //           handler:() => {
-  //             this.updateProfile(); 
-  //             this.formJson.isUploaded = true
-  //             return false; 
-  //           }
-  //         }
-  //       ]
-  //     );
-  //     return false;
-  //   } else {
-  //     if(event){
-  //       this.navCtrl.back();
-  //       return false;
-  //     }else{
-  //       return true;
-  //     }
-  //   }
-  // }
-
-  canPageLeave(event?:any){
-    this.navCtrl.back()
+  async canPageLeave(event?: any): Promise<boolean> {
+    if (this.formLib && !this.formLib?.myForm.pristine || !this.formJson.isUploaded) {
+      await this.alertService.presentAlert(
+        'Save Data?',
+        'You have unsaved data, would you like to save it before exiting?',
+        [
+          {
+            text: "Don't Save",
+            cssClass: 'secondary-button',
+            role: 'exit',
+            handler: () => {
+              this.formLib?.myForm.markAsPristine();
+              !this.formJson.isUploaded ? this.formJson.isUploaded = true:  this.formJson.isUploaded;
+              if(event){
+              this.navCtrl.back();
+              }
+              return true; 
+            }
+          },
+          {
+            text: 'Save',
+            cssClass: 'primary-button',
+            role: 'cancel',
+            handler:() => {
+              return false; 
+            }
+          }
+        ]
+      );
+      let data = await this.alertService.alert.onDidDismiss();
+      if (data.role == 'exit') {
+        return true;
+      }
+      return false;
+    } else {
+      if(event){
+        this.navCtrl.back();
+        return false;
+      }else{
+        return true;
+      }
+    }
   }
-  
-
 
   async imageUploadEvent(event: any) {
     this.localImage = event.target.files[0];
