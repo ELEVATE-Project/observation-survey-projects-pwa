@@ -19,7 +19,7 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-button (click)="updateProfile()" expand="block" fill="primary" shape="solid" class="container">
+    <ion-button (click)="updateProfile()" expand="block" fill="primary" shape="solid" class="container" [disabled]="!(formLib?.myForm?.valid)">
       Update Profile
     </ion-button>
   </ion-toolbar>
