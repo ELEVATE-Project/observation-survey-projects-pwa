@@ -40,7 +40,7 @@
             <ion-card-content>
               <div class="flex justify-between items-center">
                 <h2><b>{{solution?.name}}</b></h2>
-                @if (solution?.certificate) {
+                @if (solution?.certificate || solution?.certificateTemplateId) {
                   <span class="certificate-tag">Certificate</span>
                 }
               </div>
