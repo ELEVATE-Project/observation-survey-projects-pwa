@@ -34,16 +34,28 @@ export class ProjectReportPage implements OnInit {
   selectedProgram: string = "";
   programList: any;
   projectsCategories:any;
-   backgroundColors = [
-    'rgb(255, 99, 132)',
-    'rgb(54, 162, 235)',
-    'rgb(255, 205, 86)',
-    'rgb(255, 159, 64)',
-    'rgb(75, 192, 192)',
-    'rgb(255, 99, 132)',
-    'rgb(54, 162, 235)',
-    'rgb(255, 205, 86)',
-  ]
+  backgroundColors = [
+              'rgb(255, 99, 132)',
+							'rgb(54, 162, 235)',
+							'rgb(255, 206, 86)',
+							'rgb(231, 233, 237)',
+							'rgb(75, 192, 192)',
+							'rgb(151, 187, 205)',
+							'rgb(220, 220, 220)',
+							'rgb(247, 70, 74)',
+							'rgb(70, 191, 189)',
+							'rgb(253, 180, 92)',
+							'rgb(148, 159, 177)',
+							'rgb(77, 83, 96)',
+							'rgb(95, 101, 217)',
+							'rgb(170, 95, 217)',
+							'rgb(140, 48, 57)',
+							'rgb(209, 6, 40)',
+							'rgb(68, 128, 51)',
+							'rgb(125, 128, 51)',
+							'rgb(128, 84, 51)',
+							'rgb(179, 139, 11)',
+  ];
   downloadUrl: any;
 
   constructor(
@@ -218,9 +230,11 @@ export class ProjectReportPage implements OnInit {
   renderChart(taskData: any, categoryData: any): void {
     const capitalizeAndSpaceKeys = (obj:any) => {
       return Object.keys(obj).reduce((acc:any, key) => {
+        if (obj[key] !== 0) {
         const spacedKey = key.replace(/([a-z])([A-Z])/g, '$1 $2');
         const capitalizedKey = spacedKey.charAt(0).toUpperCase() + spacedKey.slice(1);
         acc[capitalizedKey] = obj[key];
+        }
         return acc;
       }, {});
     };
@@ -275,7 +289,10 @@ export class ProjectReportPage implements OnInit {
                 },
                 color: '#fff',
                 anchor: 'end',
-                align: 'start'
+                align: 'start',
+                font: {
+                  size: 8,
+                },
               }
             }
           },
@@ -309,7 +326,10 @@ export class ProjectReportPage implements OnInit {
                 },
                 color: '#fff',
                 anchor: 'end',
-                align: 'start'
+                align: 'start',
+                font: {
+                  size: 8,
+                },
               }
             }
           },

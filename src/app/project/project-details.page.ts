@@ -46,11 +46,6 @@ export class ProjectDetailsPage  implements OnInit {
           };
           await Share.share(shareOptions);
         } catch (err) {
-          console.error('Error during file download or sharing', err);
-          this.toastService.presentToast(
-            'Error during file download or sharing',
-            'danger'
-          );
         }
       } else {
         this.setOpenForCopyLink(url);
