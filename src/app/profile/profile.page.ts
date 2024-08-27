@@ -58,7 +58,7 @@ export class ProfilePage {
   
     if (formData.user_roles) {
       formData.user_roles = formData.user_roles.map((role: any) => ({
-        label: role?.title,
+        label: role?.label,
         value: role?.id
       }));
     }
