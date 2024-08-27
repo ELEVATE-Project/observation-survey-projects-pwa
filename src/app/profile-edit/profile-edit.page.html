@@ -15,7 +15,12 @@
     <dynamic-form [formJson]="formJson" #formLib (ionChange)="onOptionChange($event)" 
     (ionFocus)="handleSelectFocus($event)"></dynamic-form>
   </div>
-  <ion-button (click)="updateProfile()" expand="block" fill="primary" shape="solid" class="container" [disabled]="!(formLib?.myForm?.valid)">
-    Update Profile
-  </ion-button>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button (click)="updateProfile()" expand="block" fill="primary" shape="solid" class="container" [disabled]="!(formLib?.myForm?.valid)">
+      Update Profile
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
