@@ -180,42 +180,37 @@ export class ProfileEditPage implements isDeactivatable {
     }
   }
 
-  onOptionChange(event: any) {
+  handleOptionChange(event: any, formJson: any, dynamicEntity:any) {
     const { event: selectedEvent, control } = event;
     const selectedValue = selectedEvent?.value;
     const entityId = selectedValue?.externalId;
-    this.updateFormValue(control.name, selectedValue?.value);
-    this.resetDependentControls(control.name, selectedValue?.value);
-    const nextEntityType = this.getNextEntityType(control.name);
+   const sendFormJson = dynamicEntity? false : formJson;
+  
+    this.updateFormValue(control.name, selectedValue?.value, sendFormJson);
+    this.resetDependentControls(control.name, selectedValue?.value, sendFormJson);
+    const nextEntityType = this.getNextEntityType(control.name, sendFormJson);
+  
     if (nextEntityType) {
       nextEntityType.map((ctrl: any) => {
-        this.getOptionsData(ctrl, selectedValue?.value);
-      })
+        this.getOptionsData(ctrl, selectedValue?.value, sendFormJson);
+      });
     }
 
+    if(dynamicEntity){
     this.formJson2 = [];
     this.getEntityForm(entityId, selectedValue?.value);
-  }
-
-
-  onOptionChange2(event: any) {
-    const { event: selectedEvent, control } = event;
-    const selectedValue = selectedEvent?.value;
-
-    this.updateFormValue(control.name, selectedValue?.value, this.formJson2);
-    this.resetDependentControls(control.name, selectedValue?.value, this.formJson2);
-    const nextEntityType = this.getNextEntityType(control.name, this.formJson2);
-    if (nextEntityType) {
-      nextEntityType.map((ctrl: any) => {
-        this.getOptionsData(ctrl, selectedValue?.value, this.formJson2);
-      })
     }
   }
-
-
+  
+  onOptionChange(event: any) {
+    this.handleOptionChange(event, this.formJson, true);
+  }
+  
+  onOptionChange2(event: any) {
+    this.handleOptionChange(event, this.formJson2, false);
+  }
+ 
   getEntityForm(subType: any, entityId: any, firstLoad?: any) {
-
-
     const entityForm = {
       type: firstLoad ? subType?.externalId : subType,
       subType: firstLoad ? subType?.externalId : subType,
