@@ -243,8 +243,6 @@ export class ProfileEditPage implements isDeactivatable {
           this.toastService.presentToast(err?.error?.message, 'danger');
         }
       })
-
-
   }
 
   getNextEntityType(currentEntityType: string, formJson?: any): any {
