@@ -115,9 +115,10 @@ export class ProfileEditPage implements isDeactivatable {
     const formArray = formJson ? formJson : this.formJson
     const control = formArray.find((control: any) => control.name === entityType);
     if (!control) return;
-
-    const hasDynamicUrl = this.formJson.find((control: any) => control.dynamicUrl);
+  
+    const hasDynamicUrl = formArray.some((control: any) => control.dynamicUrl);
     const urlPath = this.buildUrlPath(control, entityId);
+  
     this.apiBaseService.get(urlPath)
       .pipe(
         catchError(err => {
@@ -127,33 +128,18 @@ export class ProfileEditPage implements isDeactivatable {
       )
       .subscribe((res: any) => {
         if (res?.status === 200) {
-          let result;
-          let options;
+          const result = control.dynamicUrl ? res?.result : control.dynamicEntity ? res?.result : res?.result?.data;
+          if (result) {
+            const options = result.map((entity: any) => ({
+              label: entity?.label || entity?.name,
+              value: entity?.value || entity?._id,
+              externalId: entity?.externalId
+            }));
+  
+            this.updateFormOptions(entityType, options, formArray);
 
-          if (control.dynamicUrl) {
-            result = res?.result;
-            if (result) {
-              options = result.map((entity: any) => ({
-                label: entity?.label,
-                value: entity?.value,
-                externalId: entity?.externalId
-              }));
-              this.updateFormOptions(entityType, options, formArray);
+            if (!hasDynamicUrl || control.dynamicUrl) {
               this.enableForm = true;
-            }
-          } else {
-            result = control.dynamicEntity ? res?.result : res?.result?.data;
-            if (result) {
-              options = result.map((entity: any) => ({
-                label: entity?.name,
-                value: entity?._id,
-                externalId: entity?.externalId
-              }));
-
-              this.updateFormOptions(entityType, options, formArray);
-              if (!hasDynamicUrl) {
-                this.enableForm = true;
-              }
             }
           }
         } else {
@@ -161,6 +147,7 @@ export class ProfileEditPage implements isDeactivatable {
         }
       });
   }
+  
 
   buildUrlPath(control: any, entityId?: string): string {
     if (control.dynamicUrl) {
