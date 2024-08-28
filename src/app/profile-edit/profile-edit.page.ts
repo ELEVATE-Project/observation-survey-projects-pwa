@@ -17,11 +17,14 @@ import { isDeactivatable } from '../services/guard/guard.service';
   templateUrl: './profile-edit.page.html',
   styleUrls: ['./profile-edit.page.scss'],
 })
-export class ProfileEditPage implements isDeactivatable{
+export class ProfileEditPage implements isDeactivatable {
   @ViewChild('formLib') formLib: MainFormComponent | undefined;
+  @ViewChild('formLib2') formLib2: MainFormComponent | undefined;
+
   formJson: any = [];
   urlProfilePath = urlConfig['profileListing'];
   formData: any;
+  formJson2: any;
   localImage: any;
   enableForm: boolean = false;
 
@@ -33,7 +36,7 @@ export class ProfileEditPage implements isDeactivatable{
     private attachment: AttachmentService,
     private profileService: ProfileService,
     private alertService: AlertService,
-    private router : Router
+    private router: Router
   ) { }
 
   ionViewWillEnter() {
@@ -41,7 +44,7 @@ export class ProfileEditPage implements isDeactivatable{
   }
 
   ionViewWillLeave() {
-    if(this.alertService.alert){
+    if (this.alertService.alert) {
       this.alertService.dismissAlert();
     }
   }
@@ -83,11 +86,13 @@ export class ProfileEditPage implements isDeactivatable{
       ));
     }
 
-
-    Object.entries(formData || {}).forEach(([key, value]) => {
-      const control = this.formJson.find((control: any) => control.name === key);
+    Object.entries(formData || {}).forEach(([key, value]: any) => {
+      let control = this.formJson.find((control: any) => control.name === key);
       if (control) {
         this.updateControlValue(control, value);
+        if (control.dynamicEntity) {
+          this.getEntityForm(value, control, true);
+        }
       }
     });
 
@@ -106,12 +111,14 @@ export class ProfileEditPage implements isDeactivatable{
     }
   }
 
-  getOptionsData(entityType: string, entityId?: string) {
-    const control = this.formJson.find((control: any) => control.name === entityType);
+  getOptionsData(entityType: string, entityId?: string, formJson?: any) {
+    const formArray = formJson ? formJson : this.formJson
+    const control = formArray.find((control: any) => control.name === entityType);
     if (!control) return;
-
-    const hasDynamicUrl = this.formJson.find((control: any) => control.dynamicUrl);
+  
+    const hasDynamicUrl = formArray.some((control: any) => control.dynamicUrl);
     const urlPath = this.buildUrlPath(control, entityId);
+  
     this.apiBaseService.get(urlPath)
       .pipe(
         catchError(err => {
@@ -121,33 +128,18 @@ export class ProfileEditPage implements isDeactivatable{
       )
       .subscribe((res: any) => {
         if (res?.status === 200) {
-          let result;
-          let options;
+          const result = control.dynamicUrl ? res?.result : control.dynamicEntity ? res?.result : res?.result?.data;
+          if (result) {
+            const options = result.map((entity: any) => ({
+              label: entity?.label || entity?.name,
+              value: entity?.value || entity?._id,
+              externalId: entity?.externalId
+            }));
+  
+            this.updateFormOptions(entityType, options, formArray);
 
-          if (control.dynamicUrl) {
-            result = res?.result;
-            if (result) {
-              options = result.map((entity: any) => ({
-                label: entity.label,
-                value: entity.value
-              }));
-
-              this.updateFormOptions(entityType, options);
+            if (!hasDynamicUrl || control.dynamicUrl) {
               this.enableForm = true;
-
-            }
-          } else {
-            result = control.dynamicEntity ? res?.result : res?.result?.data;
-            if (result) {
-              options = result.map((entity: any) => ({
-                label: entity.name,
-                value: entity._id
-              }));
-
-              this.updateFormOptions(entityType, options);
-              if (!hasDynamicUrl) {
-                this.enableForm = true;
-              }
             }
           }
         } else {
@@ -155,6 +147,7 @@ export class ProfileEditPage implements isDeactivatable{
         }
       });
   }
+  
 
   buildUrlPath(control: any, entityId?: string): string {
     if (control.dynamicUrl) {
@@ -166,38 +159,90 @@ export class ProfileEditPage implements isDeactivatable{
     return `${urlConfig['entityListing'].listingUrl}${url}`;
   }
 
-  updateFormOptions(entityType: string, options: any) {
-    const control = this.formJson.find((control: any) => control.name === entityType);
+  updateFormOptions(entityType: string, options: any, formJson: any) {
+    const formArray = formJson ? formJson : this.formJson;
+    const control = formArray.find((control: any) => control.name === entityType);
     if (control) {
       control.options = options;
     }
   }
 
-  onOptionChange(event: any) {
+  handleOptionChange(event: any, formJson: any, dynamicEntity:any) {
     const { event: selectedEvent, control } = event;
     const selectedValue = selectedEvent?.value;
-    this.updateFormValue(control.name, selectedValue?.value);
-    this.resetDependentControls(control.name, selectedValue?.value);
-    const nextEntityType = this.getNextEntityType(control.name);
+    const entityId = selectedValue?.externalId;
+   const sendFormJson = dynamicEntity? false : formJson;
+  
+    this.updateFormValue(control.name, selectedValue?.value, sendFormJson);
+    this.resetDependentControls(control.name, selectedValue?.value, sendFormJson);
+    const nextEntityType = this.getNextEntityType(control.name, sendFormJson);
+  
     if (nextEntityType) {
       nextEntityType.map((ctrl: any) => {
-        this.getOptionsData(ctrl, selectedValue?.value);
-      })
+        this.getOptionsData(ctrl, selectedValue?.value, sendFormJson);
+      });
+    }
+
+    if(dynamicEntity){
+    this.formJson2 = [];
+    this.getEntityForm(entityId, selectedValue?.value);
     }
   }
+  
+  onOptionChange(event: any) {
+    this.handleOptionChange(event, this.formJson, true);
+  }
+  
+  onOptionChange2(event: any) {
+    this.handleOptionChange(event, this.formJson2, false);
+  }
+ 
+  getEntityForm(subType: any, entityId: any, firstLoad?: any) {
+    const entityForm = {
+      type: firstLoad ? subType?.externalId : subType,
+      subType: firstLoad ? subType?.externalId : subType,
 
-  getNextEntityType(currentEntityType: string): any {
-    const nextControls = this.formJson.filter((ctrl: any) => ctrl.dependsOn === currentEntityType);
+    }
+    this.apiBaseService.post(urlConfig['formListing'].listingUrl, entityForm)
+      .subscribe({
+        next:
+          (res: any) => {
+            this.formJson2 = res?.result?.data || [];
+            this.formJson2.map((control: any) => {
+              let entityIds = firstLoad ? entityId?.value : entityId
+              this.getOptionsData(control.name, entityIds, this.formJson2);
+              if (firstLoad) {
+                Object.entries(this.formData || {}).forEach(([key, value]: any) => {
+                  let control = this.formJson2.find((control: any) => control.name === key);
+                  if (control) {
+                    this.updateControlValue(control, value);
+                  }
+                });
+              }
+            });
+          },
+        error: (err: any) => {
+          this.toastService.presentToast(err?.error?.message, 'danger');
+        }
+      })
+  }
+
+  getNextEntityType(currentEntityType: string, formJson?: any): any {
+    const formArray = formJson ? formJson : this.formJson;
+
+    const nextControls = formArray.filter((ctrl: any) => ctrl.dependsOn === currentEntityType);
     return nextControls ? nextControls.map((ctrl: any) => ctrl.name) : null
   }
 
 
-  resetDependentControls(controlName: string, selectedValue: any) {
-    const dependentControls = this.formJson.filter((formControl: any) => formControl.dependsOn === controlName);
+  resetDependentControls(controlName: string, selectedValue: any, formJson?: any) {
+    const formArray = formJson ? formJson : this.formJson;
+
+    const dependentControls = formArray.filter((formControl: any) => formControl.dependsOn === controlName);
     for (const formControl of dependentControls) {
       formControl.options = [];
       this.resetFormControl(formControl.name);
-      this.resetDependentControls(formControl.name, selectedValue);
+      this.resetDependentControls(formControl.name, selectedValue, formArray);
     }
   }
 
@@ -210,21 +255,26 @@ export class ProfileEditPage implements isDeactivatable{
     }
   }
 
-  updateFormValue(controlName: string, value: any) {
-    const control = this.formJson.find((formControl: any) => formControl.name === controlName);
+  updateFormValue(controlName: string, value: any, formJson?: any) {
+    const formArray = formJson ? formJson : this.formJson;
+
+    const control = formArray.find((formControl: any) => formControl.name === controlName);
     if (control) {
       control.value = value;
     }
   }
 
   updateProfile() {
-    if (this.formLib?.myForm.valid) {
+    if (this.formLib?.myForm.valid && this.formLib2?.myForm.valid) {
       if (this.formJson.image && !this.formJson.isUploaded) {
         this.getImageUploadUrl(this.localImage);
       } else {
-        let payload = this.formLib?.myForm.value;
-        payload.location = "bangalore";
-        payload.about = "PWA";
+        let payload = {
+          ...this.formLib?.myForm.value,
+          ...this.formLib2?.myForm.value,
+          location: "bangalore",
+          about: "PWA"
+        };
         !this.formJson.isUploaded ? payload.image = "" : payload?.image;
         this.formJson.forEach((control: any) => {
           if (control.dynamicUrl) {
@@ -280,19 +330,19 @@ export class ProfileEditPage implements isDeactivatable{
             role: 'exit',
             handler: () => {
               this.formLib?.myForm.markAsPristine();
-              !this.formJson.isUploaded ? this.formJson.isUploaded = true:  this.formJson.isUploaded;
-              if(event){
-              this.navCtrl.back();
+              !this.formJson.isUploaded ? this.formJson.isUploaded = true : this.formJson.isUploaded;
+              if (event) {
+                this.navCtrl.back();
               }
-              return true; 
+              return true;
             }
           },
           {
             text: 'Save',
             cssClass: 'primary-button',
             role: 'cancel',
-            handler:() => {
-              return false; 
+            handler: () => {
+              return false;
             }
           }
         ]
@@ -303,10 +353,10 @@ export class ProfileEditPage implements isDeactivatable{
       }
       return false;
     } else {
-      if(event){
+      if (event) {
         this.navCtrl.back();
         return false;
-      }else{
+      } else {
         return true;
       }
     }

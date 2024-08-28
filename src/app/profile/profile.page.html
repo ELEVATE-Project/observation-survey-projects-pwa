@@ -31,7 +31,10 @@
     </ion-grid>
   </div>
 
-  <div class="ion-margin-top container profileView" *ngIf="enableForm">
+  <div class="ion-margin-top container profileView" *ngIf="enableFormOne">
     <dynamic-form [formJson]="formJson" #formLib></dynamic-form>
+  </div>
+  <div class="ion-margin-top container profileView secondForm" *ngIf="enableFormTwo">
+    <dynamic-form [formJson]="formJson2" #formLib2 ></dynamic-form>
   </div>
 </ion-content>
