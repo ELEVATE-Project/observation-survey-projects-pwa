@@ -4,6 +4,8 @@ import { NavController } from '@ionic/angular';
 import { LoaderService } from '../services/loader/loader.service';
 import { catchError, finalize } from 'rxjs';
 import { ToastService } from '../services/toast/toast.service';
+import { ApiBaseService } from '../services/base-api/api-base.service';
+import urlConfig from 'src/app/config/url.config.json';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -12,16 +14,21 @@ import { ToastService } from '../services/toast/toast.service';
 export class ProfilePage {
   formJson: any = [];
   formData: any;
-  enableForm:boolean=false;
+  enableFormOne: boolean = false;
+  enableFormTwo: boolean = false;
+  formJson2:any;
 
   constructor(private profileService: ProfileService,
     private navCtrl: NavController,
     private loader: LoaderService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private apiBaseService: ApiBaseService,
+
   ) { }
 
   ionViewWillEnter() {
-    this.enableForm = false;
+    this.enableFormOne = false;
+    this.enableFormTwo = false;
     this.loadFormAndData();
   }
 
@@ -49,13 +56,13 @@ export class ProfilePage {
   mapProfileDataToFormJson(formData?: any) {
     this.formJson.image = this.formData.image;
     this.formJson.isUploaded = true;
-  
+
     this.formJson.map((control: any) => {
       if (!(control.name in formData)) {
         formData[control.name] = control.defaultValue || '';
       }
     });
-  
+
     if (formData.user_roles) {
       formData.user_roles = formData.user_roles.map((role: any) => ({
         label: role?.label,
@@ -63,13 +70,22 @@ export class ProfilePage {
       }));
     }
     this.formData.roles = formData.user_roles;
+    this.mappingAndcheckingLastIndex(formData,this.formJson, 'enableFormOne');
   
+  }
+
+
+  mappingAndcheckingLastIndex(formData:any,formJson:any,enable: 'enableFormOne' | 'enableFormTwo'): void{
     const formDataEntries = Object.entries(formData);
     const lastIndex = formDataEntries?.length - 1;
-  
+
     formDataEntries.map(([key, value]: any, index) => {
-      const control = this.formJson.find((control: any) => control.name === key);
-  
+      const control = formJson.find((control: any) => control.name === key);
+
+      if(control?.dynamicEntity){
+        this.getEntityForm(value, control, true);
+
+      }
       if (control) {
         switch (control.type) {
           case 'select':
@@ -77,30 +93,29 @@ export class ProfilePage {
             control.options = [selectOption];
             control.value = value?.value;
             break;
-  
+
           case 'chip':
             const chipOptions = this.formData[control.name];
             control.options = chipOptions;
             control.value = value;
             break;
-  
+
           default:
             control.value = typeof value === 'string'
               ? String(value)
               : value?.value || value;
         }
-  
+
         control.disabled = true;
         control.validators = false;
         control.label = this.capitalizeLabelFirstLetter(control.name);
       }
 
       if (index === lastIndex) {
-        this.enableForm = true;
+        this[enable] = true;
       }
     });
   }
-  
 
   goBack() {
     this.navCtrl.back();
@@ -109,5 +124,23 @@ export class ProfilePage {
   capitalizeLabelFirstLetter(label: string): string {
     if (!label) return '';
     return label.charAt(0).toUpperCase() + label.slice(1).toLowerCase();
+  }
+
+  getEntityForm(subType:any,entityId:any, firstLoad?:any){
+    const entityForm = {
+      type: firstLoad? subType?.externalId: subType,
+      subType: firstLoad? subType?.externalId : subType
+    }
+    this.apiBaseService.post(urlConfig['formListing'].listingUrl, entityForm)
+    .subscribe({
+      next:
+      (res:any) => {
+        this.formJson2 = res?.result?.data || [];
+        this.mappingAndcheckingLastIndex(this.formData,this.formJson2,'enableFormTwo');
+      },
+      error: (err: any) => {
+        this.toastService.presentToast(err?.error?.message, 'danger');
+      }
+   })
   }
 }

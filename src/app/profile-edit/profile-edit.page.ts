@@ -17,14 +17,14 @@ import { isDeactivatable } from '../services/guard/guard.service';
   templateUrl: './profile-edit.page.html',
   styleUrls: ['./profile-edit.page.scss'],
 })
-export class ProfileEditPage implements isDeactivatable{
+export class ProfileEditPage implements isDeactivatable {
   @ViewChild('formLib') formLib: MainFormComponent | undefined;
   @ViewChild('formLib2') formLib2: MainFormComponent | undefined;
 
   formJson: any = [];
   urlProfilePath = urlConfig['profileListing'];
   formData: any;
-  formJson2:any;
+  formJson2: any;
   localImage: any;
   enableForm: boolean = false;
 
@@ -36,7 +36,7 @@ export class ProfileEditPage implements isDeactivatable{
     private attachment: AttachmentService,
     private profileService: ProfileService,
     private alertService: AlertService,
-    private router : Router
+    private router: Router
   ) { }
 
   ionViewWillEnter() {
@@ -44,7 +44,7 @@ export class ProfileEditPage implements isDeactivatable{
   }
 
   ionViewWillLeave() {
-    if(this.alertService.alert){
+    if (this.alertService.alert) {
       this.alertService.dismissAlert();
     }
   }
@@ -86,13 +86,12 @@ export class ProfileEditPage implements isDeactivatable{
       ));
     }
 
-
-    Object.entries(formData || {}).forEach(([key, value]:any) => {
+    Object.entries(formData || {}).forEach(([key, value]: any) => {
       let control = this.formJson.find((control: any) => control.name === key);
       if (control) {
         this.updateControlValue(control, value);
-        if(control.dynamicEntity){
-        this.getEntityForm(value, control, true);
+        if (control.dynamicEntity) {
+          this.getEntityForm(value, control, true);
         }
       }
     });
@@ -112,8 +111,8 @@ export class ProfileEditPage implements isDeactivatable{
     }
   }
 
-  getOptionsData(entityType: string, entityId?: string, formJson?:any) {
-    const formArray = formJson ? formJson: this.formJson
+  getOptionsData(entityType: string, entityId?: string, formJson?: any) {
+    const formArray = formJson ? formJson : this.formJson
     const control = formArray.find((control: any) => control.name === entityType);
     if (!control) return;
 
@@ -137,12 +136,10 @@ export class ProfileEditPage implements isDeactivatable{
               options = result.map((entity: any) => ({
                 label: entity?.label,
                 value: entity?.value,
-                externalId : entity?.externalId
+                externalId: entity?.externalId
               }));
-              this.updateFormOptions(entityType, options,formArray);
+              this.updateFormOptions(entityType, options, formArray);
               this.enableForm = true;
-
-
             }
           } else {
             result = control.dynamicEntity ? res?.result : res?.result?.data;
@@ -150,10 +147,10 @@ export class ProfileEditPage implements isDeactivatable{
               options = result.map((entity: any) => ({
                 label: entity?.name,
                 value: entity?._id,
-                externalId : entity?.externalId
+                externalId: entity?.externalId
               }));
 
-              this.updateFormOptions(entityType, options,formArray);
+              this.updateFormOptions(entityType, options, formArray);
               if (!hasDynamicUrl) {
                 this.enableForm = true;
               }
@@ -175,8 +172,8 @@ export class ProfileEditPage implements isDeactivatable{
     return `${urlConfig['entityListing'].listingUrl}${url}`;
   }
 
-  updateFormOptions(entityType: string, options: any, formJson:any) {
-    const formArray = formJson ? formJson: this.formJson;
+  updateFormOptions(entityType: string, options: any, formJson: any) {
+    const formArray = formJson ? formJson : this.formJson;
     const control = formArray.find((control: any) => control.name === entityType);
     if (control) {
       control.options = options;
@@ -204,68 +201,68 @@ export class ProfileEditPage implements isDeactivatable{
   onOptionChange2(event: any) {
     const { event: selectedEvent, control } = event;
     const selectedValue = selectedEvent?.value;
-    
+
     this.updateFormValue(control.name, selectedValue?.value, this.formJson2);
     this.resetDependentControls(control.name, selectedValue?.value, this.formJson2);
-    const nextEntityType = this.getNextEntityType(control.name,this.formJson2);
+    const nextEntityType = this.getNextEntityType(control.name, this.formJson2);
     if (nextEntityType) {
       nextEntityType.map((ctrl: any) => {
-        this.getOptionsData(ctrl, selectedValue?.value,this.formJson2);
+        this.getOptionsData(ctrl, selectedValue?.value, this.formJson2);
       })
     }
   }
 
 
-  getEntityForm(subType:any,entityId:any, firstLoad?:any){
+  getEntityForm(subType: any, entityId: any, firstLoad?: any) {
 
-    
+
     const entityForm = {
-      type: firstLoad? subType?.externalId: subType,
-      subType: firstLoad? subType?.externalId : subType,
+      type: firstLoad ? subType?.externalId : subType,
+      subType: firstLoad ? subType?.externalId : subType,
 
     }
     this.apiBaseService.post(urlConfig['formListing'].listingUrl, entityForm)
-    .subscribe({
-      next:
-      (res:any) => {
-        this.formJson2 = res?.result?.data || [];
-        this.formJson2.map((control: any) => {
-          let entityIds = firstLoad ? entityId?.value : entityId
-            this.getOptionsData(control.name, entityIds, this.formJson2);
-            if(firstLoad){
-              Object.entries(this.formData || {}).forEach(([key, value]:any) => {
-                let control = this.formJson2.find((control: any) => control.name === key);
-                if (control) {
-                  this.updateControlValue(control, value);
-                }
-              });
-            }
-        });
-      },
-      error: (err: any) => {
-        this.toastService.presentToast(err?.error?.message, 'danger');
-      }
-   })
-    
-  
+      .subscribe({
+        next:
+          (res: any) => {
+            this.formJson2 = res?.result?.data || [];
+            this.formJson2.map((control: any) => {
+              let entityIds = firstLoad ? entityId?.value : entityId
+              this.getOptionsData(control.name, entityIds, this.formJson2);
+              if (firstLoad) {
+                Object.entries(this.formData || {}).forEach(([key, value]: any) => {
+                  let control = this.formJson2.find((control: any) => control.name === key);
+                  if (control) {
+                    this.updateControlValue(control, value);
+                  }
+                });
+              }
+            });
+          },
+        error: (err: any) => {
+          this.toastService.presentToast(err?.error?.message, 'danger');
+        }
+      })
+
+
   }
 
-  getNextEntityType(currentEntityType: string,formJson?:any): any {
-    const formArray = formJson ? formJson: this.formJson;
+  getNextEntityType(currentEntityType: string, formJson?: any): any {
+    const formArray = formJson ? formJson : this.formJson;
 
     const nextControls = formArray.filter((ctrl: any) => ctrl.dependsOn === currentEntityType);
     return nextControls ? nextControls.map((ctrl: any) => ctrl.name) : null
   }
 
 
-  resetDependentControls(controlName: string, selectedValue: any, formJson?:any) {
-    const formArray = formJson ? formJson: this.formJson;
+  resetDependentControls(controlName: string, selectedValue: any, formJson?: any) {
+    const formArray = formJson ? formJson : this.formJson;
 
     const dependentControls = formArray.filter((formControl: any) => formControl.dependsOn === controlName);
     for (const formControl of dependentControls) {
       formControl.options = [];
       this.resetFormControl(formControl.name);
-      this.resetDependentControls(formControl.name, selectedValue,formArray);
+      this.resetDependentControls(formControl.name, selectedValue, formArray);
     }
   }
 
@@ -278,8 +275,8 @@ export class ProfileEditPage implements isDeactivatable{
     }
   }
 
-  updateFormValue(controlName: string, value: any, formJson?:any) {
-    const formArray = formJson ? formJson: this.formJson;
+  updateFormValue(controlName: string, value: any, formJson?: any) {
+    const formArray = formJson ? formJson : this.formJson;
 
     const control = formArray.find((formControl: any) => formControl.name === controlName);
     if (control) {
@@ -353,19 +350,19 @@ export class ProfileEditPage implements isDeactivatable{
             role: 'exit',
             handler: () => {
               this.formLib?.myForm.markAsPristine();
-              !this.formJson.isUploaded ? this.formJson.isUploaded = true:  this.formJson.isUploaded;
-              if(event){
-              this.navCtrl.back();
+              !this.formJson.isUploaded ? this.formJson.isUploaded = true : this.formJson.isUploaded;
+              if (event) {
+                this.navCtrl.back();
               }
-              return true; 
+              return true;
             }
           },
           {
             text: 'Save',
             cssClass: 'primary-button',
             role: 'cancel',
-            handler:() => {
-              return false; 
+            handler: () => {
+              return false;
             }
           }
         ]
@@ -376,10 +373,10 @@ export class ProfileEditPage implements isDeactivatable{
       }
       return false;
     } else {
-      if(event){
+      if (event) {
         this.navCtrl.back();
         return false;
-      }else{
+      } else {
         return true;
       }
     }
