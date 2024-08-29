@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UrlConfig } from 'src/app/interfaces/main.interface';
 import urlConfig from 'src/app/config/url.config.json';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { AlertService } from '../services/alert/alert.service';
   templateUrl: './listing.page.html',
   styleUrls: ['./listing.page.scss'],
 })
-export class ListingPage {
+export class ListingPage implements OnInit {
   solutionList: any = { data: [], count: 0 };
   baseApiService: any;
   loader: LoaderService;
@@ -39,34 +39,18 @@ export class ListingPage {
     this.toastService = inject(ToastService)
   }
 
-  ionViewWillEnter() {
-    this.page = 1;
-    this.solutionList = { data: [], count: 0 };
-    this.getFormListing();
+  ngOnInit() {
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras?.state) {
+      this.stateData = navigation.extras.state;
+      this.listType = this.stateData?.listType;
+    }
   }
 
-  async getFormListing() {
-    const urlSegments = this.router.url.split('/');
-    const lastPathSegment: any = urlSegments[urlSegments.length - 1];
-    this.listType = lastPathSegment;
-
-    this.profileService.getFormListing().subscribe({
-      next: (res: any) => {
-        if (res?.status === 200 && res?.result) {
-          const result = res.result.data;
-          const solutionList = result.find((item: any) => item.type === 'solutionList');
-
-          if (solutionList) {
-            this.stateData = solutionList.listingData.find((data: any) => data.listType === this.listType);
-            this.getProfileDetails();
-          }
-        }
-      },
-      error: (err: any) => {
-        this.toastService.presentToast(err?.error?.message, 'danger');
-      }
-    }
-    );
+  ionViewWillEnter() {
+    this.page = 1;
+    this.solutionList = { data: [], count: 0 }
+    this.getProfileDetails();
   }
 
   ionViewWillLeave() {
