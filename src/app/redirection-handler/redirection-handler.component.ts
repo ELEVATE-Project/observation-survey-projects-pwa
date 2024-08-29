@@ -69,7 +69,7 @@ export class RedirectionHandlerComponent  implements OnInit {
       if(response && response.result){
         switch (response.result.type) {
           case "improvementProject":
-            this.router.navigate(['/listing/project'],{ replaceUrl:true })
+            this.router.navigate(['/home'],{ replaceUrl:true })
             setTimeout(() => {
               this.router.navigate(['project-details'], { state: { ...response.result, referenceFrom: "link" } });
             }, 100);

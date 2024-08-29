@@ -23,11 +23,11 @@
     },
     "profileListing": {
         "listingUrl": "/project/v1/profile/read",
-        "updateUrl": "/elevate-user/v1/user/update",
+        "updateUrl": "/user/v1/user/update",
         "entityUrl": "/entityListBasedOnEntityType?entityType=",
         "subEntityUrl": "/subEntityList",
-        "getSessionImageUploadUrl":"/elevate-user/v1/cloud-services/file/getSignedUrl?fileName=",
-        "getDownloadableUrl":"/elevate-user/v1/cloud-services/file/getDownloadableUrl?filePath="
+        "getSessionImageUploadUrl":"/user/v1/cloud-services/file/getSignedUrl?fileName=",
+        "getDownloadableUrl":"/user/v1/cloud-services/file/getDownloadableUrl?filePath="
     },
     "report":{
         "listingUrl":"/project/v1/reports/entity"

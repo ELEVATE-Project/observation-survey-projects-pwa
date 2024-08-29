@@ -24,14 +24,16 @@ export class ProjectDetailsPage  implements OnInit {
     profileInfo: {}
   }
   showDetails = false
+  sharePopupHandler:any
     constructor(private navCtrl: NavController, private profileService: ProfileService, private utils: UtilService,private toastService:ToastService,private popoverController:PopoverController) {
       this.router = inject(Router);
       this.getProfileDetails()
     }
 
     ngOnInit(): void {
-      window.addEventListener('message', this.handleMessage.bind(this));
-            this.projectData = this.router.getCurrentNavigation()?.extras.state;
+      this.sharePopupHandler = this.handleMessage.bind(this);
+      window.addEventListener('message', this.sharePopupHandler);
+      this.projectData = this.router.getCurrentNavigation()?.extras.state;
     }
 
     async handleMessage(event: MessageEvent) {
@@ -46,11 +48,6 @@ export class ProjectDetailsPage  implements OnInit {
           };
           await Share.share(shareOptions);
         } catch (err) {
-          console.error('Error during file download or sharing', err);
-          this.toastService.presentToast(
-            'Error during file download or sharing',
-            'danger'
-          );
         }
       } else {
         this.setOpenForCopyLink(url);
@@ -98,9 +95,9 @@ export class ProjectDetailsPage  implements OnInit {
         this.showDetails = true
       });
     }
-    // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
+
     ngOnDestroy() {
-      window.removeEventListener('message', this.handleMessage.bind(this));
+      window.removeEventListener('message', this.sharePopupHandler);
     }
 
 }
