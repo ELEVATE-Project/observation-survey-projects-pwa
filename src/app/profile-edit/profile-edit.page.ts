@@ -69,10 +69,10 @@ export class ProfileEditPage implements isDeactivatable {
               this.getOptionsData(control.name);
             }
           });
-        } else {
-          this.toastService.presentToast('Failed to load profile data. Please try again later.', 'danger');
-        }
-      });
+        } 
+      },(err:any)=>{
+        this.toastService.presentToast(err?.error?.message, 'danger');
+      })
   }
 
   mapProfileDataToFormJson(formData?: any) {
