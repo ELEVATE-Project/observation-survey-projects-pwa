@@ -6,6 +6,7 @@ import { UtilService } from '../services/util/util.service';
 import { ToastService } from '../services/toast/toast.service';
 import { NavController } from '@ionic/angular';
 import { ProfileService } from '../services/profile/profile.service';
+import { NetworkServiceService } from 'network-service';
 
 @Component({
   selector: 'app-redirection-handler',
@@ -19,14 +20,22 @@ export class RedirectionHandlerComponent  implements OnInit {
   utils:any
   profileInfo:any = {}
   toastService: any;
+  isOnline:any;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private navCtrl: NavController, private profileService: ProfileService) {
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private navCtrl: NavController, private profileService: ProfileService,private network:NetworkServiceService) {
     this.apiService = inject(ApiBaseService)
     this.utils = inject(UtilService)
     this.toastService = inject(ToastService)
+    this.network.isOnline$.subscribe((status)=>{
+      this.isOnline=status
+    })
     activatedRoute.paramMap.subscribe((param:any)=>{
       this.type = param.get("type")
       this.linkId = param.get("id")
+      if(!this.isOnline){
+        this.toastService.presentToast('You are offline','danger')
+        return
+      }
       if(!this.utils.isLoggedIn()){
         this.checkLinkType()
       }else{
