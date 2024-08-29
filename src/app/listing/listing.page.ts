@@ -29,35 +29,16 @@ export class ListingPage {
   filter = "assignedToMe";
   filters=actions.PROJECT_FILTERS;
   entityData:any;
-  solutionType: any;
-  reportIdentifier: any;
-  reportPage: any;
 
   constructor(private navCtrl: NavController, private router: Router,
     private profileService: ProfileService,
     private alertService: AlertService
   ) {
     this.baseApiService = inject(ApiBaseService);
-    this.loader = inject(LoaderService);
-    this.toastService = inject(ToastService);
-
+    this.loader = inject(LoaderService)
+    this.toastService = inject(ToastService)
   }
 
-  ngOnInit(){
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation?.extras?.state) {
-      console.log(navigation.extras.state)
-      this.stateData = navigation.extras.state;
-      console.log('state data',this.stateData)
-      this.listType = this.stateData?.listType;
-      this.solutionType = this.stateData.solutionType;
-      this.reportIdentifier = this.stateData.reportIdentifier;
-      this.reportPage = this.stateData.reportPage;
-      if(this.listType !== 'project'){
-        this.filter = ''
-      }
-    }
-  }
   ionViewWillEnter() {
     this.page = 1;
     this.solutionList = { data: [], count: 0 };
@@ -65,15 +46,87 @@ export class ListingPage {
   }
 
   async getFormListing() {
-
+    const urlSegments = this.router.url.split('/');
+    const lastPathSegment: any = urlSegments[urlSegments.length - 1];
+    this.listType = lastPathSegment;
+    console.log('get url segments',urlSegments,this.listType)
     this.profileService.getFormListing().subscribe({
       next: (res: any) => {
         if (res?.status === 200 && res?.result) {
           const result = res.result.data;
-          const solutionList = result.find((item: any) => item.type === 'solutionList');
-
+          let solutionList = result.find((item: any) => item.type === 'solutionList');
+          solutionList = {
+            "type": "solutionList",
+            "listingData": [
+                {
+                    "name": "Projects",
+                    "img": "assets/images/ic_project.svg",
+                    "redirectionUrl": "/listing/project",
+                    "listType": "project",
+                    "solutionType":"improvementProject",
+                    "reportPage":false,
+                    "description": "Manage and track your school improvement easily, by creating tasks and planning project timelines"
+                },
+                {
+                  "name": "Survey",
+                  "img": "assets/images/ic_survey.svg",
+                  "redirectionUrl": "/listing/survey",
+                  "listType": "survey",
+                  "solutionType":"survey",
+                  "reportPage":false,
+                  "reportIdentifier":"surveyReportPage",
+                  "description": "Provide information and feedback through quick and easy surveys"
+              },
+                {
+                    "name": "Reports",
+                    "img": "assets/images/ic_report.svg",
+                    "redirectionUrl": "/list/report",
+                    "listType": "report",
+                    "reportPage":true,
+                    "description": "Make sense of data to enable your decision-making based on your programs with ease",
+                    "list":[
+                      {
+                        "name": "Improvement Project Reports",
+                        "img": "assets/images/ic_project.svg",
+                        "redirectionUrl": "/project-report",
+                        "listType": "project",
+                        "solutionType":"improvementProject",
+                        "reportPage":false,
+                        "description": "Manage and track your school improvement easily, by creating tasks and planning project timelines"
+                    },
+                    {
+                      "name": "Survey Reports",
+                      "img": "assets/images/ic_survey.svg",
+                      "redirectionUrl": "/listing/survey-report",
+                      "listType": "survey-report",
+                      "solutionType":"survey",
+                      "reportPage":true,
+                      "reportIdentifier":"surveyReportPage",
+                      "description": "Provide information and feedback through quick and easy surveys"
+                  }
+                    ]
+                }
+            ]
+        }
+          if(this.listType !== 'project'){
+            this.filter = ''
+          }
           if (solutionList) {
-            this.stateData = solutionList.listingData.find((data: any) => data.listType === this.listType);
+             solutionList.listingData.find((data: any) => {
+              if (data.listType === this.listType) {
+                this.stateData = data
+                return true; // Found a direct match, stop the search
+              } else if (data.listType === 'report') {
+                const reportSolution = data.list.find((item: any) => item.listType === this.listType);
+                if (reportSolution) {
+                  this.stateData = reportSolution; // Assign the found reportSolution to stateData
+                  return true; // Indicate that a match was found
+                }
+              }
+              return false; // No match found in this iteration
+            });
+                  
+          console.log('state data',this.stateData)
             this.getProfileDetails();
           }
         }
@@ -114,7 +167,7 @@ export class ListingPage {
     await this.loader.showLoading("Please wait while loading...");
     this.baseApiService
       .post(
-        urlConfig[this.listType].listingUrl + `?type=${this.solutionType}&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}${this.reportIdentifier ? `&` +this.reportIdentifier+`=`+this.reportPage : ''}`, this.entityData)
+        urlConfig[this.listType].listingUrl + `?type=${this.stateData.solutionType}&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}${this.stateData.reportIdentifier ? `&` +this.stateData.reportIdentifier+`=`+this.stateData.reportPage : ''}`, this.entityData)
       .pipe(
         finalize(async () => {
           await this.loader.dismissLoading();
@@ -143,7 +196,12 @@ export class ListingPage {
     this.navCtrl.back();
   }
 
-  navigateToProject(data: any) {
-    this.router.navigate(['project-details'], { state: data });
+  navigateTo(data: any) {
+    console.log(data)
+    if(this.listType == 'project'){
+      this.router.navigate(['project-details'], { state: data });
+    }else if(this.listType == 'survey'){
+      this.router.navigate(['questionnaire',data.solutionId])
+    }
   }
 }

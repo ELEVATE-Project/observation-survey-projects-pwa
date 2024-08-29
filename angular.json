@@ -32,8 +32,8 @@
               },
               "src/manifest.webmanifest"
             ],
-            "styles": ["src/global.scss", "src/theme/variables.scss","node_modules/project-player/styles.css"],
-            "scripts": ["node_modules/project-player/project-player-component.js"],
+            "styles": ["src/global.scss", "src/theme/variables.scss","node_modules/project-player/styles.css","/home/navadhiti/questionnaire-player/web-component/styles.css"],
+            "scripts": ["node_modules/project-player/project-player-component.js","/home/navadhiti/questionnaire-player/web-component/questionnaire-player-webcomponent.js"],
             "serviceWorker": true,
             "ngswConfigPath": "ngsw-config.json"
           },

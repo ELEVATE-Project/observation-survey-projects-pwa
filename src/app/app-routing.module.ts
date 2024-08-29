@@ -20,6 +20,10 @@ const routes: Routes = [
     loadChildren:() => import('./generic-report/generic-report.module').then(m => m.GenericReportModule)
   },
   {
+    path:'questionnaire/:id',
+    loadChildren:() => import('./questionnaire/questionnaire.module').then(m => m.QuestionnaireModule)
+  },
+  {
     path: 'qr-scanner',
     loadChildren: () => import('./qr-scanner/qr-scanner.module').then( m => m.QrScannerPageModule)
   },

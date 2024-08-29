@@ -50,7 +50,7 @@
             @for (item of solutionList; track $index) {
             @if (item.type === 'solutionList'){
             @for (listData of item.listingData; track listData.id) {
-            <ion-col size="6" size-md="3" [routerLink]="listData?.redirectionUrl" routerDirection="forward">
+            <ion-col size="6" size-md="3" [routerLink]="listData?.redirectionUrl" [state]="listData" routerDirection="forward">
               <ion-card class="tiels">
                 <ion-card-content>
                   <img [src]="listData?.img" alt="">
