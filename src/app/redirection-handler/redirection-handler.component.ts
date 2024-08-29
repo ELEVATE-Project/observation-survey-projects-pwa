@@ -1,11 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiBaseService } from '../services/base-api/api-base.service';
 import urlConfig from 'src/app/config/url.config.json'
 import { UtilService } from '../services/util/util.service';
 import { ToastService } from '../services/toast/toast.service';
 import { NavController } from '@ionic/angular';
 import { ProfileService } from '../services/profile/profile.service';
+import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 
 @Component({
   selector: 'app-redirection-handler',
@@ -21,7 +21,7 @@ export class RedirectionHandlerComponent  implements OnInit {
   toastService: any;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private navCtrl: NavController, private profileService: ProfileService) {
-    this.apiService = inject(ApiBaseService)
+    this.apiService = inject(ProjectsApiService)
     this.utils = inject(UtilService)
     this.toastService = inject(ToastService)
     activatedRoute.paramMap.subscribe((param:any)=>{

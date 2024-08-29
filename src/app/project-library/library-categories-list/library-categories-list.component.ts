@@ -1,9 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { ApiBaseService } from 'src/app/services/base-api/api-base.service';
 import urlConfig from 'src/app/config/url.config.json'
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { Router } from '@angular/router';
+import { ProjectsApiService } from 'src/app/services/projects-api/projects-api.service';
 
 @Component({
   selector: 'app-library-categories-list',
@@ -15,7 +15,7 @@ export class LibraryCategoriesListComponent  implements OnInit {
   categoriesList:any = []
 
   constructor(private navCtrl: NavController, private toastService: ToastService, private router: Router) {
-    this.apiService = inject(ApiBaseService)
+    this.apiService = inject(ProjectsApiService)
   }
 
   ngOnInit() {

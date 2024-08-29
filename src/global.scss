@@ -89,6 +89,12 @@ mat-label {
   --border-color: #ccc;
 }
 
+  
+.mat-progress-spinner circle,
+.mat-spinner circle {
+    stroke: var(--color-primary) !important;
+}
+
 .mat-mdc-snack-bar-container.success {
   --mat-mdc-snack-bar-button-color: #fff;
   --mdc-snackbar-container-color: #28a745;

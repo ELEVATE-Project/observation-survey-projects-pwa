@@ -3,12 +3,12 @@ import { IonicSlides } from '@ionic/angular';
 import { register } from 'swiper/element/bundle';
 import { HttpClient } from '@angular/common/http';
 import { LoaderService } from '../services/loader/loader.service';
-import { ApiBaseService } from '../services/base-api/api-base.service';
 import { ToastService } from '../services/toast/toast.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'authentication_frontend_library';
 import { UtilService } from 'src/app/services/util/util.service';
 import { ProfileService } from '../services/profile/profile.service';
+import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 register();
 @Component({
   selector: 'app-home',
@@ -33,7 +33,7 @@ export class HomePage {
   constructor(private http: HttpClient, private router: Router, private utilService: UtilService,
     private profileService: ProfileService
   ) {
-    this.baseApiService = inject(ApiBaseService);
+    this.baseApiService = inject(ProjectsApiService);
     this.loader = inject(LoaderService)
     this.authService = inject(AuthService)
     this.toastService = inject(ToastService)

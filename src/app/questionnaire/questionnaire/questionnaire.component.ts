@@ -15,7 +15,7 @@ export class QuestionnaireComponent  implements OnInit {
   ngOnInit() {
     this.router.params.subscribe(param => {
       this.apiConfig['solutionId'] = param['id']
-      this.apiConfig['baseURL'] = environment.baseURL;
+      this.apiConfig['baseURL'] = environment.samikshaBaseURL;
       this.apiConfig['userAuthToken'] = localStorage.getItem('accToken');
       this.apiConfig['solutionType'] = 'survey';
     })
