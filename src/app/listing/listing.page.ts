@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UrlConfig } from 'src/app/interfaces/main.interface';
 import urlConfig from 'src/app/config/url.config.json';
 import { Router } from '@angular/router';
@@ -16,7 +16,7 @@ import { SamikshaApiService } from '../services/samiksha-api/samiksha-api.servic
   templateUrl: './listing.page.html',
   styleUrls: ['./listing.page.scss'],
 })
-export class ListingPage {
+export class ListingPage implements OnInit {
   solutionList: any = { data: [], count: 0 };
   loader: LoaderService;
   solutionId!: string;
@@ -42,103 +42,18 @@ export class ListingPage {
     this.toastService = inject(ToastService)
   }
 
-  ionViewWillEnter() {
-    this.page = 1;
-    this.solutionList = { data: [], count: 0 };
-    this.getFormListing();
+  ngOnInit() {
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras?.state) {
+      this.stateData = navigation.extras.state;
+      this.listType = this.stateData?.listType;
+    }
   }
 
-  async getFormListing() {
-    const urlSegments = this.router.url.split('/');
-    const lastPathSegment: any = urlSegments[urlSegments.length - 1];
-    this.listType = lastPathSegment;
-    console.log('get url segments',urlSegments,this.listType)
-    this.profileService.getFormListing().subscribe({
-      next: (res: any) => {
-        if (res?.status === 200 && res?.result) {
-          const result = res.result.data;
-          let solutionList = result.find((item: any) => item.type === 'solutionList');
-          solutionList = {
-            "type": "solutionList",
-            "listingData": [
-                {
-                    "name": "Projects",
-                    "img": "assets/images/ic_project.svg",
-                    "redirectionUrl": "/listing/project",
-                    "listType": "project",
-                    "solutionType":"improvementProject",
-                    "reportPage":false,
-                    "description": "Manage and track your school improvement easily, by creating tasks and planning project timelines"
-                },
-                {
-                  "name": "Survey",
-                  "img": "assets/images/ic_survey.svg",
-                  "redirectionUrl": "/listing/survey",
-                  "listType": "survey",
-                  "solutionType":"survey",
-                  "reportPage":false,
-                  "reportIdentifier":"surveyReportPage",
-                  "description": "Provide information and feedback through quick and easy surveys"
-              },
-                {
-                    "name": "Reports",
-                    "img": "assets/images/ic_report.svg",
-                    "redirectionUrl": "/list/report",
-                    "listType": "report",
-                    "reportPage":true,
-                    "description": "Make sense of data to enable your decision-making based on your programs with ease",
-                    "list":[
-                      {
-                        "name": "Improvement Project Reports",
-                        "img": "assets/images/ic_project.svg",
-                        "redirectionUrl": "/project-report",
-                        "listType": "project",
-                        "solutionType":"improvementProject",
-                        "reportPage":false,
-                        "description": "Manage and track your school improvement easily, by creating tasks and planning project timelines"
-                    },
-                    {
-                      "name": "Survey Reports",
-                      "img": "assets/images/ic_survey.svg",
-                      "redirectionUrl": "/listing/survey-report",
-                      "listType": "survey-report",
-                      "solutionType":"survey",
-                      "reportPage":true,
-                      "reportIdentifier":"surveyReportPage",
-                      "description": "Provide information and feedback through quick and easy surveys"
-                  }
-                    ]
-                }
-            ]
-        }
-          if(this.listType !== 'project'){
-            this.filter = ''
-          }
-          if (solutionList) {
-             solutionList.listingData.find((data: any) => {
-              if (data.listType === this.listType) {
-                this.stateData = data
-                return true;
-              } else if (data.listType === 'report') {
-                const reportSolution = data.list.find((item: any) => item.listType === this.listType);
-                if (reportSolution) {
-                  this.stateData = reportSolution; 
-                  return true;
-                }
-              }
-              return false; 
-            });
-                  
-          console.log('state data',this.stateData)
-            this.getProfileDetails();
-          }
-        }
-      },
-      error: (err: any) => {
-        this.toastService.presentToast(err?.error?.message, 'danger');
-      }
-    }
-    );
+  ionViewWillEnter() {
+    this.page = 1;
+    this.solutionList = { data: [], count: 0 }
+    this.getProfileDetails();
   }
 
   ionViewWillLeave() {
@@ -168,6 +83,9 @@ export class ListingPage {
 
   async getListData() {
     await this.loader.showLoading("Please wait while loading...");
+    if(this.listType == 'project'){
+      this.filter = '';
+    };
     (this.listType == 'project' ? this.ProjectsApiService : this.SamikshaApiService)
       .post(
         urlConfig[this.listType].listingUrl + `?type=${this.stateData.solutionType}&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}${this.stateData.reportIdentifier ? `&` +this.stateData.reportIdentifier+`=`+this.stateData.reportPage : ''}`, this.entityData)

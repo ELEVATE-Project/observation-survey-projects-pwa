@@ -3,8 +3,12 @@ import { IonicSlides } from '@ionic/angular';
 import { register } from 'swiper/element/bundle';
 import { HttpClient } from '@angular/common/http';
 import { LoaderService } from '../services/loader/loader.service';
+import { ApiBaseService } from '../services/base-api/api-base.service';
+import urlConfig from 'src/app/config/url.config.json';
 import { ToastService } from '../services/toast/toast.service';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs';
+import { FETCH_HOME_FORM } from '../core/constants/formConstant';
 import { AuthService } from 'authentication_frontend_library';
 import { UtilService } from 'src/app/services/util/util.service';
 import { ProfileService } from '../services/profile/profile.service';
@@ -47,77 +51,35 @@ export class HomePage {
   }
 
   async getHomeListing() {
-    this.profileService.getFormListing().subscribe({
-      next: (res: any) => {
-        if (res?.status === 200 && res?.result) {
-          this.solutionList = res?.result?.data;
-          this.solutionList[1] = {
-            "type": "solutionList",
-            "listingData": [
-                {
-                    "name": "Projects",
-                    "img": "assets/images/ic_project.svg",
-                    "redirectionUrl": "/listing/project",
-                    "listType": "project",
-                    "solutionType":"improvementProject",
-                    "reportPage":false,
-                    "description": "Manage and track your school improvement easily, by creating tasks and planning project timelines"
-                },
-                {
-                  "name": "Survey",
-                  "img": "assets/images/ic_survey.svg",
-                  "redirectionUrl": "/listing/survey",
-                  "listType": "survey",
-                  "solutionType":"survey",
-                  "reportPage":false,
-                  "reportIdentifier":"surveyReportPage",
-                  "description": "Provide information and feedback through quick and easy surveys"
-              },
-                {
-                    "name": "Reports",
-                    "img": "assets/images/ic_report.svg",
-                    "redirectionUrl": "/list/report",
-                    "listType": "report",
-                    "reportPage":true,
-                    "description": "Make sense of data to enable your decision-making based on your programs with ease",
-                    "list":[
-                      {
-                        "name": "Improvement Project Reports",
-                        "img": "assets/images/ic_project.svg",
-                        "redirectionUrl": "/project-report",
-                        "listType": "project",
-                        "solutionType":"improvementProject",
-                        "reportPage":false,
-                        "description": "Manage and track your school improvement easily, by creating tasks and planning project timelines"
-                    },
-                    {
-                      "name": "Survey Reports",
-                      "img": "assets/images/ic_survey.svg",
-                      "redirectionUrl": "/listing/survey",
-                      "listType": "survey",
-                      "solutionType":"survey",
-                      "reportPage":true,
-                      "reportIdentifier":"surveyReportPage",
-                      "description": "Provide information and feedback through quick and easy surveys"
-                  }
-                    ]
-                }
-            ]
+    await this.loader.showLoading("Please wait while loading...");
+    this.baseApiService
+      .post(
+        urlConfig['formListing'].listingUrl, FETCH_HOME_FORM)
+      .pipe(
+        finalize(async () => {
+          await this.loader.dismissLoading();
+        })
+      )
+      .subscribe((res: any) => {
+        if (res?.status === 200) {
+          if (res?.result) {
+            this.solutionList = res?.result?.data;
+          }
+          this.typeTemplateMapping = {
+            "bannerList": this.bannerTemplate,
+            "solutionList": this.solutionTemplate,
+            "recomendationList": this.recommendationTemplate
+          };
         }
-          console.log(this.solutionList)
-        }
-        
-        this.typeTemplateMapping = {
-          "bannerList": this.bannerTemplate,
-          "solutionList": this.solutionTemplate,
-          "recomendationList": this.recommendationTemplate
-        };
       },
-      error: (err: any) => {
-        this.toastService.presentToast(err?.error?.message, 'danger');
-      }
-    }
-    );
+        (err: any) => {
+          this.toastService.presentToast(err?.error?.message);
+        }
+      );
+  }
+
+  navigateTo(data: any) {
+    this.router.navigate([data?.redirectionUrl], { state: data });
   }
 
   logout() {

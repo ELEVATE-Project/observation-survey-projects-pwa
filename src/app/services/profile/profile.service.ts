@@ -114,16 +114,4 @@ export class ProfileService {
       ]
     );
   }
-
-   getFormListing() {
-     this.loader.showLoading("Please wait while loading...");
-  
-    return this.apiBaseService
-      .post(urlConfig['formListing'].listingUrl, FETCH_HOME_FORM)
-      .pipe(
-        finalize(async() => {
-          await this.loader.dismissLoading();
-        })
-      );
-  }
 }
