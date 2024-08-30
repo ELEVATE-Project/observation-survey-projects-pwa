@@ -20,7 +20,6 @@ export class ReportListPage implements OnInit {
     if (navigation?.extras?.state) {
       this.stateData = navigation.extras.state;
       this.listType = this.stateData?.listType;
-      console.log(this.stateData)
     }
   }
 

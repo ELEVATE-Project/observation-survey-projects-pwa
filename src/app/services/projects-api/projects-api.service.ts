@@ -11,6 +11,5 @@ export class ProjectsApiService extends ApiBaseService {
   constructor(public override http:HttpClient) {
     super(http);
     this.baseURL = environment.projectsBaseURL
-    console.log('Projects baseURL:', this.baseURL);
    }
 }

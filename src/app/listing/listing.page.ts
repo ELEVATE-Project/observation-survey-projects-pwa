@@ -118,7 +118,6 @@ export class ListingPage implements OnInit {
   }
 
   navigateTo(data: any) {
-    console.log(data)
     if(this.listType == 'project'){
       this.router.navigate(['project-details'], { state: data });
     }else if(this.listType == 'survey'){

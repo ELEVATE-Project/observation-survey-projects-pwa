@@ -1,9 +1,9 @@
 {
     "survey": {
-        "listingUrl": "/samiksha/v1/solutions/targetedSolutions"
+        "listingUrl": "/survey/v1/solutions/targetedSolutions"
     },
     "survey-report": {
-        "listingUrl": "/samiksha/v1/solutions/targetedSolutions"
+        "listingUrl": "/survey/v1/solutions/targetedSolutions"
     },
     "observation": {
         "listingUrl": "/project/v1/solutions/list"
