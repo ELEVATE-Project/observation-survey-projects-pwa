@@ -66,10 +66,9 @@ export class ProfileService {
             } else {
               this.presentAlert();
             }
-          } else {
-            this.toastService.presentToast('Failed to load profile data. Please try again later.', 'danger');
-            return null;
           }
+        },(err:any)=>{
+          this.toastService.presentToast(err?.error?.message, 'danger');
         }),
         finalize(async () => await this.loader.dismissLoading())
       );
