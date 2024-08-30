@@ -47,10 +47,10 @@ export class ProfilePage {
           this.formJson = formJsonRes?.result?.data || [];
           this.formData = profileFormDataRes?.result;
           this.mapProfileDataToFormJson(this.formData);
-        } else {
-          this.toastService.presentToast('Failed to load profile data. Please try again later.', 'danger');
         }
-      });
+      },(err:any)=>{
+        this.toastService.presentToast(err?.error?.message, 'danger');
+      })
   }
 
   mapProfileDataToFormJson(formData?: any) {
