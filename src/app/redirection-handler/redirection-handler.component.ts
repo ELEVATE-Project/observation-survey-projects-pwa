@@ -1,11 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiBaseService } from '../services/base-api/api-base.service';
 import urlConfig from 'src/app/config/url.config.json'
 import { UtilService } from '../services/util/util.service';
 import { ToastService } from '../services/toast/toast.service';
 import { NavController } from '@ionic/angular';
 import { ProfileService } from '../services/profile/profile.service';
+import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 import { NetworkServiceService } from 'network-service';
 
 @Component({
@@ -23,10 +23,10 @@ export class RedirectionHandlerComponent  implements OnInit {
   isOnline:any;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private navCtrl: NavController, private profileService: ProfileService,private network:NetworkServiceService) {
-    this.apiService = inject(ApiBaseService)
+    this.apiService = inject(ProjectsApiService)
     this.utils = inject(UtilService)
     this.toastService = inject(ToastService)
-    this.network.isOnline$.subscribe((status)=>{
+    this.network.isOnline$.subscribe((status: any)=>{
       this.isOnline=status
     })
     activatedRoute.paramMap.subscribe((param:any)=>{

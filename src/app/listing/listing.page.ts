@@ -2,7 +2,6 @@ import { Component, inject, OnInit } from '@angular/core';
 import { UrlConfig } from 'src/app/interfaces/main.interface';
 import urlConfig from 'src/app/config/url.config.json';
 import { Router } from '@angular/router';
-import { ApiBaseService } from '../services/base-api/api-base.service';
 import { LoaderService } from '../services/loader/loader.service';
 import { ToastService } from '../services/toast/toast.service';
 import { NavController } from '@ionic/angular';
@@ -10,6 +9,8 @@ import { finalize } from 'rxjs';
 import { actions } from 'src/app/config/actionContants';
 import { ProfileService } from '../services/profile/profile.service';
 import { AlertService } from '../services/alert/alert.service';
+import { ProjectsApiService } from '../services/projects-api/projects-api.service';
+import { SamikshaApiService } from '../services/samiksha-api/samiksha-api.service';
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.page.html',
@@ -17,7 +18,6 @@ import { AlertService } from '../services/alert/alert.service';
 })
 export class ListingPage implements OnInit {
   solutionList: any = { data: [], count: 0 };
-  baseApiService: any;
   loader: LoaderService;
   solutionId!: string;
   listType!: keyof UrlConfig;
@@ -27,14 +27,17 @@ export class ListingPage implements OnInit {
   page: number = 1;
   limit: number = 10;
   filter = "assignedToMe";
-  filters = actions.PROJECT_FILTERS;
-  entityData: any;
+  filters=actions.PROJECT_FILTERS;
+  entityData:any;
+  ProjectsApiService: ProjectsApiService;
+  SamikshaApiService:SamikshaApiService;
 
   constructor(private navCtrl: NavController, private router: Router,
     private profileService: ProfileService,
     private alertService: AlertService
   ) {
-    this.baseApiService = inject(ApiBaseService);
+    this.ProjectsApiService = inject(ProjectsApiService);
+    this.SamikshaApiService = inject(SamikshaApiService);
     this.loader = inject(LoaderService)
     this.toastService = inject(ToastService)
   }
@@ -80,9 +83,12 @@ export class ListingPage implements OnInit {
 
   async getListData() {
     await this.loader.showLoading("Please wait while loading...");
-    this.baseApiService
+    if(this.listType !== 'project'){
+      this.filter = '';
+    };
+    (this.listType == 'project' ? this.ProjectsApiService : this.SamikshaApiService)
       .post(
-        urlConfig[this.listType].listingUrl + `?type=improvementProject&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}`, this.entityData)
+        urlConfig[this.listType].listingUrl + `?type=${this.stateData.solutionType}&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}${this.stateData.reportIdentifier ? `&` +this.stateData.reportIdentifier+`=`+this.stateData.reportPage : ''}`, this.entityData)
       .pipe(
         finalize(async () => {
           await this.loader.dismissLoading();
@@ -111,7 +117,13 @@ export class ListingPage implements OnInit {
     this.navCtrl.back();
   }
 
-  navigateToProject(data: any) {
-    this.router.navigate(['project-details'], { state: data });
+  navigateTo(data: any) {
+    if(this.listType == 'project'){
+      this.router.navigate(['project-details'], { state: data });
+    }else if(this.listType == 'survey'){
+      this.router.navigate(['questionnaire',data.solutionId])
+    }else{
+      this.router.navigate(['report-details'])
+    }
   }
 }

@@ -2,13 +2,13 @@ import { Component, OnInit, ViewChild, ElementRef, inject } from '@angular/core'
 import { BrowserMultiFormatReader } from '@zxing/browser';
 import { Result } from '@zxing/library';
 import { LoaderService } from '../services/loader/loader.service';
-import { ApiBaseService } from '../services/base-api/api-base.service';
 import { ToastService } from '../services/toast/toast.service';
 import urlConfig from 'src/app/config/url.config.json';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { UtilService } from 'src/app/services/util/util.service';
 import { Location } from '@angular/common';
+import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 @Component({
   selector: 'app-qr-scanner',
   templateUrl: './qr-scanner.page.html',
@@ -22,11 +22,11 @@ export class QrScannerPage implements OnInit {
   loader: LoaderService;
   toastService: ToastService;
   userId: string | undefined;
-  baseApiService: ApiBaseService;
+  baseApiService: ProjectsApiService;
   @ViewChild('video', { static: false }) video!: ElementRef<HTMLVideoElement>;
 
   constructor(private router: Router,private utilService: UtilService,private location:Location) {
-    this.baseApiService = inject(ApiBaseService);
+    this.baseApiService = inject(ProjectsApiService);
     this.loader = inject(LoaderService);
     this.toastService = inject(ToastService);
   }

@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild, inject } from '@angular/core';
 import { NavController, PopoverController } from '@ionic/angular';
 import { LoaderService } from '../services/loader/loader.service';
-import { ApiBaseService } from '../services/base-api/api-base.service';
 import urlConfig from 'src/app/config/url.config.json';
 import { UrlConfig } from '../interfaces/main.interface';
 import { finalize } from 'rxjs';
@@ -14,6 +13,7 @@ import { Share } from '@capacitor/share';
 import { Clipboard } from '@capacitor/clipboard';
 import { UtilService } from '../services/util/util.service';
 import { ShareLinkPopupComponent } from '../shared/share-link-popup/share-link-popupcomponent';
+import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 
 
 @Component({
@@ -67,7 +67,7 @@ export class ProjectReportPage implements OnInit {
 
   ) {
     this.loader = inject(LoaderService);
-    this.baseApiService = inject(ApiBaseService);
+    this.baseApiService = inject(ProjectsApiService);
     this.toastService = inject(ToastService);
     Chart.register(...registerables);
     Chart.register(ChartDataLabels);

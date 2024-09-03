@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { LoaderService } from '../services/loader/loader.service';
 import { finalize, catchError, map } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-import { ApiBaseService } from '../services/base-api/api-base.service';
 import { ToastService } from '../services/toast/toast.service';
 import urlConfig from 'src/app/config/url.config.json';
 import { MainFormComponent } from 'elevate-dynamic-form';
@@ -12,6 +11,7 @@ import { ProfileService } from '../services/profile/profile.service';
 import { AlertService } from '../services/alert/alert.service';
 import { Router } from '@angular/router';
 import { isDeactivatable } from '../services/guard/guard.service';
+import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 @Component({
   selector: 'app-profile-edit',
   templateUrl: './profile-edit.page.html',
@@ -29,7 +29,7 @@ export class ProfileEditPage implements isDeactivatable {
   enableForm: boolean = false;
 
   constructor(
-    private apiBaseService: ApiBaseService,
+    private apiBaseService: ProjectsApiService,
     private loader: LoaderService,
     private toastService: ToastService,
     private navCtrl: NavController,
