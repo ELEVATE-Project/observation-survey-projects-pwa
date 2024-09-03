@@ -83,7 +83,7 @@ export class ListingPage implements OnInit {
 
   async getListData() {
     await this.loader.showLoading("Please wait while loading...");
-    if(this.listType == 'project'){
+    if(this.listType !== 'project'){
       this.filter = '';
     };
     (this.listType == 'project' ? this.ProjectsApiService : this.SamikshaApiService)
@@ -122,6 +122,8 @@ export class ListingPage implements OnInit {
       this.router.navigate(['project-details'], { state: data });
     }else if(this.listType == 'survey'){
       this.router.navigate(['questionnaire',data.solutionId])
+    }else{
+      this.router.navigate(['report-details'])
     }
   }
 }
