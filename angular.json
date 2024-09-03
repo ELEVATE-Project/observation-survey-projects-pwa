@@ -32,7 +32,7 @@
               },
               "src/manifest.webmanifest"
             ],
-            "styles": ["src/global.scss", "src/theme/variables.scss","node_modules/project-player/styles.css","node_modules/questionnaire-webcomponent/styles.css"],
+            "styles": ["src/global.scss", "src/theme/variables.scss","node_modules/project-player/styles.css"],
             "scripts": ["node_modules/project-player/project-player-component.js","node_modules/questionnaire-webcomponent/questionnaire-player-webcomponent.js"],
             "serviceWorker": true,
             "ngswConfigPath": "ngsw-config.json"
@@ -47,8 +47,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "90kb",
+                  "maximumError": "100kb"
                 }
               ],
               "fileReplacements": [
