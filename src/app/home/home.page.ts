@@ -30,6 +30,7 @@ export class HomePage {
   @ViewChild('bannerTemplate') bannerTemplate!: TemplateRef<any>;
   @ViewChild('solutionTemplate') solutionTemplate!: TemplateRef<any>;
   @ViewChild('recommendationTemplate') recommendationTemplate!: TemplateRef<any>;
+  sharePopupHandler:any;
 
 
   constructor(private http: HttpClient, private router: Router,private utilService: UtilService) {
@@ -40,6 +41,8 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
+    this.sharePopupHandler = this.handleMessage.bind(this);
+      window.addEventListener('message', this.sharePopupHandler);
     this.getHomeListing();
   }
   startScan() {
@@ -80,5 +83,20 @@ export class HomePage {
 
   logout() {
     this.authService.logout();
+  }
+
+  async handleMessage(event: MessageEvent) {
+    if(event.data && event.data.msg){
+      if (window.indexedDB) {
+        const dbs = indexedDB.databases ? indexedDB.databases() : Promise.resolve([]);
+        dbs.then(databases => {
+            databases.forEach(dbInfo => {
+                if (dbInfo.name) {
+                    indexedDB.deleteDatabase(dbInfo.name);
+                }
+            });
+        });
+    }
+    }
   }
 }
