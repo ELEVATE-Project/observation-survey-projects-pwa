@@ -32,7 +32,7 @@ export class HomePage {
   @ViewChild('bannerTemplate') bannerTemplate!: TemplateRef<any>;
   @ViewChild('solutionTemplate') solutionTemplate!: TemplateRef<any>;
   @ViewChild('recommendationTemplate') recommendationTemplate!: TemplateRef<any>;
-  sharePopupHandler:any;
+  clearDatabaseHandler:any;
 
 
   constructor(private http: HttpClient, private router: Router, private utilService: UtilService,
@@ -45,8 +45,8 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
-    this.sharePopupHandler = this.handleMessage.bind(this);
-      window.addEventListener('message', this.sharePopupHandler);
+    this.clearDatabaseHandler = this.handleMessage.bind(this);
+      window.addEventListener('message', this.clearDatabaseHandler);
     this.getHomeListing();
   }
   startScan() {
