@@ -88,19 +88,9 @@ export class HomePage {
   logout() {
     this.authService.logout();
   }
-
   async handleMessage(event: MessageEvent) {
-    if(event.data && event.data.msg){
-      if (window.indexedDB) {
-        const dbs = indexedDB.databases ? indexedDB.databases() : Promise.resolve([]);
-        dbs.then(databases => {
-            databases.forEach(dbInfo => {
-                if (dbInfo.name) {
-                    indexedDB.deleteDatabase(dbInfo.name);
-                }
-            });
-        });
-    }
+    if (event.data && event.data.msg) {
+      this.utilService.clearDatabase();
     }
   }
 }

@@ -4,12 +4,13 @@ import { Observable, throwError, fromEvent, merge } from 'rxjs';
 import { catchError, map, startWith } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ToastService } from '../toast/toast.service';
+import { UtilService } from '../util/util.service';
 @Injectable({
   providedIn: 'root',
 })
 export class ApiInterceptor implements HttpInterceptor {
   private onlineStatus: boolean = true;
-  constructor(private router: Router,private toast:ToastService) {
+  constructor(private router: Router,private toast:ToastService,private utilService:UtilService) {
     const onlineEvent = fromEvent(window, 'online').pipe(map(() => true));
     const offlineEvent = fromEvent(window, 'offline').pipe(map(() => false));
     merge(onlineEvent, offlineEvent).pipe(startWith(navigator.onLine)).subscribe(isOnline => {
@@ -65,6 +66,7 @@ export class ApiInterceptor implements HttpInterceptor {
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error?.status === 401) {
       localStorage.clear();
+      this.utilService.clearDatabase();
       this.router.navigateByUrl('/login');
     }
     return throwError(error);
