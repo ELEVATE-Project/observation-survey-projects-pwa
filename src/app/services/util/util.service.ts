@@ -29,4 +29,16 @@ export class UtilService {
     await popover.present();
     await popover.onDidDismiss(); 
   }
+
+  clearDatabase(){
+    let a = window.indexedDB.open("projectPlayer", 1);
+      a.onsuccess = async e => {
+        const db = (e.target as IDBRequest).result;
+        const transaction = db.transaction(["projects"], "readwrite");
+        const store = transaction.objectStore("projects");
+        const request = store.clear();
+        request.onsuccess = () => {
+        };
+      };
+  }
 }
