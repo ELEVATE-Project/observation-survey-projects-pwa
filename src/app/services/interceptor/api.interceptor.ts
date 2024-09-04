@@ -16,7 +16,7 @@ export class ApiInterceptor implements HttpInterceptor {
     merge(onlineEvent, offlineEvent).pipe(startWith(navigator.onLine)).subscribe(isOnline => {
       this.onlineStatus = isOnline;
       if (!this.onlineStatus) {
-        this.toast.presentToast('You are offline', 'danger');
+        this.toast.presentToast('You are offline,please connect to a network', 'danger');
       }
     });
    }
@@ -74,7 +74,7 @@ export class ApiInterceptor implements HttpInterceptor {
   private handleOfflineError(): Observable<never> {
         return throwError(() => ({
           status: 0,
-          error:{message: 'You are offline',}
+          error:{message: 'You are offline,please connect to a network',}
         }));
   }
 }
