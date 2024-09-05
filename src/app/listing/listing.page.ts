@@ -118,12 +118,21 @@ export class ListingPage implements OnInit {
   }
 
   navigateTo(data: any) {
-    if(this.listType == 'project'){
-      this.router.navigate(['project-details'], { state: data });
-    }else if(this.listType == 'survey'){
-      this.router.navigate(['questionnaire',data.solutionId])
-    }else{
-      this.router.navigate(['report-details'])
+    switch (this.listType) {
+      case 'project':
+        this.router.navigate(['project-details'], { state: data });
+        break;
+  
+      case 'survey':
+        const route = this.stateData.reportPage 
+          ? ['report-details', data.submissionId] 
+          : ['questionnaire', data.solutionId];
+        this.router.navigate(route);
+        break;
+  
+      default:
+        console.warn('Unknown listType:', this.listType);
     }
   }
+  
 }

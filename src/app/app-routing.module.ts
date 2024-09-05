@@ -9,14 +9,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'list/report',
+    path: 'report/list',
     loadChildren: () =>
       import('./report-list/report-list.module').then(
         (m) => m.ReportListPageModule
       ),
   },
   {
-    path:'report-details',
+    path:'report-details/:id',
     loadChildren:() => import('./generic-report/generic-report.module').then(m => m.GenericReportModule)
   },
   {

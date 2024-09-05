@@ -3,7 +3,6 @@ import { IonicSlides } from '@ionic/angular';
 import { register } from 'swiper/element/bundle';
 import { HttpClient } from '@angular/common/http';
 import { LoaderService } from '../services/loader/loader.service';
-import { ApiBaseService } from '../services/base-api/api-base.service';
 import urlConfig from 'src/app/config/url.config.json';
 import { ToastService } from '../services/toast/toast.service';
 import { Router } from '@angular/router';
@@ -82,7 +81,11 @@ export class HomePage {
   }
 
   navigateTo(data: any) {
-    this.router.navigate([data?.redirectionUrl], { state: data });
+    if(data.listType == 'report'){
+      this.router.navigate(['report/list'], { state: data });
+    }else{
+      this.router.navigate([data?.redirectionUrl], { state: data });
+    }
   }
 
   logout() {
