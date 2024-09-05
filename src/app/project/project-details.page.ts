@@ -19,7 +19,7 @@ export class ProjectDetailsPage  implements OnInit {
   projectData:any;
   config = {
     maxFileSize: 50,
-    baseUrl: environment.baseURL,
+    baseUrl: environment.projectsBaseURL,
     accessToken: localStorage.getItem('accToken'),
     profileInfo: {}
   }

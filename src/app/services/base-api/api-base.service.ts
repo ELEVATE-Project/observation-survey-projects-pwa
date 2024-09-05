@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ApiBaseService {
-  baseURL = environment.baseURL;
+  protected baseURL = environment.baseURL;
   constructor(public http: HttpClient) { }
 
   get<T>(url: string, params?: HttpParams): Observable<T> {

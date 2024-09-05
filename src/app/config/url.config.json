@@ -1,6 +1,9 @@
 {
     "survey": {
-        "listingUrl": "/project/v1/solutions/list"
+        "listingUrl": "/survey/v1/solutions/targetedSolutions"
+    },
+    "survey-report": {
+        "listingUrl": "/survey/v1/solutions/targetedSolutions"
     },
     "observation": {
         "listingUrl": "/project/v1/solutions/list"

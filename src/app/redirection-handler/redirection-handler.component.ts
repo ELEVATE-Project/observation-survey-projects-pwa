@@ -1,11 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiBaseService } from '../services/base-api/api-base.service';
 import urlConfig from 'src/app/config/url.config.json'
 import { UtilService } from '../services/util/util.service';
 import { ToastService } from '../services/toast/toast.service';
 import { NavController } from '@ionic/angular';
 import { ProfileService } from '../services/profile/profile.service';
+import { ProjectsApiService } from '../services/projects-api/projects-api.service';
+import { NetworkServiceService } from 'network-service';
 
 @Component({
   selector: 'app-redirection-handler',
@@ -19,14 +20,22 @@ export class RedirectionHandlerComponent  implements OnInit {
   utils:any
   profileInfo:any = {}
   toastService: any;
+  isOnline:any;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private navCtrl: NavController, private profileService: ProfileService) {
-    this.apiService = inject(ApiBaseService)
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private navCtrl: NavController, private profileService: ProfileService,private network:NetworkServiceService) {
+    this.apiService = inject(ProjectsApiService)
     this.utils = inject(UtilService)
     this.toastService = inject(ToastService)
+    this.network.isOnline$.subscribe((status: any)=>{
+      this.isOnline=status
+    })
     activatedRoute.paramMap.subscribe((param:any)=>{
       this.type = param.get("type")
       this.linkId = param.get("id")
+      if(!this.isOnline){
+        this.toastService.presentToast('You are offline,please connect to a network','danger')
+        return
+      }
       if(!this.utils.isLoggedIn()){
         this.checkLinkType()
       }else{

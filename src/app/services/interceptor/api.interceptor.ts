@@ -1,16 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, throwError, fromEvent, merge } from 'rxjs';
+import { catchError, map, startWith } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
+import { ToastService } from '../toast/toast.service';
+import { UtilService } from '../util/util.service';
 @Injectable({
   providedIn: 'root',
 })
 export class ApiInterceptor implements HttpInterceptor {
-  constructor(private router: Router) { }
+  private onlineStatus: boolean = true;
+  constructor(private router: Router,private toast:ToastService,private utilService:UtilService) {
+    const onlineEvent = fromEvent(window, 'online').pipe(map(() => true));
+    const offlineEvent = fromEvent(window, 'offline').pipe(map(() => false));
+    merge(onlineEvent, offlineEvent).pipe(startWith(navigator.onLine)).subscribe(isOnline => {
+      this.onlineStatus = isOnline;
+      if (!this.onlineStatus) {
+        this.toast.presentToast('You are offline,please connect to a network', 'danger');
+      }
+    });
+   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (!this.onlineStatus) {
+      return this.handleOfflineError();
+    }
     const token = localStorage.getItem('accToken');
     let authReq = this.addAuthHeader(req, token);
 
@@ -52,11 +66,20 @@ export class ApiInterceptor implements HttpInterceptor {
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error?.status === 401) {
       localStorage.clear();
+      this.utilService.clearDatabase();
       this.router.navigateByUrl('/login');
+      return throwError(() => ({
+        status: 401,
+        error: { message: 'Your session has expired. Please log in again.' },
+      }));
     }
-    return throwError(() => ({
-      status: 500,
-      error: { message: 'Your session has expired. Please log in again.' },
-    }));
+    return throwError(error);
+    
+    }
+  private handleOfflineError(): Observable<never> {
+        return throwError(() => ({
+          status: 0,
+          error:{message: 'You are offline,please connect to a network',}
+        }));
   }
 }

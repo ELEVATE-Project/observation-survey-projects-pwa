@@ -1,9 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { ApiBaseService } from 'src/app/services/base-api/api-base.service';
+import { Component, inject } from '@angular/core';
 import urlConfig from 'src/app/config/url.config.json'
 import { NavController } from '@ionic/angular';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProjectsApiService } from 'src/app/services/projects-api/projects-api.service';
 
 @Component({
   selector: 'app-selected-categories-list',
@@ -20,7 +20,7 @@ export class SelectedCategoriesListComponent {
   stateData:any = ''
 
   constructor(private navCtrl: NavController, private toastService: ToastService, private activatedRoute: ActivatedRoute, private router: Router) {
-    this.apiService = inject(ApiBaseService)
+    this.apiService = inject(ProjectsApiService)
     activatedRoute.params.subscribe((param:any)=>{
       this.selectedCategory = param['category']
     })

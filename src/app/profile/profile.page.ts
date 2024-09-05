@@ -4,8 +4,8 @@ import { NavController } from '@ionic/angular';
 import { LoaderService } from '../services/loader/loader.service';
 import { catchError, finalize } from 'rxjs';
 import { ToastService } from '../services/toast/toast.service';
-import { ApiBaseService } from '../services/base-api/api-base.service';
 import urlConfig from 'src/app/config/url.config.json';
+import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -22,7 +22,7 @@ export class ProfilePage {
     private navCtrl: NavController,
     private loader: LoaderService,
     private toastService: ToastService,
-    private apiBaseService: ApiBaseService,
+    private apiBaseService: ProjectsApiService,
 
   ) { }
 
@@ -47,10 +47,10 @@ export class ProfilePage {
           this.formJson = formJsonRes?.result?.data || [];
           this.formData = profileFormDataRes?.result;
           this.mapProfileDataToFormJson(this.formData);
-        } else {
-          this.toastService.presentToast('Failed to load profile data. Please try again later.', 'danger');
         }
-      });
+      },(err:any)=>{
+        this.toastService.presentToast(err?.error?.message, 'danger');
+      })
   }
 
   mapProfileDataToFormJson(formData?: any) {

@@ -11,6 +11,8 @@ import { finalize } from 'rxjs';
 import { FETCH_HOME_FORM } from '../core/constants/formConstant';
 import { AuthService } from 'authentication_frontend_library';
 import { UtilService } from 'src/app/services/util/util.service';
+import { ProfileService } from '../services/profile/profile.service';
+import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 register();
 @Component({
   selector: 'app-home',
@@ -30,16 +32,21 @@ export class HomePage {
   @ViewChild('bannerTemplate') bannerTemplate!: TemplateRef<any>;
   @ViewChild('solutionTemplate') solutionTemplate!: TemplateRef<any>;
   @ViewChild('recommendationTemplate') recommendationTemplate!: TemplateRef<any>;
+  clearDatabaseHandler:any;
 
 
-  constructor(private http: HttpClient, private router: Router,private utilService: UtilService) {
-    this.baseApiService = inject(ApiBaseService);
+  constructor(private http: HttpClient, private router: Router, private utilService: UtilService,
+    private profileService: ProfileService
+  ) {
+    this.baseApiService = inject(ProjectsApiService);
     this.loader = inject(LoaderService)
     this.authService = inject(AuthService)
     this.toastService = inject(ToastService)
   }
 
   ionViewWillEnter() {
+    this.clearDatabaseHandler = this.handleMessage.bind(this);
+      window.addEventListener('message', this.clearDatabaseHandler);
     this.getHomeListing();
   }
   startScan() {
@@ -80,5 +87,10 @@ export class HomePage {
 
   logout() {
     this.authService.logout();
+  }
+  async handleMessage(event: MessageEvent) {
+    if (event.data && event.data.msg) {
+      this.utilService.clearDatabase();
+    }
   }
 }
