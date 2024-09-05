@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { SamikshaApiService } from '../services/samiksha-api/samiksha-api.service';
+import urlConfig from 'src/app/config/url.config.json';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-generic-report',
@@ -15,223 +18,60 @@ export class GenericReportComponent implements OnInit {
   filteredQuestions: any[] = [];
   allQuestions: any[] = [];
   surveyName!: string;
-  constructor(private navCtrl: NavController) {}
+  objectKeys = Object.keys;
+  submissionId: any;
+  constructor(private navCtrl: NavController, private samikshaAPpiService:SamikshaApiService, private router:ActivatedRoute) {}
 
   ngOnInit() {
-    const data ={
-    "surveyName": "Test survey 1",
-        "report": [
-      {
-        order: 'Q1_1612265113693-1612513347363',
-        question: 'Which class does your child study in?',
-        responseType: 'number',
-        answers: ['2'],
-        chart: {},
-        instanceQuestions: [],
-        criteriaName: 'Survey and Feedback',
-        criteriaId: '601d00437d4c835cf8b72467',
-      },
-      {
-        order: 'Q2_1612265113693-1612513347364',
-        question: 'Are you currently living  in the vicinity of the school?',
-        responseType: 'radio',
-        answers: ['R2'],
-        chart: {},
-        instanceQuestions: [],
-        criteriaName: 'Survey and Feedback',
-        criteriaId: '601d00437d4c835cf8b72467',
-        optionsAvailableForUser: [
-          {
-            value: 'R1',
-            label: 'Yes',
-          },
-          {
-            value: 'R2',
-            label: 'No',
-          },
-        ],
-      },
-      {
-        order: 'Q3_1612265113693-1612513347365',
-        question: 'Are you planning to come back?',
-        responseType: 'radio',
-        answers: ['R2'],
-        chart: {},
-        instanceQuestions: [],
-        criteriaName: 'Survey and Feedback',
-        criteriaId: '601d00437d4c835cf8b72467',
-        optionsAvailableForUser: [
-          {
-            value: 'R1',
-            label: 'Yes',
-          },
-          {
-            value: 'R2',
-            label: 'No',
-          },
-        ],
-      },
-      {
-        order: 'Q4_1612265113693-1612513347367',
-        question: 'What type of device is available at home?',
-        responseType: 'multiselect',
-        answers: ['R3', 'R5'],
-        chart: {},
-        instanceQuestions: [],
-        criteriaName: 'Survey and Feedback',
-        criteriaId: '601d00437d4c835cf8b72467',
-        optionsAvailableForUser: [
-          {
-            value: 'R1',
-            label: 'Simple mobile phone without internet/data pack',
-          },
-          {
-            value: 'R2',
-            label: 'Smart phone with internet/data pack',
-          },
-          {
-            value: 'R3',
-            label: 'Smart phone without internet/data pack',
-          },
-          {
-            value: 'R4',
-            label: 'TV',
-          },
-          {
-            value: 'R5',
-            label: 'Radio',
-          },
-        ],
-      },
-      {
-        order: 'Q5_1612265113693-1612513347369',
-        question: 'Does the child have a quiet place to study?',
-        responseType: 'radio',
-        answers: ['R1'],
-        chart: {},
-        instanceQuestions: [],
-        criteriaName: 'Survey and Feedback',
-        criteriaId: '601d00437d4c835cf8b72467',
-        optionsAvailableForUser: [
-          {
-            value: 'R1',
-            label: 'Yes',
-          },
-          {
-            value: 'R2',
-            label: 'No',
-          },
-        ],
-      },
-      {
-        order: 'Q6_1612265113693-1612513347370',
-        question: 'Were you able to enroll your child in courses on Diksha?',
-        responseType: 'radio',
-        answers: ['R1'],
-        chart: {},
-        instanceQuestions: [],
-        criteriaName: 'Survey and Feedback',
-        criteriaId: '601d00437d4c835cf8b72467',
-        optionsAvailableForUser: [
-          {
-            value: 'R1',
-            label: 'Yes',
-          },
-          {
-            value: 'R2',
-            label: 'No',
-          },
-        ],
-      },
-      {
-        order: 'Q7_1612265113693-1612513347371',
-        question: 'What are the challenges that you are facing in enrolment?',
-        responseType: 'multiselect',
-        answers: ['R1', 'R3'],
-        chart: {},
-        instanceQuestions: [],
-        criteriaName: 'Survey and Feedback',
-        criteriaId: '601d00437d4c835cf8b72467',
-        optionsAvailableForUser: [
-          {
-            value: 'R1',
-            label: 'Not able to use the app',
-          },
-          {
-            value: 'R2',
-            label: 'Not aware of classrooms on DIKSHA',
-          },
-          {
-            value: 'R3',
-            label: 'Not aware of the enrolment process in the classroom',
-          },
-          {
-            value: 'R4',
-            label: 'Not aware of enrolment process in the courses',
-          },
-          {
-            value: 'R5',
-            label: "Don't find the courses useful",
-          },
-          {
-            value: 'R6',
-            label: 'Others',
-          },
-        ],
-        evidences: [
-          {
-            url: 'https://images.pexels.com/photos/87651/earth-blue-planet-globe-planet-87651.jpeg',
-            extension: 'jpg',
-          },
-          {
-            url: 'https://pdfobject.com/pdf/sample.pdf',
-            extension: 'pdf',
-          },
-        ],
-        evidence_count: 2,
-      },
-      {
-        order: 'Q8_1612265113693-1612513347373',
-        question:
-          'On basis of the responses received above, do you think this student is a potential drop out?',
-        responseType: 'radio',
-        answers: ['R1'],
-        chart: {},
-        instanceQuestions: [],
-        criteriaName: 'Survey and Feedback',
-        criteriaId: '601d00437d4c835cf8b72467',
-        optionsAvailableForUser: [
-          {
-            value: 'R1',
-            label: 'Yes',
-          },
-          {
-            value: 'R2',
-            label: 'No',
-          },
-        ],
-      },
-    ]};
-    this.surveyName = data.surveyName
-    this.allQuestions = data.report;
-    this.reportDetails = this.processSurveyData(data.report);
+    this.router.params.subscribe(param => {
+      this.submissionId = param['id'];
+      this.samikshaAPpiService.post(urlConfig.survey.reportUrl+this.submissionId,{})
+      .subscribe((res:any) => {
+        this.surveyName = res.message.surveyName
+        this.allQuestions = res.message.report;
+        this.reportDetails = this.processSurveyData(res.message.report);
+      })
+    })
+  
   }
 
   processSurveyData(data: any[]): any[] {
     return data.map((question) => {
-      const processedQuestion = { ...question };
-
-      processedQuestion.answers = question.answers.map((answer: any) => {
-        const option = question.optionsAvailableForUser?.find(
-          (opt: { value: any }) => opt.value === answer
+      if (question.responseType === 'matrix' && question.instanceQuestions) {
+        const processedInstanceQuestions = question.instanceQuestions.map(
+          (instance: any) => {
+            const processedInstance = { ...instance };
+            for (const key in processedInstance) {
+              if (key !== 'instanceIdentifier') {
+                processedInstance[key].answers = processedInstance[key].answers.map(
+                  (answer: any) => {
+                    const option = processedInstance[key].optionsAvailableForUser?.find(
+                      (opt: { value: any }) => opt.value === answer
+                    );
+                    return option ? option.label : answer === '' ? 'NA' : answer;
+                  }
+                );
+                delete processedInstance[key].optionsAvailableForUser;
+              }
+            }
+            return processedInstance;
+          }
         );
-        return option ? option.label : answer === '' ? 'NA' : answer;
-      });
-
-      delete processedQuestion.optionsAvailableForUser;
-      return processedQuestion;
+        return { ...question, instanceQuestions: processedInstanceQuestions };
+      } else {
+        const processedQuestion = { ...question };
+        processedQuestion.answers = question.answers.map((answer: any) => {
+          const option = question.optionsAvailableForUser?.find(
+            (opt: { value: any }) => opt.value === answer
+          );
+          return option ? option.label : answer === '' ? 'NA' : answer;
+        });
+        delete processedQuestion.optionsAvailableForUser;
+        return processedQuestion;
+      }
     });
   }
+  
 
   openDialog(url: string, type: string) {
     this.objectURL = url;
