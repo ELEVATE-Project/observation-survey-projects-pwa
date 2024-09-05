@@ -54,6 +54,9 @@ export class ApiInterceptor implements HttpInterceptor {
       localStorage.clear();
       this.router.navigateByUrl('/login');
     }
-    return throwError(error);
+    return throwError(() => ({
+      status: 500,
+      error: { message: 'Your session has expired. Please log in again.' },
+    }));
   }
 }

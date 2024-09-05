@@ -29,6 +29,7 @@ export class ListingPage implements OnInit {
   filter = "assignedToMe";
   filters = actions.PROJECT_FILTERS;
   entityData: any;
+  showLoading:boolean = true;
 
   constructor(private navCtrl: NavController, private router: Router,
     private profileService: ProfileService,
@@ -80,12 +81,14 @@ export class ListingPage implements OnInit {
 
   async getListData() {
     await this.loader.showLoading("Please wait while loading...");
+    this.showLoading = true;
     this.baseApiService
       .post(
         urlConfig[this.listType].listingUrl + `?type=improvementProject&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}`, this.entityData)
       .pipe(
         finalize(async () => {
           await this.loader.dismissLoading();
+          this.showLoading = false;
         })
       )
       .subscribe((res: any) => {
