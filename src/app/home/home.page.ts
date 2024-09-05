@@ -76,7 +76,7 @@ export class HomePage {
         }
       },
         (err: any) => {
-          this.toastService.presentToast(err?.error?.message);
+          this.toastService.presentToast(err?.error?.message,"danger");
         }
       );
   }

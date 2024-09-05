@@ -68,8 +68,13 @@ export class ApiInterceptor implements HttpInterceptor {
       localStorage.clear();
       this.utilService.clearDatabase();
       this.router.navigateByUrl('/login');
+      return throwError(() => ({
+        status: 401,
+        error: { message: 'Your session has expired. Please log in again.' },
+      }));
     }
     return throwError(error);
+    
     }
   private handleOfflineError(): Observable<any> {
         return throwError(() => ({

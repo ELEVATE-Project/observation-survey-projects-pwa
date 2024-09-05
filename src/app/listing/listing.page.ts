@@ -31,6 +31,7 @@ export class ListingPage implements OnInit {
   entityData:any;
   ProjectsApiService: ProjectsApiService;
   SamikshaApiService:SamikshaApiService;
+  showLoading:boolean = true;
 
   constructor(private navCtrl: NavController, private router: Router,
     private profileService: ProfileService,
@@ -83,6 +84,7 @@ export class ListingPage implements OnInit {
 
   async getListData() {
     await this.loader.showLoading("Please wait while loading...");
+    this.showLoading = true;
     if(this.listType !== 'project'){
       this.filter = '';
     };
@@ -92,6 +94,7 @@ export class ListingPage implements OnInit {
       .pipe(
         finalize(async () => {
           await this.loader.dismissLoading();
+          this.showLoading = false;
         })
       )
       .subscribe((res: any) => {
