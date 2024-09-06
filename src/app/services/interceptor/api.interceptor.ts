@@ -16,7 +16,7 @@ export class ApiInterceptor implements HttpInterceptor {
     merge(onlineEvent, offlineEvent).pipe(startWith(navigator.onLine)).subscribe(isOnline => {
       this.onlineStatus = isOnline;
       if (!this.onlineStatus) {
-        this.toast.presentToast('You are offline,please connect to a network', 'danger');
+        this.toast.presentToast('You are offline, please connect to a network', 'danger');
       }
     });
    }
@@ -68,13 +68,18 @@ export class ApiInterceptor implements HttpInterceptor {
       localStorage.clear();
       this.utilService.clearDatabase();
       this.router.navigateByUrl('/login');
+      return throwError(() => ({
+        status: 401,
+        error: { message: 'Your session has expired. Please log in again.' },
+      }));
     }
     return throwError(error);
+    
     }
-  private handleOfflineError(): Observable<never> {
+  private handleOfflineError(): Observable<any> {
         return throwError(() => ({
           status: 0,
-          error:{message: 'You are offline,please connect to a network',}
+          error:{message: 'You are offline, please connect to a network',}
         }));
   }
 }

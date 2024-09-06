@@ -13,11 +13,11 @@
   <app-profile-image [profileImageData]='formJson' [uploadImage]="true" (imageUploadEvent)="imageUploadEvent($event)"
     (imageRemoveEvent)="imageRemoveEvent($event)"></app-profile-image>
   <div class="ion-margin-top container" *ngIf="enableForm">
-    <dynamic-form [formJson]="formJson" #formLib (ionChange)="onOptionChange($event)"
+    <dynamic-form [formJson]="formJson" #formLib (onChange)="onOptionChange($event)"
       (ionFocus)="handleSelectFocus($event)"></dynamic-form>
   </div>
   <div class="ion-margin-top container" *ngIf="formJson2?.length > 0">
-    <dynamic-form [formJson]="formJson2" #formLib2 (ionChange)="onOptionChange2($event)"
+    <dynamic-form [formJson]="formJson2" #formLib2 (onChange)="onOptionChange2($event)"
       (ionFocus)="handleSelectFocus($event)"></dynamic-form>
   </div>
 </ion-content>

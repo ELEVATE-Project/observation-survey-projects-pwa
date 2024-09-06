@@ -17,12 +17,12 @@
       </ion-col>
     </ion-row>
 
-      <ion-row class="srch">
-        <ion-col size="12">
-          <ion-searchbar class="srchBar" placeholder="Search your {{stateData?.listType}} here" [debounce]="1000"
-            (ionInput)="handleInput($event)"></ion-searchbar>
-        </ion-col>
-      </ion-row>
+    <ion-row class="srch">
+      <ion-col size="12">
+        <ion-searchbar class="srchBar" placeholder="Search your {{stateData?.listType}} here" [debounce]="1000"
+          (ionInput)="handleInput($event)"></ion-searchbar>
+      </ion-col>
+    </ion-row>
   </ion-list>
   @if(listType == 'project'){
     <ion-segment class="custom-segment" [(ngModel)]="filter" (ionChange)="filterChanged($event)">
@@ -35,7 +35,7 @@
   }
 
   
-  <ion-grid>
+  <ion-grid *ngIf="!showLoading">
     <ion-row *ngIf="solutionList?.count > 0; else noData">
         @for (solution of solutionList?.data; track solution.id) {
         <ion-col size="12" size-md="6" class="listing-card" (click)="navigateTo(solution)">
