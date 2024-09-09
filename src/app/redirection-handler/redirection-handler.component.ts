@@ -33,7 +33,7 @@ export class RedirectionHandlerComponent  implements OnInit {
       this.type = param.get("type")
       this.linkId = param.get("id")
       if(!this.isOnline){
-        this.toastService.presentToast('You are offline,please connect to a network','danger')
+        this.toastService.presentToast('You are offline, please connect to a network','danger')
         return
       }
       if(!this.utils.isLoggedIn()){
