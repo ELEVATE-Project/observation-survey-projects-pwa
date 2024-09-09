@@ -52,9 +52,11 @@ export class ListingPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    if(this.solutionList?.data.length === 0){
     this.page = 1;
     this.solutionList = { data: [], count: 0 }
     this.getProfileDetails();
+    }
   }
 
   ionViewWillLeave() {
