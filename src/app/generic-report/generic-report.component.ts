@@ -3,6 +3,7 @@ import { NavController } from '@ionic/angular';
 import { SamikshaApiService } from '../services/samiksha-api/samiksha-api.service';
 import urlConfig from 'src/app/config/url.config.json';
 import { ActivatedRoute } from '@angular/router';
+import { ToastService } from '../services/toast/toast.service';
 
 @Component({
   selector: 'app-generic-report',
@@ -20,7 +21,7 @@ export class GenericReportComponent implements OnInit {
   surveyName!: string;
   objectKeys = Object.keys;
   submissionId: any;
-  constructor(private navCtrl: NavController, private samikshaAPpiService:SamikshaApiService, private router:ActivatedRoute) {}
+  constructor(private navCtrl: NavController, private samikshaAPpiService:SamikshaApiService, private router:ActivatedRoute, public toaster:ToastService) {}
 
   ngOnInit() {
     this.router.params.subscribe(param => {
@@ -36,41 +37,49 @@ export class GenericReportComponent implements OnInit {
   }
 
   processSurveyData(data: any[]): any[] {
+    const mapAnswersToLabels = (answers: any[], optionsAvailable: any[]) => {
+      return answers.map((answer: any) => {
+        if (typeof answer === 'number') {
+          return answer;
+        }
+  
+        const trimmedAnswer = answer.trim();
+        if (trimmedAnswer === '') {
+          return 'No response is available'; 
+        }
+  
+        const option = optionsAvailable?.find((opt: { value: any }) => opt.value === trimmedAnswer);
+        return option ? option.label : trimmedAnswer;
+      });
+    };
+  
+    const processInstanceQuestions = (instance: any) => {
+      const processedInstance = { ...instance };
+      for (const key in processedInstance) {
+        if (key !== 'instanceIdentifier') {
+          processedInstance[key].answers = mapAnswersToLabels(
+            processedInstance[key].answers,
+            processedInstance[key].optionsAvailableForUser
+          );
+          delete processedInstance[key].optionsAvailableForUser;
+        }
+      }
+      return processedInstance;
+    };
+  
     return data.map((question) => {
       if (question.responseType === 'matrix' && question.instanceQuestions) {
-        const processedInstanceQuestions = question.instanceQuestions.map(
-          (instance: any) => {
-            const processedInstance = { ...instance };
-            for (const key in processedInstance) {
-              if (key !== 'instanceIdentifier') {
-                processedInstance[key].answers = processedInstance[key].answers.map(
-                  (answer: any) => {
-                    const option = processedInstance[key].optionsAvailableForUser?.find(
-                      (opt: { value: any }) => opt.value === answer
-                    );
-                    return option ? option.label : answer === '' ? 'NA' : answer;
-                  }
-                );
-                delete processedInstance[key].optionsAvailableForUser;
-              }
-            }
-            return processedInstance;
-          }
-        );
+        const processedInstanceQuestions = question.instanceQuestions.map(processInstanceQuestions);
         return { ...question, instanceQuestions: processedInstanceQuestions };
       } else {
         const processedQuestion = { ...question };
-        processedQuestion.answers = question.answers.map((answer: any) => {
-          const option = question.optionsAvailableForUser?.find(
-            (opt: { value: any }) => opt.value === answer
-          );
-          return option ? option.label : answer === '' ? 'NA' : answer;
-        });
+        processedQuestion.answers = mapAnswersToLabels(question.answers, question.optionsAvailableForUser);
         delete processedQuestion.optionsAvailableForUser;
         return processedQuestion;
       }
     });
   }
+  
   
 
   openDialog(url: string, type: string) {
@@ -94,22 +103,34 @@ export class GenericReportComponent implements OnInit {
   updateFilteredQuestions() {
     this.filteredQuestions = this.allQuestions.filter(question => question.selected);
   }
-
-  applyFilter() {
-    this.updateFilteredQuestions();
-    if (this.filteredQuestions.length > 0) {
-      this.reportDetails = this.processSurveyData(this.filteredQuestions);
-    } else {
-      this.reportDetails = this.processSurveyData(this.allQuestions);
+  checkAnswerValue(answer: any): string | number {
+    if (typeof answer === 'string') {
+      return answer.trim() === '' ? 'NA' : answer;
     }
-    this.closeFilter();
+    return answer;
   }
 
+  applyFilter(reset: boolean = false) {
+    this.updateFilteredQuestions();
+  
+    const questionsToProcess = this.filteredQuestions.length > 0 ? this.filteredQuestions : this.allQuestions;
+    this.reportDetails = this.processSurveyData(questionsToProcess);
+  
+    if (!reset && this.filteredQuestions.length === 0) {
+      this.toaster.presentToast('Select at least one question', 'danger');
+    }
+  
+    if (reset || this.filteredQuestions.length > 0) {
+      this.closeFilter();
+    }
+  }
+  
   resetFilter() {
     this.allQuestions.forEach(question => question.selected = false);
     this.filteredQuestions = [];
-    this.applyFilter();
+    this.applyFilter(true);
   }
+  
 
   goBack() {
     this.navCtrl.back();
