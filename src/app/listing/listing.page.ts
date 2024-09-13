@@ -123,7 +123,7 @@ export class ListingPage implements OnInit {
 
   navigateTo(data: any) {
     if(this.listType == 'project'){
-      this.router.navigate(['project-details'], { state: data });
+      this.router.navigate(['project-details'], { state: { _id:data._id || null, solutionId: data.solutionId} });
     }else if(this.listType == 'survey'){
       this.router.navigate(['questionnaire',data.solutionId])
     }else{

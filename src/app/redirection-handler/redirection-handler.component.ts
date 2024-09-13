@@ -79,8 +79,10 @@ export class RedirectionHandlerComponent  implements OnInit {
         switch (response.result.type) {
           case "improvementProject":
             this.router.navigate(['/home'],{ replaceUrl:true })
+            let queryData = (({ isATargetedSolution, link, projectId, solutionId }) =>
+              ({ isATargetedSolution, link, projectId, solutionId }))(response.result);
             setTimeout(() => {
-              this.router.navigate(['project-details'], { state: { ...response.result, referenceFrom: "link" } });
+              this.router.navigate(['project-details'], { state: { ...queryData, referenceFrom: "link" } });
             }, 100);
             break;
         
