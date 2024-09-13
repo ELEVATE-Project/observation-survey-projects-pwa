@@ -59,7 +59,7 @@ export class SelectedCategoriesListComponent {
   }
 
   navigateToTemplatePage(data:any){
-    this.router.navigate(['project-details'], { state: { ...data, referenceFrom: "library" }});
+    this.router.navigate(['project-details'], { state: { externalId: data.externalId, referenceFrom: "library" }});
   }
 
   goBack() {
