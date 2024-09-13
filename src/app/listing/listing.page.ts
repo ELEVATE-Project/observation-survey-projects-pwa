@@ -146,7 +146,7 @@ export class ListingPage implements OnInit {
       'expired': { tagClass: 'tag-expired', statusLabel: 'Expired' }
     };
   
-    const statusInfo = (statusMappings as any)[element.status] || { tagClass: '', statusLabel: '' };
+    const statusInfo = (statusMappings as any)[element.status] || { tagClass: 'tag-not-started', statusLabel: 'Not Started' };
     element.tagClass = statusInfo.tagClass;
     element.statusLabel = statusInfo.statusLabel;
   }
