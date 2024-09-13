@@ -24,7 +24,7 @@
     <ion-list>
       <ion-card *ngFor="let question of reportDetails; let qi = index" class="question-card">
         <ion-card-header style="background-color: whitesmoke;">
-          <ion-card-title>{{qi+1}}. {{ question.question }}</ion-card-title>
+          <ion-card-title>{{question.questionNumber}}. {{ question.question }}</ion-card-title>
         </ion-card-header>
 
         <ion-card-content>
@@ -57,7 +57,7 @@
                   style="margin-bottom: 20px;">
                   <div style="width: 100%;" *ngIf="key !== 'instanceIdentifier'">
                     <ion-col size="12">
-                      <h2>Q{{ k + 1 }}.{{ question.instanceQuestions[0][key].question }}</h2>
+                      <h2>{{question.instanceQuestions[0][key].questionNumber}}. {{ question.instanceQuestions[0][key].question }}</h2>
                     </ion-col>
 
                     <ion-row style="display: flex; flex-wrap: wrap;">
