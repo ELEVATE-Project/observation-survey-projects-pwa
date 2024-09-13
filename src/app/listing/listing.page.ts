@@ -129,12 +129,14 @@ export class ListingPage implements OnInit {
   }
 
   checkAndUpdateExpiry(element: any) {
-    if (element.endDate) {
-      const expiryDate = new Date(element.endDate);
-      const currentDate = new Date();
-      if (currentDate > expiryDate) {
-        element.status = 'expired';
-      }
+    const expiryDate = new Date(element.endDate);
+    const currentDate = new Date();
+
+    expiryDate.setHours(0, 0, 0, 0);
+    currentDate.setHours(0, 0, 0, 0);
+
+    if (currentDate > expiryDate) {
+      element.status = 'expired';
     }
   }
 
