@@ -153,9 +153,8 @@ export class ProjectReportPage implements OnInit {
               url: this.downloadUrl
             };
             await Share.share(shareOptions);
-          } catch (err) {
-            console.error("Error during file download or sharing", err);
-            this.toastService.presentToast('Error during file download or sharing', 'danger');
+          } catch (err:any) {
+            this.toastService.presentToast(err?.error?.message, 'danger');
           }
         } else {
           this.setOpenForCopyLink();
@@ -163,9 +162,8 @@ export class ProjectReportPage implements OnInit {
       } else {
         this.toastService.presentToast('Failed to fetch report data for sharing.', 'danger');
       }
-    } catch (error) {
-      console.error('Sharing failed', error);
-      this.toastService.presentToast('Sharing failed', 'danger');
+    } catch (err:any) {
+      this.toastService.presentToast(err?.error?.message,'danger');
     } finally {
       await this.loader.dismissLoading();
     }
@@ -224,6 +222,9 @@ export class ProjectReportPage implements OnInit {
             this.toastService.presentToast("Downloading failed !!", 'danger');
           }
         }
+      },
+      (err: any) => {
+        this.toastService.presentToast(err?.error?.message, 'danger');
       })
   }
 
