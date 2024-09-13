@@ -35,7 +35,7 @@
   }
 
   
-  <ion-grid *ngIf="!showLoading">
+  <ion-grid>
     <ion-row *ngIf="solutionList?.count > 0; else noData">
         @for (solution of solutionList?.data; track solution.id) {
         <ion-col size="12" size-md="6" class="listing-card" (click)="navigateTo(solution)">
@@ -56,7 +56,7 @@
         }
       </ion-row>
       <ng-template #noData>
-        <div class="no-data-container ion-margin-top">
+        <div class="no-data-container ion-margin-top" *ngIf="!showLoading">
           <img src="assets/images/no_data.jpg" alt="No data">
         </div>
       </ng-template>
