@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { QrScannerPageRoutingModule } from './qr-scanner-routing.module';
 
 import { QrScannerPage } from './qr-scanner.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -15,7 +16,8 @@ import { QrScannerPage } from './qr-scanner.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    QrScannerPageRoutingModule
+    QrScannerPageRoutingModule,
+    TranslateModule
   ],
   declarations: [QrScannerPage]
 })

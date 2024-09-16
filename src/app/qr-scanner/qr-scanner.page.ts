@@ -53,7 +53,7 @@ export class QrScannerPage implements OnInit {
       const permissionStatus = await navigator.permissions.query({ name: 'camera' as any });
       if (permissionStatus.state === 'denied') {
         this.toastService.presentToast(
-          'Camera permission is required to scan QR code. Please enable it in your browser or app settings.',
+          'CAMERA_PERMISSION_REQUIRED',
           'danger',
           9000
         );
@@ -62,7 +62,7 @@ export class QrScannerPage implements OnInit {
         this.startScan();
       }
     } catch (err) {
-      this.toastService.presentToast('Error checking camera permissions.', 'danger');
+      this.toastService.presentToast('CAMERA_PERMISSION_CHECK_ERROR', 'danger');
     }
   }
   
@@ -93,7 +93,7 @@ export class QrScannerPage implements OnInit {
       await this.handleProjectUrl();
     } else {
       this.headerback()
-      this.toastService.presentToast('Invalid Link, please try with other link', 'danger');
+      this.toastService.presentToast('LINK_INVALID_ERROR', 'danger');
     }
   }
   async handleProjectUrl() {
@@ -114,7 +114,7 @@ export class QrScannerPage implements OnInit {
 
   async getCertificate() {
     if (!this.userId) return;
-    await this.loader.showLoading("Please wait while loading...");
+    await this.loader.showLoading("LOADER_MSG");
     this.baseApiService
       .post(urlConfig.certificate.verifyCertificateUrl + `/${this.userId}`, {})
       .pipe(
@@ -131,7 +131,7 @@ export class QrScannerPage implements OnInit {
               this.utilService.openCertificateVerificationPopover(res.result);
             }, 1000);
           } else {
-            this.toastService.presentToast('Something went wrong', 'danger');
+            this.toastService.presentToast('SOMETHING_WRONG', 'danger');
           }
         },
         (err: any) => {

@@ -15,10 +15,29 @@ import { CertificateVerificationPopoverComponent } from './shared/certificate-ve
 import { ShareLinkPopupComponent } from './shared/share-link-popup/share-link-popupcomponent';
 import { ShortUrlPipe } from './shared/pipes/short-url.pipe';
 
+import { 
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { RedirectionHandlerComponent } from './redirection-handler/redirection-handler.component';
+
+export function translateHttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
+}
+
 @NgModule({
-  declarations: [AppComponent,CertificateVerificationPopoverComponent,ShareLinkPopupComponent,ShortUrlPipe],
+  declarations: [AppComponent,CertificateVerificationPopoverComponent,ShareLinkPopupComponent,ShortUrlPipe,RedirectionHandlerComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
     SlAuthLibModule, BrowserAnimationsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: translateHttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000'
@@ -40,7 +59,15 @@ import { ShortUrlPipe } from './shared/pipes/short-url.pipe';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private translate:TranslateService){
+    this.setLanguage();
+  }
+  setLanguage() {
+    this.translate.setDefaultLang('en');
+    this.translate.use('en'); 
+  }
+}
 
 export function configFactory(http: HttpClient): any {
   return http.get("../assets/config/library-config.json").pipe(switchMap((data:any)=>{

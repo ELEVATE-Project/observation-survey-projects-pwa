@@ -33,7 +33,7 @@ export class RedirectionHandlerComponent  implements OnInit {
       this.type = param.get("type")
       this.linkId = param.get("id")
       if(!this.isOnline){
-        this.toastService.presentToast('You are offline, please connect to a network','danger')
+        this.toastService.presentToast('NETWORK_OFFLINE','danger')
         return
       }
       if(!this.utils.isLoggedIn()){
@@ -91,7 +91,7 @@ export class RedirectionHandlerComponent  implements OnInit {
         this.navCtrl.back()
       }
     },(error:any)=>{
-      this.toastService.presentToast("Invalid Link, please try with other link","danger")
+      this.toastService.presentToast("LINK_INVALID_ERROR","danger")
       this.router.navigate(['/home'],{ replaceUrl:true })
     })
   }

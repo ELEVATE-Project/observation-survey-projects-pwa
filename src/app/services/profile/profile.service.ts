@@ -28,13 +28,13 @@ export class ProfileService {
     return combineLatest([
       this.apiBaseService.post(urlConfig['formListing'].listingUrl, FETCH_Profile_FORM).pipe(
         catchError((err) => {
-          this.toastService.presentToast(err?.error?.message || 'Error loading form JSON', 'danger');
+          this.toastService.presentToast(err?.error?.message || 'FORM_LOAD_ERROR', 'danger');
           return of({ status: 'error', result: {} });
         })
       ),
       this.apiBaseService.get(urlConfig['profileListing'].listingUrl).pipe(
         catchError((err) => {
-          this.toastService.presentToast(err?.error?.message || 'Error loading profile data', 'danger');
+          this.toastService.presentToast(err?.error?.message || 'PROFILE_DATA_LOAD_ERROR', 'danger');
           return of({ status: 'error', result: {} });
         })
       ),
@@ -45,13 +45,13 @@ export class ProfileService {
     return combineLatest([
       this.apiBaseService.get(urlConfig['project'].entityConfigUrl).pipe(
         catchError((err) => {
-          this.toastService.presentToast(err?.error?.message || 'Error loading form JSON', 'danger');
+          this.toastService.presentToast(err?.error?.message || 'FORM_LOAD_ERROR', 'danger');
           return of({ status: 'error', result: {} });
         })
       ),
       this.apiBaseService.get(urlConfig['profileListing'].listingUrl).pipe(
         catchError((err) => {
-          this.toastService.presentToast(err?.error?.message || 'Error loading profile data', 'danger');
+          this.toastService.presentToast(err?.error?.message || 'PROFILE_DATA_LOAD_ERROR', 'danger');
           return of({ status: 'error', result: {} });
         })
       ),
@@ -92,11 +92,11 @@ export class ProfileService {
 
   async presentAlert() {
     this.alertService.presentAlert(
-      'Alert',
-      'Please update your profile to access the feature.',
+      'ALERT',
+      'PROFILE_UPDATE_MSG',
       [
         {
-          text: 'Back',
+          text: 'BACK',
           role: 'cancel',
           cssClass: 'secondary-button',
           handler: () => {
@@ -104,7 +104,7 @@ export class ProfileService {
           }
         },
         {
-          text: 'Update Profile',
+          text: 'PROFILE_UPDATE',
           cssClass: 'primary-button',
           handler: () => {
             this.router.navigate(['/profile-edit']);

@@ -54,7 +54,7 @@ export class HomePage {
   }
 
   async getHomeListing() {
-    await this.loader.showLoading("Please wait while loading...");
+    await this.loader.showLoading("LOADER_MSG");
     this.baseApiService
       .post(
         urlConfig['formListing'].listingUrl, FETCH_HOME_FORM)
