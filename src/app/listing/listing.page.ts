@@ -130,12 +130,14 @@ export class ListingPage implements OnInit {
   }
 
   checkAndUpdateExpiry(element: any) {
-    if (element.endDate) {
-      const expiryDate = new Date(element.endDate);
-      const currentDate = new Date();
-      if (currentDate > expiryDate) {
-        element.status = 'expired';
-      }
+    const expiryDate = new Date(element.endDate);
+    const currentDate = new Date();
+
+    expiryDate.setHours(0, 0, 0, 0);
+    currentDate.setHours(0, 0, 0, 0);
+
+    if (currentDate > expiryDate) {
+      element.status = 'expired';
     }
   }
 
@@ -148,7 +150,7 @@ export class ListingPage implements OnInit {
       'expired': { tagClass: 'tag-expired', statusLabel: 'Expired' }
     };
   
-    const statusInfo = (statusMappings as any)[element.status] || { tagClass: '', statusLabel: '' };
+    const statusInfo = (statusMappings as any)[element.status] || { tagClass: 'tag-not-started', statusLabel: 'Not Started' };
     element.tagClass = statusInfo.tagClass;
     element.statusLabel = statusInfo.statusLabel;
   }
