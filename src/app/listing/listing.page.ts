@@ -54,7 +54,7 @@ export class ListingPage implements OnInit {
   async ionViewWillEnter() {
     this.page = 1;
     this.solutionList = { data: [], count: 0 }
-    this.stateData = await this.profileService.getHomeConfig(this.listType)
+    this.stateData = await this.profileService.getHomeConfig(this.listType,this.reportPage)
     this.getProfileDetails();
     this.showLoading = true;
   }
@@ -201,7 +201,7 @@ export class ListingPage implements OnInit {
         break;
   
       case 'survey':
-        const route = this.stateData.reportPage 
+        const route = this.reportPage 
           ? ['report-details', data.submissionId] 
           : ['questionnaire', data.solutionId];
         this.router.navigate(route);

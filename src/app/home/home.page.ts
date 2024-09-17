@@ -82,7 +82,7 @@ export class HomePage {
 
   navigateTo(data: any) {
     if(data.listType == 'report'){
-      this.router.navigate(['report/list'], { state: data });
+      this.router.navigate(['report/list'], { queryParams: { type: data.listType } });
     }else{
       this.router.navigate([data?.redirectionUrl], { queryParams: { type: data.listType } });
     }
