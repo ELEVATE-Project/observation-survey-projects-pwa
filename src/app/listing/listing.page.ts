@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { UrlConfig } from 'src/app/interfaces/main.interface';
 import urlConfig from 'src/app/config/url.config.json';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LoaderService } from '../services/loader/loader.service';
 import { ToastService } from '../services/toast/toast.service';
 import { NavController } from '@ionic/angular';
@@ -32,28 +32,29 @@ export class ListingPage implements OnInit {
   ProjectsApiService: ProjectsApiService;
   SamikshaApiService:SamikshaApiService;
   showLoading:boolean = true;
+  reportPage:boolean = false
 
   constructor(private navCtrl: NavController, private router: Router,
     private profileService: ProfileService,
-    private alertService: AlertService
+    private alertService: AlertService, private activatedRoute: ActivatedRoute
   ) {
     this.ProjectsApiService = inject(ProjectsApiService);
     this.SamikshaApiService = inject(SamikshaApiService);
     this.loader = inject(LoaderService)
     this.toastService = inject(ToastService)
+    activatedRoute.queryParams.subscribe((params:any)=>{
+      this.listType = params["type"]
+      this.reportPage = params["reportPage"] == "true"
+    })
   }
 
   ngOnInit() {
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation?.extras?.state) {
-      this.stateData = navigation.extras.state;
-      this.listType = this.stateData?.listType;
-    }
   }
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
     this.page = 1;
     this.solutionList = { data: [], count: 0 }
+    this.stateData = await this.profileService.getHomeConfig(this.listType)
     this.getProfileDetails();
     this.showLoading = true;
   }
@@ -91,7 +92,7 @@ export class ListingPage implements OnInit {
     };
     (this.listType == 'project' ? this.ProjectsApiService : this.SamikshaApiService)
       .post(
-        urlConfig[this.listType].listingUrl + `?type=${this.stateData.solutionType}&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}${this.stateData.reportIdentifier ? `&` +this.stateData.reportIdentifier+`=`+this.stateData.reportPage : ''}`, this.entityData)
+        urlConfig[this.listType].listingUrl + `?type=${this.stateData.solutionType}&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}${this.stateData.reportIdentifier ? `&` +this.stateData.reportIdentifier+`=`+this.reportPage : ''}`, this.entityData)
       .pipe(
         finalize(async () => {
           await this.loader.dismissLoading();
