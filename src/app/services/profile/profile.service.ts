@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { catchError, finalize, Observable, of, combineLatest, map } from 'rxjs';
+import { catchError, finalize, Observable, of, combineLatest, map, firstValueFrom } from 'rxjs';
 import urlConfig from 'src/app/config/url.config.json';
 import { ApiBaseService } from '../base-api/api-base.service';
 import { ToastService } from '../toast/toast.service';
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { AlertService } from '../alert/alert.service';
 import { Location } from '@angular/common';
 import { FETCH_HOME_FORM } from '../../core/constants/formConstant';
+import { ProjectsApiService } from '../projects-api/projects-api.service';
 
 
 @Injectable({
@@ -21,7 +22,8 @@ export class ProfileService {
     private toastService: ToastService,
     private router: Router,
     private alertService: AlertService,
-    private location: Location
+    private location: Location,
+    private projectsApiService: ProjectsApiService
   ) { }
 
   getFormJsonAndData(): Observable<any> {
@@ -112,5 +114,29 @@ export class ProfileService {
         }
       ]
     );
+  }
+
+  async getHomeConfig(listType: any, isReport?: boolean): Promise<any> {
+    try {
+      const response: any = await firstValueFrom(this.projectsApiService.post(urlConfig['formListing'].listingUrl, FETCH_HOME_FORM));
+      if (response.status === 200 && response.result) {
+        let data = response.result.data;
+        let solutionList = data.find((item: any) => item.type === 'solutionList');
+        let returnData:any
+        if (solutionList) {
+          if(isReport){
+            let reportList = solutionList.listingData.find((data: any) => data.listType === "report");
+            returnData = reportList.list.find((data: any) => data.listType === listType)
+          }else{
+            returnData = solutionList.listingData.find((data: any) => data.listType === listType);
+          }
+          return returnData
+        }
+      }
+      return null
+    } catch (error: any) {
+      this.toastService.presentToast(error?.error?.message, "danger");
+      throw error;
+    }
   }
 }
