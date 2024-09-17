@@ -49,6 +49,7 @@
   .certificate-recipient {
     font-size: 1.5rem;
     font-weight: bold;
+    word-break: break-all;
   }
   
   .certificate-message,
@@ -56,6 +57,7 @@
   .certificate-date {
     margin-top: 2px;
     font-size: 0.9rem;
+    word-break: break-all;
   }
 
   .pop-footer {
