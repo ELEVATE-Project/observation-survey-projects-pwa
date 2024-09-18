@@ -82,7 +82,7 @@ export class HomePage {
   }
 
   navigateTo(data: any) {
-    this.router.navigate([data?.redirectionUrl], { state: data });
+    this.router.navigate([data?.redirectionUrl], { queryParams: { type: data.listType } });
   }
 
   logout() {

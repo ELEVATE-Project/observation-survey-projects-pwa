@@ -16,6 +16,7 @@
     border: 1px solid var(--ion-color-light);
     border-radius: 0.5rem;
     margin-bottom: 1rem;
+    height: 100%;
 }
 .card-content{
     display: flex;
@@ -36,6 +37,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     margin-bottom: 0.5rem;
+    word-break: break-all;
 }
 .certificate-details {
     font-size: 1rem;
@@ -69,6 +71,7 @@
 .view-icon {
     font-size: 1.5rem;
     margin-right: 0.5rem;
+    margin-left: 0.5rem;
 }
   
 .certificate-text {
@@ -91,4 +94,9 @@
     font-size: 25px;
     margin-left: 12px;
     cursor: pointer;
+}
+
+.certificate-list{
+    display: flex;
+    flex-direction: column;
 }

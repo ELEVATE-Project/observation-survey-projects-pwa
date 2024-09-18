@@ -20,7 +20,7 @@
   <ion-grid>
     <ion-row *ngIf="certificates?.length > 0; else noData">
       @for(certificate of certificates;track certificate){
-        <ion-col size="12" size-md="6">
+        <ion-col size="12" size-md="6" class="certificate-list">
           <ion-card class="card-container">
             <ion-card-content class="card-content">
               <div class="certificate">
