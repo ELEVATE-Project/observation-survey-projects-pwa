@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, TemplateRef } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
@@ -19,6 +19,7 @@ export class QuestionnaireComponent  implements OnInit {
       this.apiConfig['baseURL'] = environment.samikshaBaseURL;
       this.apiConfig['userAuthToken'] = localStorage.getItem('accToken');
       this.apiConfig['solutionType'] = 'survey';
+      this.apiConfig['fileSizeLimit'] = 50;
     })
   }
 
