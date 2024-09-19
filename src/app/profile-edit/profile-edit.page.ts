@@ -363,7 +363,7 @@ export class ProfileEditPage implements isDeactivatable {
       );
 
       const cancelButton = document.createElement('button');
-      cancelButton.textContent = 'Cancel';
+      cancelButton.textContent = 'X';
       cancelButton.classList.add('cancel-button');
       cancelButton.onclick = () => {
         this.alertService.dismissAlert();
