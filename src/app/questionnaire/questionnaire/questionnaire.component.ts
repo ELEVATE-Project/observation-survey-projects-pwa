@@ -1,5 +1,5 @@
-import { Component, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewEncapsulation, HostListener } from '@angular/core';
+import { ActivatedRoute} from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { isDeactivatable } from '../../services/guard/guard.service';
@@ -24,6 +24,7 @@ export class QuestionnaireComponent implements OnInit, isDeactivatable {
       this.apiConfig['baseURL'] = environment.samikshaBaseURL;
       this.apiConfig['userAuthToken'] = localStorage.getItem('accToken');
       this.apiConfig['solutionType'] = 'survey';
+      this.apiConfig['fileSizeLimit'] = 50;
     })
 
     window.addEventListener('message', (event) => {
