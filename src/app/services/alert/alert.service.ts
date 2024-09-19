@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-
 @Injectable({
   providedIn: 'root'
 })
 export class AlertService {
-  alert:any;
+  alert: any;
 
-  constructor(private alertController: AlertController) { }
+  constructor(private alertController: AlertController) {}
 
   async presentAlert(header: string, message: string, buttons: { text: string, cssClass?: string, role?: string, handler?: () => void }[]) {
     this.alert = await this.alertController.create({
@@ -26,7 +25,7 @@ export class AlertService {
     await this.alert.present();
   }
 
-  async dismissAlert(){
-    await this.alert ? this.alert.dismiss() : null
+  async dismissAlert() {
+    await this.alert ? this.alert.dismiss() : null;
   }
 }
