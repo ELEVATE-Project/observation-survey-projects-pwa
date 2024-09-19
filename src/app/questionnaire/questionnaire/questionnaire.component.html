@@ -3,7 +3,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-icon name="arrow-back-outline" (click)="goBack()" class="back-button"></ion-icon>
+        <ion-icon name="arrow-back-outline" (click)="canPageLeave($event)" class="back-button"></ion-icon>
       </ion-buttons>
     </ion-toolbar>
 </ion-header>
@@ -15,6 +15,7 @@
       angular
       [apiConfig]="apiConfig"
       [fileSizeLimit]="50"
+      [saveQuestioner]="saveQuestioner"
     ></questionnaire-player-main>
   </div>
 </div>
