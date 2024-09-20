@@ -76,12 +76,14 @@ export class QrScannerPage implements OnInit {
     this.videoElement!.setAttribute('playsinline', 'true');
     this.videoElement!.play();
 
-    this.codeReader?.decodeFromVideoDevice(undefined, this.videoElement!, async (result: Result | undefined, err: any) => {
-      if (this.stopScanning) return;
-      if (result) {
-        this.handleScanResult(result);
+    this.codeReader?.decodeOnceFromVideoDevice().then((response)=>{
+      if(response){
+        this.handleScanResult(response)
       }
-    });
+    }).catch(error=>{
+      this.headerback()
+      this.toastService.presentToast('Something went wrong', 'danger');
+    })
   }
 
   async handleScanResult(result: Result) {
@@ -100,7 +102,7 @@ export class QrScannerPage implements OnInit {
     this.router.navigate([`/view/project/${this.userId}`],{replaceUrl:true})
   }
   
-  stopScan() {
+  async stopScan() {
     this.stopScanning = true;
     if (this.codeReader) {
       this.codeReader = null;
