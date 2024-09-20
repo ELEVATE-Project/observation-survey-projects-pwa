@@ -10,7 +10,7 @@
     {
       "src": "assets/icons/elevate-logo.svg",
       "sizes": "72x72",
-      "type": "image/svg",
+      "type": "image/svg+xml",
       "purpose": "maskable any"
     },
     {
