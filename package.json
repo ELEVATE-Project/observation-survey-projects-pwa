@@ -40,7 +40,7 @@
     "ionicons": "^7.0.0",
     "network-service": "^0.0.1",
     "project-player": "^1.0.22",
-    "questionnaire-webcomponent": "^3.2.13",
+    "questionnaire-webcomponent": "^3.2.14",
     "rxjs": "~7.8.0",
     "swiper": "^11.1.1",
     "tslib": "^2.6.3",
