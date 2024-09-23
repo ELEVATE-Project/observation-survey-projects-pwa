@@ -319,6 +319,7 @@ export class ProfileEditPage implements isDeactivatable {
   }
 
   async canPageLeave(event?: any): Promise<boolean> {
+    this.alertService.dismissAlert()
     if (this.formLib && !this.formLib?.myForm.pristine || !this.formJson.isUploaded) {
       await this.alertService.presentAlert(
         'Save Data?',
