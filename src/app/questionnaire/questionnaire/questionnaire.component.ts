@@ -49,6 +49,9 @@ export class QuestionnaireComponent implements OnInit, isDeactivatable {
   // }
 
   async canPageLeave(event?: any): Promise<boolean> {
+    if (this.alertService.alert) {
+      this.alertService.dismissAlert();
+    }
     if (this.isDirty && !this.saveQuestioner) {
       await this.alertService.presentAlert(
         'Save Data?',
