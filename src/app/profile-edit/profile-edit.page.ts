@@ -320,13 +320,13 @@ export class ProfileEditPage implements isDeactivatable {
     }
   }
 
-  @HostListener('window:popstate', ['$event'])
-  onPopState(event: any) {
-    if (this.formLib && !this.formLib?.myForm.pristine || !this.formJson.isUploaded) {
-      event.preventDefault();
-      this.location.go(this.location.path());
-    }
-  }
+  // @HostListener('window:popstate', ['$event'])
+  // onPopState(event: any) {
+  //   if (this.formLib && !this.formLib?.myForm.pristine || !this.formJson.isUploaded) {
+  //     event.preventDefault();
+  //     this.location.go(this.location.path());
+  //   }
+  // }
 
   async canPageLeave(event?: any): Promise<boolean> {
     if (this.alertService.alert) {
@@ -356,26 +356,26 @@ export class ProfileEditPage implements isDeactivatable {
             role: 'cancel',
             handler: () => {
               this.updateProfile();
-              if (event) {
-                this.navCtrl.back();
-              }
+              // if (event) {
+              //   this.navCtrl.back();
+              // }
               return true;
             }
           }
         ]
       );
 
-      const cancelButton = document.createElement('button');
-      cancelButton.textContent = 'X';
-      cancelButton.classList.add('cancel-button');
-      cancelButton.onclick = () => {
-        this.alertService.dismissAlert();
-      };
+      // const cancelButton = document.createElement('button');
+      // cancelButton.textContent = 'X';
+      // cancelButton.classList.add('cancel-button');
+      // cancelButton.onclick = () => {
+      //   this.alertService.dismissAlert();
+      // };
 
-      const alertHeader = document.querySelector('ion-alert .alert-head');
-      if (alertHeader) {
-        alertHeader.appendChild(cancelButton);
-      }
+      // const alertHeader = document.querySelector('ion-alert .alert-head');
+      // if (alertHeader) {
+      //   alertHeader.appendChild(cancelButton);
+      // }
 
 
       let data = await this.alertService.alert.onDidDismiss();
