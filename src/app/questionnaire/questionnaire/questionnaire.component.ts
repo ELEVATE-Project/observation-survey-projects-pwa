@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-questionnaire',
@@ -16,7 +15,7 @@ export class QuestionnaireComponent  implements OnInit {
   ngOnInit() {
     this.router.params.subscribe(param => {
       this.apiConfig['solutionId'] = param['id']
-      this.apiConfig['baseURL'] = environment.samikshaBaseURL;
+      this.apiConfig['baseURL'] = window['env' as any]['samikshaBaseURL' as any];
       this.apiConfig['userAuthToken'] = localStorage.getItem('accToken');
       this.apiConfig['solutionType'] = 'survey';
     })
