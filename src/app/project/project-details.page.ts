@@ -1,7 +1,6 @@
 import {  Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController, PopoverController } from '@ionic/angular';
-import { environment } from 'src/environments/environment';
 import { ProfileService } from '../services/profile/profile.service';
 import { UtilService } from '../services/util/util.service';
 import { Share } from '@capacitor/share';
@@ -19,7 +18,7 @@ export class ProjectDetailsPage  implements OnInit {
   projectData:any;
   config = {
     maxFileSize: 50,
-    baseUrl: environment.projectsBaseURL,
+    baseUrl: window['env' as any]['projectsBaseURL' as any],
     accessToken: localStorage.getItem('accToken'),
     profileInfo: {}
   }
