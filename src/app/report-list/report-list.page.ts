@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { UrlConfig } from '../interfaces/main.interface';
+import { ProfileService } from '../services/profile/profile.service';
 
 @Component({
   selector: 'app-report-list',
@@ -12,19 +13,19 @@ export class ReportListPage implements OnInit {
   stateData: any;
   listType!: keyof UrlConfig;
 
-  constructor(private navCtrl: NavController, private router: Router
-  ) { }
+  constructor(private navCtrl: NavController, private router: Router, private activatedRoute: ActivatedRoute, private profileService: ProfileService
+  ) {
+    activatedRoute.queryParams.subscribe((params:any)=>{
+      this.listType = params["type"]
+    })
+  }
 
-  ngOnInit() {
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation?.extras?.state) {
-      this.stateData = navigation.extras.state;
-      this.listType = this.stateData?.listType;
-    }
+  async ngOnInit() {
+    this.stateData = await this.profileService.getHomeConfig(this.listType)
   }
 
   navigateTo(data: any) {
-    this.router.navigate([data?.redirectionUrl], { state: data });
+    this.router.navigate([data?.redirectionUrl], { queryParams: { type: data.listType, reportPage: data?.reportPage } });
   }
 
   goBack() {

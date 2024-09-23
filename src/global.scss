@@ -131,6 +131,23 @@ mat-label {
 .custom-alert {
   .alert-wrapper {
     pointer-events: auto;
+    position: relative;
+  }
+
+  .alert-head {
+    position: relative;
+  }
+
+  .cancel-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: var(--ion-color-primary);
+    font-weight: bold;
+    font-size: 0.85rem;
+    cursor: pointer;
   }
 
   .alert-button-group {
@@ -151,14 +168,13 @@ mat-label {
 
   .primary-button {
     background: var(--ion-color-primary);
-    color: #ffff;
+    color: #fff;
     min-width: 4rem;
     font-weight: 700;
     font-size: .75rem;
     padding: .375rem 1.313rem;
   }
 }
-
 
 @font-face {
   font-family: 'NotoSans-Bold';

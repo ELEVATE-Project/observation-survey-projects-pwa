@@ -43,13 +43,36 @@
             <ion-card-content>
               <div class="flex justify-between items-center">
                 <h2><b>{{solution?.name}}</b></h2>
+                @if (listType == 'survey' && !stateData?.reportPage) {
+                  <span [ngClass]="solution?.tagClass">
+                    {{ solution?.statusLabel }}
+                  </span>
+                }
                 @if (solution?.certificate || solution?.certificateTemplateId) {
                   <span class="certificate-tag">Certificate</span>
                 }
               </div>
+              @if (listType == 'project' || (listType == 'survey' && stateData?.reportPage)) {
+                <div class="ion-padding-top">
+                  <h6>{{solution?.description}}</h6>
+                </div>
+              }
               <div class="ion-padding-top">
-                <h6>{{solution?.description}}</h6>
+                @if (listType == 'survey' && !stateData.reportPage) {
+                  @if (solution?.status === 'expired') {
+                    <h6>Expired on {{ solution?.endDate | date }}</h6>
+                  } @else if (solution?.endDate && solution.isExpiringSoon) {
+                    <h6>Expires in {{ solution.daysUntilExpiry }} days</h6>
+                  } @else if (solution?.completedDate) {
+                    <h6>Completed on {{ solution?.completedDate | date }}</h6>
+                  } 
+                  @else {
+                    <h6>Valid till {{ solution?.endDate | date }}</h6>
+                  }
+                }
+              
               </div>
+
             </ion-card-content>
           </ion-card>
         </ion-col>

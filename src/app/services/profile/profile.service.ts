@@ -116,14 +116,21 @@ export class ProfileService {
     );
   }
 
-  async getHomeConfig(listType: any): Promise<any> {
+  async getHomeConfig(listType: any, isReport?: boolean): Promise<any> {
     try {
       const response: any = await firstValueFrom(this.projectsApiService.post(urlConfig['formListing'].listingUrl, FETCH_HOME_FORM));
       if (response.status === 200 && response.result) {
         let data = response.result.data;
         let solutionList = data.find((item: any) => item.type === 'solutionList');
+        let returnData:any
         if (solutionList) {
-          return solutionList.listingData.find((data: any) => data.listType === listType);
+          if(isReport){
+            let reportList = solutionList.listingData.find((data: any) => data.listType === "report");
+            returnData = reportList.list.find((data: any) => data.listType === listType)
+          }else{
+            returnData = solutionList.listingData.find((data: any) => data.listType === listType);
+          }
+          return returnData
         }
       }
       return null

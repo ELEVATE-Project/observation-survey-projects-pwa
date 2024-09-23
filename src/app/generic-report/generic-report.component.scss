@@ -72,3 +72,29 @@ ion-card-content {
     height: 100%;
     border: none;
 }
+
+.custom-icon {
+    font-size: 16px;
+    color: var(--ion-text-color);
+    margin-right: 8px;
+  }
+
+.reset-filter{
+    color: var(--color-primary);
+    border:1px solid var(--color-primary);
+}
+
+  ion-card {
+    display: block;
+    margin-bottom: 20px;
+  }
+  
+  ion-item.custom-icon {
+    margin-right: 8px;
+  }
+  
+  ion-list {
+    padding: 10px;
+  }
+
+  
