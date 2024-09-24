@@ -1,0 +1,108 @@
+ion-select{
+    width: 100%;
+}
+
+.filter{
+    display: flex;
+    gap: 20px;
+    padding: 10px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.filter:hover{
+    color: var(--ion-color-primary);
+}
+
+.filter-true{
+    color: var(--ion-color-primary);
+}
+
+
+.ripple-parent {
+    position: relative;
+    overflow: hidden;
+
+    border: 1px solid #ddd;
+  }
+
+  .chart-container { /* Adjust as necessary */
+    height: 300px; /* Set a fixed height or use percentages for relative height */
+    position: relative;
+  }
+
+  #doughnutChart {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  ion-modal{
+    --height: 150px;
+    --width: 450px;
+  }
+
+  .program-listing{
+    display: flex;
+    align-items: center;
+  }
+
+  .overview-cards{
+    display: flex;
+    align-items: center;
+    margin: 0px;
+    height: 100%;
+    padding: 10px;
+  }
+
+  .overview-div{
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .overview-div img{
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .overview-description{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+  }
+
+  .chart-card{
+    padding: 0 10px 10px 10px ;
+    margin: 0px;
+    height: 100%;
+  }
+
+  .chart-card-div{
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+  }
+
+  .modal-button{
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .modal-heading{
+    font-size: 1.2rem;
+  }
+
+  .chart-card h1{
+    color: black;
+    margin: 10px 0px 10px 0px;
+    font-size: 1rem !important;
+}
+
+.listTitle {
+  background: var(--ion-color-primary);
+
+  h1{
+    font-size: 1.563rem;
+    color: white;
+  }
+}
+

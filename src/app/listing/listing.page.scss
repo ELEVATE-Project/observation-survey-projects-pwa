@@ -1,0 +1,145 @@
+ion-row.srch {
+  align-items: center;
+
+  ion-searchbar {
+    --background: #fff;
+    --border-radius: 0.625rem;
+  }
+}
+
+ion-row.tagline {
+  padding-left: 1.5vh;
+
+  ion-text {
+    font-size: 2rem;
+    font-weight: 800;
+  }
+}
+
+.listTitle {
+  background: var(--ion-color-primary);
+
+  h1{
+    font-size: 1.563rem;
+  }
+  h1,
+  p {
+    color: white;
+  }
+}
+
+h2 {
+  color: var(--ion-color-primary);
+  word-break: break-all;
+}
+
+.tiels {
+  h6 {
+    color: #000000;
+    line-height: inherit;
+  }
+}
+
+.listing-card {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.tiels {
+  cursor: pointer;
+  background-color: #fff;
+  border-color: var(--ion-color-primary) !important;
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.tiels:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.grid-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - var(--header-height) - var(--footer-height));
+}
+
+.no-data-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.no-data-container img {
+  max-width: 80%;
+  margin-bottom: 1rem;
+}
+
+.no-data {
+  font-size: 1.5rem;
+  color: var(--ion-color-medium);
+}
+
+
+@media (min-width: 768px) {
+  .no-data-container img {
+    max-width: 26%;
+  }
+}
+
+.custom-segment {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto;
+  padding: 2px;
+}
+
+
+.custom-segment ion-segment-button {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #fff;
+  padding: 2px; 
+  margin: 0 2px; 
+  font-size: 16px;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-segment ion-segment-button ion-label {
+  white-space: normal; 
+  overflow: visible; 
+  text-align: center; 
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
+}
+
+.certificate-tag {
+  background-color: #fcd34d;
+  color: #000000;
+  font-size: 0.75rem; 
+  border-radius: 0.25rem; 
+  padding: 0.25rem 0.5rem; 
+  text-transform: uppercase; 
+  margin-right: 1rem; 
+  display: inline-flex; 
+  align-items: center; 
+  height: fit-content; 
+}
+
+@media (max-width: 767px) {
+  .custom-segment ion-segment-button {
+    font-size: 12px;
+  }
+}

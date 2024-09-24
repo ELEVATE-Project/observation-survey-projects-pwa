@@ -1,0 +1,66 @@
+[
+    {
+        "type": "banner",
+        "data": [
+            {
+                "title": "Hey Samay, Welcome back!",
+                "discription": ""
+            },
+            {
+                "title": "Hey Syed, Welcome back!",
+                "discription": ""
+            }
+        ]
+    },
+    {
+        "type": "solutionList",
+        "data": [
+            {
+                "name": "Survey",
+                "img": "assets/images/ic_survey.svg",
+                "redirectionUrl": "/listing/survey",
+                "listType": "survey",
+                "description": "Provide information and feedback through quick and easy surveys",
+                "expired_on" : "Aug 20, 2025"
+            },
+            {
+                "name": "Program",
+                "img": "assets/images/ic_program.svg",
+                "redirectionUrl": "/listing/program",
+                "listType": "program",
+                "description": "View and participate in educational programs active in your location and designed for the role you selected",
+                "expired_on" : "Feb 05, 2025"
+            },
+            {
+                "name": "Observation",
+                "img": "assets/images/ic_observation.svg",
+                "redirectionUrl": "/listing/observation",
+                "listType": "observation",
+                "description": "Access and record your classroom and school observations easily, and plan your improvement journeys",
+                "expired_on" : "Dec 30, 2024"
+            },
+            {
+                "name": "Project",
+                "img": "assets/images/ic_project.svg",
+                "redirectionUrl": "/listing/project",
+                "listType": "project",
+                "description": "Manage and track your school improvement easily, by creating tasks and planning project timelines",
+                "expired_on" : "Apr 24, 2024"
+            }
+        ]
+    },
+    {
+        "type": "Recomendation",
+        "data": [
+            { "id": 4,
+            "status": "Completed",
+            "name": "Observation", 
+            "description": "Observation"
+            },
+            { "id": 2, "status": "Pending", "name": "Survey", "description": "Survey"
+            },
+            { "id": 3, "status": "Not Started", "name": "Program", "description": "Program"
+            }
+        ]
+    }
+]

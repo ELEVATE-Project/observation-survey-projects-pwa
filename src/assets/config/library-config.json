@@ -1,0 +1,15 @@
+{
+    "projectName": "Elevate",
+    "landingPageTitle": "Create account",
+    "baseUrl": "https://project-dev.elevate-apis.shikshalokam.org",
+    "redirectRouteOnLoginSuccess": "observation",
+    "loginApiPath": "/user/v1/account/login",
+    "logoutApiPath": "/user/v1/account/logout",
+    "signUpApiPath": "/user/v1/account/create",
+    "resetPasswordApiPath": "/user/v1/account/resetPassword",
+    "otpGenerationApiPathForRegistration": "/user/v1/account/registrationOtp",
+    "otpGenerationApiPathForResetPassword": "/user/v1/account/generateOtp",
+    "supportEmail":"mentoredtest1@yopmail.com",
+    "privacyPolicyUrl":"https://shikshalokam.org/mentoring/privacy-policy/",
+    "termOfUseUrl":"https://shikshalokam.org/mentoring/term-of-use/"
+}

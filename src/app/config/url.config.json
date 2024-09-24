@@ -1,0 +1,42 @@
+{
+    "survey": {
+        "listingUrl": "/survey/v1/solutions/targetedSolutions"
+    },
+    "survey-report": {
+        "listingUrl": "/survey/v1/solutions/targetedSolutions"
+    },
+    "observation": {
+        "listingUrl": "/project/v1/solutions/list"
+    },
+    "project": {
+        "listingUrl": "/project/v1/solutions/targetedSolutions",
+        "verifyLink": "/project/v1/solutions/verifyLink/",
+        "categoriesList": "/project/v1/library/categories/list",
+        "projectCategories": "/project/v1/library/categories/projects/",
+        "entityConfigUrl" : "/project/v1/configurations/read"
+    },
+    "formListing": {
+        "listingUrl": "/project/v1/forms/read"
+    },
+    "entityListing":{
+        "listingUrl": "/entity-management/v1/entities"
+    },
+    "profileListing": {
+        "listingUrl": "/project/v1/profile/read",
+        "updateUrl": "/user/v1/user/update",
+        "entityUrl": "/entityListBasedOnEntityType?entityType=",
+        "subEntityUrl": "/subEntityList",
+        "getSessionImageUploadUrl":"/user/v1/cloud-services/file/getSignedUrl?fileName=",
+        "getDownloadableUrl":"/user/v1/cloud-services/file/getDownloadableUrl?filePath="
+    },
+    "report":{
+        "listingUrl":"/project/v1/reports/entity"
+    },
+    "program":{
+        "listingUrl":"/project/v1/programs/list"
+    },
+    "certificate":{
+        "verifyCertificateUrl":"/project/v1/userProjects/verifyCertificate",
+        "certificateListing":"/project/v1/userProjects/certificates"
+    }
+}

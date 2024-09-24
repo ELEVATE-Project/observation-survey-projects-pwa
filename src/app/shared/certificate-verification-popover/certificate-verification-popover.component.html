@@ -1,0 +1,27 @@
+<ion-content class="pop-container">
+  <div class="pop-toolbar">
+    <div class="pop-title">Certificate verified
+    </div>
+    <ion-icon name="close" class="pop-close" (click)="closePopover()"></ion-icon>
+  </div>
+
+<div class="pop-content">
+  <div class="pop-icon-container">
+    <img src="../../../assets/icons/badge.svg" alt="Certificate Icon">
+  </div>
+  <div class="certificate-details">
+    <div class="certificate-issued-to">Certificate issued to</div>
+    <div class="certificate-recipient">{{ data.userName }}</div>
+    <div class="certificate-message">For successfully completing the project</div>
+    <div class="certificate-project">{{ data.projectName }}</div>
+    <div class="certificate-date">
+      On Elevate on {{ data.completedDate | date: 'dd/MM/yyyy' }}
+    </div>
+  </div>
+</div>
+
+  <div class="pop-footer">
+    <button mat-button color="primary" (click)="closePopover()">OKAY</button>
+  </div>
+
+</ion-content>

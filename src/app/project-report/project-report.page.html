@@ -1,0 +1,93 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" (click)="goBack()"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- <ion-grid>
+    <ion-row class="program-listing">
+      <ion-col size="12" >
+        <ion-list>
+          <ion-item>
+            <ion-select   label="Select Program" label-placement="floating" [multiple]="false" [(ngModel)]="selectedProgram" (ionChange)="getprogram($event)">
+              @for(item of programList; track $index){
+                <ion-select-option  [value]="item?._id">{{item.externalId}}</ion-select-option>
+              }
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+  <ion-list class="listTitle">
+    <ion-row class="ion-margin">
+      <ion-col >
+        <ion-text color="primary">
+          <h1>Project Reports</h1>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <app-report-header [reportType]="reportType" [reportTitle]="'Project overview'" (emitReportType)="getReportType($event)" (emitReportAction)="getAction($event)"></app-report-header>
+        <div>
+          <ion-row>
+            @for (item of projectsCategories; track $index) {
+              <ion-col size="6" sizeSm="3">
+                <ion-card class="overview-cards">
+                  <div class="overview-div">
+                    <img  [src]="item.img" alt="" srcset="">
+                  </div>
+                  <div class="overview-description">
+                    <ion-label>{{item.name}}</ion-label>
+
+                    <ion-label>{{reportData?.projects?.[item.key] ?? 0}}</ion-label>
+                  </div>
+                </ion-card>
+              </ion-col>
+            }
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col size="12" sizeSm="6" style="padding: 10px;">
+        <ion-card class="chart-card">
+          <h1 >Task overview</h1>
+          <div class="chart-card-div">
+            <div class="chart-container">
+              <canvas id="doughnutChart" ></canvas>
+            </div>
+          </div>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" sizeSm="6" style="padding: 10px;">
+        <ion-card class="chart-card">
+          <h1 >Category overview</h1>
+          <div class="chart-card-div">
+            <div class="chart-container">
+              <canvas id="doughnutChartforcategory" ></canvas>
+            </div>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-modal [isOpen]="isModalOpen" >
+    <ng-template>
+      <ion-content class="ion-padding">
+        <h1 class="modal-heading"><strong>No Data available</strong></h1 >
+        <p>
+          Sorry there is no data available for the entity you selected
+        </p>
+        <div class="modal-button">
+          <ion-button shape="round" (click)="setOpen(false)" fill="solid">Ok</ion-button>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

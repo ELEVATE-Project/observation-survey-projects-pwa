@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title slot="start">
+      <img src="../../assets/images/logo.png" alt="Elevate Logo" class="header-logo" />
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button routerLink="/profile">
+        Profile
+      </ion-button>
+      <ion-button (click)="logout()">
+        Logout
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ng-container *ngFor="let listData of solutionList">
+    <ng-container *ngTemplateOutlet="typeTemplateMapping[listData?.type]"></ng-container>
+  </ng-container>
+
+  <ng-template #bannerTemplate>
+    <ion-list lines="none">
+      <div>
+        <swiper-container>
+          @for (listData of solutionList; track listData.id) {
+          @if (listData?.type === 'bannerList'){
+          @for (banner of listData?.listingData; track banner.id) {
+          <swiper-slide>
+            <ion-card class="banner">
+              <ion-card-content>
+                <h1>{{banner?.title}}</h1>
+              </ion-card-content>
+            </ion-card>
+
+          </swiper-slide>
+          }}
+          }
+        </swiper-container>
+      </div>
+    </ion-list>
+  </ng-template>
+
+  <ng-template #solutionTemplate>
+    <ion-list>
+      <ion-item lines="none">
+        <ion-grid>
+          <ion-row>
+            @for (item of solutionList; track $index) {
+            @if (item.type === 'solutionList'){
+            @for (listData of item.listingData; track listData.id) {
+            <ion-col size="6" size-md="3" (click)="navigateTo(listData)">
+              <ion-card class="tiels">
+                <ion-card-content>
+                  <img [src]="listData?.img" alt="">
+                  <h1 style="color:black">{{listData?.name}}</h1>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            }
+            }
+            }
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </ng-template>
+  @if(isMobile){
+  <div class="scanner-button-container">
+    <ion-button class="scanner-button" (click)="startScan()">
+      <ion-icon name="scan-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+  </div>
+  }
+</ion-content>

@@ -1,0 +1,21 @@
+.details-background{
+    background-color: #F0F0F0;
+    min-height: 100%;
+}
+
+.details-section{
+    max-width: 70vw;
+    margin: auto;
+}
+
+.back-button{
+    font-size: 25px;
+    margin-left: 12px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px){
+    .details-section{
+        max-width: 100%;
+    }
+}
