@@ -45,9 +45,8 @@ Setting up the CLI
 Setting up the Project
 ----------------------
 
-1. Clone the [repository](https://github.com/ELEVATE-Project/observation-survey-projects-pwa/tree/release-1.0.0).
-2. Change to the latest GitHub branch (**release-1.0.0**).
-3. Go to the project folder and run `npm i`.
+1. Clone the [repository](https://github.com/ELEVATE-Project/observation-survey-projects-pwa).
+2. Go to the project folder and run `npm i`.
 
 Building the Application
 ------------------------
