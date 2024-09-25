@@ -23,7 +23,6 @@
       @for (solution of stateData?.list; track $index) {
         <ion-col size="12" size-md="6" class="card-list" (click)="navigateTo(solution)">
           <ion-card class="tiel">
-            <div class="small-tiel"></div>
             <div style="padding:10px;">
               <h2 style="font-size: 18px;padding-bottom: 8px;"><b>{{solution.name}}</b></h2>
               <h6>View {{solution.name}}</h6>
@@ -34,19 +33,6 @@
           </ion-card>
         </ion-col>
       }
-
-      <!-- <ion-col size="12" size-md="6" class="card-list" (click)="navigateToPage('listing/survey')">
-        <ion-card class="tiel">
-          <div class="small-tiel"></div>
-          <div style="padding:10px;">
-            <h2 style="font-size: 18px;padding-bottom: 8px;"><b>Survey Reports</b></h2>
-            <h6>View Survey Reports</h6>
-          </div>
-          <div class="arrow-container">
-            <ion-icon name="arrow-forward-outline" class="arrow-icon"  size="large"></ion-icon>
-          </div>
-        </ion-card>
-      </ion-col> -->
     </ion-row>
   </ion-grid>
 </ion-content>

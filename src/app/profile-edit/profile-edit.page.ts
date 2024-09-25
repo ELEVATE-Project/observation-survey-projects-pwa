@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
 import { LoaderService } from '../services/loader/loader.service';
 import { finalize, catchError, map } from 'rxjs/operators';
 import { throwError } from 'rxjs';
@@ -12,6 +12,8 @@ import { AlertService } from '../services/alert/alert.service';
 import { Router } from '@angular/router';
 import { isDeactivatable } from '../services/guard/guard.service';
 import { ProjectsApiService } from '../services/projects-api/projects-api.service';
+import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-profile-edit',
   templateUrl: './profile-edit.page.html',
@@ -36,7 +38,7 @@ export class ProfileEditPage implements isDeactivatable {
     private attachment: AttachmentService,
     private profileService: ProfileService,
     private alertService: AlertService,
-    private router: Router
+    private location: Location
   ) { }
 
   ionViewWillEnter() {
@@ -318,9 +320,19 @@ export class ProfileEditPage implements isDeactivatable {
     }
   }
 
+  // @HostListener('window:popstate', ['$event'])
+  // onPopState(event: any) {
+  //   if (this.formLib && !this.formLib?.myForm.pristine || !this.formJson.isUploaded) {
+  //     event.preventDefault();
+  //     this.location.go(this.location.path());
+  //   }
+  // }
+
   async canPageLeave(event?: any): Promise<boolean> {
-    this.alertService.dismissAlert()
-    if (this.formLib && !this.formLib?.myForm.pristine || !this.formJson.isUploaded) {
+    if (this.alertService.alert) {
+      this.alertService.dismissAlert();
+    }
+    if ((this.formLib && !this.formLib?.myForm.pristine || !this.formJson.isUploaded)) {
       await this.alertService.presentAlert(
         'Save Data?',
         'You have unsaved data, would you like to save it before exiting?',
@@ -343,11 +355,29 @@ export class ProfileEditPage implements isDeactivatable {
             cssClass: 'primary-button',
             role: 'cancel',
             handler: () => {
-              return false;
+              this.updateProfile();
+              // if (event) {
+              //   this.navCtrl.back();
+              // }
+              return true;
             }
           }
         ]
       );
+
+      // const cancelButton = document.createElement('button');
+      // cancelButton.textContent = 'X';
+      // cancelButton.classList.add('cancel-button');
+      // cancelButton.onclick = () => {
+      //   this.alertService.dismissAlert();
+      // };
+
+      // const alertHeader = document.querySelector('ion-alert .alert-head');
+      // if (alertHeader) {
+      //   alertHeader.appendChild(cancelButton);
+      // }
+
+
       let data = await this.alertService.alert.onDidDismiss();
       if (data.role == 'exit') {
         return true;

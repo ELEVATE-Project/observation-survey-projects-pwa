@@ -54,13 +54,23 @@ export class ListingPage implements OnInit {
   async ionViewWillEnter() {
     this.page = 1;
     this.solutionList = { data: [], count: 0 }
-    this.stateData = await this.profileService.getHomeConfig(this.listType)
+    this.stateData = await this.profileService.getHomeConfig(this.listType,this.reportPage)
     this.getProfileDetails();
     this.showLoading = true;
   }
 
   ionViewWillLeave() {
     this.alertService.dismissAlert();
+  }
+
+  formatDate(endDate: string): string {
+    if (!endDate) {
+      return '';
+    }
+  
+    const date = new Date(endDate);
+    const localTime = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+    return localTime.toDateString();
   }
 
   handleInput(event: any) {
@@ -103,6 +113,12 @@ export class ListingPage implements OnInit {
         if (res?.status == 200) {
           this.solutionList.data = this.solutionList?.data.concat(res?.result?.data);
           this.solutionList.count = res?.result?.count;
+          (this.solutionList.data as []).forEach((element: any) => {
+            element.endDate = this.formatDate(element.endDate);
+            this.checkAndUpdateExpiry(element);
+            this.assignStatusAndClasses(element);
+            this.calculateExpiryDetails(element);
+          });
         } else {
           this.toastService.presentToast(res?.message, 'warning');
         }
@@ -112,6 +128,64 @@ export class ListingPage implements OnInit {
         }
       );
   }
+
+  checkAndUpdateExpiry(element: any) {
+    const expiryDate = new Date(element.endDate);
+    const currentDate = new Date();
+
+    expiryDate.setHours(0, 0, 0, 0);
+    currentDate.setHours(0, 0, 0, 0);
+
+    if (currentDate > expiryDate) {
+      element.status = 'expired';
+    }
+  }
+
+  assignStatusAndClasses(element: any) {
+    const statusMappings = {
+      'active': { tagClass: 'tag-not-started', statusLabel: 'Not Started' },
+      'draft': { tagClass: 'tag-in-progress', statusLabel: 'In Progress' },
+      'started': { tagClass: 'tag-in-progress', statusLabel: 'In Progress' },
+      'completed': { tagClass: 'tag-completed', statusLabel: 'Completed' },
+      'expired': { tagClass: 'tag-expired', statusLabel: 'Expired' }
+    };
+  
+    const statusInfo = (statusMappings as any)[element.status] || { tagClass: 'tag-not-started', statusLabel: 'Not Started' };
+    element.tagClass = statusInfo.tagClass;
+    element.statusLabel = statusInfo.statusLabel;
+  }
+  
+  calculateExpiryDetails(element: any) {
+    if (element.endDate) {
+      element.isExpiringSoon = this.isExpiringSoon(element.endDate);
+      element.daysUntilExpiry = this.getDaysUntilExpiry(element.endDate);
+    } else {
+      element.isExpiringSoon = false;
+      element.daysUntilExpiry = 0;
+    }
+  }
+
+  isExpiringSoon(endDate: string | Date): boolean {
+    const currentDate = new Date();
+    const expiryDate = new Date(endDate);
+  
+    const diffTime = expiryDate.getTime() - currentDate.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  
+    return diffDays <= 2 && diffDays > 0;
+  }
+
+  getDaysUntilExpiry(endDate: string | Date): number {
+    const currentDate = new Date();
+    const expiryDate = new Date(endDate);
+  
+    const diffTime = expiryDate.getTime() - currentDate.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  
+    return Math.max(diffDays, 0);
+  }
+  
+  
 
   loadData() {
     this.page = this.page + 1;
@@ -123,12 +197,21 @@ export class ListingPage implements OnInit {
   }
 
   navigateTo(data: any) {
-    if(this.listType == 'project'){
-      this.router.navigate(['project-details'], { state: { _id:data._id || null, solutionId: data.solutionId} });
-    }else if(this.listType == 'survey'){
-      this.router.navigate(['questionnaire',data.solutionId])
-    }else{
-      this.router.navigate(['report-details'])
+    switch (this.listType) {
+      case 'project':
+        this.router.navigate(['project-details'], { state: { _id:data._id || null, solutionId: data.solutionId} });
+        break;
+  
+      case 'survey':
+        const route = this.reportPage 
+          ? ['report-details', data.submissionId] 
+          : ['questionnaire', data.solutionId];
+        this.router.navigate(route);
+        break;
+  
+      default:
+        console.warn('Unknown listType:', this.listType);
     }
   }
+  
 }

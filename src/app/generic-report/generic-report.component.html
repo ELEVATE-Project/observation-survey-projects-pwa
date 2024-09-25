@@ -6,47 +6,91 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
+<ion-content>
   <div class="report-container">
     <div style="display: flex;flex-direction: row; justify-content: space-between;">
-      <h1 style="font-size: large;">{{surveyName}}</h1> 
+      <h1 style="font-size: large;">{{surveyName}}</h1>
       <ion-buttons slot="end">
-        <ion-button  style="background-color: var(--ion-color-primary);color: white;padding: 5px;border-radius: 8px;align-self: flex-end;" (click)="openFilter()">
+        <ion-button
+          style="background-color: var(--ion-color-primary);color: white;padding: 5px;border-radius: 8px;align-self: flex-end;"
+          (click)="openFilter()">
           <ion-icon name="options-outline"></ion-icon>
         </ion-button>
       </ion-buttons>
-     </div>
+    </div>
 
-   <hr style="margin: 10px 0;background-color: var(--ion-color-primary);height: 1px;">
+    <hr style="margin: 10px 0;background-color: var(--ion-color-primary);height: 1px;">
 
     <ion-list>
       <ion-card *ngFor="let question of reportDetails; let qi = index" class="question-card">
         <ion-card-header style="background-color: whitesmoke;">
-          <ion-card-title>{{qi+1}}. {{ question.question }}</ion-card-title>
+          <ion-card-title>{{question.questionNumber}}. {{ question.question }}</ion-card-title>
         </ion-card-header>
 
         <ion-card-content>
           <ng-container [ngSwitch]="question.responseType">
+            <ion-item *ngSwitchCase="'text'">
+              <ion-label style="color: var(--ion-color-primary);">{{ question.answers[0]}}</ion-label>
+            </ion-item>
+            <ion-item *ngSwitchCase="'date'">
+              <ion-label style="color: var(--ion-color-primary);">{{ question.answers[0] | date}}</ion-label>
+            </ion-item>
             <ion-item *ngSwitchCase="'radio'">
-                  <ion-label style="color: var(--ion-color-primary);">{{ question.answers[0]}}</ion-label>
+              <ion-label style="color: var(--ion-color-primary);">{{ question.answers[0]}}</ion-label>
+            </ion-item>
+            <ion-item *ngSwitchCase="'slider'">
+              <ion-label style="color: var(--ion-color-primary);">{{ question.answers[0]}}</ion-label>
             </ion-item>
             <ion-item *ngSwitchCase="'multiselect'">
-              <ion-chip style="background-color: var(--ion-color-primary);color: white;" *ngFor="let answer of question.answers">
+              <ion-chip style="background-color: var(--ion-color-primary);color: white;"
+                *ngFor="let answer of question.answers">
                 <ion-label>{{ answer }}</ion-label>
               </ion-chip>
             </ion-item>
             <ion-item *ngSwitchCase="'number'">
               <ion-label style="color: var(--ion-color-primary);">{{ question.answers[0] }}</ion-label>
             </ion-item>
+            <ion-item *ngSwitchCase="'matrix'" lines="none"
+              style="display: flex; flex-wrap: wrap; flex-grow: 1; width: 100%;">
+              <ion-grid>
+                <ion-row *ngFor="let key of objectKeys(question.instanceQuestions[0]); let k = index"
+                  style="margin-bottom: 20px;">
+                  <div style="width: 100%;" *ngIf="key !== 'instanceIdentifier'">
+                    <ion-col size="12">
+                      <h2>{{question.instanceQuestions[0][key].questionNumber}}. {{ question.instanceQuestions[0][key].question }}</h2>
+                    </ion-col>
+
+                    <ion-row style="display: flex; flex-wrap: wrap;">
+                      <ion-col size="12" size-sm="12" size-md="12" size-lg="6" size-xl="4"
+                        *ngFor="let instance of question.instanceQuestions" style="display: flex; flex: 1;">
+                        <ion-card style="width: 100%; height: auto;">
+                          <ion-item style="margin-top: 10px; color: var(--ion-color-primary);">
+                            <ion-label>
+                              <strong style="white-space: normal;">{{ instance.instanceIdentifier }}</strong>
+                            </ion-label>
+                          </ion-item>
+                          <ion-list lines="none">
+                            <ion-item *ngFor="let answer of instance[key].answers" lines="none">
+                              <ion-icon name="arrow-forward-outline" slot="start" style="margin-right: 8px;" class="custom-icon"></ion-icon>
+                              <h6 style="width: 100%; margin: 0;word-wrap: break-word;">{{ checkAnswerValue(answer) }}</h6>
+                            </ion-item>
+                          </ion-list>
+                        </ion-card>
+                      </ion-col>
+                    </ion-row>
+                  </div>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
           </ng-container>
         </ion-card-content>
 
         <div style="margin: 10px 20px;">
-          <h4 *ngIf="question.evidences">Evidences : {{ question.evidence_count}}</h4>
+          <h4 *ngIf="question.evidences && question.evidences.length">Evidences : {{ question.evidence_count}}</h4>
         </div>
 
         <div style="display: flex;flex-direction: row;gap: 10px;margin: 0 20px;color: var(--ion-color-primary);">
-          <ng-container *ngFor="let evidence of question.evidences" >
+          <ng-container *ngFor="let evidence of question.evidences">
             <ng-container [ngSwitch]="evidence.extension">
               <div *ngSwitchCase="'jpg'" class="iconList">
                 <mat-icon class="customizeIcon" matTooltip="View the uploaded image" matTooltipClass="tooltip"
@@ -62,16 +106,16 @@
               </div>
               <div *ngSwitchCase="'mp4'" class="iconList">
                 <mat-icon class="customizeIcon" matTooltip="View the uploaded video" matTooltipClass="tooltip"
-                (click)="openDialog(evidence.url,'video')" >video_file</mat-icon>
+                  (click)="openDialog(evidence.url,'video')">video_file</mat-icon>
               </div>
             </ng-container>
-            </ng-container>
+          </ng-container>
         </div>
 
       </ion-card>
     </ion-list>
   </div>
-  <ion-modal [isOpen]="isFilterModalOpen" (willDismiss)="closeFilter()" style="border-radius: 5px;">
+  <ion-modal [isOpen]="isFilterModalOpen" (willDismiss)="closeFilter()" style="border-radius: 5px; height: auto;">
     <ng-template>
       <ion-header>
         <ion-toolbar>
@@ -83,6 +127,7 @@
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
+  
       <ion-content>
         <ion-list>
           <ion-item *ngFor="let question of allQuestions">
@@ -90,14 +135,24 @@
             <ion-checkbox slot="start" [(ngModel)]="question.selected"></ion-checkbox>
           </ion-item>
         </ion-list>
-        <ion-footer>
-          <ion-button expand="full" (click)="applyFilter()">Apply Filter</ion-button>
-          <ion-button expand="full" color="medium" (click)="resetFilter()">Reset Filter</ion-button>
-        </ion-footer>
       </ion-content>
+  
+      <ion-footer>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button expand="block" (click)="applyFilter()">Apply Filter</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button expand="block" class="reset-filter" color="white" (click)="resetFilter()">Reset Filter</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-footer>
     </ng-template>
   </ion-modal>
   
+
 </ion-content>
 
 <ion-modal [isOpen]="isModalOpen" (willDismiss)="closeDialog()">
