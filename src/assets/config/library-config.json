@@ -1,7 +1,7 @@
 {
     "projectName": "Elevate",
     "landingPageTitle": "Create account",
-    "baseUrl": "https://project-dev.elevate-apis.shikshalokam.org",
+    "baseUrl": "<baseUrl>",
     "redirectRouteOnLoginSuccess": "observation",
     "loginApiPath": "/user/v1/account/login",
     "logoutApiPath": "/user/v1/account/logout",

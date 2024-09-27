@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  baseURL: 'https://dev.elevate-apis.shikshalokam.org',
-  projectsBaseURL:"https://project-dev.elevate-apis.shikshalokam.org",
-  samikshaBaseURL:"https://survey-dev.elevate-apis.shikshalokam.org"
+  baseURL: "<baseUrl>",
+  projectsBaseURL:"<project-baseUrl>",
+  samikshaBaseURL:"<survey-baseUrl>"
 };
