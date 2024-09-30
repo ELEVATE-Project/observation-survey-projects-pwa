@@ -27,6 +27,7 @@ export class ProfileEditPage implements isDeactivatable {
   formJson2: any;
   localImage: any;
   enableForm: boolean = false;
+  dynamicEntityValueChanged:boolean = false;
 
   constructor(
     private apiBaseService: ProjectsApiService,
@@ -118,7 +119,7 @@ export class ProfileEditPage implements isDeactivatable {
   
     const hasDynamicUrl = formArray.some((control: any) => control.dynamicUrl);
     const urlPath = this.buildUrlPath(control, entityId);
-  
+
     this.apiBaseService.get(urlPath)
       .pipe(
         catchError(err => {
@@ -185,7 +186,8 @@ export class ProfileEditPage implements isDeactivatable {
 
     if(dynamicEntity){
     this.formJson2 = [];
-    this.getEntityForm(entityId, selectedValue?.value);
+    this.getEntityForm(entityId, control);
+    this.dynamicEntityValueChanged = true;
     }
   }
   
@@ -197,7 +199,7 @@ export class ProfileEditPage implements isDeactivatable {
     this.handleOptionChange(event, this.formJson2, false);
   }
  
-  getEntityForm(subType: any, entityId: any, firstLoad?: any) {
+  getEntityForm(subType: any, entityData: any, firstLoad?: any) {
     const entityForm = {
       type: firstLoad ? subType?.externalId : subType,
       subType: firstLoad ? subType?.externalId : subType,
@@ -209,22 +211,35 @@ export class ProfileEditPage implements isDeactivatable {
           (res: any) => {
             this.formJson2 = res?.result?.data || [];
             this.formJson2.map((control: any) => {
-              let entityIds = firstLoad ? entityId?.value : entityId
-              this.getOptionsData(control.name, entityIds, this.formJson2);
-              if (firstLoad) {
-                Object.entries(this.formData || {}).forEach(([key, value]: any) => {
-                  let control = this.formJson2.find((control: any) => control.name === key);
-                  if (control) {
-                    this.updateControlValue(control, value);
-                  }
-                });
+              let entityIds = entityData?.value ;
+
+              const dependentValue = this.getDependentValue(control, entityData);
+          
+              if(dependentValue || !this.dynamicEntityValueChanged){
+                this.getOptionsData(control.name, entityIds, this.formJson2);
+                if (firstLoad) {
+                  Object.entries(this.formData || {}).forEach(([key, value]: any) => {
+                    let control = this.formJson2.find((control: any) => control.name === key);
+                    if (control) {
+                      this.updateControlValue(control, value);
+                    }
+                  });
+                }
               }
+             
             });
           },
         error: (err: any) => {
           this.toastService.presentToast(err?.error?.message, 'danger');
         }
       })
+  }
+
+  getDependentValue(control: any, entityId: any) {
+    if (control?.dependsOn && entityId?.name && control.dependsOn === entityId.name) {
+      return entityId?.value;
+    }
+    return null;
   }
 
   getNextEntityType(currentEntityType: string, formJson?: any): any {
