@@ -21,7 +21,7 @@ export class QuestionnaireComponent implements OnInit, isDeactivatable {
   ngOnInit() {
     this.router.params.subscribe(param => {
       this.apiConfig['solutionId'] = param['id']
-      this.apiConfig['baseURL'] = environment.samikshaBaseURL;
+      this.apiConfig['baseURL'] = environment.samikshaBaseURL || environment.baseURL;
       this.apiConfig['userAuthToken'] = localStorage.getItem('accToken');
       this.apiConfig['solutionType'] = 'survey';
       this.apiConfig['fileSizeLimit'] = 50;

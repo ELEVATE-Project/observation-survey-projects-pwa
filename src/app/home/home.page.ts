@@ -12,6 +12,7 @@ import { AuthService } from 'authentication_frontend_library';
 import { UtilService } from 'src/app/services/util/util.service';
 import { ProfileService } from '../services/profile/profile.service';
 import { ProjectsApiService } from '../services/projects-api/projects-api.service';
+import { environment } from 'src/environments/environment';
 register();
 @Component({
   selector: 'app-home',
@@ -19,6 +20,7 @@ register();
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
+  formListingUrl = (environment.baseURL.includes('projects') ?  urlConfig.subPrject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
   swiperModules = [IonicSlides];
   jsonData: any;
   baseApiService: any;
@@ -56,7 +58,7 @@ export class HomePage {
     await this.loader.showLoading("Please wait while loading...");
     this.baseApiService
       .post(
-        urlConfig['formListing'].listingUrl, FETCH_HOME_FORM)
+        this.formListingUrl, FETCH_HOME_FORM)
       .pipe(
         finalize(async () => {
           await this.loader.dismissLoading();
