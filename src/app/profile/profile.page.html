@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/" (click)="goBack()"></ion-back-button>
     </ion-buttons>
-    <ion-title>Profile Details</ion-title>
+    <ion-title>{{ "PROFILE_DETAILS" | translate}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -21,10 +21,10 @@
             <p>{{formData?.email}}</p>
           </ion-label>
           <ion-button routerLink="/profile-edit" fill="light" shape="round" class="mt-5">
-            Edit Profile
+            {{ "EDIT_PROFILE"| translate}}
           </ion-button>
           <ion-button routerLink="/profile/certificate" fill="light" shape="round" class="mt-5" style="margin-left: 14px;">
-            Certificate
+            {{ "CERTIFICATE"| translate }}
           </ion-button>
         </ion-col>
       </ion-row>

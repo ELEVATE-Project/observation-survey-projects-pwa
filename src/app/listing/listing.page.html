@@ -49,7 +49,7 @@
                   </span>
                 }
                 @if (solution?.certificate || solution?.certificateTemplateId) {
-                  <span class="certificate-tag">Certificate</span>
+                  <span class="certificate-tag">{{"CERTIFICATE"|translate}}</span>
                 }
               </div>
               @if (listType == 'project' || (listType == 'survey' && stateData?.reportPage)) {
@@ -88,7 +88,7 @@
 <ion-footer *ngIf="!(solutionList?.count === 0 || solutionList?.count === solutionList?.data?.length)">
   <ion-toolbar>
     <ion-button expand="block" fill="solid" shape="round" (click)="loadData()">
-      Load More
+      {{"LOAD_MORE"|translate}}
     </ion-button>
   </ion-toolbar>
 </ion-footer>

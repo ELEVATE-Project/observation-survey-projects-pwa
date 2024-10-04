@@ -53,11 +53,11 @@ export class ProfileEditPage implements isDeactivatable {
   }
 
   loadFormAndData() {
-    this.loader.showLoading("Please wait while loading...");
+    this.loader.showLoading("LOADER_MSG");
     this.profileService.getFormJsonAndData()
       .pipe(
         catchError((err) => {
-          this.toastService.presentToast(err?.error?.message || 'Error loading profile data. Please try again later.', 'danger');
+          this.toastService.presentToast(err?.error?.message || 'PROFILE_LOAD_ERROR', 'danger');
           throw err;
         }),
         finalize(async () => await this.loader.dismissLoading())
@@ -313,7 +313,7 @@ export class ProfileEditPage implements isDeactivatable {
             if (res?.result) {
               this.formLib?.myForm.markAsPristine();
               this.navCtrl.back();
-              this.toastService.presentToast(res?.message || 'Profile Updated Sucessfully', 'success');
+              this.toastService.presentToast(res?.message || 'PROFILE_UPDATE_SUCCESS', 'success');
             } else {
               this.toastService.presentToast(res?.message, 'warning');
             }
@@ -321,7 +321,7 @@ export class ProfileEditPage implements isDeactivatable {
       }
     } else {
       this.formLib?.myForm.markAllAsTouched();
-      this.toastService.presentToast('Please fill out all the required fields.', 'danger');
+      this.toastService.presentToast('FORM_REQUIRED_FIELDS_ERROR', 'danger');
     }
   }
 
@@ -349,11 +349,11 @@ export class ProfileEditPage implements isDeactivatable {
     }
     if ((this.formLib && !this.formLib?.myForm.pristine || !this.formJson.isUploaded)) {
       await this.alertService.presentAlert(
-        'Save Data?',
-        'You have unsaved data, would you like to save it before exiting?',
+        'SAVE_DATA',
+        'UNSAVE',
         [
           {
-            text: "Don't Save",
+            text: "DON'T_SAVE",
             cssClass: 'secondary-button',
             role: 'exit',
             handler: () => {
@@ -366,7 +366,7 @@ export class ProfileEditPage implements isDeactivatable {
             }
           },
           {
-            text: 'Save',
+            text: 'SAVE',
             cssClass: 'primary-button',
             role: 'cancel',
             handler: () => {
@@ -425,7 +425,7 @@ export class ProfileEditPage implements isDeactivatable {
   }
 
   async getImageUploadUrl(file: any) {
-    this.loader.showLoading("Please wait while uploading...");
+    this.loader.showLoading("UPLOAD_PROGRESS_MSG");
     const lowerCase = file?.name.replace(/[^A-Z0-9]+/ig, "_").toLowerCase();
     const apiUrl = this.urlProfilePath.getSessionImageUploadUrl + lowerCase;
 
@@ -441,10 +441,10 @@ export class ProfileEditPage implements isDeactivatable {
         this.upload(file, res.result)
           .subscribe({
             next: () => {
-              this.toastService.presentToast('Image uploaded successfully', 'success');
+              this.toastService.presentToast('IMAGE_UPLOAD_SUCCESS', 'success');
             },
             error: (err) => {
-              this.toastService.presentToast(err?.error?.message || 'Upload failed', 'danger');
+              this.toastService.presentToast(err?.error?.message || 'IMAGE_UPLOAD_FAILED', 'danger');
             }
           });
       });
