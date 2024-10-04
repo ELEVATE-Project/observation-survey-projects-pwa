@@ -1,0 +1,179 @@
+ion-content {
+  min-height: 100vh;
+  overflow: hidden; 
+}
+
+.program-card {
+  background: var(--ion-color-primary);
+}
+
+h1 {
+  font-size: 1.563rem;
+}
+
+h1, p {
+  color: white;
+}
+.read-more-less {
+  color: blue; 
+  cursor: pointer; 
+  font-weight: bold; 
+  text-decoration: underline; 
+  font-size: 1rem;
+}
+
+.read-more-less:hover {
+  color: blue; 
+  text-decoration: none; 
+}
+.custom-segment {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto;
+  padding: 2px;
+}
+
+.custom-segment ion-segment-button {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #fff;
+  padding: 2px;
+  margin: 0 2px;
+  font-size: 16px;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-segment ion-segment-button ion-label {
+  white-space: normal;
+  overflow: visible;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.primary-color-text {
+  text-transform: capitalize;
+  font-weight: bold;
+  color: var(--ion-color-primary);
+}
+.icon {
+  color: var(--ion-color-primary);
+  font-size: 1.3rem;
+  padding: 0.5rem; 
+  border-radius: 50%; 
+  background-color: rgba(255, 255, 255, 0.3); 
+}
+
+.card-container {
+  padding: 1rem;
+}
+
+.expandable-card {
+  margin-bottom: 1rem;
+}
+
+.group-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.expanded-content {
+  margin-top: 0.5rem;
+}
+
+.section-card {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.section-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.section-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+}
+
+.section-card ion-card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.section-card ion-label {
+  font-size: 1rem;
+  font-weight: 500;
+  flex: 1;
+  word-break: break-word;
+}
+
+.certificate-tag {
+  background-color: #fcd34d;
+  color: #000;
+  font-size: 0.75rem;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+}
+.no-data-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 1rem;
+  color: #000;
+  padding: 3vw; 
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 2vw; 
+  max-width: 90vw; 
+  max-height: 80vh; 
+  overflow: hidden; 
+}
+
+.no-data-container img {
+  width: 20vw; 
+  height: auto;
+  margin-bottom: 1vw;
+}
+
+.no-data-container p {
+  font-size: 1.2rem;
+  color: #8d92a0;
+  overflow-wrap: break-word;
+  max-height: 50vh; 
+}
+
+
+@media screen and (max-width: 600px) {
+  .section-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .no-data-container img {
+    width: 60vw; 
+  }
+  .no-data-container p {
+    font-size: 1rem;
+  }
+}

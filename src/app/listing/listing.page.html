@@ -52,6 +52,17 @@
                   <span class="certificate-tag">Certificate</span>
                 }
               </div>
+              @if(listType == 'program'){
+                <div class="program-container">
+                  <h2 class="state">State :{{solution?.metaInformation?.state[0]}}</h2>
+                    <div class="program-items">
+                      <h2 class="state"> Recommened For : </h2>
+                      @for(roles of solution?.metaInformation?.roles; track roles){
+                        <span class="role-tag">{{roles}}</span>
+                      }
+                    </div>
+                </div>
+              }
               @if (listType == 'project' || (listType == 'survey' && stateData?.reportPage)) {
                 <div class="ion-padding-top">
                   <h6>{{solution?.description}}</h6>

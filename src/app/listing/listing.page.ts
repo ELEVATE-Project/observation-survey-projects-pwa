@@ -89,9 +89,39 @@ export class ListingPage implements OnInit {
     this.profileService.getProfileAndEntityConfigData().subscribe((mappedIds) => {
       if (mappedIds) {
         this.entityData = mappedIds;
-        this.getListData();
+        this.listType == "program" ? this.getProgramData() : this.getListData();
       }
     });
+  }
+
+  async getProgramData() {
+    this.showLoading = true;
+    await this.loader.showLoading("Please wait while loading...");
+    this.ProjectsApiService.get(
+      urlConfig[this.listType].listingUrl + `?page=${this.page}&limit=${this.limit}&search=${this.searchTerm}`
+    ).pipe(
+      finalize(async () => {
+        await this.loader.dismissLoading();
+        this.showLoading = false;
+      })
+    ).subscribe((res: any) => {
+      if (res?.status == 200) {
+        this.solutionList.data = this.solutionList?.data.concat(res?.result?.data);
+        this.solutionList.count = res?.result?.count;
+        (this.solutionList.data as []).forEach((element: any) => {
+          element.endDate = this.formatDate(element.endDate);
+          this.checkAndUpdateExpiry(element);
+          this.assignStatusAndClasses(element);
+          this.calculateExpiryDetails(element);
+        });
+      } else {
+        this.toastService.presentToast(res?.message, 'warning');
+      }
+    },
+      (err: any) => {
+        this.toastService.presentToast(err?.error?.message, 'danger');
+      }
+    )
   }
 
   async getListData() {
@@ -154,7 +184,7 @@ export class ListingPage implements OnInit {
     element.tagClass = statusInfo.tagClass;
     element.statusLabel = statusInfo.statusLabel;
   }
-  
+
   calculateExpiryDetails(element: any) {
     if (element.endDate) {
       element.isExpiringSoon = this.isExpiringSoon(element.endDate);
@@ -189,7 +219,7 @@ export class ListingPage implements OnInit {
 
   loadData() {
     this.page = this.page + 1;
-    this.getListData();
+    this.listType == "program" ? this.getProgramData() : this.getListData();
   }
 
   goBack() {
@@ -208,10 +238,14 @@ export class ListingPage implements OnInit {
           : ['questionnaire', data.solutionId];
         this.router.navigate(route);
         break;
-  
+
+      case 'program':
+        this.router.navigate(['program-details' ,data._id ]);
+        break;
+
       default:
         console.warn('Unknown listType:', this.listType);
     }
   }
-  
+
 }

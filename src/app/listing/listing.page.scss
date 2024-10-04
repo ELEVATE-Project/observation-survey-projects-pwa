@@ -177,3 +177,27 @@ span {
   color: #fff;
   border: 1px solid #696969;
 }
+.program-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.state{
+  font-size: 14px  !important;
+  color:#000;
+  margin-top: 0.3rem;
+}
+.program-items{
+  color: #000 !important;
+  display: flex;
+}
+.role-tag{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e0f7e9; 
+  margin-right: 0.5rem;
+  border-radius: 10px;
+  color: #34a853;
+  font-weight: bold;
+}

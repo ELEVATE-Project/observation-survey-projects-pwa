@@ -31,7 +31,8 @@
         "listingUrl":"/project/v1/reports/entity"
     },
     "program":{
-        "listingUrl":"/project/v1/programs/list"
+        "listingUrl":"/project/v1/programs/list",
+        "detailsUrl":"/project/v1/programs/details"
     },
     "certificate":{
         "verifyCertificateUrl":"/project/v1/userProjects/verifyCertificate",

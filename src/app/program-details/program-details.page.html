@@ -1,0 +1,79 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" (click)="goBack()"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list class="program-card">
+    <ion-row class="ion-margin">
+      <ion-col size="12">
+        <ion-text color="primary">
+          <h1>{{ data.result.programName }}</h1>
+          <p>
+            {{ showMore ? data.result.description : (data.result.description | slice:0:characterLimit) }} 
+            @if(!showMore && data?.result?.description?.length > characterLimit){
+              <span>.....</span>
+            }
+            @if(data?.result?.description?.length > characterLimit){
+              <span class="read-more-less" (click)="toggleReadMore()">
+                {{ showMore ? 'Read Less' : 'Read More' }}
+              </span>
+            }
+          </p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+
+  
+  <ion-segment class="custom-segment" [(ngModel)]="Programfilter" (ionChange)="filterChanged($event)">
+    @for(filter of programfilters;track filter){
+      <ion-segment-button  [value]="filter.value">
+        <ion-label>{{ filter.label }}</ion-label>
+      </ion-segment-button>
+    }
+  </ion-segment>
+
+  
+    <ion-list class="card-container" *ngIf="filteredData?.length > 0 ; else noData">
+      @for(item of filteredData;track item){
+        <ion-card class="expandable-card">
+          <ion-card-content class="group-title" (click)="selectSection(item)">
+            <ion-title class="primary-color-text">{{ item?.sectionName }}</ion-title>
+            <ion-icon name="{{ item?.show ? 'chevron-up' : 'chevron-down' }}" slot="end" class="icon"></ion-icon>
+          </ion-card-content>
+          @if(item?.show){
+            <div class="expanded-content">
+              <ion-grid>
+                <ion-row>
+                  @for(section of item?.sectionList;track section){
+                    <ion-col size="12" sizeMd="6">
+                      <ion-card class="section-card" (click)="navigateTo(section)">
+                        <ion-card-content class="section-content">
+                          <ion-label>{{ section?.name }}</ion-label>
+                          @if(section?.certificateTemplateId){
+                            <span class="certificate-tag">Certificate</span>
+                          }
+                        </ion-card-content>
+                      </ion-card>
+                    </ion-col>
+                  }
+                </ion-row>
+              </ion-grid>
+            </div>
+          }
+        </ion-card>
+      }
+    </ion-list>
+  <ng-template #noData>
+    <div class="no-data-container ">
+      <img src="assets/images/no_data.jpg" alt="No data">
+      <p>There are no {{Programfilter}} added to this program</p>
+    </div>
+  </ng-template>
+
+</ion-content>
