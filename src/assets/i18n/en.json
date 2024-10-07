@@ -37,7 +37,7 @@
   "CERTIFICATE_VERIFIED": "Certificate verified",
   "CERTIFICATE_ISSUED": "Certificate issued to",
   "CERTIFICATE_SUCCESS": "For successfully completing the project",
-  "CERTIFICATE_COMPLETION_DATE": "On Elevate on",
+  "CERTIFICATE_COMPLETION_DATE": "On Elevate on {{ completedDate }}",
   "OKAY": "Okay",
   "COPY": "copy",
   "CATEGORY_OVERVIEW": "Category overview",
