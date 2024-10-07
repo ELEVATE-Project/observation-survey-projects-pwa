@@ -49,7 +49,7 @@ export class ProfileImagePage{
   
       case 'REMOVE_PHOTO':
         this.imageRemoveEvent.emit();
-        this.toast.presentToast("PROFILE_PHOTO_REMOVED", "success");
+        this.toast.presentToast("REMOVED_PHOTO", "success");
         break;
   
       default:
@@ -61,10 +61,10 @@ export class ProfileImagePage{
   upload(event: any) {
     const allowedFormats = ['image/jpeg', 'image/png'];
     if (allowedFormats.includes(event.target.files[0].type)) {
-      this.toast.presentToast("PROFILE_IMAGE_ATTACHED", "success");
+      this.toast.presentToast("SUCCESSFULLY_ATTACHED", "success");
       this.imageUploadEvent.emit(event);
     } else {
-      this.toast.presentToast("PROFILE_IMAGE_UPLOAD", "danger");
+      this.toast.presentToast("IMAGE_UPLOAD_MSG", "danger");
     }
   }
 }

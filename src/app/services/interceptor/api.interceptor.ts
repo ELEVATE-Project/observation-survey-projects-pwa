@@ -78,7 +78,7 @@ export class ApiInterceptor implements HttpInterceptor {
     }
   private handleOfflineError(): Observable<any> {
         return throwError(() => ({
-          error:{message: 'You are offline, please connect to a network'}
+          error:{message: 'NETWORK_OFFLINE'}
         }));
   }
 }

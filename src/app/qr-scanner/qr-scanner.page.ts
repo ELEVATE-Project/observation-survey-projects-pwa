@@ -133,7 +133,7 @@ export class QrScannerPage implements OnInit {
               this.utilService.openCertificateVerificationPopover(res.result);
             }, 1000);
           } else {
-            this.toastService.presentToast('SOMETHING_WRONG', 'danger');
+            this.toastService.presentToast('SOMETHING_WENT_WRONG', 'danger');
           }
         },
         (err: any) => {

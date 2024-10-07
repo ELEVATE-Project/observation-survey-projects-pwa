@@ -28,7 +28,7 @@
     <ion-segment class="custom-segment" [(ngModel)]="filter" (ionChange)="filterChanged($event)">
       @for (filter of filters;track filter) {
         <ion-segment-button [value]="filter.value">
-          <ion-label>{{ filter.label }}</ion-label>
+          <ion-label>{{ filter.label  | translate}}</ion-label>
         </ion-segment-button>
       }
     </ion-segment>

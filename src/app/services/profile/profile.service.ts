@@ -36,7 +36,7 @@ export class ProfileService {
       ),
       this.apiBaseService.get(urlConfig['profileListing'].listingUrl).pipe(
         catchError((err) => {
-          this.toastService.presentToast(err?.error?.message || 'PROFILE_DATA_LOAD_ERROR', 'danger');
+          this.toastService.presentToast(err?.error?.message || 'PROFILE_LOAD_ERROR', 'danger');
           return of({ status: 'error', result: {} });
         })
       ),
@@ -53,7 +53,7 @@ export class ProfileService {
       ),
       this.apiBaseService.get(urlConfig['profileListing'].listingUrl).pipe(
         catchError((err) => {
-          this.toastService.presentToast(err?.error?.message || 'PROFILE_DATA_LOAD_ERROR', 'danger');
+          this.toastService.presentToast(err?.error?.message || 'PROFILE_LOAD_ERROR', 'danger');
           return of({ status: 'error', result: {} });
         })
       ),

@@ -350,7 +350,7 @@ export class ProfileEditPage implements isDeactivatable {
     if ((this.formLib && !this.formLib?.myForm.pristine || !this.formJson.isUploaded)) {
       await this.alertService.presentAlert(
         'SAVE_DATA',
-        'UNSAVE',
+        'EXIT_CONFIRMATION_MSG',
         [
           {
             text: "DON'T_SAVE",
@@ -444,7 +444,7 @@ export class ProfileEditPage implements isDeactivatable {
               this.toastService.presentToast('IMAGE_UPLOAD_SUCCESS', 'success');
             },
             error: (err) => {
-              this.toastService.presentToast(err?.error?.message || 'IMAGE_UPLOAD_FAILED', 'danger');
+              this.toastService.presentToast(err?.error?.message || 'UPLOAD_FAILED', 'danger');
             }
           });
       });

@@ -12,8 +12,6 @@ export class AlertService {
 
   async presentAlert(header: string, message: string, buttons: { text: string, cssClass?: string, role?: string, handler?: () => void }[]) {
     this.translate.get([message,header,...buttons.map(b => b.text)]).subscribe(async (data:any) => {
-      message=data[message]
-      header=data[header]
       let translatedButtons = buttons.map(button => ({
         text: data[button.text],
         cssClass: button.cssClass,
@@ -21,8 +19,8 @@ export class AlertService {
         handler: button.handler
       }));
       this.alert = await this.alertController.create({
-        header,
-        message,
+        message:data[message],
+        header:data[header],
         buttons: translatedButtons,
         backdropDismiss: false
       });
