@@ -96,7 +96,7 @@ export class ListingPage implements OnInit {
 
   async getListData() {
     this.showLoading = true;
-    await this.loader.showLoading("Please wait while loading...");
+    await this.loader.showLoading("LOADER_MSG");
     if(this.listType !== 'project'){
       this.filter = '';
     };

@@ -1,28 +1,32 @@
 import { Injectable } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AlertService {
   alert: any;
 
-  constructor(private alertController: AlertController) {}
+  constructor(private alertController: AlertController,private translate:TranslateService) { }
 
   async presentAlert(header: string, message: string, buttons: { text: string, cssClass?: string, role?: string, handler?: () => void }[]) {
-    this.alert = await this.alertController.create({
-      header,
-      message,
-      buttons: buttons.map(button => ({
-        text: button.text,
+    this.translate.get([message,header,...buttons.map(b => b.text)]).subscribe(async (data:any) => {
+      let translatedButtons = buttons.map(button => ({
+        text: data[button.text],
         cssClass: button.cssClass,
         role: button.role,
         handler: button.handler
-      })),
-      cssClass: 'custom-alert',
-      backdropDismiss: false
-    });
+      }));
+      this.alert = await this.alertController.create({
+        message:data[message],
+        header:data[header],
+        buttons: translatedButtons,
+        backdropDismiss: false
+      });
 
     await this.alert.present();
+    });
   }
 
   async dismissAlert() {

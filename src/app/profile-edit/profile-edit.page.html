@@ -5,7 +5,7 @@
         <ion-icon name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Profile Edit</ion-title>
+    <ion-title>{{"PROFILE_EDIT"|translate}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -26,7 +26,7 @@
   <ion-toolbar>
     <ion-button (click)="updateProfile()" expand="block" fill="primary" shape="solid" class="container"
       [disabled]="!(formLib?.myForm?.valid && formLib2?.myForm?.valid)">
-      Update Profile
+      {{"PROFILE_UPDATE"|translate}}
     </ion-button>
   </ion-toolbar>
 </ion-footer>

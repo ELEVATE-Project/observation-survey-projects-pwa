@@ -1,11 +1,11 @@
 export const actions = {
     INTERVALS : {
-        weekly:"Weekly",
-        monthly:"Monthly",
-        quarterly:"Quarterly"
+        weekly:"WEEKLY",
+        monthly:"MONTHLY",
+        quarterly:"QUARTERLY"
     },
     PROJECT_FILTERS : [
-        { value: 'assignedToMe', label: 'Assigned to me' },
-        { value: 'discoveredByMe', label: 'Discovered by me' }
+        { value: 'assignedToMe', label: 'ASSIGNED_TO_ME' },
+        { value: 'discoveredByMe', label: 'DISCOVERED_BY_ME' }
     ]
 }

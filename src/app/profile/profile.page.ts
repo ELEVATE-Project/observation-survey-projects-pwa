@@ -33,11 +33,11 @@ export class ProfilePage {
   }
 
   async loadFormAndData() {
-    await this.loader.showLoading("Please wait while loading...");
+    await this.loader.showLoading("LOADER_MSG");
     this.profileService.getFormJsonAndData()
       .pipe(
         catchError((err) => {
-          this.toastService.presentToast(err?.error?.message || 'Error loading profile data. Please try again later.', 'danger');
+          this.toastService.presentToast(err?.error?.message || 'PROFILE_LOAD_ERROR', 'danger');
           throw err;
         }),
         finalize(async () => await this.loader.dismissLoading())

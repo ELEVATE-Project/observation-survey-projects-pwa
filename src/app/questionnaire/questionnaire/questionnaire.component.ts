@@ -54,11 +54,11 @@ export class QuestionnaireComponent implements OnInit, isDeactivatable {
     }
     if (this.isDirty && !this.saveQuestioner) {
       await this.alertService.presentAlert(
-        'Save Data?',
-        'You have unsaved data, would you like to save it before exiting?',
+        'SAVE_DATA',
+        'EXIT_CONFIRMATION_MSG',
         [
           {
-            text: "Don't Save",
+            text: "DON'T_SAVE",
             cssClass: 'secondary-button',
             role: 'exit',
             handler: () => {
@@ -70,7 +70,7 @@ export class QuestionnaireComponent implements OnInit, isDeactivatable {
             }
           },
           {
-            text: 'Save',
+            text: 'SAVE',
             cssClass: 'primary-button',
             role: 'exit',
             handler: () => {
