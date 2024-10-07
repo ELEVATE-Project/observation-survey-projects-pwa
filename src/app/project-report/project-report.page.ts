@@ -118,7 +118,7 @@ export class ProjectReportPage implements OnInit {
   }
 
   async getReportData(reportType: string) {
-    await this.loader.showLoading('Please wait while loading...');
+    await this.loader.showLoading('LOADER_MSG');
       this.baseApiService.get(urlConfig[this.listType].listingUrl + `?reportType=${reportType}`)
         .pipe(finalize(async () => {
           await this.loader.dismissLoading();
@@ -139,7 +139,7 @@ export class ProjectReportPage implements OnInit {
   }
 
   async share() {
-    await this.loader.showLoading('Preparing the report for sharing...');
+    await this.loader.showLoading('REPORT_SHARING_PROGRESS_MSG');
     try {
       const res = await this.baseApiService.get(urlConfig[this.listType].listingUrl +`?requestPdf=true&reportType=${this.reportType}&programId=${this.programId}`).toPromise();
       if (res?.status === 200 && res.result) {
@@ -160,7 +160,7 @@ export class ProjectReportPage implements OnInit {
           this.setOpenForCopyLink();
         }
       } else {
-        this.toastService.presentToast('Failed to fetch report data for sharing.', 'danger');
+        this.toastService.presentToast('SHARE_REPORT_FAILED', 'danger');
       }
     } catch (err:any) {
       this.toastService.presentToast(err?.error?.message,'danger');
@@ -185,7 +185,7 @@ export class ProjectReportPage implements OnInit {
       popover.onDidDismiss().then((data)=>{
         if(data.data){
           Clipboard.write({ string: this.downloadUrl });
-          this.toastService.presentToast('Link copied to clipboard', 'success');
+          this.toastService.presentToast('LINK_COPY_SUCCESS', 'success');
         }
       })
   }
@@ -202,7 +202,7 @@ export class ProjectReportPage implements OnInit {
   }
 
   async download() {
-    await this.loader.showLoading('Please wait while downloading...');
+    await this.loader.showLoading('DOWNLOAD_PROGRESS_MSG');
     this.baseApiService.get(urlConfig[this.listType].listingUrl + `?requestPdf=true&reportType=${this.reportType}&programId=${this.programId}`)
       .pipe(finalize(async () => {
         await this.loader.dismissLoading();
@@ -219,7 +219,7 @@ export class ProjectReportPage implements OnInit {
             this.downloadFile(res.result.downloadUrl, name);
           }
           else{
-            this.toastService.presentToast("Downloading failed !!", 'danger');
+            this.toastService.presentToast("DOWNLOAD_FAILED", 'danger');
           }
         }
       },

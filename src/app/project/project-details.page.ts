@@ -80,7 +80,7 @@ export class ProjectDetailsPage  implements OnInit {
      popover.onDidDismiss().then((data) => {
       if (data.data) {
         Clipboard.write({ string: value });
-        this.toastService.presentToast('Link copied to clipboard', 'success');
+        this.toastService.presentToast('LINK_COPY_SUCCESS', 'success');
       }
     });
    }

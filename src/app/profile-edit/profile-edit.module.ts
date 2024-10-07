@@ -9,6 +9,7 @@ import { ProfileEditPageRoutingModule } from './profile-edit-routing.module';
 import { ProfileEditPage } from './profile-edit.page';
 import { DynamicFormModule } from 'elevate-dynamic-form';
 import { ProfileImagePageModule } from "../shared/profile-image/profile-image.module";
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     declarations: [ProfileEditPage],
@@ -18,7 +19,8 @@ import { ProfileImagePageModule } from "../shared/profile-image/profile-image.mo
         IonicModule,
         ProfileEditPageRoutingModule,
         DynamicFormModule,
-        ProfileImagePageModule
+        ProfileImagePageModule,
+        TranslateModule
     ]
 })
 export class ProfileEditPageModule {}

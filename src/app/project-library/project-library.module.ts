@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule, Routes } from '@angular/router';
 import { LibraryCategoriesListComponent } from './library-categories-list/library-categories-list.component';
 import { SelectedCategoriesListComponent } from './selected-categories-list/selected-categories-list.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     IonicModule,
+    TranslateModule,
     RouterModule.forChild(routes)
   ],
   declarations: [LibraryCategoriesListComponent, SelectedCategoriesListComponent]

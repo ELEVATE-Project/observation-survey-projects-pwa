@@ -9,13 +9,15 @@ import { ProjectReportPageRoutingModule } from './project-report-routing.module'
 import { ProjectReportPage } from './project-report.page';
 import { PopoverComponent } from '../shared/popover/popover.component';
 import { ReportHeaderComponent } from '../shared/report-header/report-header.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ProjectReportPageRoutingModule
+    ProjectReportPageRoutingModule,
+    TranslateModule
   ],
   declarations: [ProjectReportPage,PopoverComponent,ReportHeaderComponent]
 })

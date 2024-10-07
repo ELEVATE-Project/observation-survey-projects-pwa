@@ -32,6 +32,8 @@
     "@capacitor/share": "^6.0.2",
     "@capacitor/status-bar": "6.0.0",
     "@ionic/angular": "^7.0.0",
+    "@ngx-translate/core": "^15.0.0",
+    "@ngx-translate/http-loader": "^8.0.0",
     "@zxing/browser": "^0.1.5",
     "authentication_frontend_library": "^1.0.2",
     "chart.js": "^4.4.3",
