@@ -3,8 +3,8 @@ import { ActivatedRoute} from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { isDeactivatable } from '../../services/guard/guard.service';
-import { environment } from 'src/environments/environment';
 import { Location } from '@angular/common';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-questionnaire',
   templateUrl: './questionnaire.component.html',
@@ -21,7 +21,7 @@ export class QuestionnaireComponent implements OnInit, isDeactivatable {
   ngOnInit() {
     this.router.params.subscribe(param => {
       this.apiConfig['solutionId'] = param['id']
-      this.apiConfig['baseURL'] = environment.samikshaBaseURL;
+      this.apiConfig['baseURL'] = environment.surveyBaseURL || environment.baseURL;
       this.apiConfig['userAuthToken'] = localStorage.getItem('accToken');
       this.apiConfig['solutionType'] = 'survey';
       this.apiConfig['fileSizeLimit'] = 50;
