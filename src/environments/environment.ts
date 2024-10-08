@@ -10,27 +10,27 @@ export const environment:Environment = {
   production: true,
   baseURL: '<base-url>',
   projectsBaseURL: '<project-base-url>',
-  surveyBaseURL: '<surveu-base-url>'
+  surveyBaseURL: '<survey-base-url>'
 }
 
 //projects and survey for docker
 // export const environment:Environment = {
 //   production: true,
 //   baseURL: window['env' as any]['baseURL' as any] as unknown as string,
-//   projectsBaseURL: '<project-base-url>',
-//   surveyBaseURL: '<surveu-base-url>'
+//   projectsBaseURL: window['env' as any]['projectsBaseURL' as any] as unknown as string,
+//   surveyBaseURL: window['env' as any]['surveyBaseURL' as any] as unknown as string
 // }
 
 //survey-only
 
 // export const environment = {
 //   production: true,
-//   baseURL: "<survey-baseUrl>"
+//   baseURL: "<survey-base-url>"
 // };
 
 //projects-only
 
 // export const environment = {
 //   production: true,
-//   baseURL: "<projects-baseUrl>"
+//   baseURL: "<projects-base-url>"
 // };

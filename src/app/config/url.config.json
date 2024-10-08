@@ -1,5 +1,5 @@
 {
-    "subPrject":"/project",
+    "subProject":"/project",
     "subSurvey":"/survey",
     "survey": {
         "listingUrl": "/survey/v1/solutions/targetedSolutions",
