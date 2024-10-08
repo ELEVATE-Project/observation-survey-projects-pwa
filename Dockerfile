@@ -28,4 +28,4 @@ RUN npm install --force -g serve
 
 EXPOSE 7007
 
-CMD ["sh", "-c", "if [ -f /usr/src/app/www/assets/env/env.js ]; then echo 'Using custom env.js'; else echo 'Using default env.js'; fi && serve -s www -p 7007"]
+CMD ["serve", "-s", "www", "-p", "7007"]

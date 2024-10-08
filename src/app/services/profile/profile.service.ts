@@ -10,12 +10,15 @@ import { AlertService } from '../alert/alert.service';
 import { Location } from '@angular/common';
 import { FETCH_HOME_FORM } from '../../core/constants/formConstant';
 import { ProjectsApiService } from '../projects-api/projects-api.service';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
+  profileListingUrl = (environment.baseURL.includes('projects') ?  urlConfig.subPrject : urlConfig.subSurvey ) + urlConfig['profileListing'].listingUrl;
+  formListingUrl = (environment.baseURL.includes('projects') ?  urlConfig.subPrject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
   constructor(
     private apiBaseService: ApiBaseService,
     private loader: LoaderService,
@@ -28,13 +31,13 @@ export class ProfileService {
 
   getFormJsonAndData(): Observable<any> {
     return combineLatest([
-      this.apiBaseService.post(urlConfig['formListing'].listingUrl, FETCH_Profile_FORM).pipe(
+      this.apiBaseService.post(this.formListingUrl, FETCH_Profile_FORM).pipe(
         catchError((err) => {
           this.toastService.presentToast(err?.error?.message || 'Error loading form JSON', 'danger');
           return of({ status: 'error', result: {} });
         })
       ),
-      this.apiBaseService.get(urlConfig['profileListing'].listingUrl).pipe(
+      this.apiBaseService.get(this.profileListingUrl).pipe(
         catchError((err) => {
           this.toastService.presentToast(err?.error?.message || 'Error loading profile data', 'danger');
           return of({ status: 'error', result: {} });
@@ -51,7 +54,7 @@ export class ProfileService {
           return of({ status: 'error', result: {} });
         })
       ),
-      this.apiBaseService.get(urlConfig['profileListing'].listingUrl).pipe(
+      this.apiBaseService.get(this.profileListingUrl).pipe(
         catchError((err) => {
           this.toastService.presentToast(err?.error?.message || 'Error loading profile data', 'danger');
           return of({ status: 'error', result: {} });
@@ -118,7 +121,7 @@ export class ProfileService {
 
   async getHomeConfig(listType: any, isReport?: boolean): Promise<any> {
     try {
-      const response: any = await firstValueFrom(this.projectsApiService.post(urlConfig['formListing'].listingUrl, FETCH_HOME_FORM));
+      const response: any = await firstValueFrom(this.projectsApiService.post(this.formListingUrl, FETCH_HOME_FORM));
       if (response.status === 200 && response.result) {
         let data = response.result.data;
         let solutionList = data.find((item: any) => item.type === 'solutionList');

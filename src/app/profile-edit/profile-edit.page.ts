@@ -11,8 +11,8 @@ import { ProfileService } from '../services/profile/profile.service';
 import { AlertService } from '../services/alert/alert.service';
 import { Router } from '@angular/router';
 import { isDeactivatable } from '../services/guard/guard.service';
-import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 import { Location } from '@angular/common';
+import { ApiBaseService } from '../services/base-api/api-base.service';
 
 @Component({
   selector: 'app-profile-edit',
@@ -32,7 +32,7 @@ export class ProfileEditPage implements isDeactivatable {
   dynamicEntityValueChanged:boolean = false;
 
   constructor(
-    private apiBaseService: ProjectsApiService,
+    private apiBaseService: ApiBaseService,
     private loader: LoaderService,
     private toastService: ToastService,
     private navCtrl: NavController,
