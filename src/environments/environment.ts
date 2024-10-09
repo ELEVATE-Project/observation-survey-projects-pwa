@@ -5,7 +5,7 @@ interface Environment {
   projectsBaseURL?:string;
 }
 
-//projects and survey for docker
+//projects and survey for non-docker
 export const environment:Environment = {
   production: true,
   baseURL: '<base-url>',

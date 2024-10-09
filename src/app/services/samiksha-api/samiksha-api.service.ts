@@ -10,6 +10,6 @@ export class SamikshaApiService extends ApiBaseService {
 
   constructor(public override http:HttpClient) {
     super(http);
-    this.baseURL = environment.surveyBaseURL || environment.baseURL;
+    this.baseURL = environment.surveyBaseURL ?? environment.baseURL;
    }
 }
