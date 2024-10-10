@@ -30,15 +30,12 @@ export class UtilService {
     await popover.onDidDismiss(); 
   }
 
-  clearDatabase(){
-    let a = window.indexedDB.open("projectPlayer", 1);
-      a.onsuccess = async e => {
-        const db = (e.target as IDBRequest).result;
-        const transaction = db.transaction(["projects"], "readwrite");
-        const store = transaction.objectStore("projects");
-        const request = store.clear();
-        request.onsuccess = () => {
-        };
-      };
+  async clearDatabase(){
+    const db = await this.dbServices.openDatabase();
+    if (db) {
+      await this.dbServices.clearDb(db, 'projects');
+      await this.dbServices.clearDb(db, 'downloadedProjects');
+    }
   }
+
 }

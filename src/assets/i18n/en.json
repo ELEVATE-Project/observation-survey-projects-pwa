@@ -57,5 +57,10 @@
   "DISCOVERED_BY_ME":"Discovered by me",
   "WEEKLY":"Weekly",
   "MONTHLY":"Monthly",
-  "QUARTERLY":"Quarterly"
-} 
+  "QUARTERLY":"Quarterly",
+  "DOWNLOADS":"Downloads",
+  "DELETE":"Delete",
+  "DELETE_CONTENT_HEAD":"Delete Content ?",
+  "DELETE_CONTENT_MSG":"Deleting content will remove content from local",
+  "CANCEL":"Cancel"
+}

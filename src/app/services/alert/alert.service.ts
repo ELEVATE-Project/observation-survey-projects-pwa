@@ -11,22 +11,21 @@ export class AlertService {
   constructor(private alertController: AlertController,private translate:TranslateService) { }
 
   async presentAlert(header: string, message: string, buttons: { text: string, cssClass?: string, role?: string, handler?: () => void }[]) {
-    this.translate.get([message,header,...buttons.map(b => b.text)]).subscribe(async (data:any) => {
-      let translatedButtons = buttons.map(button => ({
-        text: data[button.text],
-        cssClass: button.cssClass,
-        role: button.role,
-        handler: button.handler
-      }));
-      this.alert = await this.alertController.create({
-        message:data[message],
-        header:data[header],
-        buttons: translatedButtons,
-        backdropDismiss: false
-      });
-
-    await this.alert.present();
+    const translation = await this.translate.get([message,header,...buttons.map(b => b.text)]).toPromise();
+    const translatedButtons = buttons.map(button => ({
+      text: translation[button.text],
+      cssClass: button.cssClass,
+      role: button.role,
+      handler: button.handler
+    }));
+    this.alert = await this.alertController.create({
+      message: translation[message],
+      header: translation[header],
+      buttons: translatedButtons,
+      backdropDismiss: false
     });
+    
+    await this.alert.present();
   }
 
   async dismissAlert() {
