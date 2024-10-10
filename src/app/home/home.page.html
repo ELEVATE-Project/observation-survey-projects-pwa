@@ -5,8 +5,13 @@
     </ion-title>
 
     <ion-buttons slot="end">
-      <ion-button routerLink="/profile">
-        {{"PROFILE"|translate}}
+      <ion-button routerLink="/project-downloads">
+        {{"DOWNLOADS"|translate}}
+      </ion-button>
+      <ion-button  routerLink="/profile">
+        <span class="profile-button ion-padding-horizontal">
+          {{"PROFILE"|translate}}
+        </span>
       </ion-button>
       <ion-button (click)="logout()">
         {{"LOGOUT"|translate}}

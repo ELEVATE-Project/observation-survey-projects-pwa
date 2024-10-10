@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" (click)="goBack()"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <ion-list class="listTitle">
+    <ion-row class="ion-margin">
+      <ion-col size="12">
+        <ion-text color="primary">
+          <h1>{{"DOWNLOADS"|translate}}</h1>
+          <p></p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+  <ion-grid>
+    <ion-row  *ngIf="projectsList.length > 0; else noData" >
+      @for (item of projectsList; track $index) {
+        <ion-col size="12" size-md="6" class="listing-card">
+          <ion-card class="card">
+            <ion-card-content>
+              <div class="list-card-div">
+                <div class="list-card-head" (click)="navigate(item.keyid)">
+                  <h1 style="color: var(--ion-color-primary);" >
+                    {{item.data.title}}
+                  </h1>
+                  <p>{{item.data.description}}</p>
+                </div>
+                <div class="list-card-delete">
+                  <button class="delete-button" (click)="deletePopup(item.keyid)">
+                    <span class="delete-text">{{"DELETE"|translate}}</span>
+                    <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+                  </button>
+                </div>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      }
+    </ion-row>
+    <ng-template #noData>
+      <div class="no-data-container ion-margin-top" >
+        <img src="assets/images/no_data.jpg" alt="No data">
+      </div>
+    </ng-template>
+  </ion-grid>
+</ion-content>

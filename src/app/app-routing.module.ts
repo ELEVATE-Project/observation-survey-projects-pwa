@@ -28,6 +28,10 @@ const routes: Routes = [
     loadChildren: () => import('./qr-scanner/qr-scanner.module').then( m => m.QrScannerPageModule)
   },
   {
+    path: 'project-downloads',
+    loadChildren: () => import('./download-list/download-list.module').then( m => m.DownloadListPageModule)
+  },
+  {
     path: 'listing/:type',
     loadChildren: () => import('./listing/listing.module').then( m => m.ListingPageModule),
     canActivate: [AuthGuard]
