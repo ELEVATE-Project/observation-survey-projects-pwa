@@ -10,24 +10,24 @@ import { DbService } from '../services/db/db.service';
   styleUrls: ['./download-list.page.scss'],
 })
 export class DownloadListPage implements OnInit {
-  constructor(private navCtrl: NavController,private router:Router,private alertService:AlertService,private dbServices:DbService ) { }
-  resultsWithDownload: any[]=[];
+  constructor(private navCtrl: NavController,private router:Router,private alertService:AlertService,private dbService:DbService ) { }
+  projectsList: any[]=[];
 
   async ngOnInit() {
-    await this.dbServices.openDatabase();
+    await this.dbService.openDatabase();
     this.getdata();
   }
 
   async getdata(){
-    this.resultsWithDownload = await this.dbServices.getAllTransactions()
+    this.projectsList = await this.dbService.getAllTransactions()
   }
 
   goBack() {
     this.navCtrl.back();
   }
 
-  navigate(data:any) {
-    this.router.navigate(['project-details'], { state: { _id:data || null} });
+  navigate(id:any) {
+    this.router.navigate(['project-details'], { state: { _id:id || null} });
   }
 
   async deletePopup(key: any) {
@@ -60,10 +60,10 @@ export class DownloadListPage implements OnInit {
 
       let alertResponse =  await this.alertService.alert.onDidDismiss();
       if (alertResponse.role === 'delete') {
-      await this.dbServices.deleteTransaction(key);
+      await this.dbService.deleteTransaction(key);
       this.getdata();
-      let data = await this.dbServices.getTransaction(key);
-      this.dbServices.updateTransaction(data);
+      let data = await this.dbService.getTransaction(key);
+      this.dbService.updateTransaction(data);
         return true;
       }
     return false;

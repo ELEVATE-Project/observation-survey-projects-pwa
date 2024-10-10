@@ -15,12 +15,12 @@
     flex-direction: column;
   }
 
-  .tiel{
+  .card{
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
   }
 
-  .tiel:hover {
+  .card:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }

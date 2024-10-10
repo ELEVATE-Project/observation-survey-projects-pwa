@@ -28,7 +28,7 @@ const routes: Routes = [
     loadChildren: () => import('./qr-scanner/qr-scanner.module').then( m => m.QrScannerPageModule)
   },
   {
-    path: 'download-list',
+    path: 'project-downloads',
     loadChildren: () => import('./download-list/download-list.module').then( m => m.DownloadListPageModule)
   },
   {
