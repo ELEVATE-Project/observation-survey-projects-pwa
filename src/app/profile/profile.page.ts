@@ -5,7 +5,8 @@ import { LoaderService } from '../services/loader/loader.service';
 import { catchError, finalize } from 'rxjs';
 import { ToastService } from '../services/toast/toast.service';
 import urlConfig from 'src/app/config/url.config.json';
-import { ProjectsApiService } from '../services/projects-api/projects-api.service';
+import { ApiBaseService } from '../services/base-api/api-base.service';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -17,12 +18,13 @@ export class ProfilePage {
   enableFormOne: boolean = false;
   enableFormTwo: boolean = false;
   formJson2:any;
+  formListingUrl = (environment.baseURL.includes('projects') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
 
   constructor(private profileService: ProfileService,
     private navCtrl: NavController,
     private loader: LoaderService,
     private toastService: ToastService,
-    private apiBaseService: ProjectsApiService,
+    private apiBaseService: ApiBaseService,
 
   ) { }
 
@@ -131,7 +133,7 @@ export class ProfilePage {
       type: firstLoad? subType?.externalId: subType,
       subType: firstLoad? subType?.externalId : subType
     }
-    this.apiBaseService.post(urlConfig['formListing'].listingUrl, entityForm)
+    this.apiBaseService.post(this.formListingUrl, entityForm)
     .subscribe({
       next:
       (res:any) => {

@@ -10,6 +10,6 @@ export class ProjectsApiService extends ApiBaseService {
 
   constructor(public override http:HttpClient) {
     super(http);
-    this.baseURL = environment.projectsBaseURL
+    this.baseURL = environment.projectsBaseURL ?? environment.baseURL;
    }
 }
