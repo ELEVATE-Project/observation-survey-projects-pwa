@@ -57,5 +57,15 @@
   "DISCOVERED_BY_ME":"Discovered by me",
   "WEEKLY":"Weekly",
   "MONTHLY":"Monthly",
-  "QUARTERLY":"Quarterly"
+  "QUARTERLY":"Quarterly",
+  "ALL":"All",
+  "PROJECTS":"Projects",
+  "SURVEYS":"Surveys",
+  "READ_LESS":"Read Less",
+  "READ_MORE":"Read More",
+  "PROGRAM_NO_RESOURCES":"Change profile details to view resources of this program",
+  "NO_RESULTS":"No results found.",
+  "PROGRAM_NO_FILTER_DATA_MSG":"There is no {{programFilter}} added to this program",
+  "STATE":"State :",
+  "RECOMMENED_FOR":"Recommened For : "
 } 
