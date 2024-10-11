@@ -60,7 +60,7 @@
   "QUARTERLY":"Quarterly",
   "DOWNLOADS":"Downloads",
   "DELETE":"Delete",
-  "DELETE_CONTENT_HEAD":"Delete Content ?",
+  "DELETE_CONTENT":"Delete Content?",
   "DELETE_CONTENT_MSG":"Deleting content will remove content from local",
   "CANCEL":"Cancel"
 }
