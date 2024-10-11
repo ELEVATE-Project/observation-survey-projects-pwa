@@ -1,4 +1,6 @@
 {
+    "subProject":"/project",
+    "subSurvey":"/survey",
     "survey": {
         "listingUrl": "/survey/v1/solutions/targetedSolutions",
         "reportUrl":"/survey/v1/reports/submissionReport?submissionId="
@@ -14,13 +16,13 @@
         "entityConfigUrl" : "/project/v1/configurations/read"
     },
     "formListing": {
-        "listingUrl": "/project/v1/forms/read"
+        "listingUrl": "/v1/forms/read"
     },
     "entityListing":{
         "listingUrl": "/entity-management/v1/entities"
     },
     "profileListing": {
-        "listingUrl": "/project/v1/profile/read",
+        "listingUrl": "/v1/profile/read",
         "updateUrl": "/user/v1/user/update",
         "entityUrl": "/entityListBasedOnEntityType?entityType=",
         "subEntityUrl": "/subEntityList",

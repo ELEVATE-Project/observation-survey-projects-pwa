@@ -1,13 +1,13 @@
 import {  Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController, PopoverController } from '@ionic/angular';
-import { environment } from 'src/environments/environment';
 import { ProfileService } from '../services/profile/profile.service';
 import { UtilService } from '../services/util/util.service';
 import { Share } from '@capacitor/share';
 import { Clipboard } from '@capacitor/clipboard'
 import { ToastService } from '../services/toast/toast.service';
 import { ShareLinkPopupComponent } from '../shared/share-link-popup/share-link-popupcomponent';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-project',
@@ -19,7 +19,7 @@ export class ProjectDetailsPage  implements OnInit {
   projectData:any;
   config = {
     maxFileSize: 50,
-    baseUrl: environment.projectsBaseURL,
+    baseUrl: environment.projectsBaseURL ?? environment.baseURL,
     accessToken: localStorage.getItem('accToken'),
     profileInfo: {}
   }
