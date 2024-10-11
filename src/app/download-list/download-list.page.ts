@@ -36,7 +36,7 @@ export class DownloadListPage implements OnInit {
     }
 
     await this.alertService.presentAlert(
-      'DELETE_CONTENT_HEAD',
+      'DELETE_CONTENT',
       'DELETE_CONTENT_MSG',
       [
         {
