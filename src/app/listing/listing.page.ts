@@ -100,7 +100,7 @@ export class ListingPage implements OnInit {
     if(this.listType !== 'project'){
       this.filter = '';
     };
-    (this.listType == 'project' ? this.ProjectsApiService : this.SamikshaApiService)
+    (this.listType == 'project'  || this.listType == 'program' ? this.ProjectsApiService : this.SamikshaApiService)
       .post(
         urlConfig[this.listType].listingUrl + `?type=${this.stateData.solutionType}&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}${this.stateData.reportIdentifier ? `&` +this.stateData.reportIdentifier+`=`+this.reportPage : ''}`, this.entityData)
       .pipe(
@@ -209,6 +209,10 @@ export class ListingPage implements OnInit {
         this.router.navigate(route);
         break;
   
+      case 'program':
+        this.router.navigate(['program-details' ,data._id ]);
+        break;
+
       default:
         console.warn('Unknown listType:', this.listType);
     }

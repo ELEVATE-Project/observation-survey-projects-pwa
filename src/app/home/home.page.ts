@@ -20,7 +20,7 @@ register();
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
-  formListingUrl = (environment.baseURL.includes('projects') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
+  formListingUrl = (environment.baseURL.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
   swiperModules = [IonicSlides];
   jsonData: any;
   baseApiService: any;
