@@ -33,7 +33,8 @@
         "listingUrl":"/project/v1/reports/entity"
     },
     "program":{
-        "listingUrl":"/project/v1/programs/list"
+        "listingUrl":"/project/v1/users/programs",
+        "detailsUrl":"/project/v1/users/solutions"
     },
     "certificate":{
         "verifyCertificateUrl":"/project/v1/userProjects/verifyCertificate",

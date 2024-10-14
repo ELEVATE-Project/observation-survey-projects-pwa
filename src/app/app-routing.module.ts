@@ -28,6 +28,10 @@ const routes: Routes = [
     loadChildren: () => import('./qr-scanner/qr-scanner.module').then( m => m.QrScannerPageModule)
   },
   {
+    path: 'program-details/:id',
+    loadChildren: () => import('./program-details/program-details.module').then( m => m.ProgramDetailsPageModule)
+  },
+  {
     path: 'listing/:type',
     loadChildren: () => import('./listing/listing.module').then( m => m.ListingPageModule),
     canActivate: [AuthGuard]
@@ -60,7 +64,6 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { path: '', loadChildren: () => import('authentication_frontend_library').then(m => m.SlRoutingRoutingModule) },
-
   {
     path: '**',
     redirectTo: 'home'
