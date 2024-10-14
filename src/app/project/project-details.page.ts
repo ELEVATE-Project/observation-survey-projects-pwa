@@ -7,6 +7,7 @@ import { Share } from '@capacitor/share';
 import { Clipboard } from '@capacitor/clipboard'
 import { ToastService } from '../services/toast/toast.service';
 import { ShareLinkPopupComponent } from '../shared/share-link-popup/share-link-popupcomponent';
+import { NetworkServiceService } from 'network-service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -17,6 +18,7 @@ import { environment } from 'src/environments/environment';
 export class ProjectDetailsPage  implements OnInit {
   router: Router;
   projectData:any;
+  isOnline:any;
   config = {
     maxFileSize: 50,
     baseUrl: environment.projectsBaseURL ?? environment.baseURL,
@@ -25,9 +27,17 @@ export class ProjectDetailsPage  implements OnInit {
   }
   showDetails = false
   sharePopupHandler:any
-    constructor(private navCtrl: NavController, private profileService: ProfileService, private utils: UtilService,private toastService:ToastService,private popoverController:PopoverController) {
+    constructor(private navCtrl: NavController, private profileService: ProfileService, private utils: UtilService,private toastService:ToastService,private popoverController:PopoverController,private network:NetworkServiceService) {
       this.router = inject(Router);
+      this.network.isOnline$.subscribe((status: any)=>{
+        this.isOnline=status
+      })
+      if(this.isOnline){
       this.getProfileDetails()
+      }
+      else{
+        this.showDetails = true
+      }
     }
 
     ngOnInit(): void {

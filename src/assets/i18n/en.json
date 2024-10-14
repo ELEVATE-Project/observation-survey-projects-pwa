@@ -53,11 +53,16 @@
   "DON'T_SAVE":"Don't Save",
   "SAVE":"Save",
   "BACK":"Back",
-  "ASSIGNED_TO_ME":"Assigned to me",   
+  "ASSIGNED_TO_ME":"Assigned to me",
   "DISCOVERED_BY_ME":"Discovered by me",
   "WEEKLY":"Weekly",
   "MONTHLY":"Monthly",
   "QUARTERLY":"Quarterly",
+  "DOWNLOADS":"Downloads",
+  "DELETE":"Delete",
+  "DELETE_CONTENT":"Delete Content?",
+  "DELETE_CONTENT_MSG":"Deleting content will remove content from local",
+  "CANCEL":"Cancel",
   "ALL":"All",
   "PROJECTS":"Projects",
   "SURVEYS":"Surveys",
@@ -68,4 +73,4 @@
   "PROGRAM_NO_FILTER_DATA_MSG":"There is no {{filter}} added to this program",
   "STATE":"State",
   "RECOMMENDED_FOR":"Recommended for"
-} 
+}
