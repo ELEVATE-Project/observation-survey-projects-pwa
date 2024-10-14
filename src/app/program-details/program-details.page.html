@@ -13,10 +13,7 @@
       <ion-col size="12">
           <h1>{{ programData.programName }}</h1>
           <p>
-            {{ showMore ? programData.description : (programData.description | slice:0:characterLimit) }} 
-            @if(!showMore && programData?.description?.length > characterLimit){
-              <span>.....</span>
-            }
+            {{ descriptionText }}
             @if(programData?.description?.length > characterLimit){
               <span class="read-more-less" (click)="toggleReadMore()">
                 {{ showMore ? ('READ_LESS' | translate) : ('READ_MORE' | translate) }}
@@ -75,7 +72,7 @@
       <div class="no-data-container" *ngIf="!showLoading">
         @if(!filteredList.length && filterData?.length){
           <h1>{{'NO_RESULTS' | translate}}</h1>
-          <p>{{ 'PROGRAM_NO_FILTER_DATA_MSG' | translate: { programFilter: programFilter } }}</p>
+          <p>{{ 'PROGRAM_NO_FILTER_DATA_MSG' | translate: { filter: programFilter } }}</p>
         }
         @if(!filterData?.length){
           <p>{{"PROGRAM_NO_RESOURCES" | translate}}</p>

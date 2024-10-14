@@ -93,6 +93,13 @@ export class ProgramDetailsPage implements OnInit {
     this.filterData=this.programList.sort((a:any,b:any)=>{return a.order - b.order}).map((item:any)=>({ ...item,show:true}))
   }
 
+  get descriptionText(): string {
+    if (!this.programData || !this.programData.description) return '';
+    return this.showMore || this.programData.description.length <= this.characterLimit 
+      ? this.programData.description 
+      : this.programData.description.slice(0, this.characterLimit) + '....';
+  }
+
   applyFilter(){
     if (this.programFilter === 'all') {
       this.filteredList =  this.filterData.map((item: any) => ({...item,show: false}))
@@ -141,7 +148,7 @@ export class ProgramDetailsPage implements OnInit {
         this.formatList()
         this.applyFilter();
       } else {
-        this.toastService.presentToast(res?.message, 'warning');
+        this.toastService.presentToast(res?.message, 'danger');
       }
     },
     (err: any) => {

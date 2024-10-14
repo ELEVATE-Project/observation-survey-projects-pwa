@@ -65,7 +65,5 @@
   "READ_MORE":"Read More",
   "PROGRAM_NO_RESOURCES":"Change profile details to view resources of this program",
   "NO_RESULTS":"No results found.",
-  "PROGRAM_NO_FILTER_DATA_MSG":"There is no {{programFilter}} added to this program",
-  "STATE":"State :",
-  "RECOMMENED_FOR":"Recommened For : "
+  "PROGRAM_NO_FILTER_DATA_MSG":"There is no {{filter}} added to this program"
 } 
