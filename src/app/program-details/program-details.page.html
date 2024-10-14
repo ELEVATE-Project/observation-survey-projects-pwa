@@ -13,7 +13,7 @@
       <ion-col size="12">
           <h1>{{ programData.programName }}</h1>
           <p>
-            {{ descriptionText }}
+            {{ programDescription }}
             @if(programData?.description?.length > characterLimit){
               <span class="read-more-less" (click)="toggleReadMore()">
                 {{ showMore ? ('READ_LESS' | translate) : ('READ_MORE' | translate) }}

@@ -27,6 +27,7 @@ export class ProgramDetailsPage implements OnInit {
   programData:any;
   filteredList: any;
   filterData:any;
+  programDescription: any;
  
   constructor(private route : ActivatedRoute,
     private navCtrl: NavController,
@@ -64,6 +65,7 @@ export class ProgramDetailsPage implements OnInit {
 
   toggleReadMore() {
     this.showMore = !this.showMore;
+    this.formatDescription()
   }
 
   selectSection(data:any){
@@ -93,11 +95,14 @@ export class ProgramDetailsPage implements OnInit {
     this.filterData=this.programList.sort((a:any,b:any)=>{return a.order - b.order}).map((item:any)=>({ ...item,show:true}))
   }
 
-  get descriptionText(): string {
-    if (!this.programData || !this.programData.description) return '';
-    return this.showMore || this.programData.description.length <= this.characterLimit 
-      ? this.programData.description 
-      : this.programData.description.slice(0, this.characterLimit) + '....';
+  formatDescription() {
+    if (!this.programData || !this.programData.description) {
+      this.programDescription = '';
+    } else if (this.showMore || this.programData.description.length <= this.characterLimit) {
+      this.programDescription = this.programData.description;
+    } else {
+      this.programDescription = this.programData.description.slice(0, this.characterLimit) + '....';
+    }
   }
 
   applyFilter(){
@@ -145,7 +150,8 @@ export class ProgramDetailsPage implements OnInit {
     ).subscribe((res:any)=>{
       if (res?.status == 200) {
         this.programData=res.result;
-        this.formatList()
+        this.formatList();
+        this.formatDescription();
         this.applyFilter();
       } else {
         this.toastService.presentToast(res?.message, 'danger');
