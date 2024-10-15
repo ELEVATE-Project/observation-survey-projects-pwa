@@ -54,9 +54,11 @@
               </div>
               @if(listType == 'program'){
                 <div class="program-container">
+                  <h2 class="state">{{"STATE" | translate}} :
                   @for(state of solution?.metaInformation?.state; track state){
-                    <h2 class="state">{{"STATE" | translate}} : {{state}}</h2>
+                    {{state}}
                   }
+                  </h2>
                     <div class="program-items">
                       <h2 class="state"> {{ "RECOMMENDED_FOR"| translate}} :</h2>
                       @for(roles of solution?.metaInformation?.roles; track roles){
