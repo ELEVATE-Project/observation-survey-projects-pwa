@@ -23,6 +23,7 @@ export class ListingPage implements OnInit {
   listType!: keyof UrlConfig;
   searchTerm: any = "";
   toastService: ToastService;
+  isAPrivateProgram:boolean=false
   stateData: any;
   page: number = 1;
   limit: number = 10;
@@ -102,7 +103,7 @@ export class ListingPage implements OnInit {
     };
     (this.listType == 'project'  || this.listType == 'program' ? this.ProjectsApiService : this.SamikshaApiService)
       .post(
-        urlConfig[this.listType].listingUrl + `?type=${this.stateData.solutionType}&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}${this.stateData.reportIdentifier ? `&` +this.stateData.reportIdentifier+`=`+this.reportPage : ''}`, this.entityData)
+        urlConfig[this.listType].listingUrl + `?${this.listType == 'program'?`${this.stateData.solutionType}=${this.isAPrivateProgram}`:`type=${this.stateData.solutionType}`}&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}${this.stateData.reportIdentifier ? `&` +this.stateData.reportIdentifier+`=`+this.reportPage : ''}`, this.entityData)
       .pipe(
         finalize(async () => {
           await this.loader.dismissLoading();
