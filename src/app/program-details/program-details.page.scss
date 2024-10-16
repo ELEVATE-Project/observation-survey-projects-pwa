@@ -142,13 +142,15 @@ h1,p {
   padding: 3vw;
 }
 
-.no-data-container h1{
-  font-size: 1.563rem;
-  color: #000;
-}
+// .no-data-container h1{
+//   font-size: 1.563rem;
+//   color: #000;
+// }
 
 .no-data-container p {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #8d92a0;
-  overflow-wrap: break-word; 
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  padding: 12px;
+  border-radius: 10px;
 }

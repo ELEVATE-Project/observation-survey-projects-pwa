@@ -25,18 +25,18 @@
   </ion-list>
 
   
-  <ion-segment class="custom-segment" [(ngModel)]="programFilter" (ionChange)="filterChanged($event)">
+  <!-- <ion-segment class="custom-segment" [(ngModel)]="programFilter" (ionChange)="filterChanged($event)">
     @for(filter of programFilters;track filter){
       <ion-segment-button  [value]="filter.value">
         <ion-label>{{ filter.label | translate }}</ion-label>
       </ion-segment-button>
     }
-  </ion-segment>
+  </ion-segment> -->
 
   
-    <ion-list class="card-container" *ngIf="filteredList?.length > 0 ; else noData" >
+    <ion-list class="card-container" *ngIf="filterData?.length > 0 ; else noData" >
 
-        @for(item of filteredList;track item){
+        @for(item of filterData;track item){
           <ion-card class="expandable-card">
             <ion-card-content class="group-title" (click)="selectSection(item)">
               <ion-title class="primary-color-text">{{ item?.sectionName }}</ion-title>
@@ -70,13 +70,13 @@
 
     <ng-template #noData>
       <div class="no-data-container" *ngIf="!showLoading">
-        @if(!filteredList.length && filterData?.length){
+        <!-- @if(!filteredList.length && filterData?.length){
           <h1>{{'NO_RESULTS' | translate}}</h1>
           <p>{{ 'PROGRAM_NO_FILTER_DATA_MSG' | translate: { filter: programFilter } }}</p>
-        }
-        @if(!filterData?.length){
+        } -->
+        <!-- @if(!filterData?.length){ -->
           <p>{{"PROGRAM_NO_RESOURCES" | translate}}</p>
-        }
+        <!-- } -->
       </div>
     </ng-template>
   
