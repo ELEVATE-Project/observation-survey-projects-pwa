@@ -20,8 +20,8 @@ export class ProgramDetailsPage implements OnInit {
   showLoading:boolean = true;
   characterLimit = 150;
   showMore:boolean=false
-  programFilters=actions.PROGRAM_FILTERS;
-  programFilter:any = "all";
+  // programFilters=actions.PROGRAM_FILTERS;
+  // programFilter:any = "all";
   programList:any=[];
   entityData:any;
   programData:any;
@@ -51,17 +51,17 @@ export class ProgramDetailsPage implements OnInit {
   }
   ionViewWillLeave(){
     this.programList=[]
-    this.filteredList=[]
+    // this.filteredList=[]
     this.filterData = []
   }
   goBack() {
     this.navCtrl.back();
   }
 
-  filterChanged(event:any){
-    this.programFilter = event.detail.value;
-    this.applyFilter();
-  }
+  // filterChanged(event:any){
+  //   this.programFilter = event.detail.value;
+  //   this.applyFilter();
+  // }
 
   toggleReadMore() {
     this.showMore = !this.showMore;
@@ -105,14 +105,14 @@ export class ProgramDetailsPage implements OnInit {
     }
   }
 
-  applyFilter(){
-    if (this.programFilter === 'all') {
-      this.filteredList =  this.filterData.map((item: any) => ({...item,show: false}))
-    } else { 
-      this.filteredList = this.filterData.filter((item: any) => item.sectionName === this.programFilter)
-                          .map((item: any) => ({ ...item, show: true }));
-    }
-  }
+  // applyFilter(){
+  //   if (this.programFilter === 'all') {
+  //     this.filteredList =  this.filterData.map((item: any) => ({...item,show: false}))
+  //   } else { 
+  //     this.filteredList = this.filterData.filter((item: any) => item.sectionName === this.programFilter)
+  //                         .map((item: any) => ({ ...item, show: true }));
+  //   }
+  // }
 
   navigateTo(data:any){
     
@@ -152,7 +152,7 @@ export class ProgramDetailsPage implements OnInit {
         this.programData=res.result;
         this.formatList();
         this.formatDescription();
-        this.applyFilter();
+        // this.applyFilter();
       } else {
         this.toastService.presentToast(res?.message, 'danger');
       }
