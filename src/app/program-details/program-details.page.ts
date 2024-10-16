@@ -5,9 +5,8 @@ import { ToastService } from '../services/toast/toast.service';
 import { LoaderService } from '../services/loader/loader.service';
 import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 import { finalize } from 'rxjs';
-import { UrlConfig } from 'src/app/interfaces/main.interface';
 import urlConfig from 'src/app/config/url.config.json';
-import { actions } from '../config/actionContants';
+// import { actions } from '../config/actionContants';
 import { ProfileService } from '../services/profile/profile.service';
 
 @Component({
