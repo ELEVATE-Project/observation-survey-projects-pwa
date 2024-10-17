@@ -143,6 +143,7 @@ export class QrScannerPage implements OnInit {
           }
         },
         (err: any) => {
+          this.headerback()
           this.toastService.presentToast(err?.error?.message, 'danger');
         }
       );
