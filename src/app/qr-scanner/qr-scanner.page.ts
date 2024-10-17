@@ -69,14 +69,20 @@ export class QrScannerPage implements OnInit {
   async startScan() {
     this.stopScanning = false;
     const stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: 'environment' }
+      video:{ 
+        width: { min: 1024, ideal: 1280, max: 1920 },
+        height: { min: 576, ideal: 720, max: 1080 },
+        frameRate: { ideal: 10, max: 15 },
+        facingMode: { exact: 'environment' }, 
+      }
     });
     this.scanActive = true;
     this.videoElement!.srcObject = stream;
     this.videoElement!.setAttribute('playsinline', 'true');
     this.videoElement!.play();
-
+    if (!this.codeReader || this.stopScanning) return;
     this.codeReader?.decodeOnceFromVideoDevice().then((response)=>{
+      if(this.stopScanning) return; 
       if(response){
         this.handleScanResult(response)
       }
@@ -89,6 +95,7 @@ export class QrScannerPage implements OnInit {
   async handleScanResult(result: Result) {
     const scannedUrl = result.getText();
     this.userId = scannedUrl.split('/').pop();
+    await this.stopScan();
     if (scannedUrl.includes('verifyCertificate')) {
       await this.getCertificate();
     } else if (scannedUrl.includes('view/project')) {
@@ -126,7 +133,6 @@ export class QrScannerPage implements OnInit {
       )
       .subscribe(
         async (res: any) => {
-          await this.stopScan();
           this.location.back();
           if (res.result) {
             setTimeout(() => {
