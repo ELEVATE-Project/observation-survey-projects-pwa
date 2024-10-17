@@ -14,6 +14,15 @@ export class DbService {
   openDatabase(): Promise<IDBDatabase> {
     return new Promise((resolve, reject) => {
       const request = indexedDB.open(this.dbName, this.dbVersion);
+      request.onupgradeneeded = (event: IDBVersionChangeEvent) => {
+        const db = (event.target as IDBOpenDBRequest).result;
+        if (!db.objectStoreNames.contains(this.storeProject)) {
+          db.createObjectStore(this.storeProject, { keyPath: 'key' });
+        }
+        if (!db.objectStoreNames.contains(this.storeName)) {
+          db.createObjectStore(this.storeName,{ keyPath: 'keyid'});
+        }
+      };
       request.onsuccess = (event: any) => {
         this.db = (event.target as IDBOpenDBRequest).result;
         resolve(event.target.result);
