@@ -10,7 +10,7 @@ export class AlertService {
 
   constructor(private alertController: AlertController,private translate:TranslateService) { }
 
-  async presentAlert(header: string, message: string, buttons: { text: string, cssClass?: string, role?: string, handler?: () => void }[]) {
+  async presentAlert(header: string, message: string, buttons: { text: string, cssClass?: string, role?: string, handler?: () => void }[], backDrop = false) {
     const translation = await this.translate.get([message,header,...buttons.map(b => b.text)]).toPromise();
     const translatedButtons = buttons.map(button => ({
       text: translation[button.text],
@@ -22,7 +22,7 @@ export class AlertService {
       message: translation[message],
       header: translation[header],
       buttons: translatedButtons,
-      backdropDismiss: false
+      backdropDismiss: backDrop
     });
     
     await this.alert.present();

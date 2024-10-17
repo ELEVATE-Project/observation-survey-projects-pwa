@@ -55,7 +55,8 @@ export class DownloadListPage implements OnInit {
             return true;
           }
         }
-      ]
+      ],
+      true
     );
 
       let alertResponse =  await this.alertService.alert.onDidDismiss();
