@@ -61,8 +61,8 @@
                   </h2>
                     <div class="program-items">
                       <h2 class="state"> {{ "RECOMMENDED_FOR"| translate}} :</h2>
-                      @for(roles of solution?.metaInformation?.roles; track roles){
-                        <div class="role-tag"> {{roles}}</div>
+                      @for(data of solution?.metaInformation?.recommendedFor; track data){
+                        <div class="role-tag"> {{data}}</div>
                       }
                     </div>
                 </div>
