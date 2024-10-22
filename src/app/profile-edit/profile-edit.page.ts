@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { isDeactivatable } from '../services/guard/guard.service';
 import { Location } from '@angular/common';
 import { ApiBaseService } from '../services/base-api/api-base.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profile-edit',
@@ -30,6 +31,7 @@ export class ProfileEditPage implements isDeactivatable {
   localImage: any;
   enableForm: boolean = false;
   dynamicEntityValueChanged:boolean = false;
+  subUrl = environment.capabilities.includes('project' || 'all') ? urlConfig.subProject : urlConfig.subSurvey
 
   constructor(
     private apiBaseService: ApiBaseService,
@@ -38,8 +40,7 @@ export class ProfileEditPage implements isDeactivatable {
     private navCtrl: NavController,
     private attachment: AttachmentService,
     private profileService: ProfileService,
-    private alertService: AlertService,
-    private location: Location
+    private alertService: AlertService
   ) { }
 
   ionViewWillEnter() {
@@ -207,7 +208,7 @@ export class ProfileEditPage implements isDeactivatable {
       subType: firstLoad ? subType?.externalId : subType,
 
     }
-    this.apiBaseService.post(urlConfig['formListing'].listingUrl, entityForm)
+    this.apiBaseService.post(this.subUrl+urlConfig['formListing'].listingUrl, entityForm)
       .subscribe({
         next:
           (res: any) => {

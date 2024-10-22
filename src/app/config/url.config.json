@@ -12,8 +12,7 @@
         "listingUrl": "/project/v1/solutions/targetedSolutions",
         "verifyLink": "/project/v1/solutions/verifyLink/",
         "categoriesList": "/project/v1/library/categories/list",
-        "projectCategories": "/project/v1/library/categories/projects/",
-        "entityConfigUrl" : "/project/v1/configurations/read"
+        "projectCategories": "/project/v1/library/categories/projects/"
     },
     "formListing": {
         "listingUrl": "/v1/forms/read"
@@ -27,7 +26,9 @@
         "entityUrl": "/entityListBasedOnEntityType?entityType=",
         "subEntityUrl": "/subEntityList",
         "getSessionImageUploadUrl":"/user/v1/cloud-services/file/getSignedUrl?fileName=",
-        "getDownloadableUrl":"/user/v1/cloud-services/file/getDownloadableUrl?filePath="
+        "getDownloadableUrl":"/user/v1/cloud-services/file/getDownloadableUrl?filePath=",
+        "entityConfigUrl" : "/v1/configurations/read"
+
     },
     "report":{
         "listingUrl":"/project/v1/reports/entity"
