@@ -70,15 +70,6 @@
                         "redirectionUrl": "/project-library",
                         "listType": "library",
                         "description": ""
-                    },
-                    {
-                        "name": "Programs",
-                        "description": "View and participate in educational programs active in your location and designed for the role you selected",
-                        "img": "assets/images/ic_program.svg",
-                        "listType": "program",
-                        "redirectionUrl": "/listing/program",
-                        "solutionType": "isAPrivateProgram",
-                        "reportPage": false
                     }
                 ]
             }
@@ -144,15 +135,6 @@
                         "redirectionUrl": "/project-library",
                         "listType": "library",
                         "description": ""
-                    },
-                    {
-                        "name": "Programs",
-                        "description": "View and participate in educational programs active in your location and designed for the role you selected",
-                        "img": "assets/images/ic_program.svg",
-                        "listType": "program",
-                        "redirectionUrl": "/listing/program",
-                        "solutionType": "isAPrivateProgram",
-                        "reportPage": false
                     }
                 ]
             }
