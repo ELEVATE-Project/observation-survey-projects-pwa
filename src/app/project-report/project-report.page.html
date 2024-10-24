@@ -7,21 +7,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <ion-grid>
-    <ion-row class="program-listing">
-      <ion-col size="12" >
-        <ion-list>
-          <ion-item>
-            <ion-select   label="Select Program" label-placement="floating" [multiple]="false" [(ngModel)]="selectedProgram" (ionChange)="getprogram($event)">
-              @for(item of programList; track $index){
-                <ion-select-option  [value]="item?._id">{{item.externalId}}</ion-select-option>
-              }
-            </ion-select>
-          </ion-item>
-        </ion-list>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
   <ion-list class="listTitle">
     <ion-row class="ion-margin">
       <ion-col >
@@ -31,6 +16,42 @@
       </ion-col>
     </ion-row>
   </ion-list>
+
+<!-- Input field that opens the modal -->
+  <ion-item (click)="openProgramModal()" class="pointer-cursor">
+    <ion-label position="floating">{{"SELECT_PROGRAM" | translate}}</ion-label>
+    <ion-input readonly [(ngModel)]="selectedProgram"></ion-input>
+  </ion-item>
+
+<!-- Modal -->
+<ion-modal [isOpen]="isProgramModel" class="program-modal">
+    <ng-template>
+      <ion-content [scrollY]="true">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12">
+              @for(item of programList; track $index){
+                <ion-item (click)="selectProgram(item)" class="pointer-cursor">
+                  <ion-label >{{ item.name }}</ion-label>
+                </ion-item>
+              }
+              <ion-infinite-scroll (ionInfinite)="loadMorePrograms($event)">
+                <ion-infinite-scroll-content>
+                </ion-infinite-scroll-content>
+              </ion-infinite-scroll>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        @if(programList.length == 0){
+          <h1 class="no-data"><strong>{{"NO_DATA"|translate}}</strong></h1>
+        }
+        
+      </ion-content>
+      <div class="modal-buttons">
+        <ion-button shape="round" (click)="setProgram(false)" fill="solid">{{"CLOSE"|translate}}</ion-button>
+      </div>
+    </ng-template>
+  </ion-modal>
 
   <ion-grid>
     <ion-row>

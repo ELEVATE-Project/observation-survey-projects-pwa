@@ -106,3 +106,26 @@ ion-select{
   }
 }
 
+
+.program-modal {
+  --width: 60vw; 
+  --max-width: 400px;
+  --height: 50vh; 
+  --max-height: 400px;
+  --border-radius: 15px;
+  --box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+.pointer-cursor {
+  cursor: pointer;
+}
+.no-data{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.modal-buttons{
+  padding: 4px;
+  display: flex;
+  justify-content: flex-end;
+  background-color: #fff;
+}
