@@ -6,12 +6,12 @@ export const FETCH_HOME_FORM: IFORM = {
 }
 
 export const FETCH_HOME_FORM_PROJECT: IFORM = {
-	"type": "homelist",
+	"type": "projectHome",
 	"subType": "project",
 }
 
 export const FETCH_HOME_FORM_SURVEY: IFORM = {
-	"type": "homelist",
+	"type": "surveyHome",
 	"subType": "survey",
 }
 
