@@ -141,7 +141,7 @@ export class ProjectReportPage implements OnInit {
       .subscribe((res: any) => {
         if (res?.status === 200 && res.result?.data?.length) {
           this.programList= [...this.programList, ...res.result.data];
-          this.hasMorePrograms = res.result.data.length === this.limit;
+          this.hasMorePrograms = res.result.count !== this.programList.length;
         }else {
           this.hasMorePrograms = false;
         }

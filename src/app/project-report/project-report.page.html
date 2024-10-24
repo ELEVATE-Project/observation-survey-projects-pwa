@@ -18,7 +18,7 @@
   </ion-list>
 
 <!-- Input field that opens the modal -->
-  <ion-item (click)="openProgramModal()">
+  <ion-item (click)="openProgramModal()" class="pointer-cursor">
     <ion-label position="floating">{{"SELECT_PROGRAM" | translate}}</ion-label>
     <ion-input readonly [(ngModel)]="selectedProgram"></ion-input>
   </ion-item>
@@ -31,8 +31,8 @@
           <ion-row>
             <ion-col size="12">
               @for(item of programList; track $index){
-                <ion-item (click)="selectProgram(item)">
-                  <ion-label>{{ item.name }}</ion-label>
+                <ion-item (click)="selectProgram(item)" class="pointer-cursor">
+                  <ion-label >{{ item.name }}</ion-label>
                 </ion-item>
               }
               <ion-infinite-scroll (ionInfinite)="loadMorePrograms($event)">
