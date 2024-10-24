@@ -31,6 +31,11 @@ export class ProjectReportPage implements OnInit {
   reportType: string = "1";
   programId: string = "";
   isModalOpen = false;
+  isProgramModel=false;
+  page:any=1;
+  limit:any=5;
+  search:any=""
+  hasMorePrograms: boolean = true;
   selectedProgram: string = "";
   programList: any;
   projectsCategories:any;
@@ -98,10 +103,54 @@ export class ProjectReportPage implements OnInit {
         key: 'started',
       },
     ];
-    // this.getPrograms();
+    this.getPrograms();
     setTimeout(() => {
       this.renderChart(this.reportData?.tasks, this.reportData?.categories);
     });
+  }
+
+  openProgramModal() {
+    this.setProgram(true)
+    this.page = 1; 
+    this.programList= [];  
+    this.getPrograms();  
+  }
+
+  selectProgram(item: any) {
+    this.isProgramModel=false;
+    this.selectedProgram = item.name;  
+    this.programId = item._id;
+    this.getReportData()
+  }
+
+  async loadMorePrograms(event: any) {
+    if (!this.hasMorePrograms) {
+      event.target.disabled = true;
+      return;
+    }
+    this.page += 1;  
+    await this.getPrograms(event);
+  }
+  
+  async getPrograms(event?: any) {
+    this.listType='report';
+    this.baseApiService
+      .post(urlConfig[this.listType].getProgramsUrl+`?page=${this.page}&limit=${this.limit}&search=${this.search}`, {})
+      .pipe(finalize(async () => {
+      }))
+      .subscribe((res: any) => {
+        if (res?.status === 200 && res.result?.data?.length) {
+          this.programList= [...this.programList, ...res.result.data];
+          this.hasMorePrograms = res.result.data.length === this.limit;
+        }else {
+          this.hasMorePrograms = false;
+        }
+        if (event) {
+          event.target.complete();
+        }
+      }, (err: any) => {
+        this.toastService.presentToast(err?.error?.message, 'danger');
+      });
   }
 
   goBack() {
@@ -113,13 +162,17 @@ export class ProjectReportPage implements OnInit {
     this.getReportData(this.reportType);
   }
 
+  setProgram(isOpen:boolean){
+    this.isProgramModel = isOpen
+  }
+
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
   }
 
-  async getReportData(reportType: string) {
+  async getReportData(reportType?: string) {
     await this.loader.showLoading('LOADER_MSG');
-      this.baseApiService.get(urlConfig[this.listType].listingUrl + `?reportType=${reportType}`)
+      this.baseApiService.get(urlConfig[this.listType].listingUrl + `?reportType=${reportType}&programId=${this.programId}`)
         .pipe(finalize(async () => {
           await this.loader.dismissLoading();
         }))

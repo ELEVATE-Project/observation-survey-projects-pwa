@@ -72,5 +72,7 @@
   "NO_RESULTS":"No results found.",
   "PROGRAM_NO_FILTER_DATA_MSG":"There is no {{filter}} added to this program",
   "STATE":"State",
-  "RECOMMENDED_FOR":"Recommended for"
+  "RECOMMENDED_FOR":"Recommended for",
+  "SELECT_PROGRAM":"Select Program",
+  "CLOSE":"Close"
 }
