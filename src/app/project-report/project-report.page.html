@@ -32,7 +32,7 @@
             <ion-col size="12">
               @for(item of programList; track $index){
                 <ion-item (click)="selectProgram(item)">
-                  <ion-label class="program">{{ item.name }}</ion-label>
+                  <ion-label>{{ item.name }}</ion-label>
                 </ion-item>
               }
               <ion-infinite-scroll (ionInfinite)="loadMorePrograms($event)">
@@ -42,9 +42,10 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-
-        <h1 class="nodata" *ngIf="programList.length == 0"><strong>{{"NO_DATA"|translate}}</strong></h1>
-
+        @if(programList.length == 0){
+          <h1 class="no-data"><strong>{{"NO_DATA"|translate}}</strong></h1>
+        }
+        
       </ion-content>
       <div class="modal-buttons">
         <ion-button shape="round" (click)="setProgram(false)" fill="solid">{{"CLOSE"|translate}}</ion-button>

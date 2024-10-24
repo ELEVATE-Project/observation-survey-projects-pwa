@@ -33,7 +33,7 @@ export class ProjectReportPage implements OnInit {
   isModalOpen = false;
   isProgramModel=false;
   page:any=1;
-  limit:any=5;
+  limit:any=10;
   search:any=""
   hasMorePrograms: boolean = true;
   selectedProgram: string = "";
