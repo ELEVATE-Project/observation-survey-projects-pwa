@@ -103,7 +103,7 @@ export class ProjectReportPage implements OnInit {
         key: 'started',
       },
     ];
-    this.getPrograms();
+    // this.getPrograms();
     setTimeout(() => {
       this.renderChart(this.reportData?.tasks, this.reportData?.categories);
     });
