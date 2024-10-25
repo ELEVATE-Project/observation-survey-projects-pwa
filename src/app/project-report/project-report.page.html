@@ -21,7 +21,7 @@
       <h1>{{ "SELECT_PROGRAM" | translate }}
         <ion-icon name="caret-down-outline" class="arrow-icon"></ion-icon>
       </h1>
-    <div class="program-selection-input">{{ selectedProgram }}</div>
+    <div class="selected-program">{{ selectedProgram }}</div>
   </div>
 
 <ion-modal [isOpen]="isProgramModel" class="program-modal" (ionModalDidDismiss)="setProgram(false)">
