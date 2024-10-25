@@ -76,7 +76,7 @@
         ]
     },
     {
-        "type": "homelist",
+        "type": "projectHome",
         "subType": "project",
         "action":"skip",
         "data": [
@@ -141,7 +141,7 @@
         ]
     },
     {
-        "type": "homelist",
+        "type": "surveyHome",
         "subType": "survey",
         "action":"skip",
         "data": [
