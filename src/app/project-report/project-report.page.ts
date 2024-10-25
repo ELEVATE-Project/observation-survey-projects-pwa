@@ -37,7 +37,7 @@ export class ProjectReportPage implements OnInit {
   search:any=""
   hasMorePrograms: boolean = true;
   selectedProgram: string = "";
-  programList: any;
+  programList: any = [];
   projectsCategories:any;
   backgroundColors = [
               'rgb(255, 99, 132)',
@@ -103,7 +103,6 @@ export class ProjectReportPage implements OnInit {
         key: 'started',
       },
     ];
-    // this.getPrograms();
     setTimeout(() => {
       this.renderChart(this.reportData?.tasks, this.reportData?.categories);
     });
