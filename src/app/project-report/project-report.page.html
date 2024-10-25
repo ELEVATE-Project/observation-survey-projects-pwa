@@ -17,15 +17,13 @@
     </ion-row>
   </ion-list>
 
-<!-- Input field that opens the modal -->
-  <div (click)="openProgramModal()" class="program-input">
+  <div (click)="openProgramModal()" class="program-selection">
       <h1>{{ "SELECT_PROGRAM" | translate }}
         <ion-icon name="caret-down-outline" class="arrow-icon"></ion-icon>
       </h1>
-    <div class="input-like" id="select-program-label">{{ selectedProgram }}</div>
+    <div class="program-selection-input">{{ selectedProgram }}</div>
   </div>
 
-<!-- Modal -->
 <ion-modal [isOpen]="isProgramModel" class="program-modal" (ionModalDidDismiss)="setProgram(false)">
     <ng-template>
       <ion-content [scrollY]="true">
