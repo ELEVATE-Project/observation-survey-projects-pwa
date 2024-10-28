@@ -2,7 +2,7 @@
     {
         "type": "homelist",
         "subType": "homelists",
-        "action":"skip",
+        "action": "skip",
         "data": [
             {
                 "type": "bannerList",
@@ -78,7 +78,7 @@
     {
         "type": "projectHome",
         "subType": "project",
-        "action":"skip",
+        "action": "skip",
         "data": [
             {
                 "type": "bannerList",
@@ -143,7 +143,7 @@
     {
         "type": "surveyHome",
         "subType": "survey",
-        "action":"skip",
+        "action": "skip",
         "data": [
             {
                 "type": "bannerList",
@@ -194,7 +194,7 @@
     {
         "type": "form",
         "subType": "formFields",
-        "action":"skip",
+        "action": "skip",
         "data": [
             {
                 "name": "name",
@@ -243,6 +243,60 @@
                 "options": [],
                 "dependsOn": "state",
                 "multiple": true,
+                "disable": "false"
+            }
+        ]
+    },
+    {
+        "type": "hsjj",
+        "subType": "hsjj",
+        "data": [
+            {
+                "name": "district",
+                "label": "Select your district",
+                "placeHolder": "Select your district",
+                "value": "",
+                "type": "select",
+                "errorMessage": {
+                    "required": "Please select your district"
+                },
+                "validators": {
+                    "required": true
+                },
+                "options": [],
+                "dependsOn": "state",
+                "disable": "false"
+            },
+            {
+                "name": "block",
+                "label": "Select your block",
+                "placeHolder": "Select your block",
+                "value": "",
+                "type": "select",
+                "errorMessage": {
+                    "required": "Please select your block"
+                },
+                "validators": {
+                    "required": true
+                },
+                "options": [],
+                "dependsOn": "district",
+                "disable": "false"
+            },
+            {
+                "name": "cluster",
+                "label": "Select your cluster",
+                "placeHolder": "Select your cluster",
+                "value": "",
+                "type": "select",
+                "errorMessage": {
+                    "required": "Please select your cluster"
+                },
+                "validators": {
+                    "required": true
+                },
+                "options": [],
+                "dependsOn": "block",
                 "disable": "false"
             }
         ]
