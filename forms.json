@@ -277,7 +277,7 @@
                     "required": "Please select your block"
                 },
                 "validators": {
-                    "required": true
+                    "required": false
                 },
                 "options": [],
                 "dependsOn": "district",
@@ -293,7 +293,7 @@
                     "required": "Please select your cluster"
                 },
                 "validators": {
-                    "required": true
+                    "required": false
                 },
                 "options": [],
                 "dependsOn": "block",
