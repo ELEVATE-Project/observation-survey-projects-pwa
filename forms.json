@@ -248,8 +248,8 @@
         ]
     },
     {
-        "type": "hsjj",
-        "subType": "hsjj",
+        "subType": "KR001",
+        "type": "KR001",
         "data": [
             {
                 "name": "district",
