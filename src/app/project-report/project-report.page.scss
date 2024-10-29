@@ -118,10 +118,14 @@ ion-select{
 .pointer-cursor {
   cursor: pointer;
 }
-.no-data{
+.no-data {
+  width: 100%;
+  max-width: 13.625rem;
   display: flex;
   justify-content: center;
+  align-items: center;
   text-align: center;
+  margin: 0 auto;
 }
 .modal-buttons{
   padding: 4px;
@@ -156,4 +160,11 @@ ion-select{
     font-size: 14px;
   }
 
+}
+
+@media (max-width: 768px) {
+  .no-data {
+    max-width: 10rem; 
+    padding: 30px 0px;
+  }
 }

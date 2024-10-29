@@ -35,7 +35,7 @@
                   <ion-label >{{ item.name }}</ion-label>
                 </ion-item>
               }
-              <ion-infinite-scroll (ionInfinite)="loadMorePrograms($event)">
+              <ion-infinite-scroll (ionInfinite)="loadMorePrograms($event)" [disabled]="programList.length === 0">
                 <ion-infinite-scroll-content>
                 </ion-infinite-scroll-content>
               </ion-infinite-scroll>
@@ -43,7 +43,7 @@
           </ion-row>
         </ion-grid>
         @if(programList.length == 0){
-          <h1 class="no-data"><strong>{{"NO_DATA"|translate}}</strong></h1>
+          <img src="assets/images/no_data.jpg" alt="No data" class="no-data">
         }
         
       </ion-content>
