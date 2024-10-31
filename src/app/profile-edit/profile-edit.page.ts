@@ -260,6 +260,7 @@ export class ProfileEditPage implements isDeactivatable {
     const dependentControls = formArray.filter((formControl: any) => formControl.dependsOn === controlName);
     for (const formControl of dependentControls) {
       formControl.options = [];
+      formControl.value = ''
       this.resetFormControl(formControl.name);
       this.resetDependentControls(formControl.name, selectedValue, formArray);
     }
@@ -267,10 +268,16 @@ export class ProfileEditPage implements isDeactivatable {
 
   resetFormControl(controlName: string) {
     const control = this.formLib?.myForm.get(controlName);
+    const formControlTwo = this.formLib2?.myForm.get(controlName)
     if (control) {
       control.patchValue('');
       control.markAsPristine();
       control.markAsUntouched();
+    }
+    if(formControlTwo){
+      formControlTwo.patchValue('');
+      formControlTwo.markAsPristine();
+      formControlTwo.markAsUntouched();
     }
   }
 
@@ -294,7 +301,6 @@ export class ProfileEditPage implements isDeactivatable {
           location: "bangalore",
           about: "PWA"
         };
-        !this.formJson.isUploaded ? payload.image = "" : payload?.image;
         this.formJson.forEach((control: any) => {
           if (control.dynamicUrl) {
             const controlValues = payload[control.name]
@@ -302,6 +308,8 @@ export class ProfileEditPage implements isDeactivatable {
             payload[control.name] = result;
           }
         });
+        payload = this.removeEmptyValueKeys(payload)
+        !this.formJson.isUploaded ? payload.image = "" : payload?.image;
         this.formJson?.destFilePath ? payload.image = this.formJson?.destFilePath : "";
         this.formJson.isUploaded = true;
         this.apiBaseService.patch(this.urlProfilePath.updateUrl, payload)
@@ -314,6 +322,7 @@ export class ProfileEditPage implements isDeactivatable {
           .subscribe((res: any) => {
             if (res?.result) {
               this.formLib?.myForm.markAsPristine();
+              this.formLib2?.myForm.markAsPristine();
               this.navCtrl.back();
               this.toastService.presentToast(res?.message || 'PROFILE_UPDATE_SUCCESS', 'success');
             } else {
@@ -323,6 +332,7 @@ export class ProfileEditPage implements isDeactivatable {
       }
     } else {
       this.formLib?.myForm.markAllAsTouched();
+      this.formLib2?.myForm.markAllAsTouched();
       this.toastService.presentToast('FORM_REQUIRED_FIELDS_ERROR', 'danger');
     }
   }
@@ -349,7 +359,7 @@ export class ProfileEditPage implements isDeactivatable {
     if (this.alertService.alert) {
       this.alertService.dismissAlert();
     }
-    if ((this.formLib && !this.formLib?.myForm.pristine || !this.formJson.isUploaded)) {
+    if ((this.formLib && !this.formLib?.myForm.pristine || !this.formJson.isUploaded || !this.formLib2?.myForm.pristine)) {
       await this.alertService.presentAlert(
         'SAVE_DATA',
         'EXIT_CONFIRMATION_MSG',
@@ -360,6 +370,7 @@ export class ProfileEditPage implements isDeactivatable {
             role: 'exit',
             handler: () => {
               this.formLib?.myForm.markAsPristine();
+              this.formLib2?.myForm.markAsPristine();
               !this.formJson.isUploaded ? this.formJson.isUploaded = true : this.formJson.isUploaded;
               if (event) {
                 this.navCtrl.back();
@@ -459,5 +470,13 @@ export class ProfileEditPage implements isDeactivatable {
         this.formJson.isUploaded = true;
         this.updateProfile();
       })))
+  }
+
+  removeEmptyValueKeys(data:any){
+    return Object.fromEntries(
+      Object.entries(data).filter(([_,value]) => value !== "" && value !== null && 
+      !(Array.isArray(value) && value.length === 0) && 
+      !(typeof value === "object" && !Array.isArray(value) && Object.keys(value).length === 0))
+    )
   }
 }

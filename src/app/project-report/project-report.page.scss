@@ -135,16 +135,14 @@ ion-select{
 }
 
 .program-selection {
-  display: inline-flex;
-  flex-direction: column;
-  cursor: pointer;
+  margin-left: 20px;
+  margin-top: 14px;
   
   h1 {
-    display: inline-flex;
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    margin: 0;
-    padding-top:12px;
-    padding-left: 20px;
+    cursor: pointer;
   }
 
   .arrow-icon {
@@ -155,11 +153,19 @@ ion-select{
 
   .selected-program {
     width: 100%;
-    padding-top: 2px;
-    padding-left: 20px;
-    font-size: 14px;
+    margin-top: 8px;
+    font-size: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
 
+  .cancel-icon{
+    color: var(--primary-color);
+    font-size: 18px;
+    margin-left: 12px;
+    cursor: pointer;
+  }
 }
 
 @media (max-width: 768px) {
