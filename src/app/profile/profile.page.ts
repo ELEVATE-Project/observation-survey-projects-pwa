@@ -114,6 +114,9 @@ export class ProfilePage {
       }
 
       if (index === lastIndex) {
+        if(enable == "enableFormTwo"){
+          this.formJson2 = formJson.filter((data:any)=>{ return data.value })
+        }
         this[enable] = true;
       }
     });

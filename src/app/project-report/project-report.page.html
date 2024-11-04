@@ -17,14 +17,19 @@
     </ion-row>
   </ion-list>
 
-<!-- Input field that opens the modal -->
-  <ion-item (click)="openProgramModal()" class="pointer-cursor">
-    <ion-label position="floating">{{"SELECT_PROGRAM" | translate}}</ion-label>
-    <ion-input readonly [(ngModel)]="selectedProgram"></ion-input>
-  </ion-item>
+  <div class="program-selection">
+      <h1 (click)="openProgramModal()">{{ "SELECT_PROGRAM" | translate }}
+        <ion-icon name="caret-down-outline" class="arrow-icon"></ion-icon>
+      </h1>
+    @if(selectedProgram){
+      <div class="selected-program">
+        {{ selectedProgram }}
+        <ion-icon name="close-circle" class="cancel-icon" (click)="clearProgramFilter()"></ion-icon>
+      </div>
+    }
+  </div>
 
-<!-- Modal -->
-<ion-modal [isOpen]="isProgramModel" class="program-modal">
+<ion-modal [isOpen]="isProgramModel" class="program-modal" (ionModalDidDismiss)="setProgram(false)">
     <ng-template>
       <ion-content [scrollY]="true">
         <ion-grid>
@@ -35,7 +40,7 @@
                   <ion-label >{{ item.name }}</ion-label>
                 </ion-item>
               }
-              <ion-infinite-scroll (ionInfinite)="loadMorePrograms($event)">
+              <ion-infinite-scroll (ionInfinite)="loadMorePrograms($event)" [disabled]="programList.length === 0">
                 <ion-infinite-scroll-content>
                 </ion-infinite-scroll-content>
               </ion-infinite-scroll>
@@ -43,7 +48,7 @@
           </ion-row>
         </ion-grid>
         @if(programList.length == 0){
-          <h1 class="no-data"><strong>{{"NO_DATA"|translate}}</strong></h1>
+          <img src="assets/images/no_data.jpg" alt="No data" class="no-data">
         }
         
       </ion-content>

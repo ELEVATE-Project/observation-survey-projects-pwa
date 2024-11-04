@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { NavController, PopoverController } from '@ionic/angular';
 import { LoaderService } from '../services/loader/loader.service';
 import urlConfig from 'src/app/config/url.config.json';
@@ -7,8 +7,6 @@ import { finalize } from 'rxjs';
 import { ToastService } from '../services/toast/toast.service';
 import { Chart, registerables } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { ActivatedRoute } from '@angular/router';
-import { Platform } from '@ionic/angular';
 import { Share } from '@capacitor/share';
 import { Clipboard } from '@capacitor/clipboard';
 import { UtilService } from '../services/util/util.service';
@@ -37,7 +35,7 @@ export class ProjectReportPage implements OnInit {
   search:any=""
   hasMorePrograms: boolean = true;
   selectedProgram: string = "";
-  programList: any;
+  programList: any = [];
   projectsCategories:any;
   backgroundColors = [
               'rgb(255, 99, 132)',
@@ -65,9 +63,7 @@ export class ProjectReportPage implements OnInit {
 
   constructor(
     private navCtrl: NavController,
-    private router: ActivatedRoute,
     private utilService: UtilService,
-    private platform: Platform,
     private popoverController: PopoverController
 
   ) {
@@ -80,7 +76,7 @@ export class ProjectReportPage implements OnInit {
 
   ngOnInit() {
     this.listType = 'report';
-    this.getReportData(this.reportType);
+    this.getReportData();
      this.projectsCategories = [
       {
         name: 'Total Projects',
@@ -103,7 +99,6 @@ export class ProjectReportPage implements OnInit {
         key: 'started',
       },
     ];
-    this.getPrograms();
     setTimeout(() => {
       this.renderChart(this.reportData?.tasks, this.reportData?.categories);
     });
@@ -159,7 +154,7 @@ export class ProjectReportPage implements OnInit {
 
   getReportType(e: any) {
     this.reportType = e;
-    this.getReportData(this.reportType);
+    this.getReportData();
   }
 
   setProgram(isOpen:boolean){
@@ -170,9 +165,9 @@ export class ProjectReportPage implements OnInit {
     this.isModalOpen = isOpen;
   }
 
-  async getReportData(reportType?: string) {
+  async getReportData() {
     await this.loader.showLoading('LOADER_MSG');
-      this.baseApiService.get(urlConfig[this.listType].listingUrl + `?reportType=${reportType}&programId=${this.programId}`)
+      this.baseApiService.get(urlConfig[this.listType].listingUrl + `?reportType=${this.reportType}&programId=${this.programId}`)
         .pipe(finalize(async () => {
           await this.loader.dismissLoading();
         }))
@@ -397,7 +392,7 @@ export class ProjectReportPage implements OnInit {
 
   getprogram(event: any) {
     this.programId = event.detail.value;
-    this.getReportData(this.reportType);
+    this.getReportData();
   }
 
   downloadFile(url: any, name: string) {
@@ -412,5 +407,11 @@ export class ProjectReportPage implements OnInit {
       document.body.removeChild(a);
       window.URL.revokeObjectURL(convertedUrl);
     });
+  }
+
+  clearProgramFilter(){
+    this.selectedProgram = ""
+    this.programId = ""
+    this.getReportData()
   }
 }

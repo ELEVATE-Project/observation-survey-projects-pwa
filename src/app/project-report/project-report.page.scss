@@ -118,14 +118,59 @@ ion-select{
 .pointer-cursor {
   cursor: pointer;
 }
-.no-data{
+.no-data {
+  width: 100%;
+  max-width: 13.625rem;
   display: flex;
   justify-content: center;
+  align-items: center;
   text-align: center;
+  margin: 0 auto;
 }
 .modal-buttons{
   padding: 4px;
   display: flex;
   justify-content: flex-end;
   background-color: #fff;
+}
+
+.program-selection {
+  margin-left: 20px;
+  margin-top: 14px;
+  
+  h1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .arrow-icon {
+    font-size: 16px;
+    margin-left: 8px; 
+    color: #555;
+  }
+
+  .selected-program {
+    width: 100%;
+    margin-top: 8px;
+    font-size: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .cancel-icon{
+    color: var(--primary-color);
+    font-size: 18px;
+    margin-left: 12px;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 768px) {
+  .no-data {
+    max-width: 10rem; 
+    padding: 30px 0px;
+  }
 }
