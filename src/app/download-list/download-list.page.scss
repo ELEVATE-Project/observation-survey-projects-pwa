@@ -89,6 +89,7 @@
   }
 
   .download-info{
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 1em;
@@ -96,4 +97,8 @@
 
   .download-info-text{
     color: var(--ion-color-primary);
+  }
+
+  .download-text-span{
+    width: 80%;
   }
