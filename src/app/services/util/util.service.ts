@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CertificateVerificationPopoverComponent } from 'src/app/shared/certificate-verification-popover/certificate-verification-popover.component';
 import { PopoverController } from '@ionic/angular';
 import { DbService } from '../db/db.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -39,4 +40,10 @@ export class UtilService {
     }
   }
 
+  async validateToken(token:any){
+    const tokenDecoded: any = await jwtDecode(token);
+    const tokenExpiryTime = new Date(tokenDecoded.exp * 1000);
+    const currentTime = new Date();
+    return currentTime < tokenExpiryTime;
+  }
 }
