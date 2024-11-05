@@ -18,6 +18,12 @@
     </ion-row>
   </ion-list>
   <ion-grid>
+    <ion-row *ngIf="projectsList.length > 0" class="ion-margin download-info">
+      <ion-icon color="primary" size="large" name="information-circle-outline"></ion-icon>
+      <span>
+        <p class="download-info-text">{{"DOWNLOADS_LOGOUT_INFO_MSG"|translate}}</p>
+      </span>
+    </ion-row>
     <ion-row  *ngIf="projectsList.length > 0; else noData" >
       @for (item of projectsList; track $index) {
         <ion-col size="12" size-md="6" class="listing-card">
