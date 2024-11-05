@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, fromEvent, merge } from 'rxjs';
-import { catchError, map, startWith } from 'rxjs/operators';
+import { Observable, throwError, fromEvent, merge, from } from 'rxjs';
+import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ToastService } from '../toast/toast.service';
 import { UtilService } from '../util/util.service';
+import { ApiWithoutInteceptor } from './api.service';
 @Injectable({
   providedIn: 'root',
 })
 export class ApiInterceptor implements HttpInterceptor {
   private onlineStatus: boolean = true;
-  constructor(private router: Router,private toast:ToastService,private utilService:UtilService) {
+  constructor(private router: Router,private toast:ToastService,private utilService:UtilService,private apiCallWithoutInteceptor:ApiWithoutInteceptor) {
     const onlineEvent = fromEvent(window, 'online').pipe(map(() => true));
     const offlineEvent = fromEvent(window, 'offline').pipe(map(() => false));
     merge(onlineEvent, offlineEvent).pipe(startWith(navigator.onLine)).subscribe(isOnline => {
@@ -25,11 +26,14 @@ export class ApiInterceptor implements HttpInterceptor {
     if (!this.onlineStatus) {
       return this.handleOfflineError();
     }
-    const token = localStorage.getItem('accToken');
-    let authReq = this.addAuthHeader(req, token);
 
-    return next.handle(authReq).pipe(
-      catchError((error: HttpErrorResponse) => this.handleError(error))
+    return from(this.getToken()).pipe(
+      switchMap((token) => {
+        const authReq = this.addAuthHeader(req, token);
+        return next.handle(authReq).pipe(
+        catchError((error: HttpErrorResponse) => this.handleError(error))
+        );
+      })
     );
   }
 
@@ -80,5 +84,21 @@ export class ApiInterceptor implements HttpInterceptor {
         return throwError(() => ({
           error:{message: 'NETWORK_OFFLINE'}
         }));
+  }
+
+  async getToken(): Promise<string | null> {
+    let token = localStorage.getItem('accToken');
+    if (!token) {
+      return null;
+    }
+    const isValidToken = await this.utilService.validateToken(token);
+    if (!isValidToken) {
+      const data = await this.apiCallWithoutInteceptor.getAccessToken();
+      if (data) {
+        localStorage.setItem('accToken', data);
+        return data;
+      }
+    }
+    return token;
   }
 }
