@@ -87,3 +87,13 @@
     display: flex;
     justify-content: center;
   }
+
+  .download-info{
+    display: flex;
+    align-items: center;
+    gap: 1em;
+  }
+
+  .download-info-text{
+    color: var(--ion-color-primary);
+  }
