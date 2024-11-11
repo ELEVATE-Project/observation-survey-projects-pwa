@@ -22,6 +22,8 @@ WORKDIR /usr/src/app
 
 COPY --from=build /app/www ./www
 
+COPY src/assets/env/env.js ./www/assets/env/env.js
+
 RUN npm install --force -g serve
 
 EXPOSE 7007

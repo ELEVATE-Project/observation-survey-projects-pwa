@@ -11,8 +11,9 @@ import { ProfileService } from '../services/profile/profile.service';
 import { AlertService } from '../services/alert/alert.service';
 import { Router } from '@angular/router';
 import { isDeactivatable } from '../services/guard/guard.service';
-import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 import { Location } from '@angular/common';
+import { ApiBaseService } from '../services/base-api/api-base.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profile-edit',
@@ -29,16 +30,17 @@ export class ProfileEditPage implements isDeactivatable {
   formJson2: any;
   localImage: any;
   enableForm: boolean = false;
+  dynamicEntityValueChanged:boolean = false;
+  subUrl = environment.capabilities.includes('project' || 'all') ? urlConfig.subProject : urlConfig.subSurvey
 
   constructor(
-    private apiBaseService: ProjectsApiService,
+    private apiBaseService: ApiBaseService,
     private loader: LoaderService,
     private toastService: ToastService,
     private navCtrl: NavController,
     private attachment: AttachmentService,
     private profileService: ProfileService,
-    private alertService: AlertService,
-    private location: Location
+    private alertService: AlertService
   ) { }
 
   ionViewWillEnter() {
@@ -120,7 +122,7 @@ export class ProfileEditPage implements isDeactivatable {
   
     const hasDynamicUrl = formArray.some((control: any) => control.dynamicUrl);
     const urlPath = this.buildUrlPath(control, entityId);
-  
+
     this.apiBaseService.get(urlPath)
       .pipe(
         catchError(err => {
@@ -187,7 +189,8 @@ export class ProfileEditPage implements isDeactivatable {
 
     if(dynamicEntity){
     this.formJson2 = [];
-    this.getEntityForm(entityId, selectedValue?.value);
+    this.getEntityForm(entityId, control);
+    this.dynamicEntityValueChanged = true;
     }
   }
   
@@ -199,34 +202,47 @@ export class ProfileEditPage implements isDeactivatable {
     this.handleOptionChange(event, this.formJson2, false);
   }
  
-  getEntityForm(subType: any, entityId: any, firstLoad?: any) {
+  getEntityForm(subType: any, entityData: any, firstLoad?: any) {
     const entityForm = {
       type: firstLoad ? subType?.externalId : subType,
       subType: firstLoad ? subType?.externalId : subType,
 
     }
-    this.apiBaseService.post(urlConfig['formListing'].listingUrl, entityForm)
+    this.apiBaseService.post(this.subUrl+urlConfig['formListing'].listingUrl, entityForm)
       .subscribe({
         next:
           (res: any) => {
             this.formJson2 = res?.result?.data || [];
             this.formJson2.map((control: any) => {
-              let entityIds = firstLoad ? entityId?.value : entityId
-              this.getOptionsData(control.name, entityIds, this.formJson2);
-              if (firstLoad) {
-                Object.entries(this.formData || {}).forEach(([key, value]: any) => {
-                  let control = this.formJson2.find((control: any) => control.name === key);
-                  if (control) {
-                    this.updateControlValue(control, value);
-                  }
-                });
+              let entityIds = entityData?.value ;
+
+              const dependentValue = this.getDependentValue(control, entityData);
+          
+              if(dependentValue || !this.dynamicEntityValueChanged){
+                this.getOptionsData(control.name, entityIds, this.formJson2);
+                if (firstLoad) {
+                  Object.entries(this.formData || {}).forEach(([key, value]: any) => {
+                    let control = this.formJson2.find((control: any) => control.name === key);
+                    if (control) {
+                      this.updateControlValue(control, value);
+                    }
+                  });
+                }
               }
+             
             });
           },
         error: (err: any) => {
           this.toastService.presentToast(err?.error?.message, 'danger');
         }
       })
+  }
+
+  getDependentValue(control: any, entityId: any) {
+    if (control?.dependsOn && entityId?.name && control.dependsOn === entityId.name) {
+      return entityId?.value;
+    }
+    return null;
   }
 
   getNextEntityType(currentEntityType: string, formJson?: any): any {
