@@ -17,8 +17,10 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ProfileService {
-  profileListingUrl = (environment.baseURL.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['profileListing'].listingUrl;
-  formListingUrl = (environment.baseURL.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
+  profileListingUrl = (environment.capabilities.includes('project' || 'all') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['profileListing'].listingUrl;
+  formListingUrl = (environment.capabilities.includes('project' || 'all') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;  
+  entityConfigUrl = (environment.capabilities.includes('project' || 'all') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['profileListing'].entityConfigUrl;  
+
   constructor(
     private apiBaseService: ApiBaseService,
     private loader: LoaderService,
@@ -48,7 +50,7 @@ export class ProfileService {
 
   getProfileAndEntityConfigData() {
     return combineLatest([
-      this.apiBaseService.get(urlConfig['project'].entityConfigUrl).pipe(
+      this.apiBaseService.get(this.entityConfigUrl).pipe(
         catchError((err) => {
           this.toastService.presentToast(err?.error?.message || 'FORM_LOAD_ERROR', 'danger');
           return of({ status: 'error', result: {} });

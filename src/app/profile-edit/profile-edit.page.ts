@@ -31,7 +31,7 @@ export class ProfileEditPage implements isDeactivatable {
   localImage: any;
   enableForm: boolean = false;
   dynamicEntityValueChanged:boolean = false;
-  subUrl = (environment.baseURL.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey )
+  subUrl = environment.capabilities.includes('project' || 'all') ? urlConfig.subProject : urlConfig.subSurvey
 
   constructor(
     private apiBaseService: ApiBaseService,
@@ -40,8 +40,7 @@ export class ProfileEditPage implements isDeactivatable {
     private navCtrl: NavController,
     private attachment: AttachmentService,
     private profileService: ProfileService,
-    private alertService: AlertService,
-    private location: Location
+    private alertService: AlertService
   ) { }
 
   ionViewWillEnter() {
