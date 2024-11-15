@@ -49,11 +49,12 @@ export class ProjectDetailsPage  implements OnInit {
     async handleMessage(event: MessageEvent) {
       if (event.data && event.data.type === 'SHARE_LINK') {
         const url = event.data.url;
+        const ProgramName= `Check out ${event.data.name}`
       if (this.utils.isMobile()) {
         try {
           const shareOptions = {
             title: 'Project Report',
-            text: 'Check out this project report',
+            text: ProgramName,
             url: url,
           };
           await Share.share(shareOptions);
