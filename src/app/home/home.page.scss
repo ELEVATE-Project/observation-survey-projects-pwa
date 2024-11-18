@@ -1,6 +1,7 @@
 .header-logo {
-  height: 50px;
-  display: block;
+  min-width: 80px;
+  max-width: 100px;
+  margin-left: 10px;
 }
 
 .banner{
@@ -76,6 +77,16 @@
 @media (max-width:560px) {
   .tiels h1{
     font-size: medium;
+  }
+
+  .buttons-section{
+    ion-button{
+      font-size: 12px;
+    }
+  }
+
+  .header-logo {
+    max-width: 80px;
   }
 }
 
