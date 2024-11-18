@@ -19,7 +19,6 @@ import { environment } from 'src/environments/environment';
 export class ProfileService {
   profileListingUrl = (environment.baseURL.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['profileListing'].listingUrl;
   formListingUrl = (environment.baseURL.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl; 
-
   constructor(
     private apiBaseService: ApiBaseService,
     private loader: LoaderService,

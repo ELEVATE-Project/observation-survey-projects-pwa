@@ -29,7 +29,6 @@
         "getSessionImageUploadUrl":"/user/v1/cloud-services/file/getSignedUrl?fileName=",
         "getDownloadableUrl":"/user/v1/cloud-services/file/getDownloadableUrl?filePath=",
         "refreshTokenUrl":"/user/v1/account/generateToken"
-
     },
     "report":{
         "listingUrl":"/project/v1/reports/entity",

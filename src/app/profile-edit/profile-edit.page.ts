@@ -9,9 +9,7 @@ import { NavController } from '@ionic/angular';
 import { AttachmentService } from '../services/attachment/attachment.service';
 import { ProfileService } from '../services/profile/profile.service';
 import { AlertService } from '../services/alert/alert.service';
-import { Router } from '@angular/router';
 import { isDeactivatable } from '../services/guard/guard.service';
-import { Location } from '@angular/common';
 import { ApiBaseService } from '../services/base-api/api-base.service';
 import { environment } from 'src/environments/environment';
 
@@ -31,7 +29,7 @@ export class ProfileEditPage implements isDeactivatable {
   localImage: any;
   enableForm: boolean = false;
   dynamicEntityValueChanged:boolean = false;
-  subUrl = (environment.baseURL.includes('project') ? urlConfig.subProject : urlConfig.subSurvey )
+  subUrl = (environment.baseURL.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey )
 
   constructor(
     private apiBaseService: ApiBaseService,
