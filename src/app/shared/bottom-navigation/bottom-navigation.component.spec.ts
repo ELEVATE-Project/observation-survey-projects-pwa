@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ReportHeaderComponent } from './report-header.component';
+import { BottomNavigationComponent } from './bottom-navigation.component';
 
-describe('ReportHeaderComponent', () => {
-  let component: ReportHeaderComponent;
-  let fixture: ComponentFixture<ReportHeaderComponent>;
+describe('BottomNavigationComponent', () => {
+  let component: BottomNavigationComponent;
+  let fixture: ComponentFixture<BottomNavigationComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReportHeaderComponent ],
+      declarations: [ BottomNavigationComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ReportHeaderComponent);
+    fixture = TestBed.createComponent(BottomNavigationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
