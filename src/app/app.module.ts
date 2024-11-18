@@ -22,7 +22,6 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { RedirectionHandlerComponent } from './redirection-handler/redirection-handler.component';
 import { BottomNavigationComponent } from './shared/bottom-navigation/bottom-navigation.component';
 
 export function translateHttpLoaderFactory(httpClient: HttpClient) {
@@ -30,7 +29,7 @@ export function translateHttpLoaderFactory(httpClient: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent,CertificateVerificationPopoverComponent,ShareLinkPopupComponent,ShortUrlPipe,RedirectionHandlerComponent, BottomNavigationComponent],
+  declarations: [AppComponent,CertificateVerificationPopoverComponent,ShareLinkPopupComponent,ShortUrlPipe, BottomNavigationComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
     SlAuthLibModule, BrowserAnimationsModule, MatIconModule,
     TranslateModule.forRoot({

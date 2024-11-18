@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'authentication_frontend_library';
-import { RedirectionHandlerComponent } from './redirection-handler/redirection-handler.component';
 const routes: Routes = [
   {
     path: 'home',
@@ -9,16 +8,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'program-details/:id',
-    loadChildren: () => import('./program-details/program-details.module').then( m => m.ProgramDetailsPageModule)
-  },
-  {
     path: 'project-details',
     loadChildren: () => import('./project/project.module').then( m => m.ProjectPageModule),
-  },
-  {
-    path: 'view/:type/:id',
-    component: RedirectionHandlerComponent,
   },
   {
     path: 'profile',
