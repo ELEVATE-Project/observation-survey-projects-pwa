@@ -1,7 +1,7 @@
 interface Environment {
   baseURL: string;
   production: boolean;
-  surveyBaseURL?: string; 
+  surveyBaseURL?: string;
   projectsBaseURL?:string;
   capabilities:'all' | 'project' | 'survey';
 }
@@ -22,7 +22,6 @@ export const environment:Environment = {
   surveyBaseURL: window['env' as any]['surveyBaseURL' as any] as unknown as string,
   capabilities:window['env' as any]['capabilities' as any] as unknown as any
 }
-
 
 //survey-only
 
