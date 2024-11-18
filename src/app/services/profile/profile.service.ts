@@ -17,9 +17,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ProfileService {
-  profileListingUrl = (environment.capabilities.includes('project' || 'all') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['profileListing'].listingUrl;
-  formListingUrl = (environment.capabilities.includes('project' || 'all') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
-  entityConfigUrl = (environment.capabilities.includes('project' || 'all') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['profileListing'].entityConfigUrl;
+  profileListingUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['profileListing'].listingUrl;
+  formListingUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
+  entityConfigUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['profileListing'].entityConfigUrl;
   constructor(
     private apiBaseService: ApiBaseService,
     private loader: LoaderService,

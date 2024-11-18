@@ -18,7 +18,7 @@ export class ProfilePage {
   enableFormOne: boolean = false;
   enableFormTwo: boolean = false;
   formJson2:any;
-  formListingUrl = (environment.capabilities.includes('project' || 'all') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
+  formListingUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
 
   constructor(private profileService: ProfileService,
     private navCtrl: NavController,
