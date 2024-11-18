@@ -7,7 +7,7 @@ import urlConfig from 'src/app/config/url.config.json';
 import { ToastService } from '../services/toast/toast.service';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
-import { FETCH_HOME_FORM } from '../core/constants/formConstant';
+import { FETCH_HOME_FORM, FETCH_HOME_FORM_PROJECT, FETCH_HOME_FORM_SURVEY } from '../core/constants/formConstant';
 import { AuthService } from 'authentication_frontend_library';
 import { UtilService } from 'src/app/services/util/util.service';
 import { ProfileService } from '../services/profile/profile.service';
@@ -20,7 +20,7 @@ register();
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
-  formListingUrl = (environment.baseURL.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
+  formListingUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
   swiperModules = [IonicSlides];
   jsonData: any;
   baseApiService: any;
@@ -58,7 +58,7 @@ export class HomePage {
     await this.loader.showLoading("LOADER_MSG");
     this.baseApiService
       .post(
-        this.formListingUrl, FETCH_HOME_FORM)
+        this.formListingUrl, environment.capabilities == 'all' ? FETCH_HOME_FORM :  environment.capabilities == 'survey' ? FETCH_HOME_FORM_SURVEY : FETCH_HOME_FORM_PROJECT)
       .pipe(
         finalize(async () => {
           await this.loader.dismissLoading();
