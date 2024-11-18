@@ -31,7 +31,7 @@ export class ProfileEditPage implements isDeactivatable {
   localImage: any;
   enableForm: boolean = false;
   dynamicEntityValueChanged:boolean = false;
-  subUrl = environment.capabilities.includes('project' || 'all') ? urlConfig.subProject : urlConfig.subSurvey
+  subUrl = (environment.baseURL.includes('project') ? urlConfig.subProject : urlConfig.subSurvey )
 
   constructor(
     private apiBaseService: ApiBaseService,
