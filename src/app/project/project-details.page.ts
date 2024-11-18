@@ -53,7 +53,7 @@ export class ProjectDetailsPage  implements OnInit {
       if (this.utils.isMobile()) {
         try {
           const shareOptions = {
-            title: 'Project Report',
+            title: 'Share Project',
             text: name,
             url: url,
           };
