@@ -67,3 +67,5 @@ Debugging the Application
 
 1. Open the running app in the browser.
 2. Start inspecting using Chrome dev tools or any alternatives.
+
+            // "scripts": ["node_modules/project-player/project-player-component.js","node_modules/questionnaire-webcomponent/questionnaire-player-webcomponent.js"],
