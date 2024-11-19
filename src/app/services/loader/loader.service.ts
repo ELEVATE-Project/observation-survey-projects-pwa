@@ -10,16 +10,16 @@ export class LoaderService {
   constructor(private loadingCtrl : LoadingController,private translate:TranslateService) { }
 
   async showLoading(message:string){
-    this.translate.get(message).subscribe(data => {
+    this.translate.get(message).subscribe((data:any) => {
       message = data
     })
     this.loading = await this.loadingCtrl.create({
       message: message
     });
-    await this.loading.present();
+    await this.loading?.present();
   }
 
   async dismissLoading(){
-    await this.loading.dismiss();
+    await this.loading?.dismiss();
   }
 }
