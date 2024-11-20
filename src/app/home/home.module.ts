@@ -10,6 +10,7 @@ import { HomePage } from './home.page';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from '../shared/shared.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -17,7 +18,8 @@ import { TranslateModule } from '@ngx-translate/core';
     IonicModule,
     HomePageRoutingModule,
     HttpClientModule,
-    TranslateModule
+    TranslateModule,
+    SharedModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   declarations: [HomePage]

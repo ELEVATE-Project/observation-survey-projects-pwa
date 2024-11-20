@@ -11,9 +11,6 @@ import { ServiceWorkerModule, SwUpdate } from '@angular/service-worker';
 import { environment } from 'src/environments/environment';
 import { of, switchMap } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CertificateVerificationPopoverComponent } from './shared/certificate-verification-popover/certificate-verification-popover.component';
-import { ShareLinkPopupComponent } from './shared/share-link-popup/share-link-popupcomponent';
-import { ShortUrlPipe } from './shared/pipes/short-url.pipe';
 import { MatIconModule } from '@angular/material/icon';
 
 import { 
@@ -22,14 +19,13 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { BottomNavigationComponent } from './shared/bottom-navigation/bottom-navigation.component';
 
 export function translateHttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent,CertificateVerificationPopoverComponent,ShareLinkPopupComponent,ShortUrlPipe, BottomNavigationComponent],
+  declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
     SlAuthLibModule, BrowserAnimationsModule, MatIconModule,
     TranslateModule.forRoot({
@@ -55,8 +51,7 @@ export function translateHttpLoaderFactory(httpClient: HttpClient) {
       useClass: ApiInterceptor,
       multi: true
     },
-    SwUpdate,
-    ShortUrlPipe
+    SwUpdate
   ],
   bootstrap: [AppComponent],
 })

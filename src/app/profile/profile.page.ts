@@ -18,7 +18,7 @@ export class ProfilePage {
   enableFormOne: boolean = false;
   enableFormTwo: boolean = false;
   formJson2:any;
-  formListingUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
+  formListingUrl = (environment.baseURL.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
 
   constructor(private profileService: ProfileService,
     private navCtrl: NavController,
@@ -73,7 +73,7 @@ export class ProfilePage {
     }
     this.formData.roles = formData.user_roles;
     this.mappingAndcheckingLastIndex(formData,this.formJson, 'enableFormOne');
-  
+
   }
 
 
