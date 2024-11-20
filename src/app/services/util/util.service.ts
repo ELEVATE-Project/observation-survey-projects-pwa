@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { CertificateVerificationPopoverComponent } from 'src/app/shared/certificate-verification-popover/certificate-verification-popover.component';
 import { PopoverController } from '@ionic/angular';
 import { DbService } from '../db/db.service';
 import { jwtDecode } from 'jwt-decode';
@@ -17,19 +16,6 @@ export class UtilService {
 
   isLoggedIn(){
     return !!localStorage.getItem('accToken')
-  }
-
-  async openCertificateVerificationPopover(res: any) {
-    const popover = await this.popoverController.create({
-      component: CertificateVerificationPopoverComponent,
-      componentProps: {
-        data: res
-      },
-      cssClass: 'certificate-popup',
-      backdropDismiss: true
-    });
-    await popover.present();
-    await popover.onDidDismiss(); 
   }
 
   async clearDatabase(){
