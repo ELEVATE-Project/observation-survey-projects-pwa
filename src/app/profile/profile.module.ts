@@ -6,7 +6,6 @@ import { ProfilePageRoutingModule } from './profile-routing.module';
 import { ProfilePage } from './profile.page';
 import { DynamicFormModule } from 'elevate-dynamic-form';
 import { ProfileImagePageModule } from "../shared/profile-image/profile-image.module";
-import { CertificateListingPage } from '../certificate-listing/certificate-listing.page';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
@@ -19,6 +18,6 @@ import { TranslateModule } from '@ngx-translate/core';
     ProfileImagePageModule,
     TranslateModule
 ],
-  declarations: [ProfilePage,CertificateListingPage]
+  declarations: [ProfilePage]
 })
 export class ProfilePageModule {}
