@@ -11,11 +11,13 @@
 <ion-content >
 <div class="details-background">
   <div class="details-section">
+    @if(showDetails){
       <questionnaire-player-main
       angular
       [apiConfig]="apiConfig"
       [saveQuestioner]="saveQuestioner"
     ></questionnaire-player-main>
+    }
   </div>
 </div>
 </ion-content>
