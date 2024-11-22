@@ -1,9 +1,7 @@
 <ion-header collapse="fade" class="ion-no-border">
   <ion-toolbar class="header-container">
     <div class="header-content">
-      <!-- Left Section: Back Button and Title -->
       <div class="header-left">
-        <!-- Back Button -->
        <div class="left-container">
         @if(config.showBackButton){
           <ion-buttons slot="start">
@@ -12,17 +10,14 @@
             </ion-button>
           </ion-buttons>
          }
-        <!-- Title -->
          @if(config.title){
-          <h1 class="header-title">{{ config.title }}</h1>
+          <h1 class="header-title">{{ config.title | translate }}</h1>
          }
        </div>
       </div>
-      <!-- Right Section: Actions -->
         <div class="header-actions">
           <ng-content></ng-content>
           @if(config.customActions){
-          <!-- Custom Actions (Buttons) -->
           <ion-buttons  class="buttons-container">
             @for(action of config.customActions;track action){
               <ion-button
@@ -33,7 +28,7 @@
               <ion-icon [name]="action.icon" class="action-icon"></ion-icon>
             }
             @if(action.text){
-              <span class="header-text">{{action.text}}</span>
+              <span class="header-text">{{action.text | translate}}</span>
             }
             </ion-button>
             }
@@ -41,6 +36,5 @@
         }
         </div>
     </div>
-
   </ion-toolbar>
 </ion-header>

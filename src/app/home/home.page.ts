@@ -54,9 +54,6 @@ export class HomePage {
       window.addEventListener('message', this.clearDatabaseHandler);
     this.getHomeListing();
   }
-  startScan() {
-    this.router.navigate(['/qr-scanner']);
-  }
 
   handleActionClick(actionName:String) {
     this.router.navigate(['/save'])
@@ -90,13 +87,6 @@ export class HomePage {
       );
   }
 
-  navigateTo(data: any) {
-    if(data.listType == 'report'){
-      this.router.navigate(['report/list'], { queryParams: { type: data.listType } });
-    }else{
-      this.router.navigate([data?.redirectionUrl], { queryParams: { type: data.listType } });
-    }
-  }
 
   logout() {
     this.authService.logout();

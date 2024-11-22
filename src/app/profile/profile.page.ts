@@ -18,7 +18,7 @@ export class ProfilePage {
   enableFormOne: boolean = false;
   enableFormTwo: boolean = false;
   headerConfig: any = {
-    title: "Profile Details",
+    title: "PROFILE_DETAILS",
     showBackButton:true
   };
   formJson2:any;
