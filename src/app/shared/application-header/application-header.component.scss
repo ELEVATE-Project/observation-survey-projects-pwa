@@ -1,0 +1,68 @@
+.header-container {
+  --background: #f4f4f4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+ion-header.collapsible-header {
+  --opacity: 1;
+  --background: rgba(244, 244, 244, 1);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+//left -section styles 
+.header-left {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem; 
+}
+
+.left-container {
+  display: flex;
+  align-items: center;
+}
+
+.back-button ion-icon {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #38373B;  
+}
+
+.header-title {
+  font-size: 1.2rem;
+  color: #38373B; 
+  margin: 0;
+}
+
+//Right-section styles
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; 
+}
+
+.buttons-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-text {
+  font-size: 8px;
+  text-transform: lowercase;
+}
+
+.action-icon{
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: #38373B; 
+}
