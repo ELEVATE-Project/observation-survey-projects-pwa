@@ -19,6 +19,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SharedModule } from './shared/shared.module';
 
 export function translateHttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
@@ -27,7 +28,7 @@ export function translateHttpLoaderFactory(httpClient: HttpClient) {
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
-    SlAuthLibModule, BrowserAnimationsModule, MatIconModule,
+    SlAuthLibModule, BrowserAnimationsModule, MatIconModule,SharedModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

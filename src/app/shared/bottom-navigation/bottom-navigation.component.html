@@ -1,1 +1,18 @@
-to be developed
+<ion-toolbar class="bottom-nav-bar">
+  <ion-grid>
+    <ion-row>
+      @for (item of navItems; let i = $index; track i) {
+        <ion-col
+        size="auto"
+        class="nav-item"
+        [class.active]="selectedIndex === i"
+        (click)="onNavigate(item.route, i)"
+      >
+        <mat-icon fontSet="material-icons-outlined">{{ item.icon }}</mat-icon>
+        <span class="nav-label">{{ item.label }}</span>
+      </ion-col>
+      }
+
+    </ion-row>
+  </ion-grid>
+</ion-toolbar>

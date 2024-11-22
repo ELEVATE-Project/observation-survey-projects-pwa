@@ -12,26 +12,33 @@ import { MyimprovementCardComponent } from './myimprovement-card/myimprovement-c
 import { MatIconModule } from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
+import { SideNavigationComponent } from './side-navigation/side-navigation.component';
+import { RouterModule } from '@angular/router';
+import { ResponsiveDirective } from './directives/app-responsive/app-responsive.directive';
 
 @NgModule({
     declarations: [
         RecommendationCardComponent,
         BottomNavigationComponent,
+        SideNavigationComponent,
         PopoverComponent,
         ShareLinkPopupComponent,
         ShortUrlPipe,
+        ResponsiveDirective,
         SpotlightCardComponent,
         MyimprovementCardComponent
     ],
-    imports: [CommonModule, IonicModule, TranslateModule,MatIconModule,MatDividerModule,MatButtonModule],
+    imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule,MatDividerModule,MatButtonModule],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     exports: [
         RecommendationCardComponent,
         BottomNavigationComponent,
+        SideNavigationComponent,
         PopoverComponent,
         ShareLinkPopupComponent,
         SpotlightCardComponent,
-        MyimprovementCardComponent
+        MyimprovementCardComponent,
+        ResponsiveDirective
     ],
     providers: [ShortUrlPipe]
 })
