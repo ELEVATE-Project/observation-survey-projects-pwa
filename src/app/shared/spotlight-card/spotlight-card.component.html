@@ -1,0 +1,200 @@
+<div class="cards"
+>
+  <!-- Sparkles SVG -->
+  <div class="sparkles"
+  [ngClass]="{ 'even-card': index % 2 === 0, 'odd-card': index % 2 !== 0 }"
+  >
+    <svg
+      width="166"
+      height="221"
+      viewBox="0 0 166 221"
+      fill="red"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g filter="url(#filter0_d_1883_11750)">
+        <path
+          class="stars"
+          d="M111.142 119.297C96.7787 123.944 86.8388 129.704 79.9649 139.197C73.432 148.219 69.712 160.555 67.5074 178.359C65.954 162.762 63.4384 150.753 57.3143 141.384C50.7646 131.364 40.1396 124.436 22.3887 119.291C38.9081 114.771 49.6088 108.268 56.506 98.0242C62.9288 88.4845 66.0087 75.7619 67.515 58.5427C68.8566 72.2474 70.3311 84.1384 75.5038 94.0175C81.2644 105.019 91.5714 113.471 111.142 119.297Z"
+          fill="#8C4EE0"
+          stroke="#CCA7FF"
+        />
+        <path
+          class="stars"
+          d="M143.367 160.076C134.604 162.977 128.473 166.593 124.202 172.491C120.257 177.939 117.94 185.281 116.527 195.667C115.535 186.597 113.916 179.492 110.244 173.875C106.164 167.633 99.5992 163.298 88.7699 160.07C98.8433 157.224 105.444 153.147 109.734 146.777C113.563 141.089 115.51 133.627 116.518 123.725C117.323 131.563 118.346 138.444 121.379 144.236C124.98 151.114 131.375 156.403 143.367 160.076Z"
+          fill="#8C4EE0"
+          stroke="#CCA7FF"
+        />
+        <path
+          class="stars"
+          d="M133.157 63.6454C124.006 66.6674 117.61 70.4324 113.159 76.58C109.035 82.2754 106.62 89.962 105.152 100.858C104.121 91.3402 102.439 83.8968 98.5973 78.0201C94.3458 71.516 87.4995 67.0003 76.1905 63.6392C86.7105 60.6774 93.5962 56.4321 98.0662 49.7928C102.075 43.8384 104.101 36.0141 105.144 25.6104C105.985 33.8507 107.041 41.0762 110.222 47.1505C113.973 54.3144 120.64 59.8236 133.157 63.6454Z"
+          fill="#8C4EE0"
+          stroke="#CCA7FF"
+        />
+      </g>
+      <defs>
+        <filter
+          id="filter0_d_1883_11750"
+          x="0.5"
+          y="0"
+          width="164.567"
+          height="220.345"
+          filterUnits="userSpaceOnUse"
+          color-interpolation-filters="sRGB"
+        >
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feOffset />
+          <feGaussianBlur stdDeviation="10" />
+          <feComposite in2="hardAlpha" operator="out" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.1 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="BackgroundImageFix"
+            result="effect1_dropShadow_1883_11750"
+          />
+          <feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="effect1_dropShadow_1883_11750"
+            result="shape"
+          />
+        </filter>
+      </defs>
+    </svg>
+  </div>
+  <div
+    class="testimonial-card"
+    (click)="emitStory(spotlightstory.id)"
+    [ngClass]="{ 'even-card': index % 2 === 0, 'odd-card': index % 2 !== 0 }"
+  >
+    <!-- Quote Icon -->
+    <div class="quote-icon">
+      <svg
+        width="102"
+        height="93"
+        viewBox="0 0 102 93"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g filter="url(#filter0_d_1883_11747)">
+          <path
+            class="quote-color"
+            d="M32.75 20C34.6641 20 36.1315 20.8093 37.1523 22.4278C38.1732 24.0488 38.237 25.7169 37.3438 27.4319L31.9844 45.8212L39.6406 45.8212C41.7461 45.8212 43.5479 46.5682 45.0459 48.0623C46.5466 49.5537 47.2969 51.3475 47.2969 53.4437V64.8775C47.2969 66.9737 46.5466 68.7675 45.0459 70.259C43.5479 71.753 41.7461 72.5 39.6406 72.5H28.1563C26.0508 72.5 24.2477 71.753 22.7471 70.259C21.249 68.7675 20.5 66.9737 20.5 64.8775V47.6316C20.5 47.0599 20.5485 46.4717 20.6455 45.867C20.7399 45.2648 20.9466 44.7096 21.2656 44.2015L28.1563 22.8584C28.6029 21.9691 29.2409 21.2704 30.0703 20.7623C30.8997 20.2541 31.793 20 32.75 20ZM67.2031 20C69.1172 20 70.5846 20.8093 71.6055 22.4278C72.6263 24.0488 72.6901 25.7169 71.7969 27.4319L69.1172 36.6266L66.4375 45.8212H74.0938C76.1992 45.8212 78.001 46.5682 79.4991 48.0623C80.9997 49.5537 81.75 51.3475 81.75 53.4437V64.8775C81.75 66.9737 80.9997 68.7675 79.4991 70.259C78.001 71.753 76.1992 72.5 74.0938 72.5H62.6094C60.5039 72.5 58.7009 71.753 57.2002 70.259C55.7022 68.7675 54.9531 66.9737 54.9531 64.8775V47.6316C54.9531 47.0599 55.0003 46.4717 55.0948 45.867C55.1917 45.2648 55.3997 44.7096 55.7188 44.2015L62.6094 22.8584C63.056 21.9691 63.694 21.2704 64.5234 20.7623C65.3529 20.2541 66.2461 20 67.2031 20Z"
+            fill="#8C4EE0"
+          />
+        </g>
+        <defs>
+          <filter
+            id="filter0_d_1883_11747"
+            x="0.5"
+            y="0"
+            width="101.25"
+            height="92.5"
+            filterUnits="userSpaceOnUse"
+            color-interpolation-filters="sRGB"
+          >
+            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feColorMatrix
+              in="SourceAlpha"
+              type="matrix"
+              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+              result="hardAlpha"
+            />
+            <feOffset />
+            <feGaussianBlur stdDeviation="10" />
+            <feComposite in2="hardAlpha" operator="out" />
+            <feColorMatrix
+              type="matrix"
+              values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.1 0"
+            />
+            <feBlend
+              mode="normal"
+              in2="BackgroundImageFix"
+              result="effect1_dropShadow_1883_11747"
+            />
+            <feBlend
+              mode="normal"
+              in="SourceGraphic"
+              in2="effect1_dropShadow_1883_11747"
+              result="shape"
+            />
+          </filter>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- Testimonial Content -->
+    <div class="testimonial-content">
+      <p>{{ spotlightstory?.storydescription | shortUrl }}</p>
+    </div>
+
+    <!-- Author Name -->
+    <div class="testimonial-author">
+      <span>- {{ spotlightstory?.authorname }}</span>
+    </div>
+
+    <!-- Bottom Quote Icon -->
+    <div class="bottom-quote">
+      <svg
+        width="102"
+        height="93"
+        viewBox="0 0 102 93"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g filter="url(#filter0_d_1883_11747)">
+          <path
+            class="quote-color"
+            d="M32.75 20C34.6641 20 36.1315 20.8093 37.1523 22.4278C38.1732 24.0488 38.237 25.7169 37.3438 27.4319L31.9844 45.8212L39.6406 45.8212C41.7461 45.8212 43.5479 46.5682 45.0459 48.0623C46.5466 49.5537 47.2969 51.3475 47.2969 53.4437V64.8775C47.2969 66.9737 46.5466 68.7675 45.0459 70.259C43.5479 71.753 41.7461 72.5 39.6406 72.5H28.1563C26.0508 72.5 24.2477 71.753 22.7471 70.259C21.249 68.7675 20.5 66.9737 20.5 64.8775V47.6316C20.5 47.0599 20.5485 46.4717 20.6455 45.867C20.7399 45.2648 20.9466 44.7096 21.2656 44.2015L28.1563 22.8584C28.6029 21.9691 29.2409 21.2704 30.0703 20.7623C30.8997 20.2541 31.793 20 32.75 20ZM67.2031 20C69.1172 20 70.5846 20.8093 71.6055 22.4278C72.6263 24.0488 72.6901 25.7169 71.7969 27.4319L69.1172 36.6266L66.4375 45.8212H74.0938C76.1992 45.8212 78.001 46.5682 79.4991 48.0623C80.9997 49.5537 81.75 51.3475 81.75 53.4437V64.8775C81.75 66.9737 80.9997 68.7675 79.4991 70.259C78.001 71.753 76.1992 72.5 74.0938 72.5H62.6094C60.5039 72.5 58.7009 71.753 57.2002 70.259C55.7022 68.7675 54.9531 66.9737 54.9531 64.8775V47.6316C54.9531 47.0599 55.0003 46.4717 55.0948 45.867C55.1917 45.2648 55.3997 44.7096 55.7188 44.2015L62.6094 22.8584C63.056 21.9691 63.694 21.2704 64.5234 20.7623C65.3529 20.2541 66.2461 20 67.2031 20Z"
+            fill="#8C4EE0"
+          />
+        </g>
+        <defs>
+          <filter
+            id="filter0_d_1883_11747"
+            x="0.5"
+            y="0"
+            width="101.25"
+            height="92.5"
+            filterUnits="userSpaceOnUse"
+            color-interpolation-filters="sRGB"
+          >
+            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feColorMatrix
+              in="SourceAlpha"
+              type="matrix"
+              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+              result="hardAlpha"
+            />
+            <feOffset />
+            <feGaussianBlur stdDeviation="10" />
+            <feComposite in2="hardAlpha" operator="out" />
+            <feColorMatrix
+              type="matrix"
+              values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.1 0"
+            />
+            <feBlend
+              mode="normal"
+              in2="BackgroundImageFix"
+              result="effect1_dropShadow_1883_11747"
+            />
+            <feBlend
+              mode="normal"
+              in="SourceGraphic"
+              in2="effect1_dropShadow_1883_11747"
+              result="shape"
+            />
+          </filter>
+        </defs>
+      </svg>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,94 @@
+
+.cards{
+  width: 335px;
+  overflow:hidden;
+  display: flex;
+  margin: 10px 0;
+  .sparkles{
+    max-width: 20px;
+    position: relative;
+    z-index: 99;
+    right:20px;
+    top: 48px;
+
+  }
+  cursor: pointer;
+}
+
+.testimonial-card{
+  height: 254px;
+  position: relative;
+  max-width: 315px;
+  min-width: 315px;
+  border-radius: 20px;
+  border: 2px #c0c0c0 solid;
+  color:white;
+  .testimonial-content{
+    max-width: 180px;
+    min-width: 180px;
+    max-height: 165px;
+    position: absolute;
+    z-index: 99;
+    top: 33px;
+    right: 25px;
+    font-size: 12px;
+  }
+  .testimonial-author{
+    max-width: 194px;
+    min-width: 194px;
+    position: absolute;
+    z-index: 99;
+    bottom: 20px;
+    right: 8px;
+    font-size: 12px;
+  }
+  // cursor: pointer;
+  .quote-icon{
+    width: 60px;
+    height: 50px;
+    position: absolute;
+    top: -5px;
+    left: 30px;
+  }
+  .bottom-quote{
+    position: absolute;
+    transform: translate(0, 0) rotate(180deg);
+    bottom: 20px;
+    right: -8px;
+  }
+}
+
+
+.odd-card {
+    background-color: #FF9911;
+
+    p {
+      color: #000;
+    }
+
+    .quote-color {
+      fill: #FED8A699;
+    }
+
+    .stars {
+      fill:  #FED8A6;
+      stroke:  #AD7C3B;
+    }
+  }
+
+  .even-card {
+    background-color: #9261D7;
+
+    p {
+      color: #fff;
+    }
+
+    .quote-color {
+      fill: #8C4EE0;
+    }
+
+    .stars {
+      fill:  #8C4EE0;
+      stroke: #CCA7FF;
+    }
+  }
