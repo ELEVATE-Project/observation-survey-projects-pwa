@@ -1,13 +1,20 @@
 import { Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
-
+import { BehaviorSubject } from 'rxjs';
+import { NavItem } from './interfaces/main.interface';
+import  NavConfig  from './config/nav.config.json';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private swUpdate: SwUpdate) {}
+  private _isNavigationVisible = new BehaviorSubject<boolean>(false);
+  isNavigationVisible$ = this._isNavigationVisible.asObservable();
+  navItems: NavItem[] = NavConfig;
+
+  constructor(private swUpdate: SwUpdate, private router:Router) {}
 
   ngOnInit(){
     if (this.swUpdate.isEnabled) {
@@ -19,5 +26,19 @@ export class AppComponent {
         }
       });
     }
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.updateNavigationVisibility(event.urlAfterRedirects);
+      }
+    });
   }
+
+  private updateNavigationVisibility(currentRoute: string): void {
+    const matchedNavItem = this.navItems.find((item) => item.route === currentRoute);
+    const shouldShowNav = matchedNavItem?.keepNavBar ?? false;
+
+    this._isNavigationVisible.next(shouldShowNav);
+  }
+
 }

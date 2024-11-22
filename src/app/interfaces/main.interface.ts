@@ -24,3 +24,10 @@ export interface UrlConfig {
         listingUrl: string;
     }
   }
+
+export interface NavItem {
+    label: string;
+    icon: string;
+    route: string;
+    keepNavBar: boolean;
+  }

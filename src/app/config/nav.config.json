@@ -1,0 +1,7 @@
+[
+    { "label": "Home", "icon": "home", "route": "/home", "keepNavBar":true },
+    { "label": "Explore", "icon": "search", "route": "/explore", "keepNavBar":true},
+    { "label": "Create", "icon": "add_circle_outlined", "route": "/create", "keepNavBar":false },
+    { "label": "My Journeys", "icon": "folder", "route": "/my-journeys", "keepNavBar":true },
+    { "label": "Profile", "icon": "person", "route": "/profile", "keepNavBar":true}
+]
