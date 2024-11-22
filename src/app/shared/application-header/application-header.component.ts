@@ -7,7 +7,11 @@ import { Location } from '@angular/common';
   styleUrls: ['./application-header.component.scss'],
 })
 export class ApplicationHeaderComponent  implements OnInit {
-  @Input() config:any;
+  @Input() config:any ={
+    showBackButton: false,
+    title:'',
+    customActions: []
+  };
   @Output() actionClick = new EventEmitter<string>();
 
   constructor(private location: Location) {

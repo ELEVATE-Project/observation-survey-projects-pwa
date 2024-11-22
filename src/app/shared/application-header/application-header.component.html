@@ -3,6 +3,7 @@
     <div class="header-content">
       <div class="header-left">
        <div class="left-container">
+        <ng-content select="[header-left-content]"></ng-content>
         @if(config.showBackButton){
           <ion-buttons slot="start">
             <ion-button (click)="onBackClick()">
@@ -16,7 +17,7 @@
        </div>
       </div>
         <div class="header-actions">
-          <ng-content></ng-content>
+          <ng-content select="[header-right-content]"></ng-content>
           @if(config.customActions){
           <ion-buttons  class="buttons-container">
             @for(action of config.customActions;track action){
