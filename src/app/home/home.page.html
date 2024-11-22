@@ -1,15 +1,4 @@
-<ion-header style="padding: 0 1rem;">
-  <ion-toolbar>
-   <h1>Welcome Amoghavarsh</h1>
-   <ion-buttons slot="end">
-    <ion-button class="save">
-      <mat-icon>bookmark_border</mat-icon>
-    </ion-button>
-  </ion-buttons>
-  
-  </ion-toolbar>
-</ion-header>
-
+<app-application-header [config]="headerConfig" (actionClick)="handleActionClick($event)"></app-application-header>
 <ion-content [fullscreen]="true">
 
 </ion-content>

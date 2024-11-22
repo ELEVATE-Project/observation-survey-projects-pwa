@@ -28,6 +28,10 @@ export class HomePage {
   toastService: any;
   loader: LoaderService;
   solutionList: any = [];
+  headerConfig:any={
+    title:"Welcome [user name]",
+     customActions:[{ icon: 'bookmark-outline', actionName: 'save' }]
+   }
   isMobile = this.utilService.isMobile();
   typeTemplateMapping: { [key: string]: TemplateRef<any> } = {};
   @ViewChild('bannerTemplate') bannerTemplate!: TemplateRef<any>;
@@ -52,6 +56,9 @@ export class HomePage {
   }
   startScan() {
     this.router.navigate(['/qr-scanner']);
+  }
+
+  handleActionClick(actionName:String) {
   }
 
   async getHomeListing() {
