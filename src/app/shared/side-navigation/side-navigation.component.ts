@@ -3,22 +3,19 @@ import { Router } from '@angular/router';
 import NavConfig from '../../config/nav.config.json'
 
 @Component({
-  selector: 'app-bottom-navigation',
-  templateUrl: './bottom-navigation.component.html',
-  styleUrls: ['./bottom-navigation.component.scss'],
+  selector: 'app-side-navigation',
+  templateUrl: './side-navigation.component.html',
+  styleUrls: ['./side-navigation.component.scss'],
 })
-export class BottomNavigationComponent {
-
+export class SideNavigationComponent {
   selectedIndex = 0;
 
   navItems = NavConfig;
-
-
   constructor(private router: Router) {}
+
 
   onNavigate(route: string, index: number): void {
     this.selectedIndex = index;
     this.router.navigate([route]);
   }
-
 }
