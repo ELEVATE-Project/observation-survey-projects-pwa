@@ -59,6 +59,7 @@ export class HomePage {
   }
 
   handleActionClick(actionName:String) {
+    this.router.navigate(['/save'])
   }
 
   async getHomeListing() {

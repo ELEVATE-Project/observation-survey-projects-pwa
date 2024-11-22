@@ -23,8 +23,9 @@
           <ng-content></ng-content>
           @if(config.customActions){
           <!-- Custom Actions (Buttons) -->
-          <ion-buttons  class="buttons-container" *ngFor="let action of config.customActions">
-            <ion-button
+          <ion-buttons  class="buttons-container">
+            @for(action of config.customActions;track action){
+              <ion-button
               class="action-button"
               (click)="onActionClick(action.actionName)"
             >
@@ -35,7 +36,7 @@
               <span class="header-text">{{action.text}}</span>
             }
             </ion-button>
-
+            }
           </ion-buttons>
         }
         </div>
