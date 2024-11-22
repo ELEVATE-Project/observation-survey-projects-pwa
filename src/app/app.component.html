@@ -1,3 +1,26 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ng-container *appResponsive="'mobile'">
+    <div class="mobile-layout">
+      <ion-content>
+        <ion-router-outlet></ion-router-outlet>
+      </ion-content>
+      @if(isNavigationVisible$ | async){
+        <app-bottom-navigation></app-bottom-navigation>
+      }
+    </div>
+  </ng-container>
+
+  <ng-container *appResponsive="'desktop'">
+    <div class="desktop-layout">
+      @if(isNavigationVisible$ | async){
+        <app-side-navigation class="side-nav"></app-side-navigation>
+      }
+      <hr>
+      <div class="content-area">
+        <ion-content>
+          <ion-router-outlet></ion-router-outlet>
+        </ion-content>
+      </div>
+    </div>
+  </ng-container>
 </ion-app>

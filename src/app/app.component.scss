@@ -1,0 +1,23 @@
+.mobile-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden; 
+  }
+  
+  .desktop-layout {
+    display: flex;
+    height: 100vh;
+  
+    .side-nav {
+      width: 250px; 
+      height: 100%;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); 
+    }
+  
+    .content-area {
+      flex: 1; 
+      overflow: auto;
+    }
+  }
+  
