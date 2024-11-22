@@ -5,14 +5,16 @@
   </div>
 
   <ul class="side-nav-list">
-    <li
+    @for (item of navItems; let i = $index; track i; ) {
+      <li
       class="side-nav-item"
-      *ngFor="let item of navItems; let i = index"
       [class.active]="selectedIndex === i"
       (click)="onNavigate(item.route, i)"
     >
       <mat-icon fontSet="material-icons-outlined">{{ item.icon }}</mat-icon>
       <span class="label">{{ item.label }}</span>
     </li>
+    }
+
   </ul>
 </div>
