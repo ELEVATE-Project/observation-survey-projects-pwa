@@ -7,6 +7,8 @@ import { BottomNavigationComponent } from './bottom-navigation/bottom-navigation
 import { PopoverComponent } from './popover/popover.component';
 import { ShareLinkPopupComponent } from './share-link-popup/share-link-popupcomponent';
 import { ShortUrlPipe } from './pipes/short-url.pipe';
+import { MatIconModule } from '@angular/material/icon';
+
 
 @NgModule({
     declarations: [
@@ -16,7 +18,7 @@ import { ShortUrlPipe } from './pipes/short-url.pipe';
         ShareLinkPopupComponent,
         ShortUrlPipe
     ],
-    imports: [CommonModule, IonicModule, TranslateModule],
+    imports: [CommonModule, IonicModule, TranslateModule, MatIconModule],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     exports: [
         RecommendationCardComponent,

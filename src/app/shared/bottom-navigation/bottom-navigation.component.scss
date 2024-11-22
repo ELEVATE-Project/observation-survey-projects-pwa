@@ -1,0 +1,43 @@
+ion-button mat-icon {
+  text-transform: none;
+  font-family: 'Material Icons';
+  color: #000;
+}
+
+ion-row{
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.bottom-nav-bar {
+  color: #000;
+  position: fixed;
+  display: flex;
+  bottom: 0;
+  z-index: 10;
+
+  ion-grid {
+    padding: 0;
+    height: 100%;
+  }
+
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px;
+    height: 64px;
+    font-size: xx-small !important;
+    color: #000;
+
+    &.active {
+      color: #8a38f5;
+    }
+
+    .nav-label {
+      font-size: xx-small !important;
+    }
+  }
+}
