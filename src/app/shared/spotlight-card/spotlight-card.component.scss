@@ -15,7 +15,7 @@
   cursor: pointer;
 }
 
-.testimonial-card{
+.spotlight-card{
   height: 254px;
   position: relative;
   max-width: 315px;
@@ -23,7 +23,7 @@
   border-radius: 20px;
   border: 2px #c0c0c0 solid;
   color:white;
-  .testimonial-content{
+  .spotlight-content{
     max-width: 180px;
     min-width: 180px;
     max-height: 165px;
@@ -33,7 +33,7 @@
     right: 25px;
     font-size: 12px;
   }
-  .testimonial-author{
+  .spotlight-author{
     max-width: 194px;
     min-width: 194px;
     position: absolute;
@@ -42,7 +42,6 @@
     right: 8px;
     font-size: 12px;
   }
-  // cursor: pointer;
   .quote-icon{
     width: 60px;
     height: 50px;

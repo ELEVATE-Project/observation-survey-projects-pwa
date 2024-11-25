@@ -1,6 +1,5 @@
-<div class="cards"
+<div class="cards" (click)="onStory(spotLightStory.id)"
 >
-  <!-- Sparkles SVG -->
   <div class="sparkles"
   [ngClass]="{ 'even-card': index % 2 === 0, 'odd-card': index % 2 !== 0 }"
   >
@@ -71,11 +70,9 @@
     </svg>
   </div>
   <div
-    class="testimonial-card"
-    (click)="emitStory(spotlightstory.id)"
+    class="spotlight-card"
     [ngClass]="{ 'even-card': index % 2 === 0, 'odd-card': index % 2 !== 0 }"
   >
-    <!-- Quote Icon -->
     <div class="quote-icon">
       <svg
         width="102"
@@ -131,17 +128,14 @@
       </svg>
     </div>
 
-    <!-- Testimonial Content -->
-    <div class="testimonial-content">
-      <p>{{ spotlightstory?.storydescription | shortUrl }}</p>
+    <div class="spotlight-content">
+      <p>{{ spotLightStory?.storydescription | shortUrl }}</p>
     </div>
 
-    <!-- Author Name -->
-    <div class="testimonial-author">
-      <span>- {{ spotlightstory?.authorname }}</span>
+    <div class="spotlight-author">
+      <span>- {{ spotLightStory?.authorname }}</span>
     </div>
 
-    <!-- Bottom Quote Icon -->
     <div class="bottom-quote">
       <svg
         width="102"
