@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then((m) => m.HomePageModule),
     canActivate: [AuthGuard],
   },
+  { path: 'list',
+    loadChildren: () => import('./generic-listing-page/generic-listing-page.module').then(m => m.GenericListingPageModule),
+    canActivate: [AuthGuard]
+  },
   {
     path: 'project-details',
     loadChildren: () => import('./project/project.module').then( m => m.ProjectPageModule),
