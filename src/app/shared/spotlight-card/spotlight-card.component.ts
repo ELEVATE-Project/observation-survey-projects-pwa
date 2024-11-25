@@ -8,7 +8,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class SpotlightCardComponent  {
   @Input() spotLightStory:any;
   @Input() index:any;
-  @Output() emitstory = new EventEmitter<any>();
   constructor() {  }
 
   onStory(data:any){
