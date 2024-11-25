@@ -29,7 +29,7 @@ export class HomePage {
   toastService: any;
   loader: LoaderService;
   solutionList: any = [];
-  name:any= localStorage.getItem('name')
+  userName:any;
   headerConfig:any;
   isMobile = this.utilService.isMobile();
   typeTemplateMapping: { [key: string]: TemplateRef<any> } = {};
@@ -50,13 +50,15 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
+    this.setHeaderConfig();
     this.clearDatabaseHandler = this.handleMessage.bind(this);
       window.addEventListener('message', this.clearDatabaseHandler);
     this.getHomeListing();
   }
   setHeaderConfig() {
+    this.userName =localStorage.getItem('name')
     this.translate
-      .get('WELCOME_MESSAGE', { name: this.name })
+      .get('WELCOME_MESSAGE', { name: this.userName })
       .subscribe((translatedTitle) => {
         this.headerConfig = {
           title: translatedTitle,
@@ -65,7 +67,7 @@ export class HomePage {
       });
   }
   handleActionClick(actionName:String) {
-    this.router.navigate(['/save'])
+    
   }
 
   async getHomeListing() {

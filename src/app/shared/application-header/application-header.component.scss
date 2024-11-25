@@ -33,12 +33,12 @@ ion-header.collapsible-header {
 .back-button ion-icon {
   cursor: pointer;
   font-size: 1.5rem;
-  color: #38373B;  
+  color: var(--color-header);  
 }
 
 .header-title {
   font-size: 1.2rem;
-  color: #38373B; 
+  color: var(--color-header); 
   margin: 0;
 }
 
@@ -62,5 +62,5 @@ ion-header.collapsible-header {
 .action-icon{
   cursor: pointer;
   font-size: 1.25rem;
-  color: #38373B; 
+  color:var(--color-header); 
 }

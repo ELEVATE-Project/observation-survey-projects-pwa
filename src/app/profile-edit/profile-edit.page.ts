@@ -298,6 +298,9 @@ export class ProfileEditPage implements isDeactivatable {
           location: "bangalore",
           about: "PWA"
         };
+        if(payload.name !== localStorage.getItem('name')){
+          localStorage.setItem('name', payload.name);
+        }
         this.formJson.forEach((control: any) => {
           if (control.dynamicUrl) {
             const controlValues = payload[control.name]
