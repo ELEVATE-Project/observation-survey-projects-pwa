@@ -13,6 +13,7 @@ import { UtilService } from 'src/app/services/util/util.service';
 import { ProfileService } from '../services/profile/profile.service';
 import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 import { environment } from 'src/environments/environment';
+import { TranslateService } from '@ngx-translate/core'
 register();
 @Component({
   selector: 'app-home',
@@ -28,10 +29,8 @@ export class HomePage {
   toastService: any;
   loader: LoaderService;
   solutionList: any = [];
-  headerConfig:any={
-    title:"Welcome [user name]",
-     customActions:[{ icon: 'bookmark-outline', actionName: 'save' }]
-   }
+  name:any= localStorage.getItem('name')
+  headerConfig:any;
   isMobile = this.utilService.isMobile();
   typeTemplateMapping: { [key: string]: TemplateRef<any> } = {};
   @ViewChild('bannerTemplate') bannerTemplate!: TemplateRef<any>;
@@ -41,12 +40,13 @@ export class HomePage {
 
 
   constructor(private http: HttpClient, private router: Router, private utilService: UtilService,
-    private profileService: ProfileService
+    private profileService: ProfileService,private translate: TranslateService
   ) {
     this.baseApiService = inject(ProjectsApiService);
     this.loader = inject(LoaderService)
     this.authService = inject(AuthService)
     this.toastService = inject(ToastService)
+    this.setHeaderConfig();
   }
 
   ionViewWillEnter() {
@@ -54,7 +54,16 @@ export class HomePage {
       window.addEventListener('message', this.clearDatabaseHandler);
     this.getHomeListing();
   }
-
+  setHeaderConfig() {
+    this.translate
+      .get('WELCOME_MESSAGE', { name: this.name })
+      .subscribe((translatedTitle) => {
+        this.headerConfig = {
+          title: translatedTitle,
+          customActions: [{ icon: 'bookmark-outline', actionName: 'save' }],
+        };
+      });
+  }
   handleActionClick(actionName:String) {
     this.router.navigate(['/save'])
   }
