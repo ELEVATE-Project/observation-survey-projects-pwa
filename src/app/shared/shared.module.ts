@@ -7,7 +7,11 @@ import { BottomNavigationComponent } from './bottom-navigation/bottom-navigation
 import { PopoverComponent } from './popover/popover.component';
 import { ShareLinkPopupComponent } from './share-link-popup/share-link-popupcomponent';
 import { ShortUrlPipe } from './pipes/short-url.pipe';
+import { SpotlightCardComponent } from './spotlight-card/spotlight-card.component';
+import { MyimprovementCardComponent } from './myimprovement-card/myimprovement-card.component';
 import { MatIconModule } from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
 import { SideNavigationComponent } from './side-navigation/side-navigation.component';
 import { RouterModule } from '@angular/router';
 import { ResponsiveDirective } from './directives/app-responsive/app-responsive.directive';
@@ -23,10 +27,12 @@ import { ApplicationHeaderComponent } from './application-header/application-hea
         ShareLinkPopupComponent,
         ShortUrlPipe,
         ResponsiveDirective,
+        SpotlightCardComponent,
+        MyimprovementCardComponent,
         CarouselComponent,
         ApplicationHeaderComponent
     ],
-    imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule],
+    imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule,MatDividerModule,MatButtonModule],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     exports: [
         RecommendationCardComponent,
@@ -34,6 +40,8 @@ import { ApplicationHeaderComponent } from './application-header/application-hea
         SideNavigationComponent,
         PopoverComponent,
         ShareLinkPopupComponent,
+        SpotlightCardComponent,
+        MyimprovementCardComponent,
         ResponsiveDirective,
         CarouselComponent,
         ApplicationHeaderComponent
