@@ -38,7 +38,7 @@ export class AppComponent {
 
 languageSetting(){
     let language:any=localStorage.getItem('languages')
-    if(language && language !== "null"){
+    if(language){
       this.translate.use(language)
     }else{
       localStorage.setItem('languages','en');
