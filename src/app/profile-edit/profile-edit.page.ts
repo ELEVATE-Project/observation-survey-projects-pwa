@@ -71,7 +71,7 @@ export class ProfileEditPage implements isDeactivatable {
               this.getOptionsData(control.name);
             }
           });
-        }
+        } 
       },(err:any)=>{
         this.toastService.presentToast(err?.error?.message, 'danger');
       })
@@ -117,7 +117,7 @@ export class ProfileEditPage implements isDeactivatable {
     const formArray = formJson ? formJson : this.formJson
     const control = formArray.find((control: any) => control.name === entityType);
     if (!control) return;
-
+  
     const hasDynamicUrl = formArray.some((control: any) => control.dynamicUrl);
     const urlPath = this.buildUrlPath(control, entityId);
 
@@ -137,7 +137,7 @@ export class ProfileEditPage implements isDeactivatable {
               value: entity?.value || entity?._id,
               externalId: entity?.externalId
             }));
-
+  
             this.updateFormOptions(entityType, options, formArray);
 
             if (!hasDynamicUrl || control.dynamicUrl) {
@@ -149,7 +149,7 @@ export class ProfileEditPage implements isDeactivatable {
         }
       });
   }
-
+  
 
   buildUrlPath(control: any, entityId?: string): string {
     if (control.dynamicUrl) {
@@ -174,11 +174,11 @@ export class ProfileEditPage implements isDeactivatable {
     const selectedValue = selectedEvent?.value;
     const entityId = selectedValue?.externalId;
    const sendFormJson = dynamicEntity? false : formJson;
-
+  
     this.updateFormValue(control.name, selectedValue?.value, sendFormJson);
     this.resetDependentControls(control.name, selectedValue?.value, sendFormJson);
     const nextEntityType = this.getNextEntityType(control.name, sendFormJson);
-
+  
     if (nextEntityType) {
       nextEntityType.map((ctrl: any) => {
         this.getOptionsData(ctrl, selectedValue?.value, sendFormJson);
@@ -191,15 +191,15 @@ export class ProfileEditPage implements isDeactivatable {
     this.dynamicEntityValueChanged = true;
     }
   }
-
+  
   onOptionChange(event: any) {
     this.handleOptionChange(event, this.formJson, true);
   }
-
+  
   onOptionChange2(event: any) {
     this.handleOptionChange(event, this.formJson2, false);
   }
-
+ 
   getEntityForm(subType: any, entityData: any, firstLoad?: any) {
     const entityForm = {
       type: firstLoad ? subType?.externalId : subType,
@@ -215,7 +215,7 @@ export class ProfileEditPage implements isDeactivatable {
               let entityIds = entityData?.value ;
 
               const dependentValue = this.getDependentValue(control, entityData);
-
+        
               if(dependentValue || !this.dynamicEntityValueChanged){
                 this.getOptionsData(control.name, entityIds, this.formJson2);
                 if (firstLoad) {
@@ -227,7 +227,7 @@ export class ProfileEditPage implements isDeactivatable {
                   });
                 }
               }
-
+            
             });
           },
         error: (err: any) => {
@@ -472,7 +472,7 @@ export class ProfileEditPage implements isDeactivatable {
   removeEmptyValueKeys(data:any){
     return Object.fromEntries(
       Object.entries(data).filter(([_,value]) => value !== "" && value !== null &&
-      !(Array.isArray(value) && value.length === 0) &&
+      !(Array.isArray(value) && value.length === 0) && 
       !(typeof value === "object" && !Array.isArray(value) && Object.keys(value).length === 0))
     )
   }

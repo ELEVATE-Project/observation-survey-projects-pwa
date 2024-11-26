@@ -73,7 +73,7 @@ export class ProfilePage {
     }
     this.formData.roles = formData.user_roles;
     this.mappingAndcheckingLastIndex(formData,this.formJson, 'enableFormOne');
-
+  
   }
 
 
