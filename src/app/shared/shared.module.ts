@@ -15,6 +15,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { SideNavigationComponent } from './side-navigation/side-navigation.component';
 import { RouterModule } from '@angular/router';
 import { ResponsiveDirective } from './directives/app-responsive/app-responsive.directive';
+import { CarouselComponent } from './carousel/carousel.component';
 import { ApplicationHeaderComponent } from './application-header/application-header.component';
 
 @NgModule({
@@ -28,6 +29,7 @@ import { ApplicationHeaderComponent } from './application-header/application-hea
         ResponsiveDirective,
         SpotlightCardComponent,
         MyimprovementCardComponent,
+        CarouselComponent,
         ApplicationHeaderComponent
     ],
     imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule,MatDividerModule,MatButtonModule],
@@ -41,6 +43,7 @@ import { ApplicationHeaderComponent } from './application-header/application-hea
         SpotlightCardComponent,
         MyimprovementCardComponent,
         ResponsiveDirective,
+        CarouselComponent,
         ApplicationHeaderComponent
     ],
     providers: [ShortUrlPipe]

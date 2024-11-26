@@ -1,0 +1,29 @@
+<ng-container *appResponsive="'mobile'">
+  <swiper-container #swiperContainer
+    [slidesPerView]="1.2"
+    [spaceBetween]="10"
+    [pagination]="{ clickable: true }"
+    [loop]="false"
+    class="carousel"
+  >
+    @for (item of items.slice(0,itemsToShow); track item) {
+    <swiper-slide style="position: relative !important;">
+      <ng-container
+        *ngTemplateOutlet="template; context: { $implicit: item }"
+      ></ng-container>
+    </swiper-slide>
+    }
+  </swiper-container>
+</ng-container>
+
+<ng-container *appResponsive="'desktop'">
+  <div style="display: flex; flex-direction: row; gap: 16px;">
+
+  @for (item of items.slice(0,itemsToShow); track item;) {
+      <ng-container
+      *ngTemplateOutlet="template; context: { $implicit: item }"
+    ></ng-container>
+
+  }
+</div>
+</ng-container>
