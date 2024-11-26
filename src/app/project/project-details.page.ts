@@ -19,6 +19,9 @@ export class ProjectDetailsPage  implements OnInit {
   router: Router;
   projectData:any;
   isOnline:any;
+  headerConfig:any={
+    showBackButton:true
+  }
   config = {
     maxFileSize: 50,
     baseUrl: environment.projectsBaseURL ?? environment.baseURL,
