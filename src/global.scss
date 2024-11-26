@@ -57,24 +57,26 @@ mat-label {
 :root {
   --ion-default-font: "NotoSans-Regular";
   --ion-font-family: "NotoSans-Regular";
-  --color-primary: #572E91CC;
-  --color-secondary: #572E91CC;
+  --color-primary: #9261D7;
+  --color-secondary: #9261D7;
   --color-light: whitesmoke;
   --color-dark: #000000;
   --color-grey: #808080;
   --color-danger: #ff0000;
   --color-disable-text: #7F7F7F;
   --color-disable-bg: #E4E3E0;
+  
+  --swiper-pagination-color: var(--color-primary) !important;
 
   --mdc-outlined-text-field-caret-color: var(--color-primary);
   --mdc-outlined-text-field-focus-outline-color: var(--color-primary);
   --mdc-outlined-text-field-focus-label-text-color: var(--color-primary);
   --mdc-filled-text-field-focus-active-indicator-color: var(--color-primary);
 
-  --primary-color: #572E91CC;
+  --primary-color: #9261D7;
   --disabled-btn-bg: #0000001f;
   --disabled-btn-text: #00000061;
-  --btn-outline: #572E91CC;
+  --btn-outline: #9261D7;
   --error-color: rgb(150, 4, 4);
   --question-tip: gray;
   --general-btn-text-color: white;

@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { SideNavigationComponent } from './side-navigation/side-navigation.component';
 import { RouterModule } from '@angular/router';
 import { ResponsiveDirective } from './directives/app-responsive/app-responsive.directive';
+import { CarouselComponent } from './carousel/carousel.component';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { ResponsiveDirective } from './directives/app-responsive/app-responsive.
         PopoverComponent,
         ShareLinkPopupComponent,
         ShortUrlPipe,
-        ResponsiveDirective
+        ResponsiveDirective,
+        CarouselComponent
     ],
     imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -30,7 +32,8 @@ import { ResponsiveDirective } from './directives/app-responsive/app-responsive.
         SideNavigationComponent,
         PopoverComponent,
         ShareLinkPopupComponent,
-        ResponsiveDirective
+        ResponsiveDirective,
+        CarouselComponent
     ],
     providers: [ShortUrlPipe]
 })
