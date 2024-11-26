@@ -23,9 +23,9 @@
               (ionChange)="onLanguageChange($event)"
               class="styled-select"
             >
-            @for(lang of languages;track lang){
-              <ion-select-option  [value]="lang.code">
-                {{ lang.name }}
+            @for(language of languages;track language){
+              <ion-select-option  [value]="language.value">
+                {{ language.name }}
               </ion-select-option>
             }
             </ion-select>

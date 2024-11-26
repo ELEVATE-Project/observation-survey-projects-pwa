@@ -13,8 +13,8 @@ export const actions = {
         {value :'projects',label:"PROJECTS"},
         {value:"surveys",label:"SURVEYS"}
     ],
-    LANGUAGE:[
-        { code: 'en', name: 'English' },
-        { code: 'hi', name: 'Hindi' },
+    LANGUAGES:[
+        { value: 'en', name: 'English' },
+        { value: 'hi', name: 'Hindi' },
     ]
 }
