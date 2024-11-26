@@ -10,6 +10,7 @@ import { ProfileEditPage } from './profile-edit.page';
 import { DynamicFormModule } from 'elevate-dynamic-form';
 import { ProfileImagePageModule } from "../shared/profile-image/profile-image.module";
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     declarations: [ProfileEditPage],
@@ -20,7 +21,8 @@ import { TranslateModule } from '@ngx-translate/core';
         ProfileEditPageRoutingModule,
         DynamicFormModule,
         ProfileImagePageModule,
-        TranslateModule
+        TranslateModule,
+        SharedModule
     ]
 })
 export class ProfileEditPageModule {}

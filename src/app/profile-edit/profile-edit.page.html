@@ -1,13 +1,13 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<app-application-header>
+  <div class="head-container" header-left-content>
     <ion-buttons slot="start">
       <ion-button (click)="canPageLeave($event)">
         <ion-icon name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>{{"PROFILE_EDIT"|translate}}</ion-title>
-  </ion-toolbar>
-</ion-header>
+    <h1 class="header-text">{{"PROFILE_EDIT"|translate}}</h1>
+  </div>
+</app-application-header>
 
 <ion-content [fullscreen]="true">
   <app-profile-image [profileImageData]='formJson' [uploadImage]="true" (imageUploadEvent)="imageUploadEvent($event)"
