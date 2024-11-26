@@ -12,5 +12,9 @@ export const actions = {
         {value : 'all' , label : 'ALL'},
         {value :'projects',label:"PROJECTS"},
         {value:"surveys",label:"SURVEYS"}
+    ],
+    LANGUAGE:[
+        { code: 'en', name: 'English' },
+        { code: 'hi', name: 'Hindi' },
     ]
 }
