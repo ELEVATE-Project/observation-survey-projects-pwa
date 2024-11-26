@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./spotlight-card.component.scss'],
 })
 export class SpotlightCardComponent  {
-  @Input() spotLightStory:any;
+  @Input() spotlightStory:any;
   @Input() index:any;
   constructor() {  }
 

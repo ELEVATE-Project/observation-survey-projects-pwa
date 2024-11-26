@@ -1,4 +1,4 @@
-<div class="cards" (click)="onStory(spotLightStory.id)"
+<div class="cards" (click)="onStory(spotlightStory.id)"
 >
   <div class="sparkles"
   [ngClass]="{ 'even-card': index % 2 === 0, 'odd-card': index % 2 !== 0 }"
@@ -129,11 +129,11 @@
     </div>
 
     <div class="spotlight-content">
-      <p>{{ spotLightStory?.storydescription | shortUrl }}</p>
+      <p>{{ spotlightStory?.storydescription | shortUrl }}</p>
     </div>
 
     <div class="spotlight-author">
-      <span>- {{ spotLightStory?.authorname }}</span>
+      <span>- {{ spotlightStory?.authorname }}</span>
     </div>
 
     <div class="bottom-quote">
