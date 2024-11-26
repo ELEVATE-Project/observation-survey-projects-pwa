@@ -215,7 +215,7 @@ export class ProfileEditPage implements isDeactivatable {
               let entityIds = entityData?.value ;
 
               const dependentValue = this.getDependentValue(control, entityData);
-        
+          
               if(dependentValue || !this.dynamicEntityValueChanged){
                 this.getOptionsData(control.name, entityIds, this.formJson2);
                 if (firstLoad) {
@@ -227,7 +227,7 @@ export class ProfileEditPage implements isDeactivatable {
                   });
                 }
               }
- 
+            
             });
           },
         error: (err: any) => {
