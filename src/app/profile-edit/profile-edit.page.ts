@@ -227,7 +227,7 @@ export class ProfileEditPage implements isDeactivatable {
                   });
                 }
               }
-            
+             
             });
           },
         error: (err: any) => {
