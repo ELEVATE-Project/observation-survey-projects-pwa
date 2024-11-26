@@ -36,10 +36,10 @@ export class AppComponent {
     });
   }
 
-  languageSetting(){
-    const lan=localStorage.getItem('languages')
-    if(lan){
-      this.translate.use(lan)
+languageSetting(){
+    let language:any=localStorage.getItem('languages')
+    if(language && language !== "null"){
+      this.translate.use(language)
     }else{
       localStorage.setItem('languages','en');
     }

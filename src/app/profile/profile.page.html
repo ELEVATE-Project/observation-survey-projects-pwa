@@ -23,8 +23,11 @@
               (ionChange)="onLanguageChange($event)"
               class="styled-select"
             >
-              <ion-select-option value="en">English</ion-select-option>
-              <ion-select-option value="hi">Hindi</ion-select-option>
+            @for(lang of languages;track lang){
+              <ion-select-option  [value]="lang.code">
+                {{ lang.name }}
+              </ion-select-option>
+            }
             </ion-select>
           </div>
         </ion-col>

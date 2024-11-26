@@ -8,6 +8,7 @@ import urlConfig from 'src/app/config/url.config.json';
 import { ApiBaseService } from '../services/base-api/api-base.service';
 import { environment } from 'src/environments/environment';
 import { TranslateService } from '@ngx-translate/core';
+import { actions } from '../config/actionContants';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -22,7 +23,8 @@ export class ProfilePage {
     title: "PROFILE_DETAILS",
     showBackButton:true
   };
-  selectedLanguage:any;
+  selectedLanguage:any =localStorage.getItem('languages');
+  languages = actions.LANGUAGE
   formJson2:any;
   formListingUrl = (environment.baseURL.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
 
@@ -36,6 +38,10 @@ export class ProfilePage {
 
   ionViewWillEnter() {
     this.selectedLanguage=localStorage.getItem('languages')
+    if(this.selectedLanguage == 'null'){
+      let preferredLanguage:any = localStorage.getItem('preferred_language')
+      this.selectedLanguage = JSON.parse(preferredLanguage)?.value
+    }
     this.enableFormOne = false;
     this.enableFormTwo = false;
     this.loadFormAndData();
