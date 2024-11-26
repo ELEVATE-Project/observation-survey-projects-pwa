@@ -17,6 +17,10 @@ export class ProfilePage {
   formData: any;
   enableFormOne: boolean = false;
   enableFormTwo: boolean = false;
+  headerConfig: any = {
+    title: "PROFILE_DETAILS",
+    showBackButton:true
+  };
   formJson2:any;
   formListingUrl = (environment.baseURL.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
 

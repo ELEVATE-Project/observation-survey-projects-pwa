@@ -15,6 +15,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { SideNavigationComponent } from './side-navigation/side-navigation.component';
 import { RouterModule } from '@angular/router';
 import { ResponsiveDirective } from './directives/app-responsive/app-responsive.directive';
+import { ApplicationHeaderComponent } from './application-header/application-header.component';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,8 @@ import { ResponsiveDirective } from './directives/app-responsive/app-responsive.
         ShortUrlPipe,
         ResponsiveDirective,
         SpotlightCardComponent,
-        MyimprovementCardComponent
+        MyimprovementCardComponent,
+        ApplicationHeaderComponent
     ],
     imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule,MatDividerModule,MatButtonModule],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -38,7 +40,8 @@ import { ResponsiveDirective } from './directives/app-responsive/app-responsive.
         ShareLinkPopupComponent,
         SpotlightCardComponent,
         MyimprovementCardComponent,
-        ResponsiveDirective
+        ResponsiveDirective,
+        ApplicationHeaderComponent
     ],
     providers: [ShortUrlPipe]
 })
