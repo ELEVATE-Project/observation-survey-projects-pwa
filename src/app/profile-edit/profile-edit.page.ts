@@ -215,7 +215,7 @@ export class ProfileEditPage implements isDeactivatable {
               let entityIds = entityData?.value ;
 
               const dependentValue = this.getDependentValue(control, entityData);
-        
+  
               if(dependentValue || !this.dynamicEntityValueChanged){
                 this.getOptionsData(control.name, entityIds, this.formJson2);
                 if (firstLoad) {
@@ -227,7 +227,7 @@ export class ProfileEditPage implements isDeactivatable {
                   });
                 }
               }
-            
+ 
             });
           },
         error: (err: any) => {
@@ -471,8 +471,8 @@ export class ProfileEditPage implements isDeactivatable {
 
   removeEmptyValueKeys(data:any){
     return Object.fromEntries(
-      Object.entries(data).filter(([_,value]) => value !== "" && value !== null &&
-      !(Array.isArray(value) && value.length === 0) && 
+      Object.entries(data).filter(([_,value]) => value !== "" && value !== null && 
+      !(Array.isArray(value) && value.length === 0) &&
       !(typeof value === "object" && !Array.isArray(value) && Object.keys(value).length === 0))
     )
   }
