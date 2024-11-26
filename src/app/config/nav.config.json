@@ -1,7 +1,7 @@
 [
-    { "label": "Home", "icon": "home", "route": "/home", "keepNavBar":true },
-    { "label": "Explore", "icon": "search", "route": "/list/explore", "keepNavBar":true},
-    { "label": "Create", "icon": "add_circle_outlined", "route": "/create", "keepNavBar":false },
-    { "label": "My Journeys", "icon": "folder", "route": "/my-journeys", "keepNavBar":true },
-    { "label": "Profile", "icon": "person", "route": "/profile", "keepNavBar":true}
+    { "label": "HOME", "icon": "home", "route": "/home", "keepNavBar":true },
+    { "label": "EXPLORE", "icon": "search", "route": "/list/explore", "keepNavBar":true},
+    { "label": "CREATE", "icon": "add_circle_outlined", "route": "/create", "keepNavBar":false },
+    { "label": "MY_JOURNEYS", "icon": "folder", "route": "/my-journeys", "keepNavBar":true },
+    { "label": "PROFILE", "icon": "person", "route": "/profile", "keepNavBar":true}
 ]

@@ -4,6 +4,7 @@ import { SwUpdate } from '@angular/service-worker';
 import { BehaviorSubject } from 'rxjs';
 import { NavItem } from './interfaces/main.interface';
 import  NavConfig  from './config/nav.config.json';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -14,9 +15,10 @@ export class AppComponent {
   isNavigationVisible$ = this._isNavigationVisible.asObservable();
   navItems: NavItem[] = NavConfig;
 
-  constructor(private swUpdate: SwUpdate, private router:Router) {}
+  constructor(private swUpdate: SwUpdate, private router:Router, private translate :TranslateService) {}
 
   ngOnInit(){
+    this.languageSetting();
     if (this.swUpdate.isEnabled) {
       this.swUpdate.checkForUpdate().then((data) => {
         if(data){
@@ -34,6 +36,14 @@ export class AppComponent {
     });
   }
 
+  languageSetting(){
+    const lan=localStorage.getItem('languages')
+    if(lan){
+      this.translate.use(lan)
+    }else{
+      localStorage.setItem('languages','en');
+    }
+  }
   private updateNavigationVisibility(currentRoute: string): void {
     const matchedNavItem = this.navItems.find((item) => item.route === currentRoute);
     const shouldShowNav = matchedNavItem?.keepNavBar ?? false;

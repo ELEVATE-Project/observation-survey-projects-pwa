@@ -43,8 +43,36 @@ mat-label {
 app-profile-image {
     float: right;
 }
+.btn-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: flex-start;
+    align-items: center;
+}
+ion-button{
+    width: 100%;
+    max-width: 150px;
+    min-height: 36px;
+}
+.styled-select {
+    font-size: 0.9rem;
+    padding: 0rem 1rem; 
+    border-radius: 50px;
+    background-color: #ffffff;
+    color: var(--color-primary);
+    width: 100%;
+    max-width: 100px;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
 @media (max-width:768px) {
+    .btn-container {
+        justify-content: center;
+    }
     .center-aligned {
         justify-content: center;
         align-items: center;
