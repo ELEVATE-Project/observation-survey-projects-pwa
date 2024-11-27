@@ -98,6 +98,9 @@ ion-content {
   text-transform: capitalize;
 }
 
+ion-toolbar {
+  --background: var(--color-background);
+}
 @media (min-width: 769px) {
   .grid {
     grid-template-columns: 1fr;

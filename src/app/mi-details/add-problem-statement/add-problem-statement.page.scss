@@ -37,6 +37,7 @@ ion-content {
     flex: 1;
     padding: 0.5rem 0.75rem;
     padding-right: 2.25rem;
+    background-color: var(--color-input-field);
     border: none;
     border-bottom: 0.125rem  solid var(--color-dark);
     border-radius: 0;
@@ -108,6 +109,9 @@ ion-label {
 ion-radio {
     --border-color: transparent;
     --padding-start: 0; 
+}
+ion-toolbar {
+    --background: var(--color-background);
 }
 
 @media (min-width: 769px) {

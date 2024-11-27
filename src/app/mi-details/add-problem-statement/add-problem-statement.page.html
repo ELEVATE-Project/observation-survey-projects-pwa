@@ -3,7 +3,8 @@
   <div class="container">
     <h1 class="title">{{"TAG_IMPROVEMENT" | translate}}</h1>
     <div>
-        <div class="input-container" *ngIf="showInput; else addNewProblemStatement">
+      @if(showInput){
+        <div class="input-container">
           <label class="input-label">{{"ADD_PROBLEM_STATEMENT" | translate}}</label>
           <div class="input-wrapper">
             <input
@@ -19,8 +20,8 @@
             ></ion-icon>
           </div>
         </div>
-        <ng-template #addNewProblemStatement>
-          <div class="add-new">
+      }@else{
+        <div class="add-new">
             <ion-icon
               name="add-circle-outline"
               class="add-icon"
@@ -28,7 +29,7 @@
             ></ion-icon>
             <span (click)="toggleInput()">{{ "ADD_NEW_PROBLEM_STATEMENT" | translate }}</span>
           </div>
-        </ng-template>
+      }
     </div>
 
     <div class="radio-container">
@@ -47,7 +48,7 @@
 <ion-footer>
   <ion-toolbar>
     <ion-button expand="block" fill="solid" class="add-btn">
-      {{"ADD" | translate}}
+      {{"ADD"| translate }}
     </ion-button>
   </ion-toolbar>
 </ion-footer>
