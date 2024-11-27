@@ -9,18 +9,13 @@
 .top-screen {
     background-color: var(--color-primary);
 }
-
-ion-label {
-
-    h2,
-    p {
-        color: white;
-    }
-
-    h2 {
-        font-weight: bolder;
-        font-size: larger;
-    }
+.sc-ion-label-md-s>p{
+    color: var(--color-light);
+}
+.user-info{
+    color: var(--color-light);
+    font-weight: bolder;
+    font-size: larger;
 }
 
 ion-button {
@@ -44,7 +39,44 @@ app-profile-image {
     float: right;
 }
 
+.edit-profile {
+    text-transform: none !important;
+}
+
+.btn-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+ion-button {
+    width: 100%;
+    max-width: 150px;
+    min-height: 36px;
+}
+
+.styled-select {
+    font-weight: 400;
+    font-size: 0.9rem;
+    padding: 0rem 1rem;
+    border-radius: 50px;
+    background-color: var(--color-light);
+    color: var(--color-primary);
+    width: 100%;
+    max-width: 100px;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 @media (max-width:768px) {
+    .btn-container {
+        justify-content: center;
+    }
+
     .center-aligned {
         justify-content: center;
         align-items: center;
@@ -61,6 +93,6 @@ app-profile-image {
     }
 }
 
-.secondForm{
+.secondForm {
     margin-top: -30px;
 }

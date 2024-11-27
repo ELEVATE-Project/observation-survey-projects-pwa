@@ -27,6 +27,50 @@
 
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
+body, ion-app, ion-content{
+  font-family: "Urbanist", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+ion-button, ion-select-option{
+  font-family: "Urbanist", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+h1, h2, h3, h4, h5, h6, ion-header {
+  font-family: "Manrope", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+ion-card, ion-card-title, ion-card-subtitle, ion-card-content {
+  font-family: "Urbanist", sans-serif;
+}
+
+ion-title, ion-toolbar {
+  font-family: "Manrope", sans-serif;
+  font-weight: 400;
+}
+
+.urbanist-font {
+  font-family: "Urbanist", sans-serif;
+}
+
+.manrope-font {
+  font-family: "Manrope", sans-serif;
+}
+
+ion-label, ion-item {
+  font-family: "Urbanist", sans-serif;
+}
+
+
 .mdc-text-field--filled {
   background-color: white !important;
 }
@@ -57,24 +101,24 @@ mat-label {
 :root {
   --ion-default-font: "NotoSans-Regular";
   --ion-font-family: "NotoSans-Regular";
-  --color-primary: #572E91CC;
-  --color-secondary: #572E91CC;
+  --color-primary: #572E91;
+  --color-secondary: #572E91;
   --color-light: whitesmoke;
   --color-dark: #000000;
   --color-grey: #808080;
   --color-danger: #ff0000;
   --color-disable-text: #7F7F7F;
   --color-disable-bg: #E4E3E0;
-
+  
   --mdc-outlined-text-field-caret-color: var(--color-primary);
   --mdc-outlined-text-field-focus-outline-color: var(--color-primary);
   --mdc-outlined-text-field-focus-label-text-color: var(--color-primary);
   --mdc-filled-text-field-focus-active-indicator-color: var(--color-primary);
 
-  --primary-color: #572E91CC;
+  --primary-color: #572E91;
   --disabled-btn-bg: #0000001f;
   --disabled-btn-text: #00000061;
-  --btn-outline: #572E91CC;
+  --btn-outline: #572E91;
   --error-color: rgb(150, 4, 4);
   --question-tip: gray;
   --general-btn-text-color: white;
@@ -84,6 +128,7 @@ mat-label {
   --card-bg: white;
   --disabled-btn-bg: gainsboro;
   --disabled-btn-text: gray;
+  --color-header:#38373B;
 
   /* Borders */
   --border-color: #ccc;
@@ -174,39 +219,6 @@ mat-label {
     font-size: .75rem;
     padding: .375rem 1.313rem;
   }
-}
-
-@font-face {
-  font-family: 'NotoSans-Bold';
-  font-style: normal;
-  font-weight: bold;
-  src: url('./assets/fonts/noto_Sans/NotoSans-Bold.ttf');
-}
-
-@font-face {
-  font-family: 'NotoSans-Regular';
-  src: url('./assets/fonts/noto_Sans/NotoSans-Regular.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'NotoSans-Italic';
-  font-style: italic;
-  font-weight: normal;
-  src: url('./assets/fonts/noto_Sans/NotoSans-Italic.ttf');
-}
-
-@font-face {
-  font-family: 'NotoSans-BoldItalic';
-  font-style: italic;
-  font-weight: bold;
-  src: url('./assets/fonts/noto_Sans/NotoSans-BoldItalic.ttf');
-}
-
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 ion-segment-button {

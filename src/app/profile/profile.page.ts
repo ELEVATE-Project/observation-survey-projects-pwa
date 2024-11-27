@@ -7,6 +7,8 @@ import { ToastService } from '../services/toast/toast.service';
 import urlConfig from 'src/app/config/url.config.json';
 import { ApiBaseService } from '../services/base-api/api-base.service';
 import { environment } from 'src/environments/environment';
+import { TranslateService } from '@ngx-translate/core';
+import { actions } from '../config/actionContants';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -17,6 +19,12 @@ export class ProfilePage {
   formData: any;
   enableFormOne: boolean = false;
   enableFormTwo: boolean = false;
+  headerConfig: any = {
+    title: "PROFILE_DETAILS",
+    showBackButton:true
+  };
+  selectedLanguage:any =localStorage.getItem('languages');
+  languages = actions.LANGUAGES
   formJson2:any;
   formListingUrl = (environment.baseURL.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
 
@@ -25,15 +33,24 @@ export class ProfilePage {
     private loader: LoaderService,
     private toastService: ToastService,
     private apiBaseService: ApiBaseService,
-
+    private translate: TranslateService
   ) { }
 
   ionViewWillEnter() {
+    this.selectedLanguage=localStorage.getItem('languages')
+    if(this.selectedLanguage == 'null'){
+      let preferredLanguage:any = localStorage.getItem('preferred_language')
+      this.selectedLanguage = JSON.parse(preferredLanguage)?.value
+    }
     this.enableFormOne = false;
     this.enableFormTwo = false;
     this.loadFormAndData();
   }
-
+  onLanguageChange(event: any) {
+    this.selectedLanguage = event.detail.value;
+    localStorage.setItem('languages', this.selectedLanguage);
+    this.translate.use(this.selectedLanguage);
+  }
   async loadFormAndData() {
     await this.loader.showLoading("LOADER_MSG");
     this.profileService.getFormJsonAndData()

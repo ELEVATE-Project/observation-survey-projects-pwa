@@ -298,6 +298,9 @@ export class ProfileEditPage implements isDeactivatable {
           location: "bangalore",
           about: "PWA"
         };
+        if(payload.name !== localStorage.getItem('name')){
+          localStorage.setItem('name', payload.name);
+        }
         this.formJson.forEach((control: any) => {
           if (control.dynamicUrl) {
             const controlValues = payload[control.name]
@@ -472,7 +475,7 @@ export class ProfileEditPage implements isDeactivatable {
   removeEmptyValueKeys(data:any){
     return Object.fromEntries(
       Object.entries(data).filter(([_,value]) => value !== "" && value !== null && 
-      !(Array.isArray(value) && value.length === 0) && 
+      !(Array.isArray(value) && value.length === 0) &&
       !(typeof value === "object" && !Array.isArray(value) && Object.keys(value).length === 0))
     )
   }

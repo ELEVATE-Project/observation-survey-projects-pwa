@@ -7,7 +7,11 @@ import { BottomNavigationComponent } from './bottom-navigation/bottom-navigation
 import { PopoverComponent } from './popover/popover.component';
 import { ShareLinkPopupComponent } from './share-link-popup/share-link-popupcomponent';
 import { ShortUrlPipe } from './pipes/short-url.pipe';
+import { SpotlightCardComponent } from './spotlight-card/spotlight-card.component';
+// import { MyimprovementCardComponent } from './myimprovement-card/myimprovement-card.component';
 import { MatIconModule } from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
 import { SideNavigationComponent } from './side-navigation/side-navigation.component';
 import { RouterModule } from '@angular/router';
 import { ResponsiveDirective } from './directives/app-responsive/app-responsive.directive';
@@ -15,6 +19,8 @@ import { FilterComponent } from './filter/filter.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox'
+import { CarouselComponent } from './carousel/carousel.component';
+import { ApplicationHeaderComponent } from './application-header/application-header.component';
 
 @NgModule({
     declarations: [
@@ -25,9 +31,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
         ShareLinkPopupComponent,
         ShortUrlPipe,
         ResponsiveDirective,
+        SpotlightCardComponent,
+        // MyimprovementCardComponent,
+        CarouselComponent,
+        ApplicationHeaderComponent,
         FilterComponent
     ],
-    imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatCheckboxModule],
+    imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule,MatDividerModule,MatButtonModule, FormsModule,
+        ReactiveFormsModule, MatFormFieldModule, MatCheckboxModule],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     exports: [
         RecommendationCardComponent,
@@ -35,7 +46,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
         SideNavigationComponent,
         PopoverComponent,
         ShareLinkPopupComponent,
+        SpotlightCardComponent,
+        // MyimprovementCardComponent,
         ResponsiveDirective,
+        CarouselComponent,
+        ApplicationHeaderComponent,
         FilterComponent
     ],
     providers: [ShortUrlPipe]
