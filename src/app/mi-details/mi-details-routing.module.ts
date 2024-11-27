@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { MiDetailsPage } from './mi-details.page';
+import { AddProblemStatementPage } from '../add-problem-statement/add-problem-statement.page';
 
 const routes: Routes = [
   {
@@ -10,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'add-problem-statement',
-    loadChildren: () => import('../add-problem-statement/add-problem-statement.module').then( m => m.AddProblemStatementPageModule)
+    component: AddProblemStatementPage
   }
 ];
 
