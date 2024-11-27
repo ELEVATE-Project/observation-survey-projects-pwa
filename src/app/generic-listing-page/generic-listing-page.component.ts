@@ -27,17 +27,23 @@ export class GenericListingPageComponent  implements OnInit {
     private toastService: ToastService, private loaderService: LoaderService, private translate:TranslateService
   ) {
     activatedRoute.data.subscribe((data:any)=>{
-      this.pageConfig = data
+      this.pageConfig = structuredClone(data);
     })
   }
 
+
   ngOnInit() {
-    this.getProfileDetails();
-    this.setHeaderConfig();
+    this.getProfileDetails();  
+    this.setHeaderConfig()
   }
 
   setHeaderConfig(){
-      this.headerConfig = this.pageConfig.headerConfig
+    const headerConfig = structuredClone(this.pageConfig.headerConfig)
+    this.translate.get(headerConfig.title)
+    .subscribe(translatedTitle => {
+        headerConfig.title = translatedTitle;
+    })
+      this.headerConfig = headerConfig
   }
 
   getProfileDetails() {
@@ -98,8 +104,7 @@ export class GenericListingPageComponent  implements OnInit {
 
   handleInput(event: any) {
     this.searchTerm = event.target.value;
-    this.page = 1;
-    this.listingData = []
+    this.reset();
     this.getData();
   }
 

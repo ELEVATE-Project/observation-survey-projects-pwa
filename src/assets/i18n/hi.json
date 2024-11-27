@@ -82,6 +82,9 @@
     "MY_JOURNEYS": "मेरी यात्राएँ",
     "WELCOME_MESSAGE": "स्वागत है {{name}}",
     "EXPECTED_DURATION": "अपेक्षित अवधि",
-    "LOADING": "लोड हो रहा है"
+    "LOADING": "लोड हो रहा है",
+    "SEARCH_RESULTS": "{{searchterm}} के लिए {{count}} परिणाम दिखा रहे हैं",
+    "SEARCH_RESULT": "{{searchterm}} के लिए {{count}} परिणाम दिखा रहा है",
+    "SEARCH_BAR_PLACEHOLDER": "इम्प्रूवमेंट्स के लिए खोजें"
   }
   

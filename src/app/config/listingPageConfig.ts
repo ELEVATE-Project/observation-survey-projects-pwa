@@ -3,7 +3,7 @@ export const listingConfig = {
         apiUrl: "/project/v1/library/categories/projects/educationLeader",
         enableSearch: true,
         headerConfig: {
-            title:'Explore',
+            title:'EXPLORE',
             customActions: [{ icon: 'options-outline', actionName: 'filter' }],
         }
     },
