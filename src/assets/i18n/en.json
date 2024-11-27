@@ -88,5 +88,9 @@
   "MY_IMPROVEMENTS":"My Improvements",
   "SPOTLIGHTS":"Spotlights",
   "RECOMMENDATIONS":"Recommendations",
-  "VIEW_MORE":"View more"
+  "VIEW_MORE":"View more",
+  "SEARCH_RESULTS":"Showing {{count}} results for {{searchterm}}",
+  "SEARCH_RESULT":"Showing {{count}} result for {{searchterm}}",
+  "SEARCH_BAR_PLACEHOLDER":"Search for improvements",
+  "NO_DATA_MSG":"No data found"
 }
