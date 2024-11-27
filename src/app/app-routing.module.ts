@@ -12,6 +12,14 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'mi-details',
+    loadChildren: () => import('./mi-details/mi-details.module').then( m => m.MiDetailsPageModule)
+  },
+  {
+    path: 'add-problem-statement',
+    loadChildren: () => import('./add-problem-statement/add-problem-statement.module').then( m => m.AddProblemStatementPageModule)
+  },
+  {
     path: 'project-details',
     loadChildren: () => import('./project/project.module').then( m => m.ProjectPageModule),
   },

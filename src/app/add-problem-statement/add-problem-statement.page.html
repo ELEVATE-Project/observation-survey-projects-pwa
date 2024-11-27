@@ -1,0 +1,55 @@
+<app-application-header [config]="headerConfig"></app-application-header>
+<ion-content class="ion-padding">
+  <div class="container">
+    <h1 class="title">Tag Improvement to problem statement</h1>
+    <div>
+      @if(showInput){
+        <div class="input-container">
+          <label class="input-label">Add Problem Statement</label>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              [(ngModel)]="problemStatement"
+              placeholder="Enter here"
+              class="text-input-with-icon"
+            />
+            <ion-icon
+              name="close-circle-outline"
+              class="icon-inside-input"
+              (click)="toggleInput()"
+            ></ion-icon>
+          </div>
+        </div>
+      }
+      @if(!showInput){
+        <div class="add-new">
+          <ion-icon
+            name="add-circle-outline"
+            class="add-icon"
+            (click)="toggleInput()"
+          ></ion-icon>
+          <span (click)="toggleInput()">Add new Problem statement</span>
+        </div>
+      }
+    </div>
+
+    <div class="radio-container">
+      <ion-radio-group [(ngModel)]="selectedOption">
+        @for(option of options;track option){
+          <ion-item>
+            <ion-label>{{ option }}</ion-label>
+            <ion-radio slot="start" [value]="option"></ion-radio>
+          </ion-item>
+        }
+      </ion-radio-group>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="block" fill="solid">
+      ADD
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
