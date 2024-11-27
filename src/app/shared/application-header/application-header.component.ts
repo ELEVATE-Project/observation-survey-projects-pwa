@@ -1,4 +1,4 @@
-import { Component, OnInit ,Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit ,Input, Output, EventEmitter, ContentChild, TemplateRef} from '@angular/core';
 import { Location } from '@angular/common';
 
 @Component({
@@ -7,6 +7,8 @@ import { Location } from '@angular/common';
   styleUrls: ['./application-header.component.scss'],
 })
 export class ApplicationHeaderComponent  implements OnInit {
+  @ContentChild('search', { static: false })
+  search!: TemplateRef<any>;
   @Input() config:any ={
     showBackButton: false,
     title:'',

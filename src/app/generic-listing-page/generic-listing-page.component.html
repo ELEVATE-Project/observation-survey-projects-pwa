@@ -1,10 +1,27 @@
-<ion-content>
+<app-application-header [config]="headerConfig" (actionClick)="handleActionClick($event)">
+<ng-template #search>
   @if(pageConfig.enableSearch){
-    <!-- To be replaced with search component -->
-    <div>SEARCH BAR</div>
+    <ion-row class="search-bar">
+      <ion-col size="12">
+        <ion-searchbar placeholder="{{'SEARCH_BAR_PLACEHOLDER' | translate }}" [debounce]="1000"
+          (ionInput)="handleInput($event)"></ion-searchbar>
+      </ion-col>
+    </ion-row>
+  
+
   }
+
+</ng-template>
+</app-application-header>
+
+<ion-content>
+  
   <ion-list>
     <ion-grid>
+      @if(searchTerm.length && count > 0){
+       <p class="highlight">{{resultMsg | translate}}</p> 
+      }
+
       @if(listingData.length){
         <ion-row>
           @for(data of listingData; track $index){
@@ -15,7 +32,9 @@
         </ion-row>
       }@else{
         <!-- To be replaced with generic no-data card -->
-        <div>NO DATA</div>
+
+          <div>NO DATA</div>
+
       }
     </ion-grid>
   </ion-list>
