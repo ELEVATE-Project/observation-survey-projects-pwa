@@ -82,5 +82,7 @@
   "EXPLORE":"Explore",
   "CREATE":"Create",
   "MY_JOURNEYS":"My Journeys",
-  "WELCOME_MESSAGE": "Welcome {{name}}"
+  "WELCOME_MESSAGE": "Welcome {{name}}",
+  "SEARCH_RESULTS":"Showing {{count}} results for {{searchterm}}",
+  "SEARCH_RESULT":"Showing {{count}} result for {{searchterm}}"
 }
