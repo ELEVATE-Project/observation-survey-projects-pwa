@@ -13,7 +13,8 @@
         "verifyLink": "/project/v1/solutions/verifyLink/",
         "categoriesList": "/project/v1/library/categories/list",
         "projectCategories": "/project/v1/library/categories/projects/",
-        "entityConfigUrl" : "/project/v1/configurations/read"
+        "entityConfigUrl" : "/project/v1/configurations/read",
+        "filterUrl": "/project/v1/projectAttributes/find"
     },
     "formListing": {
         "listingUrl": "/v1/forms/read"

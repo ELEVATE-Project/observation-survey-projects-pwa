@@ -11,6 +11,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { SideNavigationComponent } from './side-navigation/side-navigation.component';
 import { RouterModule } from '@angular/router';
 import { ResponsiveDirective } from './directives/app-responsive/app-responsive.directive';
+import { FilterComponent } from './filter/filter.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCheckboxModule } from '@angular/material/checkbox'
 
 @NgModule({
     declarations: [
@@ -20,9 +24,10 @@ import { ResponsiveDirective } from './directives/app-responsive/app-responsive.
         PopoverComponent,
         ShareLinkPopupComponent,
         ShortUrlPipe,
-        ResponsiveDirective
+        ResponsiveDirective,
+        FilterComponent
     ],
-    imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule],
+    imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatCheckboxModule],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     exports: [
         RecommendationCardComponent,
@@ -30,7 +35,8 @@ import { ResponsiveDirective } from './directives/app-responsive/app-responsive.
         SideNavigationComponent,
         PopoverComponent,
         ShareLinkPopupComponent,
-        ResponsiveDirective
+        ResponsiveDirective,
+        FilterComponent
     ],
     providers: [ShortUrlPipe]
 })

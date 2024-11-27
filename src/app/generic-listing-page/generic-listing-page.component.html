@@ -23,3 +23,9 @@
     <ion-infinite-scroll-content loadingText="{{'LOADING' | translate}}..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
+<div  id="filter-content"></div>
+<ion-menu menuId="filter-menu" contentId="filter-content" side="end">
+  @if(isMenuOpen){
+    <app-filter (onClose)="filterEvent($event)"></app-filter>
+  }
+</ion-menu>

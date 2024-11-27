@@ -4,6 +4,7 @@ import { ProjectsApiService } from '../services/projects-api/projects-api.servic
 import { ProfileService } from '../services/profile/profile.service';
 import { ToastService } from '../services/toast/toast.service';
 import { LoaderService } from '../services/loader/loader.service';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-generic-listing-page',
@@ -19,9 +20,10 @@ export class GenericListingPageComponent  implements OnInit {
   pageConfig:any = {}
   profilePayload:any = {}
   search:string = ""
+  isMenuOpen = true
 
   constructor(private activatedRoute: ActivatedRoute,private profileService: ProfileService, private projectsApiService: ProjectsApiService,
-    private toastService: ToastService, private loaderService: LoaderService
+    private toastService: ToastService, private loaderService: LoaderService, private menuControl: MenuController
   ) {
     activatedRoute.data.subscribe((data:any)=>{
       this.pageConfig = data
@@ -30,6 +32,10 @@ export class GenericListingPageComponent  implements OnInit {
 
   ngOnInit() {
     this.getProfileDetails()
+  }
+
+  ionViewWillEnter(){
+    this.isMenuOpen = true
   }
 
   getProfileDetails() {
@@ -76,4 +82,15 @@ export class GenericListingPageComponent  implements OnInit {
     this.count = 0
   }
 
+  showFilter(){
+    this.isMenuOpen = true
+    this.menuControl.open()
+  }
+
+  filterEvent($event:any){}
+
+  ionViewWillLeave(){
+    this.isMenuOpen = false
+    this.menuControl.close()
+  }
 }

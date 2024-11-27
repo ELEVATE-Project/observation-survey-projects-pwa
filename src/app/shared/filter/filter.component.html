@@ -1,0 +1,25 @@
+<div class="filter-section">
+  <div class="filter-header">
+    <h1>{{ "FILTER" | translate }}</h1>
+    <mat-icon (click)="closeFilter()">close</mat-icon>
+  </div>
+  <div class="clear">
+    <div (click)="clearFilter()">{{ "CLEAR_ALL" | translate }}</div>
+  </div>
+  <div [formGroup]="filterForm">
+    @for(data of filterList; track $index){
+      <div class="filter-name">{{ data.Name }}</div>
+      <mat-checkbox-group [formArrayName]="data.code" class="filter-options">
+        @for(option of data.values; track $index){
+          <mat-checkbox [value]="option.value" (change)="onCheckboxChange($event, option, data.code)">
+            {{ option.label }}
+          </mat-checkbox>
+        }
+      </mat-checkbox-group>
+    }
+  </div>
+
+  <div class="apply-button">
+    <ion-button expand="block" (click)="applyFilter()">{{ "APPLY" | translate }}</ion-button>
+  </div>
+</div>
