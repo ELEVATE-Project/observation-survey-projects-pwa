@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: MiDetailsPage
+  },
+  {
+    path: 'add-problem-statement',
+    loadChildren: () => import('../add-problem-statement/add-problem-statement.module').then( m => m.AddProblemStatementPageModule)
   }
 ];
 

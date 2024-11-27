@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mi-details',
@@ -197,7 +198,7 @@ export class MiDetailsPage implements OnInit {
     "programInformation": {},
     "solutionInformation": {}
 }
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
@@ -206,6 +207,6 @@ export class MiDetailsPage implements OnInit {
   }
 
   starImporvement(){
-
+    this.router.navigate(['/mi-details/add-problem-statement']);
   }
 }
