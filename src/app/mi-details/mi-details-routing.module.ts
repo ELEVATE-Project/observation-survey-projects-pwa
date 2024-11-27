@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { MiDetailsPage } from './mi-details.page';
-import { AddProblemStatementPage } from '../add-problem-statement/add-problem-statement.page';
+import { AddProblemStatementPage } from './add-problem-statement/add-problem-statement.page';
 
 const routes: Routes = [
   {
