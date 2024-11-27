@@ -77,5 +77,10 @@
   "CLOSE":"Close",
   "DOWNLOADS_LOGOUT_INFO_MSG":"Log out will delete the files. To avoid losing them, please sync on the project details page.",
   "EXPECTED_DURATION": "Expected Duration",
-  "LOADING": "Loading"
+  "LOADING": "Loading",
+  "HOME":"Home",
+  "EXPLORE":"Explore",
+  "CREATE":"Create",
+  "MY_JOURNEYS":"My Journeys",
+  "WELCOME_MESSAGE": "Welcome {{name}}"
 }

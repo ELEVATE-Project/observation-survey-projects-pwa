@@ -9,7 +9,7 @@
         (click)="onNavigate(item.route, i)"
       >
         <mat-icon fontSet="material-icons-outlined">{{ item.icon }}</mat-icon>
-        <span class="nav-label">{{ item.label }}</span>
+        <span class="nav-label">{{ item.label | translate }}</span>
       </ion-col>
       }
 
