@@ -82,6 +82,17 @@
     "MY_JOURNEYS": "मेरी यात्राएँ",
     "WELCOME_MESSAGE": "स्वागत है {{name}}",
     "EXPECTED_DURATION": "अपेक्षित अवधि",
-    "LOADING": "लोड हो रहा है"
+    "LOADING": "लोड हो रहा है",
+    "ADD": "जोड़ें",
+    "TAG_IMPROVEMENT": "समस्या विवरण में टैग सुधार",
+    "ADD_PROBLEM_STATEMENT": "समस्या विवरण जोड़ें",
+    "ADD_NEW_PROBLEM_STATEMENT": "नया समस्या विवरण जोड़ें",
+    "GENERATED_AND_EDITED_TITLE": "निर्मित और संपादित शीर्षक",
+    "BY": "द्वारा",
+    "PROBLEM_STATEMENT": "समस्या विवरण",
+    "OBJECTIVE": "उद्देश्य",
+    "ACTION_STEPS": "क्रियावली कदम",
+    "IMPACT": "प्रभाव",
+    "START_IMPROVEMENT": "सुधार शुरू करें"
   }
   

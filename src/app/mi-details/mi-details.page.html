@@ -1,56 +1,70 @@
 <app-application-header [config]="headerConfig" (actionClick)="handleSaveClick($event)"></app-application-header>
 <ion-content class="ion-padding">
   <div class="spacing ion-padding">
-    <h1 class="text-header">Generated and Edited Title</h1>
+    <h1 class="text-header">{{"GENERATED_AND_EDITED_TITLE" | translate}}</h1>
     <div class="text-muted">
-      <span>by </span>
-      <span>Author Name, Location</span>
+      <span>{{"BY" | translate}} </span>
+      <div class="author-contianer">
+        @if(details.author){
+          <span>{{details.author}}</span>
+        }
+        @if(details.location){
+          <span>{{details.location}}</span>
+        }
+      </div>
     </div>
   </div>
+  @if(details.title){
+    <div class="card">
+      <h1 class="card-title">
+        <ion-icon name="star"></ion-icon>
+        {{"PROBLEM_STATEMENT" | translate}}
+      </h1>
+      <p class="card-text">
+        {{details.title}}
+      </p>
+    </div>
+  }
 
+@if(details.description){
   <div class="card">
     <h1 class="card-title">
       <ion-icon name="star"></ion-icon>
-      Problem Statement
+      {{"OBJECTIVE" | translate}}
     </h1>
     <p class="card-text">
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+      {{details.description}}
     </p>
   </div>
+}
 
+ @if(details.tasks){
   <div class="card">
     <h1 class="card-title">
       <ion-icon name="star"></ion-icon>
-      Objective
-    </h1>
-    <p class="card-text">
-      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-    </p>
-  </div>
-
-  <div class="card">
-    <h1 class="card-title">
-      <ion-icon name="star"></ion-icon>
-      Action Steps
+      {{"ACTION_STEPS" | translate}}
     </h1>
     <ul class="numbered-list">
-      <li>Lorem Ipsum is simply dummy text of the printing industry.</li>
-      <li>It has survived not only five centuries.</li>
-      <li>It was popularised in the 1960s.</li>
+      @for(task of details.tasks; track task){
+        <li>{{task.name}}</li>
+      }
     </ul>
   </div>
+ }
 
+@if(details.learningResources){
   <div class="card">
     <h1 class="card-title">
       <ion-icon name="star"></ion-icon>
-      Impact
+      {{"IMPACT" | translate}}
     </h1>
     <p class="card-text">
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+      {{details.learningResources[0].name}}
     </p>
   </div>
+}
 
-    <div class="image-placeholder"></div>
+  <div class="image-placeholder"></div>
   <p class="card-text">
     In the serene landscapes of Wokha, amidst the challenges of rural education...
   </p>
@@ -70,7 +84,7 @@
 <ion-footer>
   <ion-toolbar>
     <ion-button expand="block" fill="solid" class="responsive-button" (click)="starImporvement()">
-      Start Improvement
+      {{"START_IMPROVEMENT" | translate}}
     </ion-button>
   </ion-toolbar>
 </ion-footer>

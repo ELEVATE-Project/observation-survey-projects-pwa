@@ -8,6 +8,7 @@ import { AddProblemStatementPageRoutingModule } from './add-problem-statement-ro
 
 import { AddProblemStatementPage } from './add-problem-statement.page';
 import { SharedModule } from '../shared/shared.module';
+import { TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     IonicModule,
     AddProblemStatementPageRoutingModule,
-    SharedModule
+    SharedModule,
+    TranslateModule
   ],
   declarations: [AddProblemStatementPage]
 })

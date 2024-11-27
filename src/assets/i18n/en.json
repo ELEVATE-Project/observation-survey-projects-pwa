@@ -82,5 +82,16 @@
   "EXPLORE":"Explore",
   "CREATE":"Create",
   "MY_JOURNEYS":"My Journeys",
-  "WELCOME_MESSAGE": "Welcome {{name}}"
+  "WELCOME_MESSAGE": "Welcome {{name}}",
+  "ADD":"Add",
+  "TAG_IMPROVEMENT": "Tag Improvement to Problem Statement",
+  "ADD_PROBLEM_STATEMENT": "Add Problem Statement",
+  "ADD_NEW_PROBLEM_STATEMENT": "Add new Problem statement",
+  "GENERATED_AND_EDITED_TITLE": "Generated and Edited Title",
+  "BY": "by",
+  "PROBLEM_STATEMENT": "Problem Statement",
+  "OBJECTIVE": "Objective",
+  "ACTION_STEPS": "Action Steps",
+  "IMPACT": "Impact",
+  "START_IMPROVEMENT": "Start Improvement"
 }

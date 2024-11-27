@@ -5,25 +5,25 @@ ion-content {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 16px;
+    padding: 1rem;
     margin-top: 0;
 }
 
 .title {
     font-size: 1rem;
     font-weight: bold;
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
     color: var(--color-header);
     text-align: left;
 }
 
 .input-container {
-    margin: 16px 0;
+    margin: 1rem 0;
 }
 .input-label {
     font-size: 1rem;
     color:var(--primary-color);
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
     display: block;
 }
 
@@ -35,10 +35,10 @@ ion-content {
 
 .text-input-with-icon {
     flex: 1;
-    padding: 8px 12px;
-    padding-right: 36px;
+    padding: 0.5rem 0.75rem;
+    padding-right: 2.25rem;
     border: none;
-    border-bottom: 2px solid #141212;
+    border-bottom: 0.125rem  solid var(--color-dark);
     border-radius: 0;
     outline: none;
     color: var(--primary-color);
@@ -57,7 +57,7 @@ ion-content {
 
 .icon-inside-input {
     position: absolute;
-    right: 10px; 
+    right: 0.625rem;
     top: 50%;
     transform: translateY(-50%);
     font-size: 1.5rem;
@@ -69,7 +69,7 @@ ion-content {
     display: flex;
     align-items: center;
     color: var(--primary-color);
-    margin: 16px 0px;
+    margin: 1rem 0;
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
@@ -77,15 +77,18 @@ ion-content {
   
 .add-new ion-icon {
     font-size: 1.5rem;
-    margin-right: 8px;
+    margin-right: 0.5rem;
 }
 
 .radio-container {
     margin: 0;
-    padding: 16px 0;
+    padding: 1rem 0;
     background-color: var(--color-background);
   }
-  
+.add-btn{
+    width: 100%;
+    text-transform: capitalize;
+}
 ion-item {
     --background: transparent;
     --padding-start: 0;
@@ -105,4 +108,11 @@ ion-label {
 ion-radio {
     --border-color: transparent;
     --padding-start: 0; 
+}
+
+@media (min-width: 769px) {
+    .add-btn {
+        max-width: 100px; 
+        margin: 0 auto;
+      }
 }

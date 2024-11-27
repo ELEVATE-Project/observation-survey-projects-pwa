@@ -5,16 +5,19 @@ ion-content {
 .spacing {
   display: flex;
   flex-direction: column;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 }
 
 .text-header {
   font-size: 1.2rem;
   font-weight: bold;
   color: var(--color-header);
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 }
-
+.author-contianer{
+  display: flex;
+  gap: 1rem;
+}
 .text-muted {
   display: flex;
   flex-direction: column;
@@ -24,9 +27,9 @@ ion-content {
 
 .card {
   background: var(--general-btn-text-color);
-  padding: 16px;
-  border-radius: 16px;
-  margin-bottom: 24px;
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .card-title {
@@ -35,13 +38,13 @@ ion-content {
   font-size: 1rem;
   font-weight: bold;
   color: var(--color-text);
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 }
 
 .card-title ion-icon {
   font-size: 1rem;
   color: var(--color-text);
-  margin-right: 8px;
+  margin-right: 0.5rem;
   padding-bottom: 5px;
 }
 
@@ -61,7 +64,7 @@ ion-content {
 .numbered-list li {
   font-size: 0.9rem;
   color: var(--color-header);
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
   padding-left: 1rem;
   position: relative;
   line-height: 1.6;
@@ -81,13 +84,13 @@ ion-content {
   background: #e2e8f0;
   border-radius: 12px;
   height: 150px;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  gap: 1rem;
 }
 
 .responsive-button {

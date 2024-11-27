@@ -1,11 +1,10 @@
 <app-application-header [config]="headerConfig"></app-application-header>
 <ion-content class="ion-padding">
   <div class="container">
-    <h1 class="title">Tag Improvement to problem statement</h1>
+    <h1 class="title">{{"TAG_IMPROVEMENT" | translate}}</h1>
     <div>
-      @if(showInput){
-        <div class="input-container">
-          <label class="input-label">Add Problem Statement</label>
+        <div class="input-container" *ngIf="showInput; else addNewProblemStatement">
+          <label class="input-label">{{"ADD_PROBLEM_STATEMENT" | translate}}</label>
           <div class="input-wrapper">
             <input
               type="text"
@@ -20,17 +19,16 @@
             ></ion-icon>
           </div>
         </div>
-      }
-      @if(!showInput){
-        <div class="add-new">
-          <ion-icon
-            name="add-circle-outline"
-            class="add-icon"
-            (click)="toggleInput()"
-          ></ion-icon>
-          <span (click)="toggleInput()">Add new Problem statement</span>
-        </div>
-      }
+        <ng-template #addNewProblemStatement>
+          <div class="add-new">
+            <ion-icon
+              name="add-circle-outline"
+              class="add-icon"
+              (click)="toggleInput()"
+            ></ion-icon>
+            <span (click)="toggleInput()">{{ "ADD_NEW_PROBLEM_STATEMENT" | translate }}</span>
+          </div>
+        </ng-template>
     </div>
 
     <div class="radio-container">
@@ -48,8 +46,8 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-button expand="block" fill="solid">
-      ADD
+    <ion-button expand="block" fill="solid" class="add-btn">
+      {{"ADD" | translate}}
     </ion-button>
   </ion-toolbar>
 </ion-footer>

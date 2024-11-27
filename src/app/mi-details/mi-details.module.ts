@@ -8,6 +8,7 @@ import { MiDetailsPageRoutingModule } from './mi-details-routing.module';
 
 import { MiDetailsPage } from './mi-details.page';
 import { SharedModule } from '../shared/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     IonicModule,
     MiDetailsPageRoutingModule,
-    SharedModule
+    SharedModule,
+    TranslateModule
   ],
   declarations: [MiDetailsPage]
 })
