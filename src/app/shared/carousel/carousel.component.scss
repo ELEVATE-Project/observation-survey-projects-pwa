@@ -1,5 +1,6 @@
-::ng-deep{
-  .carousel .swiper-pagination {
-    position: relative !important;
-  }
+.desktop-container{
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  scrollbar-width: none;
 }

@@ -1,0 +1,13 @@
+<div  class="section-header">
+  <div class="section-headername">
+    <h1>{{headerName}}</h1>
+  </div>
+  @if (showViewmore) {
+    <div (click)="navigate()" class="section-viewmore" >
+      <span>View more</span>
+      <span >
+        <mat-icon class="section-icon" >arrow_forward</mat-icon>
+      </span>
+    </div>
+  }
+</div>

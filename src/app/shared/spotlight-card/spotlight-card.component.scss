@@ -3,7 +3,7 @@
   width: 335px;
   overflow:hidden;
   display: flex;
-  margin: 10px 0;
+  margin: 15px;
   .sparkles{
     max-width: 20px;
     position: relative;
@@ -31,7 +31,7 @@
     z-index: 99;
     top: 33px;
     right: 25px;
-    font-size: 12px;
+    font-size: 14px;
   }
   .spotlight-author{
     max-width: 194px;
@@ -40,7 +40,7 @@
     z-index: 99;
     bottom: 20px;
     right: 8px;
-    font-size: 12px;
+    font-size: 14px;
   }
   .quote-icon{
     width: 60px;

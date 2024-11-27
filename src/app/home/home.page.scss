@@ -1,0 +1,30 @@
+mat-card{
+    height: auto;
+    max-width: 350px;
+    border: 1px solid lightgray;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    margin: 15px !important;
+    gap: 10px;
+
+    .card-image{
+        height: 200px;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+
+    .card-title{
+        text-align: center;
+        font-size: 16px;
+        font-weight: 700;
+    }
+    .card-button{
+        background-color: #572E91;
+        color: #fff;
+        padding: 5px;
+    }
+
+}

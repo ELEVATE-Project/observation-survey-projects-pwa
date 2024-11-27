@@ -21,6 +21,9 @@ register();
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
+  spotlightstories:any[]=[];
+  myImprovements: any[] = [];
+  recommendationList:any[]=[];
   formListingUrl = (environment.baseURL.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
   swiperModules = [IonicSlides];
   jsonData: any;
