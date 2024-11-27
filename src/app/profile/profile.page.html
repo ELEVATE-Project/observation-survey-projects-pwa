@@ -9,16 +9,27 @@
           <app-profile-image [profileImageData]='formJson'></app-profile-image>
         </ion-col>
         <ion-col size="12" size-md="8" class="details">
-          <ion-label>
-            <h2>{{formData?.name}}</h2>
+          <ion-label class="user-info">
+            <h1>{{formData?.name}}</h1>
             <p>{{formData?.email}}</p>
           </ion-label>
-          <ion-button routerLink="/profile-edit" fill="light" shape="round" class="mt-5">
-            {{ "EDIT_PROFILE"| translate}}
-          </ion-button>
-          <!-- <ion-button routerLink="/profile" fill="light" shape="round" class="mt-5" style="margin-left: 14px;">
-            {{ "CERTIFICATE"| translate }}
-          </ion-button> -->
+          <div class="btn-container">
+            <ion-button routerLink="/profile-edit" fill="light" shape="round" class="edit-profile">
+              {{ "EDIT_PROFILE" | translate }}
+            </ion-button>
+            <ion-select
+              interface="popover"
+              [(ngModel)]="selectedLanguage"
+              (ionChange)="onLanguageChange($event)"
+              class="styled-select urbanist-font"
+            >
+            @for(language of languages;track language){
+              <ion-select-option  [value]="language.value">
+                {{ language.name }}
+              </ion-select-option>
+            }
+            </ion-select>
+          </div>
         </ion-col>
       </ion-row>
     </ion-grid>
