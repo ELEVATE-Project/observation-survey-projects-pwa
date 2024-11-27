@@ -38,12 +38,7 @@ export class GenericListingPageComponent  implements OnInit {
   }
 
   setHeaderConfig(){
-    const headerConfig = structuredClone(this.pageConfig.headerConfig)
-    this.translate.get(headerConfig.title)
-    .subscribe(translatedTitle => {
-        headerConfig.title = translatedTitle;
-    })
-      this.headerConfig = headerConfig
+      this.headerConfig = structuredClone(this.pageConfig.headerConfig)
   }
 
   getProfileDetails() {
