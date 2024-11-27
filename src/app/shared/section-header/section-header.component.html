@@ -1,10 +1,10 @@
 <div  class="section-header">
   <div class="section-headername">
-    <h1>{{headerName}}</h1>
+    <h1>{{headerName | translate}}</h1>
   </div>
-  @if (showViewmore) {
+  @if (showViewMore) {
     <div (click)="navigate()" class="section-viewmore" >
-      <span>View more</span>
+      <span>{{"VIEW_MORE"|translate}}</span>
       <span >
         <mat-icon class="section-icon" >arrow_forward</mat-icon>
       </span>

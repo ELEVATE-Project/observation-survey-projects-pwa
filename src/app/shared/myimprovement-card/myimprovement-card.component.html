@@ -10,12 +10,13 @@
     </button>
   </div>
   <ul class="task-list">
+    @for (item of filteredTasksWithIndexes; track $index) {
     <li
-      *ngFor="let item of filteredTasksWithIndexes"
       [ngClass]="{ 'strikethrough': item.task.status === 'completed' }"
     >
       {{ item.originalIndex + 1 }}. {{ item.task.name }}
     </li>
+    }
   </ul>
   <div class="progress-bar">
     <span class="progress-text">{{ progressValue }}%</span>

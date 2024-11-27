@@ -59,35 +59,35 @@
 
 
 .odd-card {
-    background-color: #FF9911;
+    background-color: var(--color-card-secondary);
 
     p {
       color: #000;
     }
 
     .quote-color {
-      fill: #FED8A699;
+      fill: var(--color-quote-fill-secondary);
     }
 
     .stars {
-      fill:  #FED8A6;
-      stroke:  #AD7C3B;
+      fill:  var(--color-star-fill-secondary);
+      stroke:  var(--color-stroke-secondary);
     }
   }
 
   .even-card {
-    background-color: #9261D7;
+    background-color: var(--color-card-primary);
 
     p {
       color: #fff;
     }
 
     .quote-color {
-      fill: #8C4EE0;
+      fill: var(--color-fill-primary);
     }
 
     .stars {
-      fill:  #8C4EE0;
-      stroke: #CCA7FF;
+      fill:  var(--color-fill-primary);
+      stroke: var(--color-stroke-primary);
     }
   }

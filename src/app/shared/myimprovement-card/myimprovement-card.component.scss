@@ -38,16 +38,16 @@
     .even-card {
     .card-header{
         color: #fff;
-        background-color: #9261D7;
+        background-color: var(--color-card-primary);
         mat-icon{
-            color: #9261D7;
+            color: var(--color-card-primary);
         }
     }
     }
     .odd-card {
         color: #000;
         .card-header{
-            background-color:  #FF9911;
+            background-color:  var(--color-card-secondary);
             mat-icon{
                 color: #000;
             }
@@ -89,7 +89,7 @@
   .progress {
     flex-grow: 1;
     margin-left: 10px;
-    background: var(--Fills-Secondary, #78788029);
+    background: #78788029;
     height: 16px;
     border-radius: 10px;
     overflow: hidden;

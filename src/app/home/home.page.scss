@@ -1,7 +1,7 @@
 mat-card{
     height: auto;
-    max-width: 350px;
-    border: 1px solid lightgray;
+    max-width: 21.875rem;
+    border: 1px solid var(--color-light-grey);
     padding: 12px;
     border-radius: 10px;
     cursor: pointer;
@@ -22,9 +22,14 @@ mat-card{
         font-weight: 700;
     }
     .card-button{
-        background-color: #572E91;
+        background-color: var(--color-primary);
         color: #fff;
         padding: 5px;
     }
 
+}
+
+.create-improvement-card{
+    display: flex;
+    justify-content: center;
 }

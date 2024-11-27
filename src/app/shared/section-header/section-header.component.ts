@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class SectionHeaderComponent   {
   @Input() headerName:any;
-  @Input() showViewmore:any;
+  @Input() showViewMore:any;
   @Input() navigateUrl:any;
   constructor(private router:Router) { }
 
