@@ -92,5 +92,9 @@
   "SEARCH_RESULTS":"Showing {{count}} results for {{searchterm}}",
   "SEARCH_RESULT":"Showing {{count}} result for {{searchterm}}",
   "SEARCH_BAR_PLACEHOLDER":"Search for improvements",
+  "APPLY": "Apply",
+  "CLEAR_ALL": "Clear all",
+  "FILTER": "Filter",
+  "SAVED": "Saved",
   "NO_DATA_MSG":"No data found"
 }
