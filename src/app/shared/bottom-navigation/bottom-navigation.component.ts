@@ -7,14 +7,21 @@ import NavConfig from '../../config/nav.config.json'
   templateUrl: './bottom-navigation.component.html',
   styleUrls: ['./bottom-navigation.component.scss'],
 })
-export class BottomNavigationComponent {
+export class BottomNavigationComponent implements OnInit {
 
-  selectedIndex = 0;
+  selectedIndex!:number;
 
   navItems = NavConfig;
 
 
   constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    this.selectedIndex = this.navItems.findIndex((item) => item.route === this.router.url);
+    if(this.selectedIndex == -1){
+      this.selectedIndex = 0
+    }
+  }
 
   onNavigate(route: string, index: number): void {
     this.selectedIndex = index;
