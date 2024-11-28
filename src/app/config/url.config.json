@@ -41,5 +41,8 @@
     "certificate":{
         "verifyCertificateUrl":"/project/v1/userProjects/verifyCertificate",
         "certificateListing":"/project/v1/userProjects/certificates"
-    }
+    },
+    "spotlightUrl":"/project/v1/template/list?hasSpotlight=true",
+    "myImprovementsUrl":"/project/v1/userProjects/list?submitted=false",
+    "recommendationUrl":"/project/v1/library/categories/projects/educationLeader"
 }

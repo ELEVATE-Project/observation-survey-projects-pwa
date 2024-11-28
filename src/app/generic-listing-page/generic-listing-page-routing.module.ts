@@ -13,6 +13,11 @@ const routes: Routes = [
     path: 'saved',
     component: GenericListingPageComponent,
     data: listingConfig.saved
+  },
+  {
+    path: 'recommended',
+    component: GenericListingPageComponent,
+    data: listingConfig.recommended
   }
 ];
 

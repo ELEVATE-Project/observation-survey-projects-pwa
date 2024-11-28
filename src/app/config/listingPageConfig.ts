@@ -11,5 +11,13 @@ export const listingConfig = {
         apiUrl: "/project/v1/",
         enableSearch: false,
         headerConfig: {}
+    },
+    recommended : {
+        apiUrl: "/project/v1/library/categories/projects/educationLeader",
+        enableSearch: false,
+        headerConfig: {
+            title:'RECOMMEDATION',
+            showBackButton : true
+        }
     }
 }

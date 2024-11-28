@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./no-data.component.scss'],
 })
 export class NoDataComponent  {
-  @Input() noDataMsg:any;
+  @Input() message:any;
 
   constructor() { }
 

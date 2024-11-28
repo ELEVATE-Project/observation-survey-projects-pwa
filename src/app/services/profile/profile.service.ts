@@ -104,9 +104,9 @@ export class ProfileService {
           text: 'BACK',
           role: 'cancel',
           cssClass: 'secondary-button',
-          handler: () => {
-            this.location.back()
-          }
+          // handler: () => {
+          //   this.location.back()
+          // }
         },
         {
           text: 'PROFILE_UPDATE',

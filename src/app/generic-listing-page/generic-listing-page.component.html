@@ -31,10 +31,9 @@
           }
         </ion-row>
       }@else{
-        <!-- To be replaced with generic no-data card -->
-
-          <div>NO DATA</div>
-
+        <div>
+          <app-no-data [message]="'NO_DATA_MSG'"></app-no-data>
+        </div>
       }
     </ion-grid>
   </ion-list>

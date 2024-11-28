@@ -10,7 +10,7 @@ export class SpotlightCardComponent  {
   @Input() index:any;
   constructor() {  }
 
-  onStory(data:any){
+  onStory(id:any){
     console.log("redirection the route here itself");
   }
 
