@@ -24,21 +24,9 @@
       @for(data of listingData; track $index){
         <app-recommendation-card [cardData]="data"></app-recommendation-card>
       }
-
-      @if(listingData.length){
-        <ion-row>
-          @for(data of listingData; track $index){
-            <ion-col size="12" size-sm="6" size-md="4">
-              <app-recommendation-card [cardData]="data"></app-recommendation-card>
-            </ion-col>
-          }
-        </ion-row>
-      }@else{
-        <div>
-          <app-no-data [message]="'NO_DATA_MSG'"></app-no-data>
-        </div>
-      }
     </div>
+  }@else{
+    <app-no-data [message]="'NO_DATA_MSG'"></app-no-data>
   }
   <ion-infinite-scroll (ionInfinite)="loadData($event)" [disabled]="disableLoading">
     <ion-infinite-scroll-content loadingText="{{'LOADING' | translate}}..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
