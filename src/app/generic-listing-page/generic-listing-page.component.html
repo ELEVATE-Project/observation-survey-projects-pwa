@@ -7,19 +7,22 @@
           (ionInput)="handleInput($event)"></ion-searchbar>
       </ion-col>
     </ion-row>
-  
+
 
   }
 
 </ng-template>
 </app-application-header>
 
-<ion-content>
-  
-  <ion-list>
-    <ion-grid>
-      @if(searchTerm.length && count > 0){
-       <p class="highlight">{{resultMsg | translate}}</p> 
+<ion-content id="filter-content">
+  @if(searchTerm.length && count > 0){
+    <p class="highlight">{{resultMsg | translate}}</p>
+  }
+
+  @if(listingData.length){
+    <div class="cards-list">
+      @for(data of listingData; track $index){
+        <app-recommendation-card [cardData]="data"></app-recommendation-card>
       }
 
       @if(listingData.length){
@@ -35,9 +38,16 @@
           <app-no-data [message]="'NO_DATA_MSG'"></app-no-data>
         </div>
       }
-    </ion-grid>
-  </ion-list>
+    </div>
+  }
   <ion-infinite-scroll (ionInfinite)="loadData($event)" [disabled]="disableLoading">
     <ion-infinite-scroll-content loadingText="{{'LOADING' | translate}}..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
+@if(pageConfig.enableFilter){
+  <ion-menu menuId="filter-menu" contentId="filter-content" side="end">
+    @if(isMenuOpen){
+      <app-filter (onClose)="filterEvent($event)"></app-filter>
+    }
+  </ion-menu>
+}

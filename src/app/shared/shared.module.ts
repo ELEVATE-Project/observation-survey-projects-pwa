@@ -14,6 +14,10 @@ import {MatButtonModule} from '@angular/material/button';
 import { SideNavigationComponent } from './side-navigation/side-navigation.component';
 import { RouterModule } from '@angular/router';
 import { ResponsiveDirective } from './directives/app-responsive/app-responsive.directive';
+import { FilterComponent } from './filter/filter.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCheckboxModule } from '@angular/material/checkbox'
 import { CarouselComponent } from './carousel/carousel.component';
 import { ApplicationHeaderComponent } from './application-header/application-header.component';
 import { SectionHeaderComponent } from './section-header/section-header.component';
@@ -32,9 +36,11 @@ import { NoDataComponent } from './no-data/no-data.component';
         CarouselComponent,
         ApplicationHeaderComponent,
         SectionHeaderComponent,
-        NoDataComponent
+        NoDataComponent,
+        FilterComponent
     ],
-    imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule,MatDividerModule,MatButtonModule],
+    imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule,MatDividerModule,MatButtonModule, FormsModule,
+        ReactiveFormsModule, MatFormFieldModule, MatCheckboxModule],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     exports: [
         RecommendationCardComponent,
@@ -47,7 +53,8 @@ import { NoDataComponent } from './no-data/no-data.component';
         CarouselComponent,
         ApplicationHeaderComponent,
         SectionHeaderComponent,
-        NoDataComponent
+        NoDataComponent,
+        FilterComponent
     ],
     providers: [ShortUrlPipe]
 })

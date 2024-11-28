@@ -67,7 +67,7 @@ export class HomePage {
       });
   }
   handleActionClick(actionName:String) {
-    
+    this.router.navigate(['list/saved'])
   }
 
   logout() {
