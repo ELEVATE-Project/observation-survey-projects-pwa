@@ -24,6 +24,7 @@ export class GenericListingPageComponent  implements OnInit {
   headerConfig:any;
   resultMsg: any;
   isMenuOpen = true
+  filterQuery = ""
 
   constructor(private activatedRoute: ActivatedRoute,private profileService: ProfileService, private projectsApiService: ProjectsApiService,
     private toastService: ToastService, private loaderService: LoaderService, private translate:TranslateService, private menuControl: MenuController
@@ -58,7 +59,7 @@ export class GenericListingPageComponent  implements OnInit {
 
   async getData($event?:any){
     await this.loaderService.showLoading("LOADER_MSG")
-    let url = `${this.pageConfig.apiUrl}?page=${this.page}&limit=${this.limit}&search=${this.searchTerm}`
+    let url = `${this.pageConfig.apiUrl}?page=${this.page}&limit=${this.limit}&search=${this.searchTerm}${this.filterQuery}`
     this.projectsApiService.get(url).subscribe({
       next: async(response: any)=>{
       await this.loaderService.dismissLoading()
@@ -89,7 +90,8 @@ export class GenericListingPageComponent  implements OnInit {
   }
 
   handleActionClick(event?:any){
-    console.log(event)
+    this.isMenuOpen = true
+    this.menuControl.open()
   }
 
   loadData($event: any){
@@ -114,10 +116,15 @@ export class GenericListingPageComponent  implements OnInit {
     this.menuControl.open()
   }
 
-  filterEvent($event:any){}
+  filterEvent($event:any){
+    this.filterQuery = Object.entries($event).map(([key, value]) => `&${key}=${value}`).join('')
+    this.getData()
+  }
 
   ionViewWillLeave(){
     this.isMenuOpen = false
-    this.menuControl.close()
+    this.menuControl.close() 
+    this.searchTerm = ""
+    this.filterQuery = ""
   }
 }

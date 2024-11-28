@@ -66,23 +66,30 @@ export class FilterComponent  implements OnInit {
       const sectionName = section.code
       selectedValues[sectionName] = this.filterForm.get(sectionName)?.value;
     });
-    this.closeFilter()
+    this.sendData()
   }
 
   clearFilter(){
     this.filterList.forEach((section: any) => {
       const control = this.filterForm.get(section.code) as FormArray;
       control.clear();
-    });  
+    });
+    this.sendData(false)
   }
 
-  closeFilter(){
+  sendData(closeMenu = true){
     const formattedData: any = {}
     let selectedFilterValues = this.filterForm.value
     Object.keys(selectedFilterValues).forEach((key) => {
       formattedData[key] = selectedFilterValues[key].map((item: any) => item.value).join(",")
     });
     this.onClose.emit(formattedData)
+    if(closeMenu){
+      this.menuControl.close()
+    }
+  }
+
+  closeFilterMenu(){
     this.menuControl.close()
   }
 }

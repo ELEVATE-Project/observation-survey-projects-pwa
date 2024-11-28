@@ -8,8 +8,11 @@ export const listingConfig = {
         }
     },
     saved: {
-        apiUrl: "/project/v1/",
+        apiUrl: "/project/v1/wishlist/list",
         enableSearch: false,
-        headerConfig: {}
+        headerConfig: {
+            title:'SAVED',
+            showBackButton:true
+        }
     }
 }

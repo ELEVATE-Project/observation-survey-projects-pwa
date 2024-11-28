@@ -14,8 +14,7 @@
 </ng-template>
 </app-application-header>
 
-<ion-content>
-  
+<ion-content id="filter-content">
   <ion-list>
     <ion-grid>
       @if(searchTerm.length && count > 0){
@@ -42,7 +41,6 @@
     <ion-infinite-scroll-content loadingText="{{'LOADING' | translate}}..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
-<div  id="filter-content"></div>
 <ion-menu menuId="filter-menu" contentId="filter-content" side="end">
   @if(isMenuOpen){
     <app-filter (onClose)="filterEvent($event)"></app-filter>
