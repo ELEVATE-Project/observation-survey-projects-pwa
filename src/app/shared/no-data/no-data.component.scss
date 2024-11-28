@@ -1,0 +1,17 @@
+
+.nodata-card{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+img{
+    width: 60%;
+    height: 60%;
+    position: relative;
+    @media only screen and (max-width: 1024px) {
+        height: auto;
+      }
+}

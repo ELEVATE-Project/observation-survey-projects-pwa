@@ -18,6 +18,7 @@ import { ResponsiveDirective } from './directives/app-responsive/app-responsive.
 import { CarouselComponent } from './carousel/carousel.component';
 import { ApplicationHeaderComponent } from './application-header/application-header.component';
 import { SectionHeaderComponent } from './section-header/section-header.component';
+import { NoDataComponent } from './no-data/no-data.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { SectionHeaderComponent } from './section-header/section-header.componen
         MyimprovementCardComponent,
         CarouselComponent,
         ApplicationHeaderComponent,
-        SectionHeaderComponent
+        SectionHeaderComponent,
+        NoDataComponent
     ],
     imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule,MatDividerModule,MatButtonModule],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -47,7 +49,8 @@ import { SectionHeaderComponent } from './section-header/section-header.componen
         ResponsiveDirective,
         CarouselComponent,
         ApplicationHeaderComponent,
-        SectionHeaderComponent
+        SectionHeaderComponent,
+        NoDataComponent
     ],
     providers: [ShortUrlPipe]
 })
