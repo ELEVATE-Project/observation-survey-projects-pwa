@@ -14,7 +14,8 @@
         "categoriesList": "/project/v1/library/categories/list",
         "projectCategories": "/project/v1/library/categories/projects/",
         "entityConfigUrl" : "/project/v1/configurations/read",
-        "filterUrl": "/project/v1/projectAttributes/find"
+        "filterUrl": "/project/v1/projectAttributes/find",
+        "savedListUrl": "/project/v1/wishlist/list"
     },
     "formListing": {
         "listingUrl": "/v1/forms/read"

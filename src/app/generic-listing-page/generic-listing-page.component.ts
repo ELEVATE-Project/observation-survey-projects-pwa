@@ -36,7 +36,6 @@ export class GenericListingPageComponent  implements OnInit {
 
 
   ngOnInit() {
-    this.getProfileDetails();  
     this.setHeaderConfig()
   }
 
@@ -46,6 +45,7 @@ export class GenericListingPageComponent  implements OnInit {
 
   ionViewWillEnter(){
     this.isMenuOpen = true
+    this.getProfileDetails();  
   }
 
   getProfileDetails() {

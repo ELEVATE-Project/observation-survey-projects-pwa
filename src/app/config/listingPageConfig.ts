@@ -1,3 +1,5 @@
+import urlConfig from 'src/app/config/url.config.json';
+
 export const listingConfig = {
     explore: {
         apiUrl: "/project/v1/library/categories/projects/educationLeader",
@@ -9,7 +11,7 @@ export const listingConfig = {
         enableFilter: true
     },
     saved: {
-        apiUrl: "/project/v1/wishlist/list",
+        apiUrl: urlConfig.project.savedListUrl,
         enableSearch: false,
         headerConfig: {
             title:'SAVED',
