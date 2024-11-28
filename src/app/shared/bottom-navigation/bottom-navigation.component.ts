@@ -1,31 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import NavConfig from '../../config/nav.config.json'
+import { NavBarService } from 'src/app/services/nav-bar/nav-bar.service';
 
 @Component({
   selector: 'app-bottom-navigation',
   templateUrl: './bottom-navigation.component.html',
   styleUrls: ['./bottom-navigation.component.scss'],
 })
-export class BottomNavigationComponent implements OnInit {
+export class BottomNavigationComponent implements OnInit, OnDestroy {
+  selectedIndex!: number;
+  navItems!:any[];
 
-  selectedIndex!:number;
-
-  navItems = NavConfig;
-
-
-  constructor(private router: Router) {}
+  constructor(private navigationService: NavBarService, private router:Router) {}
 
   ngOnInit(): void {
-    this.selectedIndex = this.navItems.findIndex((item) => item.route === this.router.url);
-    if(this.selectedIndex == -1){
-      this.selectedIndex = 0
-    }
+    this.navigationService.selectedIndex$.subscribe(index => {
+      this.selectedIndex = index;
+    });
+    this.navigationService.initialize();
+    this.navItems = this.navigationService.navItems;
   }
 
   onNavigate(route: string, index: number): void {
-    this.selectedIndex = index;
+    this.navigationService.setSelectedIndex(index);
     this.router.navigate([route]);
   }
 
+  ngOnDestroy(): void {
+    this.navigationService.ngOnDestroy();
+  }
 }
