@@ -42,7 +42,7 @@ export class SpotlightListingPage implements OnInit {
 
   async getData($event?:any){
     await this.loaderService.showLoading("LOADER_MSG")
-    let url = `${urlConfig.spotlightUrl}&page=${this.page}&limit=${this.limit}&search=&filter=`;
+    let url = `${urlConfig.project.spotlightUrl}&page=${this.page}&limit=${this.limit}&search=&filter=`;
     this.projectsApiService.get(url).subscribe({
       next: async(response: any)=>{
         await this.loaderService.dismissLoading()

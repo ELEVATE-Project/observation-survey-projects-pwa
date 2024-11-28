@@ -92,9 +92,9 @@ export class HomePage {
 
   getdata() {
     const urls = {
-      improvements: `${urlConfig.myImprovementsUrl}&page=${this.page}&limit=${this.limit}&search=&filter=`,
-      spotlight: `${urlConfig.spotlightUrl}&page=${this.page}&limit=${this.limit}&search=&filter=`,
-      recommendation: `${urlConfig.recommendationUrl}?page=${this.page}&limit=${this.limit}&search=`,
+      improvements: `${urlConfig.project.myImprovementsUrl}&page=${this.page}&limit=${this.limit}&search=&filter=`,
+      spotlight: `${urlConfig.project.spotlightUrl}&page=${this.page}&limit=${this.limit}&search=&filter=`,
+      recommendation: `${urlConfig.project.recommendationUrl}?page=${this.page}&limit=${this.limit}&search=`,
     };
 
     const fetchData = (url: string) =>

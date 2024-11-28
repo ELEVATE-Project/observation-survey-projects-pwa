@@ -13,7 +13,10 @@
         "verifyLink": "/project/v1/solutions/verifyLink/",
         "categoriesList": "/project/v1/library/categories/list",
         "projectCategories": "/project/v1/library/categories/projects/",
-        "entityConfigUrl" : "/project/v1/configurations/read"
+        "entityConfigUrl" : "/project/v1/configurations/read",
+        "spotlightUrl":"/project/v1/template/list?hasSpotlight=true",
+        "myImprovementsUrl":"/project/v1/userProjects/list?submitted=false",
+        "recommendationUrl":"/project/v1/library/categories/projects/educationLeader"
     },
     "formListing": {
         "listingUrl": "/v1/forms/read"
@@ -41,8 +44,5 @@
     "certificate":{
         "verifyCertificateUrl":"/project/v1/userProjects/verifyCertificate",
         "certificateListing":"/project/v1/userProjects/certificates"
-    },
-    "spotlightUrl":"/project/v1/template/list?hasSpotlight=true",
-    "myImprovementsUrl":"/project/v1/userProjects/list?submitted=false",
-    "recommendationUrl":"/project/v1/library/categories/projects/educationLeader"
+    }
 }

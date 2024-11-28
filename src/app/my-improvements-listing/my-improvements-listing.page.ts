@@ -42,7 +42,7 @@ export class MyImprovementsListingPage implements OnInit {
 
   async getImprovements($event?:any){
     await this.loaderService.showLoading("LOADER_MSG")
-    let url = `${urlConfig.myImprovementsUrl}&page=${this.page}&limit=${this.limit}&search=&filter=`;
+    let url = `${urlConfig.project.myImprovementsUrl}&page=${this.page}&limit=${this.limit}&search=&filter=`;
     this.projectsApiService.get(url).subscribe({
       next: async(response: any)=>{
         await this.loaderService.dismissLoading()

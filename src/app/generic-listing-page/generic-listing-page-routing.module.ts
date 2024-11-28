@@ -17,7 +17,7 @@ const routes: Routes = [
   {
     path: 'recommended',
     component: GenericListingPageComponent,
-    data: listingConfig.recommended
+    data: listingConfig.recommendations
   }
 ];
 

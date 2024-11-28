@@ -12,7 +12,7 @@ export const listingConfig = {
         enableSearch: false,
         headerConfig: {}
     },
-    recommended : {
+    recommendations : {
         apiUrl: "/project/v1/library/categories/projects/educationLeader",
         enableSearch: false,
         headerConfig: {
