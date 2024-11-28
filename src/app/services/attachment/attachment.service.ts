@@ -9,6 +9,11 @@ export class AttachmentService {
   constructor(private http: HttpClient) { }
 
   cloudImageUpload(fileDetails:any, uploadUrl:any) {
-    return this.http.put(uploadUrl.signedUrl, fileDetails)
+    const option = { headers: {
+      "skipInterceptor": "true",
+      "Content-Type": "multipart/form-data",
+      "Access-Control-Allow-Origin": "*"
+    }}
+    return this.http.put(uploadUrl.signedUrl, fileDetails, option)
 }
 }
