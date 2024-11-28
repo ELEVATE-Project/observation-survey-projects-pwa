@@ -6,7 +6,6 @@ import { LoaderService } from '../services/loader/loader.service';
 import urlConfig from 'src/app/config/url.config.json';
 import { ToastService } from '../services/toast/toast.service';
 import { Router } from '@angular/router';
-import { data, data2, data3, data4 } from './projectdata';
 import { AuthService } from 'authentication_frontend_library';
 import { UtilService } from 'src/app/services/util/util.service';
 import { ProfileService } from '../services/profile/profile.service';

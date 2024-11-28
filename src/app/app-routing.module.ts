@@ -8,17 +8,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'my-improvements-listing',
-    loadChildren: () => import('./my-improvements-listing/my-improvements-listing.module').then( m => m.MyImprovementsListingPageModule),
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'spotlight-listing',
-    loadChildren: () => import('./spotlight-listing/spotlight-listing.module').then( m => m.SpotlightListingPageModule),
-    canActivate: [AuthGuard]
-  },
-  { path: 'list',
-    loadChildren: () => import('./generic-listing-page/generic-listing-page.module').then(m => m.GenericListingPageModule),
+    path: 'list',
+    loadChildren: () => import('./generic-listing-page/generic-listing-page.module').then((m) => m.GenericListingPageModule),
     canActivate: [AuthGuard]
   },
   {

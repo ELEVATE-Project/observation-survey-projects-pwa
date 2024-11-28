@@ -1,7 +1,7 @@
 <app-application-header [config]="headerConfig" (actionClick)="handleActionClick($event)"></app-application-header>
 <ion-content [fullscreen]="true">
   <div class="ion-margin-vertical">
-    <app-section-header [headerName]="'MY_IMPROVEMENTS'" [showViewMore]="improvementsCount > limit" [navigateUrl]="'/my-improvements-listing'"></app-section-header>
+    <app-section-header [headerName]="'MY_IMPROVEMENTS'" [showViewMore]="improvementsCount > limit" [navigateUrl]="'/list/my-improvements'"></app-section-header>
     @if (myImprovements.length > 0) {
 
       <app-carousel
@@ -31,7 +31,7 @@
   <div class="ion-margin-vertical">
 
 
-  <app-section-header [headerName]="'SPOTLIGHTS'" [showViewMore]="spotlightCount > limit" [navigateUrl]="'/spotlight-listing'"></app-section-header>
+  <app-section-header [headerName]="'SPOTLIGHTS'" [showViewMore]="spotlightCount > limit" [navigateUrl]="'/list/spotlight'"></app-section-header>
 
   <app-carousel
     [items]="spotlightstories"
