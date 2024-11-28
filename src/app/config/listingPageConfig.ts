@@ -5,7 +5,8 @@ export const listingConfig = {
         headerConfig: {
             title:'EXPLORE',
             customActions: [{ icon: 'options-outline', actionName: 'filter' }],
-        }
+        },
+        enableFilter: true
     },
     saved: {
         apiUrl: "/project/v1/wishlist/list",
