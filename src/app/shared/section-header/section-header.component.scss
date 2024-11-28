@@ -1,0 +1,25 @@
+.section-header{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 10px;
+}
+
+.section-headername{
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.section-viewmore{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 400;
+    gap: 5px;
+}
+
+.section-icon{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 400;
+}

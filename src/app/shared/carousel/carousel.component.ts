@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { IonicSlides } from '@ionic/angular';
 
 @Component({
@@ -9,17 +9,9 @@ import { IonicSlides } from '@ionic/angular';
 })
 export class CarouselComponent{
   swiperModules = [IonicSlides];
-  @ViewChild('swiperContainer', { static: false }) swiperContainer!: ElementRef;
   @Input() items: any[] = [];
   @Input() template: any;
   @Input() itemsToShow = 4;
   constructor() { }
-  
-  // ngAfterViewInit() {
-  //   const pagination = this.swiperContainer.nativeElement.querySelector('.swiper-pagination');
-  //   if (pagination) {
-  //     pagination.style.position = 'relative'; 
-  //   }
-  // }
 
 }

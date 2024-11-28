@@ -9,7 +9,7 @@
         src: "/opt/backend/deployment/.token"
       register: slurpfile
     - name: Run vault credentials
-      shell: "curl --location --request GET '{{ vaultAddress }}elevate-project-pws' --header 'X-Vault-Token: {{ slurpfile['content'] | b64decode }}' | jq '.data' > '{{root_path}}/data2.json'"
+      shell: "curl --location --request GET '{{ vaultAddress }}mitra-frontend-dev' --header 'X-Vault-Token: {{ slurpfile['content'] | b64decode }}' | jq '.data' > '{{root_path}}/data2.json'"
       register: vaultCurl
     - name: Ensure project directory exists
       file:
@@ -37,7 +37,7 @@
     - name: Change directory
       shell: cd {{project_path}}
     - name: Fetch pm2 config file
-      shell: "curl --location --request GET '{{ vaultAddress }}projetcsPWAPm2Config' --header 'X-Vault-Token: {{ slurpfile['content'] | b64decode }}' | jq '.data.data' > '{{ project_path }}/pm2.config.json'"
+      shell: "curl --location --request GET '{{ vaultAddress }}mitra-portal-pm2-config' --header 'X-Vault-Token: {{ slurpfile['content'] | b64decode }}' | jq '.data.data' > '{{ project_path }}/pm2.config.json'"
       register: pm2
     - name: Remove www folder
       shell: rm -rf www

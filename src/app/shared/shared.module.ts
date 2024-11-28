@@ -8,7 +8,6 @@ import { PopoverComponent } from './popover/popover.component';
 import { ShareLinkPopupComponent } from './share-link-popup/share-link-popupcomponent';
 import { ShortUrlPipe } from './pipes/short-url.pipe';
 import { SpotlightCardComponent } from './spotlight-card/spotlight-card.component';
-// import { MyimprovementCardComponent } from './myimprovement-card/myimprovement-card.component';
 import { MatIconModule } from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
@@ -21,6 +20,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { CarouselComponent } from './carousel/carousel.component';
 import { ApplicationHeaderComponent } from './application-header/application-header.component';
+import { SectionHeaderComponent } from './section-header/section-header.component';
+import { NoDataComponent } from './no-data/no-data.component';
 
 @NgModule({
     declarations: [
@@ -32,9 +33,10 @@ import { ApplicationHeaderComponent } from './application-header/application-hea
         ShortUrlPipe,
         ResponsiveDirective,
         SpotlightCardComponent,
-        // MyimprovementCardComponent,
         CarouselComponent,
         ApplicationHeaderComponent,
+        SectionHeaderComponent,
+        NoDataComponent,
         FilterComponent
     ],
     imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule,MatDividerModule,MatButtonModule, FormsModule,
@@ -47,10 +49,11 @@ import { ApplicationHeaderComponent } from './application-header/application-hea
         PopoverComponent,
         ShareLinkPopupComponent,
         SpotlightCardComponent,
-        // MyimprovementCardComponent,
         ResponsiveDirective,
         CarouselComponent,
         ApplicationHeaderComponent,
+        SectionHeaderComponent,
+        NoDataComponent,
         FilterComponent
     ],
     providers: [ShortUrlPipe]
