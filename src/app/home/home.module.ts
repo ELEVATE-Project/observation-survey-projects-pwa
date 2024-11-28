@@ -11,6 +11,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
+import { MatIconModule } from '@angular/material/icon';
 @NgModule({
   imports: [
     CommonModule,
@@ -19,7 +20,8 @@ import { SharedModule } from '../shared/shared.module';
     HomePageRoutingModule,
     HttpClientModule,
     TranslateModule,
-    SharedModule
+    SharedModule,
+    MatIconModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   declarations: [HomePage]

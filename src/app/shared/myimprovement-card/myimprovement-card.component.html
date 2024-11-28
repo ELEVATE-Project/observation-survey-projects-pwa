@@ -1,0 +1,30 @@
+<div
+  class="improvements-card"
+  [ngClass]="{'even-card': index % 2 === 0, 'odd-card': index % 2 !== 0}"
+  (click)="onImprovement(myImprovement._id)"
+>
+  <div class="card-header">
+    <span class="improvement-title">{{ myImprovement.title }}</span>
+    <button>
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+  </div>
+  <ul class="task-list">
+    @for (item of filteredTasksWithIndexes; track $index) {
+    <li
+      [ngClass]="{ 'strikethrough': item.task.status === 'completed' }"
+    >
+      {{ item.originalIndex + 1 }}. {{ item.task.name }}
+    </li>
+    }
+  </ul>
+  <div class="progress-bar">
+    <span class="progress-text">{{ progressValue }}%</span>
+    <div class="progress">
+      <div
+        class="progress-fill"
+        [style.width]="progressValue + '%'"
+      ></div>
+    </div>
+  </div>
+</div>

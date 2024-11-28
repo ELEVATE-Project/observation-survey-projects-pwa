@@ -116,7 +116,17 @@ mat-label {
   --color-danger: #ff0000;
   --color-disable-text: #7F7F7F;
   --color-disable-bg: #E4E3E0;
-  
+  --color-light-grey: #79747E;
+  --color-card-primary: #9261D7;
+  --color-card-secondary: #FF9911;
+  --color-fill-primary: #8C4EE0;
+  --color-stroke-primary: #CCA7FF;
+  --color-star-fill-secondary: #FED8A6;
+  --color-quote-fill-secondary: #FED8A699;
+  --color-stroke-secondary: #AD7C3B;
+  --swiper-pagination-color: var(--color-primary) !important;
+
+
   --mdc-outlined-text-field-caret-color: var(--color-primary);
   --mdc-outlined-text-field-focus-outline-color: var(--color-primary);
   --mdc-outlined-text-field-focus-label-text-color: var(--color-primary);
@@ -144,7 +154,7 @@ mat-label {
   --border-color: #ccc;
 }
 
-  
+
 .mat-progress-spinner circle,
 .mat-spinner circle {
     stroke: var(--color-primary) !important;

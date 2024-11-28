@@ -16,6 +16,8 @@ import { RouterModule } from '@angular/router';
 import { ResponsiveDirective } from './directives/app-responsive/app-responsive.directive';
 import { CarouselComponent } from './carousel/carousel.component';
 import { ApplicationHeaderComponent } from './application-header/application-header.component';
+import { SectionHeaderComponent } from './section-header/section-header.component';
+import { NoDataComponent } from './no-data/no-data.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +30,9 @@ import { ApplicationHeaderComponent } from './application-header/application-hea
         ResponsiveDirective,
         SpotlightCardComponent,
         CarouselComponent,
-        ApplicationHeaderComponent
+        ApplicationHeaderComponent,
+        SectionHeaderComponent,
+        NoDataComponent
     ],
     imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule,MatDividerModule,MatButtonModule],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -41,7 +45,9 @@ import { ApplicationHeaderComponent } from './application-header/application-hea
         SpotlightCardComponent,
         ResponsiveDirective,
         CarouselComponent,
-        ApplicationHeaderComponent
+        ApplicationHeaderComponent,
+        SectionHeaderComponent,
+        NoDataComponent
     ],
     providers: [ShortUrlPipe]
 })
