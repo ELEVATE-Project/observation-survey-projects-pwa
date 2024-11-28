@@ -32,7 +32,7 @@ export class FilterComponent  implements OnInit {
         }
       },
       error: (error:any)=>{
-        this.toastService.presentToast(error.error.message, 'danger')
+        this.toastService.presentToast(error?.error?.message, 'danger')
       }
     })
   }
@@ -78,15 +78,20 @@ export class FilterComponent  implements OnInit {
   }
 
   sendData(closeMenu = true){
+    let data = this.formatData()
+    this.onClose.emit(data)
+    if(closeMenu){
+      this.menuControl.close()
+    }
+  }
+
+  formatData(){
     const formattedData: any = {}
     let selectedFilterValues = this.filterForm.value
     Object.keys(selectedFilterValues).forEach((key) => {
       formattedData[key] = selectedFilterValues[key].map((item: any) => item.value).join(",")
     });
-    this.onClose.emit(formattedData)
-    if(closeMenu){
-      this.menuControl.close()
-    }
+    return formattedData
   }
 
   closeFilterMenu(){
