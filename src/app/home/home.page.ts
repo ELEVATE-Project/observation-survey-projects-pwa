@@ -21,6 +21,9 @@ register();
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
+  spotlightstories:any[]=[];
+  myImprovements: any[] = [];
+  recommendationList:any[]=[];
   formListingUrl = (environment.baseURL.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
   swiperModules = [IonicSlides];
   jsonData: any;
@@ -28,14 +31,8 @@ export class HomePage {
   authService: AuthService;
   toastService: any;
   loader: LoaderService;
-  solutionList: any = [];
   userName:any;
   headerConfig:any;
-  isMobile = this.utilService.isMobile();
-  typeTemplateMapping: { [key: string]: TemplateRef<any> } = {};
-  @ViewChild('bannerTemplate') bannerTemplate!: TemplateRef<any>;
-  @ViewChild('solutionTemplate') solutionTemplate!: TemplateRef<any>;
-  @ViewChild('recommendationTemplate') recommendationTemplate!: TemplateRef<any>;
   clearDatabaseHandler:any;
 
 
@@ -53,7 +50,6 @@ export class HomePage {
     this.setHeaderConfig();
     this.clearDatabaseHandler = this.handleMessage.bind(this);
       window.addEventListener('message', this.clearDatabaseHandler);
-    this.getHomeListing();
   }
   setHeaderConfig() {
     this.userName =localStorage.getItem('name')
@@ -69,35 +65,6 @@ export class HomePage {
   handleActionClick(actionName:String) {
     
   }
-
-  async getHomeListing() {
-    await this.loader.showLoading("LOADER_MSG");
-    this.baseApiService
-      .post(
-        this.formListingUrl, FETCH_HOME_FORM)
-      .pipe(
-        finalize(async () => {
-          await this.loader.dismissLoading();
-        })
-      )
-      .subscribe((res: any) => {
-        if (res?.status === 200) {
-          if (res?.result) {
-            this.solutionList = res?.result?.data;
-          }
-          this.typeTemplateMapping = {
-            "bannerList": this.bannerTemplate,
-            "solutionList": this.solutionTemplate,
-            "recomendationList": this.recommendationTemplate
-          };
-        }
-      },
-        (err: any) => {
-          this.toastService.presentToast(err?.error?.message,"danger");
-        }
-      );
-  }
-
 
   logout() {
     this.authService.logout();

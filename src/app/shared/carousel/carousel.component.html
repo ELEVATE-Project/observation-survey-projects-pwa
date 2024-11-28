@@ -2,14 +2,13 @@
   <swiper-container #swiperContainer
     [slidesPerView]="1.2"
     [spaceBetween]="10"
-    [pagination]="{ clickable: true }"
     [loop]="false"
     class="carousel"
   >
-    @for (item of items.slice(0,itemsToShow); track item) {
-    <swiper-slide style="position: relative !important;">
+    @for (item of items.slice(0,itemsToShow); track item; let i = $index) {
+    <swiper-slide>
       <ng-container
-        *ngTemplateOutlet="template; context: { $implicit: item }"
+        *ngTemplateOutlet="template; context: { $item: item, $index:i}"
       ></ng-container>
     </swiper-slide>
     }
@@ -17,11 +16,11 @@
 </ng-container>
 
 <ng-container *appResponsive="'desktop'">
-  <div style="display: flex; flex-direction: row; gap: 16px;">
+  <div class="desktop-container">
 
-  @for (item of items.slice(0,itemsToShow); track item;) {
+  @for (item of items.slice(0,itemsToShow); track item;let i = $index) {
       <ng-container
-      *ngTemplateOutlet="template; context: { $implicit: item }"
+      *ngTemplateOutlet="template; context: { $item: item ,$index:i}"
     ></ng-container>
 
   }
