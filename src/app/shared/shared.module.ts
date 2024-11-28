@@ -8,7 +8,6 @@ import { PopoverComponent } from './popover/popover.component';
 import { ShareLinkPopupComponent } from './share-link-popup/share-link-popupcomponent';
 import { ShortUrlPipe } from './pipes/short-url.pipe';
 import { SpotlightCardComponent } from './spotlight-card/spotlight-card.component';
-import { MyimprovementCardComponent } from './myimprovement-card/myimprovement-card.component';
 import { MatIconModule } from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
@@ -30,7 +29,6 @@ import { NoDataComponent } from './no-data/no-data.component';
         ShortUrlPipe,
         ResponsiveDirective,
         SpotlightCardComponent,
-        MyimprovementCardComponent,
         CarouselComponent,
         ApplicationHeaderComponent,
         SectionHeaderComponent,
@@ -45,7 +43,6 @@ import { NoDataComponent } from './no-data/no-data.component';
         PopoverComponent,
         ShareLinkPopupComponent,
         SpotlightCardComponent,
-        MyimprovementCardComponent,
         ResponsiveDirective,
         CarouselComponent,
         ApplicationHeaderComponent,
