@@ -46,12 +46,9 @@ export class ApiInterceptor implements HttpInterceptor {
       return req.clone({
         setHeaders: { 'X-auth-token': `bearer ${token}` }
       });
-    } else if (req.url.includes('storage.googleapis.com')) {
+    } else if (req.headers.has("skipInterceptor")) {
       return req.clone({
-        setHeaders: {
-          "Content-Type": "multipart/form-data",
-          "Access-Control-Allow-Origin": "*"
-        }
+        headers: req.headers.delete("skipInterceptor")
       });
     } else {
       return req.clone({
