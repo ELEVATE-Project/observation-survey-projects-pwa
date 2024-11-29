@@ -1,7 +1,7 @@
 ---
 - hosts: elevate
   vars:
-    project_path: /opt/frontend/elevate-project-pwa
+    project_path: /opt/frontend/mitra-pwa
     root_path: /opt/frontend
   tasks:
     - name: Slurp host file
