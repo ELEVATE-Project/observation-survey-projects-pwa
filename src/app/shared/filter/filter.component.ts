@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { MenuController } from '@ionic/angular';
 import urlConfig from 'src/app/config/url.config.json';
@@ -11,12 +11,13 @@ import { ToastService } from '../../services/toast/toast.service';
   styleUrls: ['./filter.component.scss'],
 })
 export class FilterComponent  implements OnInit {
-  filterList:any = []
-  filterForm: FormGroup = this.fb.group({})
+  filterList:any = [];
+  backupFilterList:any = []
+  filterForm: FormGroup = this.fb.group({});
   @Output() onClose = new EventEmitter();
 
   constructor(private fb: FormBuilder, private menuControl: MenuController, private apiService: ProjectsApiService,
-    private toastService: ToastService
+    private toastService: ToastService, public cdr:ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -27,7 +28,8 @@ export class FilterComponent  implements OnInit {
     this.apiService.get(`${urlConfig.project.filterUrl}?language=en`).subscribe({
       next: (response: any)=>{
         if(response.status == 200){
-          this.filterList = response.result
+          this.filterList = response.result;
+          this.backupFilterList = structuredClone(this.filterList);
           this.createForm()
         }
       },
@@ -70,11 +72,11 @@ export class FilterComponent  implements OnInit {
   }
 
   clearFilter(){
-    this.filterList.forEach((section: any) => {
-      const control = this.filterForm.get(section.code) as FormArray;
-      control.clear();
-    });
-    this.sendData(false)
+    this.filterList = [];
+    this.cdr.detectChanges();
+    this.filterList = structuredClone(this.backupFilterList);
+    this.createForm();
+    this.sendData(false);
   }
 
   sendData(closeMenu = true){
