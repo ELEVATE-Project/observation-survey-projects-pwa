@@ -17,7 +17,7 @@ const routes: Routes = [
     data: listingConfig.saved
   },
   {
-    path: 'recommended',
+    path: 'recommendations',
     component: GenericListingPageComponent,
     data: listingConfig.recommendations
   },
