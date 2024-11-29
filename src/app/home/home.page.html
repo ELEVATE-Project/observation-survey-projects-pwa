@@ -27,7 +27,7 @@
       </div>
     }
   </div>
-
+@if (spotlightstories.length > 0) {
   <div class="ion-margin-vertical">
 
 
@@ -47,7 +47,8 @@
   </ng-template>
     </app-carousel>
 </div>
-
+}
+@if (recommendationList.length > 0) {
 <div class="ion-margin-vertical">
 
   <app-section-header [headerName]="'RECOMMENDATIONS'" [showViewMore]="recommendationCount > limit" [navigateUrl]="'/list/recommendations'"></app-section-header>
@@ -63,6 +64,7 @@
   </ng-template>
     </app-carousel>
 </div>
+}
 <!-- demo to use the nodata-component -->
 <!-- <app-no-data [message]="'NO_DATA_MSG'"></app-no-data> -->
 
