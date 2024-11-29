@@ -7,7 +7,7 @@
           (ionInput)="handleInput($event)"></ion-searchbar>
       </ion-col>
     </ion-row>
-  
+
 
   }
 
@@ -16,7 +16,7 @@
 
 <ion-content id="filter-content">
   @if(searchTerm.length && count > 0){
-    <p class="highlight">{{resultMsg | translate}}</p> 
+    <p class="highlight">{{resultMsg | translate}}</p>
   }
 
   @if(listingData.length){
@@ -26,7 +26,7 @@
       }
     </div>
   }@else{
-    <div>NO DATA</div>
+    <app-no-data [message]="'NO_DATA_MSG'"></app-no-data>
   }
   <ion-infinite-scroll (ionInfinite)="loadData($event)" [disabled]="disableLoading">
     <ion-infinite-scroll-content loadingText="{{'LOADING' | translate}}..." loadingSpinner="bubbles"></ion-infinite-scroll-content>

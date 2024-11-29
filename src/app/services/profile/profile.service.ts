@@ -101,14 +101,6 @@ export class ProfileService {
       'PROFILE_UPDATE_MSG',
       [
         {
-          text: 'BACK',
-          role: 'cancel',
-          cssClass: 'secondary-button',
-          handler: () => {
-            this.location.back()
-          }
-        },
-        {
           text: 'PROFILE_UPDATE',
           cssClass: 'primary-button',
           handler: () => {

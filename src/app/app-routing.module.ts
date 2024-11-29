@@ -7,8 +7,9 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then((m) => m.HomePageModule),
     canActivate: [AuthGuard],
   },
-  { path: 'list',
-    loadChildren: () => import('./generic-listing-page/generic-listing-page.module').then(m => m.GenericListingPageModule),
+  {
+    path: 'list',
+    loadChildren: () => import('./generic-listing-page/generic-listing-page.module').then((m) => m.GenericListingPageModule),
     canActivate: [AuthGuard]
   },
   {
