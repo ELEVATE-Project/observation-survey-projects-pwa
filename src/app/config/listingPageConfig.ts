@@ -17,5 +17,13 @@ export const listingConfig = {
             title:'SAVED',
             showBackButton:true
         }
+    },
+    recommendations : {
+        apiUrl: "/project/v1/library/categories/projects/educationLeader",
+        enableSearch: false,
+        headerConfig: {
+            title:'RECOMMEDATION',
+            showBackButton : true
+        }
     }
 }

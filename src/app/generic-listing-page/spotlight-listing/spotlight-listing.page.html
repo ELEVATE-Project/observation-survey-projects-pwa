@@ -1,0 +1,15 @@
+<app-application-header [config]="headerConfig"></app-application-header>
+
+<ion-content [fullscreen]="true">
+  <div class="cards-list">
+        @for (item of spotlightStories; track $index) {
+            <app-spotlight-card
+            [spotlightStory]="item"
+            [index]="$index"
+          ></app-spotlight-card>
+        }
+      </div>
+  <ion-infinite-scroll (ionInfinite)="loadData($event)" [disabled]="disableLoading">
+    <ion-infinite-scroll-content loadingText="{{'LOADING' | translate}}..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
