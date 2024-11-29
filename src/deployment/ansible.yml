@@ -37,7 +37,7 @@
     - name: Change directory
       shell: cd {{project_path}}
     - name: Fetch pm2 config file
-      shell: "curl --location --request GET '{{ vaultAddress }}mitra-portal-pm2-config' --header 'X-Vault-Token: {{ slurpfile['content'] | b64decode }}' | jq '.data.data' > '{{ project_path }}/pm2.config.json'"
+      shell: "curl --location --request GET '{{ vaultAddress }}mitraPortalPM2Config' --header 'X-Vault-Token: {{ slurpfile['content'] | b64decode }}' | jq '.data.data' > '{{ project_path }}/pm2.config.json'"
       register: pm2
     - name: Remove www folder
       shell: rm -rf www
