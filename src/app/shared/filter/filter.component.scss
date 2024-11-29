@@ -39,13 +39,17 @@
 }
 
 .apply-button{
+    display: flex;
+    justify-content: center;
     position: fixed;
     bottom: 0;
-    left: 50px;
-    width: 200px;
-    background-color: white;
+    width: 100%;
+    background-color: var(--color-light);
     
     ion-button{
         text-transform: none;
+        position: relative;
+        width: 200px;
+        right: 10px;
     }
 }
