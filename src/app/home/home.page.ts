@@ -85,17 +85,22 @@ export class HomePage {
     this.profileService.getProfileAndEntityConfigData().subscribe(async (mappedIds) => {
       if (mappedIds) {
         this.profilePayload = mappedIds;
-        this.getdata();
+      await  this.getdata();
       }
     });
   }
 
-  getdata() {
+async  getdata() {
+    let  improvements =  `${urlConfig.project.myImprovementsUrl}?&page=${this.page}&limit=${this.limit}&language=en`;
     const urls = {
-      improvements: `${urlConfig.project.myImprovementsUrl}&page=${this.page}&limit=${this.limit}`,
       spotlight: `${urlConfig.project.spotlightUrl}&page=${this.page}&limit=${this.limit}`,
-      recommendation: `${urlConfig.project.recommendationUrl}?page=${this.page}&limit=${this.limit}`,
     };
+    const fetchDataImprovements = (url:any) =>
+      this.baseApiService.post(url,{}).pipe(
+        catchError((err) => {
+          this.toastService.presentToast(err.error.message, 'danger');
+          return of({ status: 'error', result: { data: [], count: 0 } });
+        }));
 
     const fetchData = (url: string) =>
       this.baseApiService.get(url).pipe(
@@ -106,20 +111,17 @@ export class HomePage {
       );
 
     return combineLatest([
-      fetchData(urls.improvements),
+      fetchDataImprovements(improvements),
       fetchData(urls.spotlight),
-      fetchData(urls.recommendation),
     ])
       .pipe(
-        map(([improvementRes, spotlightRes, recommendationRes]: any) => {
+        map(([improvementRes, spotlightRes]: any) => {
           this.myImprovements = improvementRes.result.data;
           this.improvementsCount = improvementRes.result.count;
 
           this.spotlightstories = spotlightRes.result.data;
           this.spotlightCount = spotlightRes.result.count;
 
-          this.recommendationList = recommendationRes.result.data;
-          this.recommendationCount = recommendationRes.result.count;
         }),
         finalize(async () => {
           await this.loader.dismissLoading();

@@ -37,11 +37,11 @@ export class MyimprovementCardComponent implements OnInit {
   }
 
   countCompletedTasks() {
-    this.completedCount = this.taskList.filter((task: any) => task.status === 'completed').length;
+    this.completedCount = this.myImprovement.taskReport.completed || 0;
   }
 
   calculateProgress(): void {
-    const totalTasks = this.taskList.length;
+    const totalTasks = this.myImprovement.taskReport.total;
 
     if (totalTasks > 0) {
       if (this.completedCount === totalTasks) {
