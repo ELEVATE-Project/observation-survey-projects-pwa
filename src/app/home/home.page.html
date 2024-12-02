@@ -10,10 +10,12 @@
         [itemsToShow]="limit"
       >
       <ng-template #itemTemplate1 let-item="$item" let-index="$index">
-        <app-myimprovement-card
-        [myImprovement]="item"
-          [index]="index"
-        ></app-myimprovement-card>
+        <div class="card">
+          <app-myimprovement-card
+          [myImprovement]="item"
+            [index]="index"
+          ></app-myimprovement-card>
+        </div>
       </ng-template>
     </app-carousel>
     }
