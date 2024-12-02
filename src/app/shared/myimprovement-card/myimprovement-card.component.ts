@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-myimprovement-card',
@@ -15,7 +16,7 @@ export class MyimprovementCardComponent implements OnInit {
 
   filteredTasksWithIndexes: { task: any; originalIndex: number }[] = [];
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.taskList = this.myImprovement.tasks;
@@ -59,6 +60,6 @@ export class MyimprovementCardComponent implements OnInit {
   }
 
   onImprovement(id:any) {
-    console.log("redirection to the objective");
+    this.router.navigate(['project-details'], { state: { _id: id } });
   }
 }
