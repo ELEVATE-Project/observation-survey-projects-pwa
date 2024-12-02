@@ -32,4 +32,9 @@ export class UtilService {
     const currentTime = new Date();
     return currentTime < tokenExpiryTime;
   }
+
+  getSelectedLanguage(){
+    let selectedLanguage:any = localStorage.getItem("preferred_language")
+    return JSON.parse(selectedLanguage).value || "en"
+  }
 }
