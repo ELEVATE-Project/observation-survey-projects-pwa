@@ -48,8 +48,13 @@ export class ProfilePage {
   }
   onLanguageChange(event: any) {
     this.selectedLanguage = event.detail.value;
-    localStorage.setItem('languages', this.selectedLanguage);
-    this.translate.use(this.selectedLanguage);
+    this.apiBaseService.patch(urlConfig.project.setLanguageUrl,{
+      "preferred_language":this.selectedLanguage
+    }).subscribe((res:any)=>{
+      this.setLanguage(res.result.preferred_language);
+    },(err:any)=>{
+      this.toastService.presentToast(err.error.message,'danger');
+    })
   }
   async loadFormAndData() {
     await this.loader.showLoading("LOADER_MSG");
@@ -164,5 +169,18 @@ export class ProfilePage {
         this.toastService.presentToast(err?.error?.message, 'danger');
       }
    })
+  }
+
+  setLanguage(lang: any) {
+    this.translate.use(lang);
+    let label: any = actions.LANGUAGES.find(language => language.value === lang);
+    if (label) {
+      localStorage.setItem(
+        'preferred_language',
+        JSON.stringify({ value: lang, label: label.name })
+      );
+    } else {
+      console.error('Language not found in LANGUAGES:', lang);
+    }
   }
 }
