@@ -15,7 +15,7 @@
         "projectCategories": "/project/v1/library/categories/projects/",
         "entityConfigUrl" : "/project/v1/configurations/read",
         "spotlightUrl":"/project/v1/template/list?hasSpotlight=true",
-        "myImprovementsUrl":"/project/v1/userProjects/list?submitted=false",
+        "myImprovementsUrl":"/project/v1/userProjects/list",
         "recommendationUrl":"/project/v1/library/categories/projects/educationLeader",
         "filterUrl": "/project/v1/projectAttributes/find",
         "savedListUrl": "/project/v1/wishlist/list",
