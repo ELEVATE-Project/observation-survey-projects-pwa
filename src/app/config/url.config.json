@@ -47,5 +47,14 @@
     "certificate":{
         "verifyCertificateUrl":"/project/v1/userProjects/verifyCertificate",
         "certificateListing":"/project/v1/userProjects/certificates"
+    },
+    "miDetail":{
+        "miDetailUrl":"/project/v1/project/templates/details/",
+        "problemStatementListingUrl":"/project/v1/users/programs",
+        "startProjectUrl":"/project/v1/userProjects/importFromLibrary/"
+    },
+    "save":{
+        "saveAdd":"/project/v1/wishlist/add/",
+        "saveRemove":"/project/v1/wishlist/remove/"
     }
 }

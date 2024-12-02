@@ -1,0 +1,65 @@
+<app-application-header [config]="headerConfig" (actionClick)="saveClick($event)"></app-application-header>
+<ion-content class="ion-padding" *ngIf="projectDetails">
+  <div class="spacing ion-padding">
+    <h1 class="text-header">{{"GENERATED_AND_EDITED_TITLE" | translate}}</h1>
+    <div class="text-muted">
+      <span>{{"BY" | translate}} </span>
+        @if(projectDetails.author){
+          <span>{{projectDetails.author}}</span>
+        }
+    </div>
+  </div>
+
+  @if(projectDetails.problemStatement){
+    <app-mi-details-card
+        [cardConfig]="{ title: 'PROBLEM_STATEMENT', text: projectDetails.problemStatement }">
+    </app-mi-details-card>
+  }
+
+@if(projectDetails.description){
+  <app-mi-details-card 
+    [cardConfig]="{ title: 'OBJECTIVE', text: projectDetails.description }">
+  </app-mi-details-card>
+}
+
+@if(projectDetails.tasks.length>0){
+  <app-mi-details-card
+    [cardConfig]="{ title: 'ACTION_STEPS', tasks: projectDetails.tasks }">
+  </app-mi-details-card>
+}
+
+@if(projectDetails.impact){
+  <app-mi-details-card 
+    [cardConfig]="{ title: 'IMPACT', text: projectDetails.impact }">
+  </app-mi-details-card>
+}
+
+  <div class="bottom-container">
+    <p class="bottom-text">{{projectDetails.text}}</p>
+
+    <!-- @if(projectDetails.evidences.length > 0){
+      <div class="image-container">
+        @for(item of projectDetails.evidences;track item){
+          <div  class="image-item">
+            <div *ngIf="isFileType(item.link, 'item')">
+              <img class="image-placeholder" [src]="item.link" [alt]="item.title" />
+            </div>
+    
+            <div *ngIf="isFileType(item.link, 'pdf') || isFileType(item.link, 'doc') || isFileType(item.link, 'video')">
+              <a [href]="item.link" target="_blank" class="file-link">{{ item.title }}</a>
+            </div>
+          </div>
+        }
+      </div>
+    } -->
+  </div>
+  
+</ion-content>
+<ion-footer collapse="fade" class="ion-no-border">
+  <ion-toolbar>
+    <ion-button expand="block" fill="solid" class="responsive-button" (click)="starImprovement()">
+      {{"START_IMPROVEMENT" | translate}}
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
+
