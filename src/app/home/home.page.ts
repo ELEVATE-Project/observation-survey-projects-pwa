@@ -50,6 +50,7 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
+    this.languageSetting();
     this.setHeaderConfig();
     this.clearDatabaseHandler = this.handleMessage.bind(this);
       window.addEventListener('message', this.clearDatabaseHandler);
@@ -130,5 +131,15 @@ export class HomePage {
         },
       });
   }
+
+  languageSetting(){
+    let language = localStorage.getItem('preferred_language')
+    if (language) {
+      const parsedLanguage = JSON.parse(language);
+      if (parsedLanguage?.value) {
+        this.translate.use(parsedLanguage.value);
+      }
+  }
+}
 
 }
