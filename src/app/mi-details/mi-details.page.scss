@@ -1,8 +1,10 @@
 ion-content {
+  --padding:0px 1rem 1rem;
   --background: var(--color-background);
 }
 
 .spacing {
+  padding: 0px 1rem 1rem;
   display: flex;
   flex-direction: column;
   margin-bottom: 0.5rem;
@@ -14,10 +16,6 @@ ion-content {
   color: var(--color-header);
   margin-bottom: 0.5rem;
 }
-.author-contianer{
-  display: flex;
-  gap: 1rem;
-}
 .text-muted {
   display: flex;
   flex-direction: column;
@@ -25,72 +23,27 @@ ion-content {
   color: var(--color-header);
 }
 
-.card {
-  background: var(--general-btn-text-color);
-  padding: 1rem;
-  border-radius: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.card-title {
+.bottom-container{
   display: flex;
-  align-items: center;
-  font-size: 1rem;
-  font-weight: bold;
-  color: var(--color-text);
-  margin-bottom: 0.5rem;
+  flex-direction: column;
 }
-
-.card-title ion-icon {
-  font-size: 1rem;
-  color: var(--color-text);
-  margin-right: 0.5rem;
-  padding-bottom: 5px;
-}
-
-.card-text {
+.bottom-text{
   font-size: 0.9rem;
   color: var(--color-header);
   line-height: 1.6;
+  margin: 0.5rem;
 }
-
-.numbered-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  counter-reset: list-counter;
-}
-
-.numbered-list li {
-  font-size: 0.9rem;
-  color: var(--color-header);
-  margin-bottom: 0.5rem;
-  padding-left: 1rem;
-  position: relative;
-  line-height: 1.6;
-}
-
-.numbered-list li::before {
-  content: counter(list-counter) ". ";
-  counter-increment: list-counter;
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: var(--color-header);
-  font-size: 1rem;
+.image-container {
+  display: flex;
+  justify-content: flex-start; 
+  gap: 1rem; 
+  flex-wrap: nowrap;
 }
 
 .image-placeholder {
-  background: #e2e8f0;
-  border-radius: 12px;
+  border-radius: 0.7rem;
   height: 150px;
   margin-bottom: 1rem;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
 }
 
 .responsive-button {
@@ -98,14 +51,17 @@ ion-content {
   text-transform: capitalize;
 }
 
-ion-toolbar {
+.fixed-toolbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   --background: var(--color-background);
+  z-index: 10;
+  padding: 0.5rem;
 }
-@media (min-width: 769px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
 
+@media (min-width: 769px) {
   .responsive-button {
     max-width: 250px; 
     margin: 0 auto;

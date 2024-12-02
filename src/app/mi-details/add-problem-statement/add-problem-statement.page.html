@@ -12,6 +12,7 @@
               [(ngModel)]="problemStatement"
               placeholder="Enter here"
               class="text-input-with-icon"
+              (input)="onInputChange()"
             />
             <ion-icon
               name="close-circle-outline"
@@ -33,22 +34,19 @@
     </div>
 
     <div class="radio-container">
-      <ion-radio-group [(ngModel)]="selectedOption">
+      <ion-radio-group [(ngModel)]="selectedOption" (ngModelChange)="onRadioSelect($event)">
         @for(option of options;track option){
           <ion-item>
-            <ion-label>{{ option }}</ion-label>
-            <ion-radio slot="start" [value]="option"></ion-radio>
+            <ion-label>{{ option.name }}</ion-label>
+            <ion-radio slot="start" [value]="option._id" aria-label="option.name" [disabled]="isRadioDisabled"></ion-radio>
           </ion-item>
         }
       </ion-radio-group>
     </div>
   </div>
-</ion-content>
-
-<ion-footer>
-  <ion-toolbar>
-    <ion-button expand="block" fill="solid" class="add-btn">
+  <ion-toolbar class="fixed-toolbar">
+    <ion-button expand="block" fill="solid" class="add-btn" (click)="addProject()" [disabled]="!isFormValid()">
       {{"ADD"| translate }}
     </ion-button>
   </ion-toolbar>
-</ion-footer>
+</ion-content>

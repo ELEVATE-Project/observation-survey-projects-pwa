@@ -10,7 +10,7 @@ const routes: Routes = [
     component: MiDetailsPage
   },
   {
-    path: 'add-problem-statement',
+    path: 'add-problem-statement/:id',
     component: AddProblemStatementPage
   }
 ];

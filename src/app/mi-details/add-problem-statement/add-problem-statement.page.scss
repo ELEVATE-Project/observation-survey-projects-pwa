@@ -1,11 +1,12 @@
 ion-content {
+    --padding:0px 1rem 1rem;
     --background: var(--color-background);
 }
 .container {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 1rem;
+    padding:0px 1rem 1rem;
     margin-top: 0;
 }
 
@@ -86,10 +87,22 @@ ion-content {
     padding: 1rem 0;
     background-color: var(--color-background);
   }
+
 .add-btn{
     width: 100%;
     text-transform: capitalize;
 }
+
+.fixed-toolbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    --background: var(--color-background);
+    z-index: 10;
+    padding: 10px;
+}
+
 ion-item {
     --background: transparent;
     --padding-start: 0;
