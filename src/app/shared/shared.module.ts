@@ -22,12 +22,8 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { ApplicationHeaderComponent } from './application-header/application-header.component';
 import { SectionHeaderComponent } from './section-header/section-header.component';
 import { NoDataComponent } from './no-data/no-data.component';
-<<<<<<< HEAD
 import { MiDetailsCardComponent } from './mi-details-card/mi-details-card.component';
-
-=======
 import { MyimprovementCardComponent } from './myimprovement-card/myimprovement-card.component';
->>>>>>> upstream/Mitra-release-1.0.0
 
 @NgModule({
     declarations: [
@@ -44,7 +40,8 @@ import { MyimprovementCardComponent } from './myimprovement-card/myimprovement-c
         SectionHeaderComponent,
         NoDataComponent,
         FilterComponent,
-        MiDetailsCardComponent
+        MiDetailsCardComponent,
+        MyimprovementCardComponent
     ],
     imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule,MatDividerModule,MatButtonModule, FormsModule,
         ReactiveFormsModule, MatFormFieldModule, MatCheckboxModule],
@@ -62,7 +59,8 @@ import { MyimprovementCardComponent } from './myimprovement-card/myimprovement-c
         SectionHeaderComponent,
         NoDataComponent,
         FilterComponent,
-        MiDetailsCardComponent
+        MiDetailsCardComponent,
+        MyimprovementCardComponent
     ],
     providers: [ShortUrlPipe]
 })
