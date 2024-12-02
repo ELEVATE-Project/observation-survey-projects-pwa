@@ -1,0 +1,135 @@
+ion-content {
+    --padding:0px 1rem 1rem;
+    --background: var(--color-background);
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding:0px 1rem 1rem;
+    margin-top: 0;
+}
+
+.title {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: var(--color-header);
+    text-align: left;
+}
+
+.input-container {
+    margin: 1rem 0;
+}
+.input-label {
+    font-size: 1rem;
+    color:var(--primary-color);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.text-input-with-icon {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    padding-right: 2.25rem;
+    background-color: var(--color-input-field);
+    border: none;
+    border-bottom: 0.125rem  solid var(--color-dark);
+    border-radius: 0;
+    outline: none;
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.text-input-with-icon::placeholder {
+    color:var(--color-header); 
+    opacity: 0.8;
+}
+
+.text-input-with-icon:focus {
+    color: var(--color-header);
+    border-bottom-color: var(--primary-color);
+}
+
+.icon-inside-input {
+    position: absolute;
+    right: 0.625rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    cursor: pointer;
+}
+  
+.add-new {
+    display: flex;
+    align-items: center;
+    color: var(--primary-color);
+    margin: 1rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+  
+.add-new ion-icon {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+.radio-container {
+    margin: 0;
+    padding: 1rem 0;
+    background-color: var(--color-background);
+  }
+
+.add-btn{
+    width: 100%;
+    text-transform: capitalize;
+}
+
+.fixed-toolbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    --background: var(--color-background);
+    z-index: 10;
+    padding: 10px;
+}
+
+ion-item {
+    --background: transparent;
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    --min-height: auto;
+    --border-color: transparent;
+    display: flex;
+    align-items: center;
+}
+  
+ion-label {
+    font-size: 1rem;
+    color: var(--color-header);
+    flex: 1;
+}
+  
+ion-radio {
+    --border-color: transparent;
+    --padding-start: 0; 
+}
+ion-toolbar {
+    --background: var(--color-background);
+}
+
+@media (min-width: 769px) {
+    .add-btn {
+        max-width: 100px; 
+        margin: 0 auto;
+      }
+}

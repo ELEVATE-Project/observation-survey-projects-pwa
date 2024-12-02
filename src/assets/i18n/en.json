@@ -96,5 +96,17 @@
   "CLEAR_ALL": "Clear all",
   "FILTER": "Filter",
   "SAVED": "Saved",
-  "NO_DATA_MSG":"No data found"
+  "NO_DATA_MSG":"No data found",
+  "ADD":"Add",
+  "TAG_IMPROVEMENT": "Tag Improvement to Problem Statement",
+  "ADD_PROBLEM_STATEMENT": "Add Problem Statement",
+  "ADD_NEW_PROBLEM_STATEMENT": "Add new Problem statement",
+  "GENERATED_AND_EDITED_TITLE": "Generated and Edited Title",
+  "BY": "by",
+  "PROBLEM_STATEMENT": "Problem Statement",
+  "OBJECTIVE": "Objective",
+  "ACTION_STEPS": "Action Steps",
+  "IMPACT": "Impact",
+  "START_IMPROVEMENT": "Start Improvement",
+  "SEARCH_TEXT":"Enter here"
 }

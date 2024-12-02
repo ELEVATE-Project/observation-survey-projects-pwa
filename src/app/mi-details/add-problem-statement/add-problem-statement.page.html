@@ -1,0 +1,52 @@
+<app-application-header [config]="headerConfig"></app-application-header>
+<ion-content class="ion-padding">
+  <div class="container">
+    <h1 class="title">{{"TAG_IMPROVEMENT" | translate}}</h1>
+    <div>
+      @if(showInput){
+        <div class="input-container">
+          <label class="input-label">{{"ADD_PROBLEM_STATEMENT" | translate}}</label>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              [(ngModel)]="problemStatement"
+              placeholder="{{'SEARCH_TEXT' | translate}}"
+              class="text-input-with-icon"
+              (input)="onInputChange()"
+            />
+            <ion-icon
+              name="close-circle-outline"
+              class="icon-inside-input"
+              (click)="toggleInput()"
+            ></ion-icon>
+          </div>
+        </div>
+      }@else{
+        <div class="add-new">
+            <ion-icon
+              name="add-circle-outline"
+              class="add-icon"
+              (click)="toggleInput()"
+            ></ion-icon>
+            <span (click)="toggleInput()">{{ "ADD_NEW_PROBLEM_STATEMENT" | translate }}</span>
+          </div>
+      }
+    </div>
+
+    <div class="radio-container">
+      <ion-radio-group [(ngModel)]="selectedOption" (ngModelChange)="onRadioSelect($event)">
+        @for(option of options;track option){
+          <ion-item>
+            <ion-label>{{ option.name }}</ion-label>
+            <ion-radio slot="start" [value]="option._id" aria-label="option.name" [disabled]="isRadioDisabled"></ion-radio>
+          </ion-item>
+        }
+      </ion-radio-group>
+    </div>
+  </div>
+  <ion-toolbar class="fixed-toolbar">
+    <ion-button expand="block" fill="solid" class="add-btn" (click)="addProject()" [disabled]="!isFormValid()">
+      {{"ADD"| translate }}
+    </ion-button>
+  </ion-toolbar>
+</ion-content>
