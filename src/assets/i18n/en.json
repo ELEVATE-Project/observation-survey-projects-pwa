@@ -108,5 +108,6 @@
   "ACTION_STEPS": "Action Steps",
   "IMPACT": "Impact",
   "START_IMPROVEMENT": "Start Improvement",
-  "SEARCH_TEXT":"Enter here"
+  "SEARCH_TEXT":"Enter here",
+  "EVIDENCES":"evidences"
 }
