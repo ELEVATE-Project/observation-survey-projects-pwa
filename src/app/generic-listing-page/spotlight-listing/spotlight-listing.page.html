@@ -1,7 +1,7 @@
 <app-application-header [config]="headerConfig"></app-application-header>
 
 <ion-content [fullscreen]="true">
-  <div class="cards-list">
+  <div class="cards-list layout-wrapper">
         @for (item of spotlightStories; track $index) {
             <app-spotlight-card
             [spotlightStory]="item"
