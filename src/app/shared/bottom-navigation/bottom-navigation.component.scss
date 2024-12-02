@@ -33,7 +33,7 @@ ion-row{
     color: #000;
 
     &.active {
-      color: #8a38f5;
+      color: var(--primary-color);
     }
 
     .nav-label {

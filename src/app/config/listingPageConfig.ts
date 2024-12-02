@@ -2,7 +2,7 @@ import urlConfig from 'src/app/config/url.config.json';
 
 export const listingConfig = {
     explore: {
-        apiUrl: "/project/v1/library/categories/projects/educationLeader",
+        apiUrl: urlConfig.project.spotlightUrl,
         enableSearch: true,
         headerConfig: {
             title:'EXPLORE',
@@ -19,10 +19,10 @@ export const listingConfig = {
         }
     },
     recommendations : {
-        apiUrl: "/project/v1/library/categories/projects/educationLeader",
+        apiUrl: "",
         enableSearch: false,
         headerConfig: {
-            title:'RECOMMEDATION',
+            title:'RECOMMENDATIONS',
             showBackButton : true
         }
     }

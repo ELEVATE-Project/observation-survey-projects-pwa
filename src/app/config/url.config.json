@@ -16,9 +16,9 @@
         "entityConfigUrl" : "/project/v1/configurations/read",
         "spotlightUrl":"/project/v1/template/list?hasSpotlight=true",
         "myImprovementsUrl":"/project/v1/userProjects/list",
-        "recommendationUrl":"/project/v1/library/categories/projects/educationLeader",
+        "recommendationUrl":"",
         "filterUrl": "/project/v1/projectAttributes/find",
-        "savedListUrl": "/project/v1/wishlist/list",
+        "savedListUrl": "/project/v1/wishlist/list?language=en",
         "setLanguageUrl":"/user/v1/user/setLanguagePreference"
     },
     "formListing": {

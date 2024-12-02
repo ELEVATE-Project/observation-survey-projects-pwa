@@ -26,12 +26,15 @@ export class ProjectDetailsPage  implements OnInit {
     maxFileSize: 50,
     baseUrl: environment.baseURL,
     accessToken: localStorage.getItem('accToken'),
-    profileInfo: {}
+    profileInfo: {},
+    language: "",
+    contentPolicyLink: "https://shikshalokam.org/mentoring/privacy-policy/"
   }
   showDetails = false
   sharePopupHandler:any
     constructor(private navCtrl: NavController, private profileService: ProfileService, private utils: UtilService,private toastService:ToastService,private popoverController:PopoverController,private network:NetworkServiceService) {
       this.router = inject(Router);
+      this.config.language = this.utils.getSelectedLanguage()
       this.network.isOnline$.subscribe((status: any)=>{
         this.isOnline=status
       })
