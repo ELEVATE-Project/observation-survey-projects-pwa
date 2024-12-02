@@ -64,7 +64,8 @@ export class ApiInterceptor implements HttpInterceptor {
     return url.includes('/logout') || 
            url.includes('/user/update') ||
            url.includes('/cloud-services/file/getSignedUrl') || 
-           url.includes('getDownloadableUrl');
+           url.includes('getDownloadableUrl') ||
+           url.includes('/user/v1/user/setLanguagePreference');
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
