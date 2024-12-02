@@ -53,9 +53,9 @@ export class MyImprovementsListingPage implements OnInit {
         await this.loaderService.dismissLoading();
         if (response.status == 200) {
           this.myImprovements = this.myImprovements.concat(
-            response.result[0].data
+            response.result.data
           );
-          this.count = response.result[0].count;
+          this.count = response.result.count;
           this.disableLoading =
             !this.myImprovements.length ||
             this.myImprovements.length == response.result.count;

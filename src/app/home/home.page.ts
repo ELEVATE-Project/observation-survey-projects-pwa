@@ -116,8 +116,8 @@ async  getdata() {
     ])
       .pipe(
         map(([improvementRes, spotlightRes]: any) => {
-          this.myImprovements = improvementRes.result[0].data;
-          this.improvementsCount = improvementRes.result[0].count;
+          this.myImprovements = improvementRes.result.data;
+          this.improvementsCount = improvementRes.result.count;
 
           this.spotlightstories = spotlightRes.result.data;
           this.spotlightCount = spotlightRes.result.count;
