@@ -59,7 +59,7 @@ export class GenericListingPageComponent  implements OnInit {
 
   async getData($event?:any){
     await this.loaderService.showLoading("LOADER_MSG")
-    let url = `${this.pageConfig.apiUrl}?page=${this.page}&limit=${this.limit}&search=${this.searchTerm}${this.filterQuery}`
+    let url = `${this.pageConfig.apiUrl}&page=${this.page}&limit=${this.limit}&search=${this.searchTerm}${this.filterQuery}`
     this.projectsApiService.get(url).subscribe({
       next: async(response: any)=>{
       await this.loaderService.dismissLoading()
@@ -118,6 +118,7 @@ export class GenericListingPageComponent  implements OnInit {
 
   filterEvent($event:any){
     this.filterQuery = Object.entries($event).map(([key, value]) => `&${key}=${value}`).join('')
+    this.reset()
     this.getData()
   }
 

@@ -1,14 +1,15 @@
 mat-card{
     min-width: 330px;
     max-width: 330px;
-    min-height: 425px;
+    min-height: 450px;
     border: 1px solid lightgray;
     padding: 12px;
     border-radius: 10px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    margin: 12px !important;
+    margin: 15px !important;
+    margin-left: 0px !important;
 
     .card-image{
         height: 200px;

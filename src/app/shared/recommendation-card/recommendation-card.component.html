@@ -1,6 +1,6 @@
 <mat-card (click)="redirect()">
-  <img class="card-image" src="{{cardData.coverImage}}" alt="Card image" />
+  <img class="card-image" src="{{ cardImage }}" alt="Card image" />
   <div class="card-title">{{ cardData.title }}</div>
   <div class="card-description">{{ cardData.description | shortUrl }}</div>
-  <div class="duration">{{ "EXPECTED_DURATION" | translate }}: {{ cardData.duration }}</div>
+  <div class="duration">{{ "EXPECTED_DURATION" | translate }}: {{ cardData.metaInformation.duration }}</div>
 </mat-card>
