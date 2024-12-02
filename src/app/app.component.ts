@@ -18,7 +18,6 @@ export class AppComponent {
   constructor(private swUpdate: SwUpdate, private router:Router, private translate :TranslateService) {}
 
   ngOnInit(){
-    this.languageSetting();
     if (this.swUpdate.isEnabled) {
       this.swUpdate.checkForUpdate().then((data) => {
         if(data){
@@ -36,14 +35,7 @@ export class AppComponent {
     });
   }
 
-languageSetting(){
-    let language:any=localStorage.getItem('languages')
-    if(language){
-      this.translate.use(language)
-    }else{
-      localStorage.setItem('languages','en');
-    }
-  }
+
   private updateNavigationVisibility(currentRoute: string): void {
     const matchedNavItem = this.navItems.find((item) => item.route === currentRoute);
     const shouldShowNav = matchedNavItem?.keepNavBar ?? false;
