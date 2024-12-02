@@ -47,15 +47,15 @@ export class MyImprovementsListingPage implements OnInit {
 
   async getImprovements($event?: any) {
     await this.loaderService.showLoading('LOADER_MSG');
-    let url = `${urlConfig.project.myImprovementsUrl}&page=${this.page}&limit=${this.limit}&search=&filter=`;
-    this.projectsApiService.get(url).subscribe({
+    let url = `${urlConfig.project.myImprovementsUrl}?&page=${this.page}&limit=${this.limit}&search=&language=en`;
+    this.projectsApiService.post(url,{}).subscribe({
       next: async (response: any) => {
         await this.loaderService.dismissLoading();
         if (response.status == 200) {
           this.myImprovements = this.myImprovements.concat(
-            response.result.data
+            response.result[0].data
           );
-          this.count = response.result.count;
+          this.count = response.result[0].count;
           this.disableLoading =
             !this.myImprovements.length ||
             this.myImprovements.length == response.result.count;

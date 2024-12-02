@@ -1,9 +1,11 @@
 <app-application-header [config]="headerConfig"></app-application-header>
 
 <ion-content [fullscreen]="true">
-  <div class="cards-list">
+  <div class="cards-list layout-wrapper">
         @for (item of myImprovements; track $index) {
+          <div class="card">
             <app-myimprovement-card [myImprovement]="item" [index]="$index"></app-myimprovement-card >
+          </div>
             }
           </div>
   <ion-infinite-scroll (ionInfinite)="loadData($event)" [disabled]="disableLoading">
