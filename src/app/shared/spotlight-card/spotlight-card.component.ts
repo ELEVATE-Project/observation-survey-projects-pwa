@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-spotlight-card',
@@ -8,10 +9,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class SpotlightCardComponent  {
   @Input() spotlightStory:any;
   @Input() index:any;
-  constructor() {  }
+  constructor(private router: Router) {  }
 
   onStory(id:any){
-    console.log("redirection the route here itself");
+    this.router.navigate(["mi-details",id ])
   }
 
 }

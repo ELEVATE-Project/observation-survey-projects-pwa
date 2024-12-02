@@ -6,7 +6,7 @@ import { AddProblemStatementPage } from './add-problem-statement/add-problem-sta
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':id',
     component: MiDetailsPage
   },
   {

@@ -21,6 +21,8 @@ export class RecommendationCardComponent  implements OnInit {
     }
   }
 
-  redirect(){}
+  redirect(){
+    this.router.navigate(["mi-details",this.cardData._id ])
+  }
 
 }
