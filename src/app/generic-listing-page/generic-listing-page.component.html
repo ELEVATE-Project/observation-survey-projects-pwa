@@ -20,7 +20,7 @@
   }
 
   @if(listingData.length){
-    <div class="cards-list">
+    <div class="cards-list layout-wrapper">
       @for(data of listingData; track $index){
         <app-recommendation-card [cardData]="data"></app-recommendation-card>
       }

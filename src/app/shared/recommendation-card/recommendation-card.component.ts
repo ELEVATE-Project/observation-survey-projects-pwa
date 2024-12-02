@@ -8,10 +8,18 @@ import { Router } from '@angular/router';
 })
 export class RecommendationCardComponent  implements OnInit {
   @Input() cardData: any
+  imageFormats = ["jpg", "png", "jpeg", "gif", "tiff", "tif", "webp"]
+  cardImage = "assets/MI-2.0-card-images/recommended-bg.png"
 
   constructor(private router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    let evidenceList = this.cardData?.evidences || []
+    let image = evidenceList.find((data:any) => this.imageFormats.includes(data.type))
+    if(image){
+      this.cardImage = image.filepath
+    }
+  }
 
   redirect(){}
 
