@@ -40,11 +40,11 @@
       <div class="image-container">
         @for(item of projectDetails.evidences;track item){
           <div  class="image-item">
-            @if(isFileType(item.title, 'image')){
-              <img *ngIf="isFileType(item.title, 'image')" class="image-placeholder" [src]="item.filepath" [alt]="item.title" />
+            @if(item.isImage){
+              <img class="image-placeholder" [src]="item.filepath" [alt]="item.title" />
             }
-            @if(!isFileType(item.title, 'image')){
-              <a  [href]="item.filepath" target="_blank" class="file-link">{{ item.title }}</a>
+            @if(!item.isImage){
+              <a [href]="item.filepath" target="_blank" class="file-link">{{ item.title }}</a>
             }
           </div>
         }
