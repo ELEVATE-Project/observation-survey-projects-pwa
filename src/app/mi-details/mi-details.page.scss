@@ -69,6 +69,13 @@ ion-footer {
   color: var(--color-primary);
   margin-top: 0.5rem;
 }
+.evidences-title{
+  font-size: 1rem;
+  text-transform: capitalize;
+  color: var(--color-text);
+  margin-right: 0.5rem;
+  padding-bottom: 5px;
+}
 @media (min-width: 769px) {
   .responsive-button {
     max-width: 250px; 
