@@ -17,7 +17,7 @@ export class MiDetailsPage implements OnInit {
     customActions: [{ icon: 'bookmark-outline', actionName: 'save' }]
   };
   projectId:any;
-  showLoading:boolean = true;  
+  showLoading:boolean = true;
   saved:boolean=false;
   projectDetails:any;
   constructor(private router: Router,
@@ -34,17 +34,16 @@ export class MiDetailsPage implements OnInit {
   ngOnInit() {
     this.getProjectDetails()
   }
+  isFileType(fileUrl: string, type: 'image' | 'pdf' | 'doc' | 'video'): boolean {
+    const regexMap: { [key in 'image' | 'pdf' | 'doc' | 'video']: RegExp } = {
+      image: /\.(jpeg|jpg|gif|png|svg|webp)$/i,
+      pdf: /\.pdf$/i,
+      doc: /\.(docx?|odt)$/i,
+      video: /\.(mp4|mov|avi)$/i,
+    };
 
-  // isFileType(fileUrl: string, type: 'image' | 'pdf' | 'doc' | 'video'): boolean {
-  //   const regexMap: { [key in 'image' | 'pdf' | 'doc' | 'video']: RegExp } = {
-  //     image: /\.(jpeg|jpg|gif|png|svg|webp)$/i,
-  //     pdf: /\.pdf$/i,
-  //     doc: /\.(docx?|odt)$/i,
-  //     video: /\.(mp4|mov|avi)$/i,
-  //   };
-
-  //   return regexMap[type].test(fileUrl);
-  // }
+    return regexMap[type].test(fileUrl);
+  }
 
   saveClick(event:any){
     this.handleSaved(this.saved ? 'remove' : 'add')
