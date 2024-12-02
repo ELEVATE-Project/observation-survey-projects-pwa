@@ -26,6 +26,7 @@ ion-content {
 .bottom-container{
   display: flex;
   flex-direction: column;
+  flex-grow: 1; 
 }
 .bottom-text{
   font-size: 0.9rem;
@@ -37,12 +38,17 @@ ion-content {
   display: flex;
   justify-content: flex-start; 
   gap: 1rem; 
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
-
+.image-item {
+  width: 100%;
+  max-width: 200px;
+}
 .image-placeholder {
   border-radius: 0.7rem;
-  height: 150px;
+  height: auto;
+  width: 100%;
+  max-height: 150px;
   margin-bottom: 1rem;
 }
 
@@ -51,16 +57,17 @@ ion-content {
   text-transform: capitalize;
 }
 
-.fixed-toolbar {
-  position: fixed;
+
+ion-footer {
+  position: sticky;
   bottom: 0;
-  left: 0;
-  width: 100%;
-  --background: var(--color-background);
-  z-index: 10;
-  padding: 0.5rem;
+  --background: var(--color-background) !important;
 }
 
+.file-link {
+  text-decoration: none;
+  margin-top: 0.5rem;
+}
 @media (min-width: 769px) {
   .responsive-button {
     max-width: 250px; 

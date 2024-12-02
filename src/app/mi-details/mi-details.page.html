@@ -34,23 +34,32 @@
   </app-mi-details-card>
 }
 
-<div class="bottom-container">
-    <p class="bottom-text">
-      {{projectDetails.text}}
-    </p>
-      @if(projectDetails.evidences.length>0){
-        <div class="iamge-contianer">
-        @for(image of projectDetails.evidences;track image){
-          <img class="image-placeholder" [src]='image.link' [alt]="image.title"/>
+  <div class="bottom-container">
+    <p class="bottom-text">{{projectDetails.text}}</p>
+
+    <!-- @if(projectDetails.evidences.length > 0){
+      <div class="image-container">
+        @for(item of projectDetails.evidences;track item){
+          <div  class="image-item">
+            <div *ngIf="isFileType(item.link, 'item')">
+              <img class="image-placeholder" [src]="item.link" [alt]="item.title" />
+            </div>
+    
+            <div *ngIf="isFileType(item.link, 'pdf') || isFileType(item.link, 'doc') || isFileType(item.link, 'video')">
+              <a [href]="item.link" target="_blank" class="file-link">{{ item.title }}</a>
+            </div>
+          </div>
         }
-        </div>
-       }
+      </div>
+    } -->
   </div>
   
-  <ion-toolbar class="fixed-toolbar">
-    <ion-button expand="block" fill="solid" class="responsive-button" (click)="starImporvement()">
+</ion-content>
+<ion-footer collapse="fade" class="ion-no-border">
+  <ion-toolbar>
+    <ion-button expand="block" fill="solid" class="responsive-button" (click)="starImprovement()">
       {{"START_IMPROVEMENT" | translate}}
     </ion-button>
   </ion-toolbar>
+</ion-footer>
 
-</ion-content>

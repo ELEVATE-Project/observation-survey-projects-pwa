@@ -35,7 +35,7 @@ export class AddProblemStatementPage implements OnInit {
   }
 
   ngOnInit() {
-    this.addProblemStatementOptions()
+    this.getProblemStatementList()
   }
   toggleInput() {
     this.showInput = !this.showInput;
@@ -53,10 +53,10 @@ export class AddProblemStatementPage implements OnInit {
     this.selectedOption=selectedValue
   }
 
-  async addProblemStatementOptions(){
+  async getProblemStatementList(){
     this.showLoading = true;
     await this.loader.showLoading("LOADER_MSG");
-    this.ProjectsApiService.post(urlConfig['miDetail'].addProblemStatementOptionsUrl+`?isAPrivateProgram=${this.isActivatedProgram}&language=`,{}).pipe(
+    this.ProjectsApiService.post(urlConfig['miDetail'].problemStatementListingUrl+`?isAPrivateProgram=${this.isActivatedProgram}&language=`,{}).pipe(
       finalize(async ()=>{
         await this.loader.dismissLoading();
         this.showLoading = false;
@@ -75,7 +75,7 @@ export class AddProblemStatementPage implements OnInit {
     let config: any;
     if (this.problemStatement.trim()) {
       config = { programName: this.problemStatement };
-    } else if (this.selectedOption) {
+    } else{
       config = { programId: this.selectedOption };
     }
     if (config) {

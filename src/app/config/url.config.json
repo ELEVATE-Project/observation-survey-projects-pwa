@@ -50,7 +50,7 @@
     },
     "miDetail":{
         "miDetailUrl":"/project/v1/project/templates/details/",
-        "addProblemStatementOptionsUrl":"/project/v1/users/programs",
+        "problemStatementListingUrl":"/project/v1/users/programs",
         "startProjectUrl":"/project/v1/userProjects/importFromLibrary/"
     },
     "save":{
