@@ -52,7 +52,7 @@ export class MyimprovementCardComponent implements OnInit {
         }
       } else {
         const taskCompletionPercentage = (this.completedCount / totalTasks) * 99;
-        this.progressValue = Math.floor(Math.min(taskCompletionPercentage, 99));
+        this.progressValue = Math.round(Math.min(taskCompletionPercentage, 99));
       }
     } else {
       this.progressValue = 0;
