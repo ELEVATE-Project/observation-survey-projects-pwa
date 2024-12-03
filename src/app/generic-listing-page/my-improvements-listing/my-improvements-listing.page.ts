@@ -32,7 +32,6 @@ export class MyImprovementsListingPage  {
 
   ionViewWillEnter(){
     this.getProfileDetails();
-    this.getImprovements();
   }
 
   getProfileDetails() {
@@ -41,6 +40,7 @@ export class MyImprovementsListingPage  {
       .subscribe((mappedIds) => {
         if (mappedIds) {
           this.profilePayload = mappedIds;
+          this.getImprovements();
         }
       });
   }
@@ -78,7 +78,7 @@ export class MyImprovementsListingPage  {
     this.getImprovements($event);
   }
 
-  ionViewDidLeave(){
+  ionViewWillLeave(){
     this.myImprovements = [];
     this.count=0;
     this.page=1;
