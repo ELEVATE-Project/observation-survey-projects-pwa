@@ -101,7 +101,7 @@ export class ProfileService {
       'PROFILE_UPDATE_MSG',
       [
         {
-          text: 'PROFILE_UPDATE',
+          text: 'CONTINUE',
           cssClass: 'primary-button',
           handler: () => {
             this.router.navigate(['/profile-edit']);
