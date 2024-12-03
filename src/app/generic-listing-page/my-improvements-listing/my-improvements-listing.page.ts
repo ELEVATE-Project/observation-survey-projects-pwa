@@ -83,5 +83,6 @@ export class MyImprovementsListingPage  {
     this.count=0;
     this.page=1;
     this.limit=10;
+    this.disableLoading = true;
   }
 }
