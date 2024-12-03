@@ -14,10 +14,10 @@ export class RecommendationCardComponent  implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    let evidenceList = this.cardData?.evidences || []
+    let evidenceList = this.cardData?.categories ? this.cardData.categories.flatMap((data:any) => data.evidences ?? []) : []
     let image = evidenceList.find((data:any) => this.imageFormats.includes(data.type))
     if(image){
-      this.cardImage = image.filepath
+      this.cardImage = image.downloadableUrl
     }
   }
 
