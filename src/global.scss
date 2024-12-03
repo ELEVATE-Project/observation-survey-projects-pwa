@@ -268,3 +268,12 @@ ion-segment-button {
     max-width: 100vw;
   }
 }
+
+.login-container{
+  height: calc(100vh - 3.75rem);
+  justify-content: start !important;
+}
+
+.header{
+  background-color: var(--color-light) !important;
+}

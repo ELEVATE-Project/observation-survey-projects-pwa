@@ -1,7 +1,11 @@
 .filter-section{
-    padding: 10px;
     overflow-y: auto;
-    max-height: 100vh;
+    height: calc(100vh - 30px);
+    width: 100%;
+}
+
+.filter-list{
+    padding: 10px;
 }
 
 .filter-header{

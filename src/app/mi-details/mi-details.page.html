@@ -1,5 +1,6 @@
 <app-application-header [config]="headerConfig" (actionClick)="saveClick($event)"></app-application-header>
 <ion-content class="ion-padding" *ngIf="projectDetails">
+  <div class="layout-wrapper">
   <div class="spacing ion-padding">
     <h1 class="text-header">{{"GENERATED_AND_EDITED_TITLE" | translate}}</h1>
     <div class="text-muted">
@@ -55,7 +56,7 @@
     </div>
     }
   </div>
-  
+  </div>
 </ion-content>
 
 <ion-footer collapse="fade" class="ion-no-border">

@@ -35,6 +35,6 @@ export class UtilService {
 
   getSelectedLanguage(){
     let selectedLanguage:any = localStorage.getItem("preferred_language")
-    return JSON.parse(selectedLanguage).value || "en"
+    return JSON.parse(selectedLanguage)?.value || "en"
   }
 }

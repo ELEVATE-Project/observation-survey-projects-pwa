@@ -479,4 +479,8 @@ export class ProfileEditPage implements isDeactivatable {
       !(typeof value === "object" && !Array.isArray(value) && Object.keys(value).length === 0))
     )
   }
+
+  goBack(){
+    this.navCtrl.back();
+  }
 }
