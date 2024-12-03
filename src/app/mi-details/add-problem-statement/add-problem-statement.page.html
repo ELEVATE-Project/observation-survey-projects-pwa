@@ -32,17 +32,18 @@
           </div>
       }
     </div>
-
-    <div class="radio-container">
-      <ion-radio-group [(ngModel)]="selectedOption" (ngModelChange)="onRadioSelect($event)">
-        @for(option of options;track option){
-          <ion-item>
-            <ion-label>{{ option.name }}</ion-label>
-            <ion-radio slot="start" [value]="option._id" aria-label="option.name" [disabled]="isRadioDisabled"></ion-radio>
-          </ion-item>
-        }
-      </ion-radio-group>
-    </div>
+@if(options?.length > 0){
+  <div class="radio-container">
+    <ion-radio-group [(ngModel)]="selectedOption" (ngModelChange)="onRadioSelect($event)">
+      @for(option of options;track option){
+        <ion-item>
+          <ion-label>{{ option.name }}</ion-label>
+          <ion-radio slot="start" [value]="option._id" aria-label="option.name" [disabled]="isRadioDisabled"></ion-radio>
+        </ion-item>
+      }
+    </ion-radio-group>
+  </div>
+}
   </div>
 </ion-content>
 <ion-footer collapse="fade" class="ion-no-border">

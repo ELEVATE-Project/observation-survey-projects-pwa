@@ -63,6 +63,11 @@ ion-footer {
   bottom: 0;
   --background: var(--color-background) !important;
 }
+.evidences-container{
+  margin-left: 0.7rem;
+  display: flex;
+  flex-direction: column;
+}
 
 .file-link {
   text-decoration: none;
@@ -70,6 +75,9 @@ ion-footer {
   margin-top: 0.5rem;
 }
 .evidences-title{
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
   font-size: 1rem;
   text-transform: capitalize;
   color: var(--color-text);
