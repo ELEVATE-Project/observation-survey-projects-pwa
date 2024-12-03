@@ -10,7 +10,7 @@ import urlConfig from 'src/app/config/url.config.json';
   templateUrl: './my-improvements-listing.page.html',
   styleUrls: ['./my-improvements-listing.page.scss'],
 })
-export class MyImprovementsListingPage implements OnInit {
+export class MyImprovementsListingPage  {
   headerConfig = {
     title: 'MY_IMPROVEMENTS',
     showBackButton: true,
@@ -30,8 +30,9 @@ export class MyImprovementsListingPage implements OnInit {
     private toastService: ToastService
   ) {}
 
-  ngOnInit(): void {
+  ionViewWillEnter(){
     this.getProfileDetails();
+    this.getImprovements();
   }
 
   getProfileDetails() {
@@ -40,7 +41,6 @@ export class MyImprovementsListingPage implements OnInit {
       .subscribe((mappedIds) => {
         if (mappedIds) {
           this.profilePayload = mappedIds;
-          this.getImprovements();
         }
       });
   }
@@ -76,5 +76,12 @@ export class MyImprovementsListingPage implements OnInit {
   loadData($event: any) {
     this.page += 1;
     this.getImprovements($event);
+  }
+
+  ionViewDidLeave(){
+    this.myImprovements = [];
+    this.count=0;
+    this.page=1;
+    this.limit=10;
   }
 }
