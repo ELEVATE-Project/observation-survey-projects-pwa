@@ -87,7 +87,7 @@
     "SEARCH_RESULT": "{{searchterm}} के लिए {{count}} परिणाम दिखा रहा है",
     "SEARCH_BAR_PLACEHOLDER": "इम्प्रूवमेंट्स के लिए खोजें",
     "ADD": "जोड़ें",
-    "TAG_IMPROVEMENT": "समस्या विवरण में टैग सुधार",
+    "TAG_IMPROVEMENT": "आप इस माइक्रो-इम्प्रूवमेंट से कौन सी चुनौती को हल करने की कोशिश कर रहे हैं?",
     "ADD_PROBLEM_STATEMENT": "समस्या विवरण जोड़ें",
     "ADD_NEW_PROBLEM_STATEMENT": "नया समस्या विवरण जोड़ें",
     "GENERATED_AND_EDITED_TITLE": "निर्मित और संपादित शीर्षक",

@@ -44,9 +44,11 @@
       </ion-radio-group>
     </div>
   </div>
-  <ion-toolbar class="fixed-toolbar">
+</ion-content>
+<ion-footer collapse="fade" class="ion-no-border">
+  <ion-toolbar>
     <ion-button expand="block" fill="solid" class="add-btn" (click)="addProject()" [disabled]="!isFormValid()">
       {{"ADD"| translate }}
     </ion-button>
   </ion-toolbar>
-</ion-content>
+</ion-footer>
