@@ -359,7 +359,7 @@ export class ProfileEditPage implements isDeactivatable {
     if (this.alertService.alert) {
       this.alertService.dismissAlert();
     }
-    if ((this.formLib && !this.formLib?.myForm.pristine || !this.formJson.isUploaded || !this.formLib2?.myForm.pristine)) {
+    if ((this.formLib && !this.formLib?.myForm.pristine || !this.formJson.isUploaded || (this.formLib2 && !this.formLib2?.myForm.pristine))) {
       await this.alertService.presentAlert(
         'SAVE_DATA',
         'EXIT_CONFIRMATION_MSG',
