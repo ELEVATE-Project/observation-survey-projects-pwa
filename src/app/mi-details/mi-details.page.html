@@ -38,8 +38,8 @@
   <div class="bottom-container">
     <p class="bottom-text">{{projectDetails.text}}</p>
     @if(projectDetails.evidences.length > 0){
+    <div class="evidences-container">
       <h1 class="evidences-title">
-        <ion-icon name="star"></ion-icon>
         {{ "EVIDENCES"| translate }}
       </h1>
       <div class="image-container">
@@ -53,6 +53,7 @@
           </div>
         }
       </div>
+    </div>
     }
   </div>
   </div>
