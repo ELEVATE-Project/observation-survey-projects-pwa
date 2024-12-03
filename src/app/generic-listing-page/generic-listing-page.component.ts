@@ -125,6 +125,7 @@ export class GenericListingPageComponent  implements OnInit {
   ionViewWillLeave(){
     this.isMenuOpen = false
     this.menuControl.close() 
+    this.reset()
     this.searchTerm = ""
     this.filterQuery = ""
   }
