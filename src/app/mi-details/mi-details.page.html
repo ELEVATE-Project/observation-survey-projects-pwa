@@ -46,9 +46,9 @@
         @for(item of projectDetails.evidences;track item){
           <div  class="image-item">
             @if(item.isImage){
-              <img class="image-placeholder" [src]="item.filepath" [alt]="item.title" />
+              <img class="image-placeholder" [src]="item.downloadableUrl" [alt]="item.title" />
             }@else{
-              <a [href]="item.filepath" target="_blank" class="file-link">{{ item.title }}</a>
+              <a [href]="item.downloadableUrl" target="_blank" class="file-link">{{ item.title }}</a>
             }
           </div>
         }
