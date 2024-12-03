@@ -6,7 +6,6 @@ import { LoaderService } from '../services/loader/loader.service';
 import urlConfig from 'src/app/config/url.config.json';
 import { ToastService } from '../services/toast/toast.service';
 import { Router } from '@angular/router';
-import { AuthService } from 'authentication_frontend_library';
 import { UtilService } from 'src/app/services/util/util.service';
 import { ProfileService } from '../services/profile/profile.service';
 import { ProjectsApiService } from '../services/projects-api/projects-api.service';
@@ -25,7 +24,6 @@ export class HomePage {
   swiperModules = [IonicSlides];
   jsonData: any;
   baseApiService: any;
-  authService: AuthService;
   toastService: any;
   loader: LoaderService;
   userName:any;
@@ -39,12 +37,9 @@ export class HomePage {
   profilePayload:any;
 
 
-  constructor(private http: HttpClient, private router: Router, private utilService: UtilService,
-    private profileService: ProfileService,private translate: TranslateService
-  ) {
+  constructor(private router: Router, private profileService: ProfileService,private translate: TranslateService) {
     this.baseApiService = inject(ProjectsApiService);
     this.loader = inject(LoaderService)
-    this.authService = inject(AuthService)
     this.toastService = inject(ToastService)
     this.setHeaderConfig();
   }
@@ -52,8 +47,6 @@ export class HomePage {
   ionViewWillEnter() {
     this.languageSetting();
     this.setHeaderConfig();
-    this.clearDatabaseHandler = this.handleMessage.bind(this);
-      window.addEventListener('message', this.clearDatabaseHandler);
       this.getProfileDetails();
   }
   setHeaderConfig() {
@@ -71,14 +64,6 @@ export class HomePage {
     this.router.navigate(['list/saved'])
   }
 
-  logout() {
-    this.authService.logout();
-  }
-  async handleMessage(event: MessageEvent) {
-    if (event.data && event.data.msg) {
-      this.utilService.clearDatabase();
-    }
-  }
 
   async getProfileDetails() {
   await this.loader.showLoading("LOADER_MSG")

@@ -22,6 +22,7 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { ApplicationHeaderComponent } from './application-header/application-header.component';
 import { SectionHeaderComponent } from './section-header/section-header.component';
 import { NoDataComponent } from './no-data/no-data.component';
+import { MiDetailsCardComponent } from './mi-details-card/mi-details-card.component';
 import { MyimprovementCardComponent } from './myimprovement-card/myimprovement-card.component';
 
 @NgModule({
@@ -39,6 +40,7 @@ import { MyimprovementCardComponent } from './myimprovement-card/myimprovement-c
         SectionHeaderComponent,
         NoDataComponent,
         FilterComponent,
+        MiDetailsCardComponent,
         MyimprovementCardComponent
     ],
     imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule,MatDividerModule,MatButtonModule, FormsModule,
@@ -57,6 +59,7 @@ import { MyimprovementCardComponent } from './myimprovement-card/myimprovement-c
         SectionHeaderComponent,
         NoDataComponent,
         FilterComponent,
+        MiDetailsCardComponent,
         MyimprovementCardComponent
     ],
     providers: [ShortUrlPipe]
