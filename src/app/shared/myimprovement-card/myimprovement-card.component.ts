@@ -38,11 +38,11 @@ export class MyimprovementCardComponent implements OnInit {
   }
 
   countCompletedTasks() {
-    this.completedCount = this.myImprovement.taskReport.completed || 0;
+    this.completedCount = this.myImprovement?.taskReport?.completed || 0;
   }
 
   calculateProgress(): void {
-    const totalTasks = this.myImprovement.taskReport.total;
+    const totalTasks = this.myImprovement?.taskReport?.total;
 
     if (totalTasks > 0) {
       if (this.completedCount === totalTasks) {
