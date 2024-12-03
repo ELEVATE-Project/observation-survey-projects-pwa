@@ -2,7 +2,7 @@ import urlConfig from 'src/app/config/url.config.json';
 
 export const listingConfig = {
     explore: {
-        apiUrl: urlConfig.project.spotlightUrl,
+        apiUrl: urlConfig.project.exploreListingUrl,
         enableSearch: true,
         headerConfig: {
             title:'EXPLORE',

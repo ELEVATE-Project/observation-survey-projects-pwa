@@ -19,7 +19,8 @@
         "recommendationUrl":"",
         "filterUrl": "/project/v1/projectAttributes/find",
         "savedListUrl": "/project/v1/wishlist/list?language=en",
-        "setLanguageUrl":"/user/v1/user/setLanguagePreference"
+        "setLanguageUrl":"/user/v1/user/setLanguagePreference",
+        "exploreListingUrl":"/project/v1/template/list?hasSpotlight=false"
     },
     "formListing": {
         "listingUrl": "/v1/forms/read"
