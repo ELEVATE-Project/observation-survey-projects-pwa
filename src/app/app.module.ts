@@ -20,6 +20,7 @@ import {
 } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from './shared/shared.module';
+import { UtilService } from './services/util/util.service';
 
 export function translateHttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
@@ -57,12 +58,12 @@ export function translateHttpLoaderFactory(httpClient: HttpClient) {
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(private translate:TranslateService){
+  constructor(private translate:TranslateService,private utilService:UtilService){
     this.setLanguage();
   }
   setLanguage() {
-    this.translate.setDefaultLang('en');
-    this.translate.use('en'); 
+    let language = this.utilService.getSelectedLanguage();
+    this.translate.use(language);
   }
 }
 
