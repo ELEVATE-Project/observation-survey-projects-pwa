@@ -61,8 +61,13 @@ export class AppModule {
     this.setLanguage();
   }
   setLanguage() {
-    this.translate.setDefaultLang('en');
-    this.translate.use('en'); 
+    let language = localStorage.getItem('preferred_language')
+    if (language) {
+      const parsedLanguage = JSON.parse(language);
+      if (parsedLanguage?.value) {
+        this.translate.use(parsedLanguage.value);
+      }
+  }
   }
 }
 
