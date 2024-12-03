@@ -98,7 +98,7 @@
   "SAVED": "Saved",
   "NO_DATA_MSG":"No data found",
   "ADD":"Add",
-  "TAG_IMPROVEMENT": "Tag Improvement to Problem Statement",
+  "TAG_IMPROVEMENT": "Which challenge are you trying to solve with this Micro-Improvement?",
   "ADD_PROBLEM_STATEMENT": "Add Problem Statement",
   "ADD_NEW_PROBLEM_STATEMENT": "Add new Problem statement",
   "GENERATED_AND_EDITED_TITLE": "Generated and Edited Title",
@@ -108,5 +108,6 @@
   "ACTION_STEPS": "Action Steps",
   "IMPACT": "Impact",
   "START_IMPROVEMENT": "Start Improvement",
-  "SEARCH_TEXT":"Enter here"
+  "SEARCH_TEXT":"Enter here",
+  "EVIDENCES":"evidences"
 }

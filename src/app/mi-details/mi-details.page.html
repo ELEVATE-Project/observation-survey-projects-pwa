@@ -36,25 +36,27 @@
 
   <div class="bottom-container">
     <p class="bottom-text">{{projectDetails.text}}</p>
-
-    <!-- @if(projectDetails.evidences.length > 0){
+    @if(projectDetails.evidences.length > 0){
+      <h1 class="evidences-title">
+        <ion-icon name="star"></ion-icon>
+        {{ "EVIDENCES"| translate }}
+      </h1>
       <div class="image-container">
         @for(item of projectDetails.evidences;track item){
           <div  class="image-item">
-            <div *ngIf="isFileType(item.link, 'item')">
-              <img class="image-placeholder" [src]="item.link" [alt]="item.title" />
-            </div>
-    
-            <div *ngIf="isFileType(item.link, 'pdf') || isFileType(item.link, 'doc') || isFileType(item.link, 'video')">
-              <a [href]="item.link" target="_blank" class="file-link">{{ item.title }}</a>
-            </div>
+            @if(item.isImage){
+              <img class="image-placeholder" [src]="item.filepath" [alt]="item.title" />
+            }@else{
+              <a [href]="item.filepath" target="_blank" class="file-link">{{ item.title }}</a>
+            }
           </div>
         }
       </div>
-    } -->
+    }
   </div>
   
 </ion-content>
+
 <ion-footer collapse="fade" class="ion-no-border">
   <ion-toolbar>
     <ion-button expand="block" fill="solid" class="responsive-button" (click)="starImprovement()">
