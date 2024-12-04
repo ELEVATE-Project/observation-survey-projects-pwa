@@ -4,7 +4,7 @@
   (click)="onImprovement(myImprovement._id)"
 >
   <div class="card-header">
-    <span class="improvement-title">{{ myImprovement.title | shortUrl }}</span>
+    <span class="improvement-title">{{ myImprovement.title | shortUrl:24 }}</span>
     <button>
       <mat-icon>arrow_forward</mat-icon>
     </button>
@@ -16,7 +16,7 @@
     <li
       [ngClass]="{ 'strikethrough': item.task.status === 'completed' }"
     >
-      {{ item.originalIndex + 1 }}. {{ item.task.name | shortUrl }}
+      {{ item.originalIndex + 1 }}. {{ item.task.name | shortUrl:36 }}
     </li>
     }
   </ul>
