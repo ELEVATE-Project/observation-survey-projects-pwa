@@ -17,7 +17,7 @@ export class MyImprovementsListingPage  {
   };
   myImprovements: any[] = [];
   page = 1;
-  limit = 10;
+  limit = 15;
   count = 0;
   disableLoading: boolean = false;
   pageConfig: any = {};
