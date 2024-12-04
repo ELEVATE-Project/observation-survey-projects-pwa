@@ -25,12 +25,12 @@
         <app-recommendation-card [cardData]="data"></app-recommendation-card>
       }
     </div>
-  }@else{
-    <app-no-data [message]="'NO_DATA_MSG'"></app-no-data>
-  }
   <ion-infinite-scroll (ionInfinite)="loadData($event)" [disabled]="disableLoading">
     <ion-infinite-scroll-content loadingText="{{'LOADING' | translate}}..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
+  }@else{
+    <app-no-data [message]="'NO_DATA_MSG'"></app-no-data>
+  }
 </ion-content>
 @if(pageConfig.enableFilter){
   <ion-menu menuId="filter-menu" contentId="filter-content" side="end">
