@@ -44,7 +44,9 @@ export class AddProblemStatementPage implements OnInit {
       this.isRadioDisabled = false;
     }
   }
-
+  selectRadio(optionId: string) {
+    this.selectedOption = optionId;
+  }
   onInputChange() {
     this.isRadioDisabled = this.problemStatement.trim().length > 0;
   }
