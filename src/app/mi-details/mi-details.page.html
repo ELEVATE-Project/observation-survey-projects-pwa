@@ -4,8 +4,8 @@
   <div class="spacing ion-padding">
     <h1 class="text-header">{{projectDetails.title}}</h1>
     <div class="text-muted">
+      @if(projectDetails.author){
       <span>{{"BY" | translate}} </span>
-        @if(projectDetails.author){
           <span>{{projectDetails.author}}</span>
         }
     </div>
