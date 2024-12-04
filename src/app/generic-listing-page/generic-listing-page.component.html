@@ -19,14 +19,14 @@
     <p class="highlight">{{resultMsg | translate}}</p>
   }
 
-  @if(listingData.length){
+  @if(listingData.length > 0){
     <div class="cards-list layout-wrapper">
       @for(data of listingData; track $index){
         <app-recommendation-card [cardData]="data"></app-recommendation-card>
       }
     </div>
   }@else{
-    <app-no-data [message]="'NO_DATA_MSG'"></app-no-data>
+    <app-no-data [message]="'NO_DATA_MSG'" *ngIf="!noData"></app-no-data>
   }
   <ion-infinite-scroll (ionInfinite)="loadData($event)" [disabled]="disableLoading">
     <ion-infinite-scroll-content loadingText="{{'LOADING' | translate}}..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
