@@ -107,6 +107,9 @@
     "EVIDENCES":"सबूत",
     "NO_TASK_FOUND":"कोई कार्य नहीं मिला",
     "SAVED": "सेवड",
-    "CONTINUE": "जारी रखें"
+    "CONTINUE": "जारी रखें",
+    "APPLY": "लागू करें",
+    "CLEAR_ALL": "सब हटाएं",
+    "FILTER": "फ़िल्टर"
   }
   

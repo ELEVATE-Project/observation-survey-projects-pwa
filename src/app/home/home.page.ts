@@ -51,6 +51,9 @@ export class HomePage {
   }
   setHeaderConfig() {
     this.userName =localStorage.getItem('name')
+    if(this.userName.length > 50){
+      this.userName = this.userName.substring(0, 50) + '...'
+    }
     this.translate
       .get('WELCOME_MESSAGE', { name: this.userName })
       .subscribe((translatedTitle) => {
