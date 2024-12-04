@@ -2,7 +2,7 @@
 <ion-content class="ion-padding" *ngIf="projectDetails">
   <div class="layout-wrapper">
   <div class="spacing ion-padding">
-    <h1 class="text-header">{{"GENERATED_AND_EDITED_TITLE" | translate}}</h1>
+    <h1 class="text-header">{{projectDetails.title}}</h1>
     <div class="text-muted">
       <span>{{"BY" | translate}} </span>
         @if(projectDetails.author){
@@ -36,7 +36,9 @@
 }
 
   <div class="bottom-container">
-    <p class="bottom-text">{{projectDetails.text}}</p>
+    @if(projectDetails.text.length>0){
+      <p class="bottom-text">{{projectDetails.text}}</p>
+    }
     @if(projectDetails.evidences.length > 0){
     <div class="evidences-container">
       <h1 class="evidences-title">
