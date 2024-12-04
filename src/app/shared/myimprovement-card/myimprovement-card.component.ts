@@ -46,16 +46,16 @@ export class MyimprovementCardComponent implements OnInit {
 
     if (totalTasks > 0) {
       if (this.completedCount === totalTasks) {
-        this.progressValue = 99;
         if (this.myImprovement.isreflected) {
-          this.progressValue += 1;
+          this.progressValue = 100;
+        } else {
+          this.progressValue = 99;
         }
       } else {
-        const taskCompletionPercentage = (this.completedCount / totalTasks) * 99;
-        this.progressValue = Math.round(Math.min(taskCompletionPercentage, 99));
+        this.progressValue = Math.round((this.completedCount / totalTasks) * 100);
       }
     } else {
-      this.progressValue = 0;
+      this.progressValue = 0; 
     }
   }
 
