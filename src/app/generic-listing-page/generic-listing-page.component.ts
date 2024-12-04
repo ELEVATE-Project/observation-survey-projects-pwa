@@ -26,7 +26,7 @@ export class GenericListingPageComponent  implements OnInit {
   isMenuOpen = true
   filterQuery = ""
 
-  @ViewChild('searchBarInput', { static: true }) searchBar!: IonSearchbar;
+  searchBar = true
   constructor(private activatedRoute: ActivatedRoute,private profileService: ProfileService, private projectsApiService: ProjectsApiService,
     private toastService: ToastService, private loaderService: LoaderService, private translate:TranslateService, private menuControl: MenuController
   ) {
@@ -45,6 +45,7 @@ export class GenericListingPageComponent  implements OnInit {
   }
 
   ionViewWillEnter(){
+    this.searchBar = true;
     this.reset();
     this.isMenuOpen = true
     this.getProfileDetails();  
@@ -102,7 +103,6 @@ export class GenericListingPageComponent  implements OnInit {
   }
 
   reset(){
-    if(this.searchBar) this.searchBar.value = '';
     this.searchTerm = ''
     this.page = 1
     this.listingData = []
@@ -127,6 +127,7 @@ export class GenericListingPageComponent  implements OnInit {
   }
 
   ionViewWillLeave(){
+    this.searchBar = false;
     this.isMenuOpen = false
     this.menuControl.close() 
     this.reset()

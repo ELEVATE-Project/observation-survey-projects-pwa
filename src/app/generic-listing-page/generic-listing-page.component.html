@@ -1,6 +1,6 @@
 <app-application-header [config]="headerConfig" (actionClick)="handleActionClick($event)">
 <ng-template #search>
-  @if(pageConfig.enableSearch){
+  @if(pageConfig.enableSearch && searchBar){
     <ion-row class="search-bar">
       <ion-col size="12">
         <ion-searchbar #searchBarInput placeholder="{{'SEARCH_BAR_PLACEHOLDER' | translate }}" [debounce]="1000"
