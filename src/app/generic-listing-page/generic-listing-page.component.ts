@@ -108,7 +108,6 @@ export class GenericListingPageComponent  implements OnInit {
   }
 
   reset(){
-    this.searchTerm = ''
     this.page = 1
     this.listingData = []
     this.count = 0
