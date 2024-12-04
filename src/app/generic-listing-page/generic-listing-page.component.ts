@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 import { ProfileService } from '../services/profile/profile.service';
 import { ToastService } from '../services/toast/toast.service';
 import { LoaderService } from '../services/loader/loader.service';
-import { MenuController } from '@ionic/angular';
+import { IonSearchbar, MenuController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -26,6 +26,7 @@ export class GenericListingPageComponent  implements OnInit {
   isMenuOpen = true
   filterQuery = ""
 
+  @ViewChild('searchBarInput', { static: true }) searchBar!: IonSearchbar;
   constructor(private activatedRoute: ActivatedRoute,private profileService: ProfileService, private projectsApiService: ProjectsApiService,
     private toastService: ToastService, private loaderService: LoaderService, private translate:TranslateService, private menuControl: MenuController
   ) {
@@ -44,6 +45,7 @@ export class GenericListingPageComponent  implements OnInit {
   }
 
   ionViewWillEnter(){
+    this.reset();
     this.isMenuOpen = true
     this.getProfileDetails();  
   }
@@ -100,6 +102,8 @@ export class GenericListingPageComponent  implements OnInit {
   }
 
   reset(){
+    if(this.searchBar) this.searchBar.value = '';
+    this.searchTerm = ''
     this.page = 1
     this.listingData = []
     this.count = 0

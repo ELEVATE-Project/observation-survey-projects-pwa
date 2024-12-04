@@ -3,7 +3,7 @@
   @if(pageConfig.enableSearch){
     <ion-row class="search-bar">
       <ion-col size="12">
-        <ion-searchbar placeholder="{{'SEARCH_BAR_PLACEHOLDER' | translate }}" [debounce]="1000"
+        <ion-searchbar #searchBarInput placeholder="{{'SEARCH_BAR_PLACEHOLDER' | translate }}" [debounce]="1000"
           (ionInput)="handleInput($event)"></ion-searchbar>
       </ion-col>
     </ion-row>
