@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 import { ProfileService } from '../services/profile/profile.service';
 import { ToastService } from '../services/toast/toast.service';
 import { LoaderService } from '../services/loader/loader.service';
-import { IonSearchbar, MenuController } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
