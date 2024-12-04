@@ -16,7 +16,7 @@
 }
 
 .spotlight-card{
-  height: 254px;
+  height: 19rem;
   position: relative;
   max-width: 315px;
   min-width: 315px;
@@ -61,7 +61,7 @@
 .odd-card {
     background-color: var(--color-card-secondary);
 
-    p {
+    p, span {
       color: #000;
     }
 
