@@ -42,6 +42,7 @@ export class HomePage {
     this.loader = inject(LoaderService)
     this.toastService = inject(ToastService)
     this.setHeaderConfig();
+    console.log('Testing Amogh for deployment')
   }
 
   ionViewWillEnter() {
