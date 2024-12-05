@@ -34,10 +34,10 @@
     </div>
 @if(options?.length > 0){
   <div class="radio-container">
-    <ion-radio-group [(ngModel)]="selectedOption" (ngModelChange)="onRadioSelect($event)">
+    <ion-radio-group [(ngModel)]="selectedOption">
       @for(option of options;track option){
-        <ion-item>
-          <ion-label (click)="selectRadio(option._id)">{{ option.name }}</ion-label>
+        <ion-item (click)="onRadioSelect(option._id)">
+          <ion-label>{{ option.name }}</ion-label>
           <ion-radio slot="start" [value]="option._id" aria-label="option.name" [disabled]="isRadioDisabled"></ion-radio>
         </ion-item>
       }
