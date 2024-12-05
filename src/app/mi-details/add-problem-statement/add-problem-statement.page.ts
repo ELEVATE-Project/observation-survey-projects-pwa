@@ -44,13 +44,12 @@ export class AddProblemStatementPage implements OnInit {
       this.isRadioDisabled = false;
     }
   }
-
   onInputChange() {
     this.isRadioDisabled = this.problemStatement.trim().length > 0;
   }
 
   onRadioSelect(selectedValue: string) {
-    this.selectedOption=selectedValue
+    this.selectedOption = this.selectedOption === selectedValue ? '' : selectedValue;
   }
 
   async getProblemStatementList(){
