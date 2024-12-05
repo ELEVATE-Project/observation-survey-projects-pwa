@@ -5,7 +5,8 @@ import { isDeactivatable } from './../services/guard/guard.service';
 import { environment } from 'src/environments/environment';
 import { ProfileService } from 'src/app/services/profile/profile.service';
 import { UtilService } from 'src/app/services/util/util.service';
-
+import { fromEvent, map, merge, startWith } from 'rxjs';
+import { ToastService } from '../services/toast/toast.service';
 @Component({
   selector: 'app-observation',
   templateUrl: './observation.component.html',
@@ -17,13 +18,26 @@ export class ObservationComponent implements OnInit, isDeactivatable {
   isDirty: boolean = false;
   saveQuestioner: boolean = false;
   showDetails = false;
+  isOnline:any;
+  private onlineStatus: boolean = true;
 
   constructor(private navCtrl: NavController, private profileService: ProfileService,
-    private utils: UtilService,
-    private alertService: AlertService) { }
+    private utils: UtilService, private toast:ToastService,
+    private alertService: AlertService) { 
+
+      const onlineEvent = fromEvent(window, 'online').pipe(map(() => true));
+      const offlineEvent = fromEvent(window, 'offline').pipe(map(() => false));
+      merge(onlineEvent, offlineEvent).pipe(startWith(navigator.onLine)).subscribe((isOnline:any) => {
+        this.onlineStatus = isOnline;
+        if (!this.onlineStatus) {
+          this.toast.presentToast('NETWORK_OFFLINE', 'danger');
+        }else{
+          this.getProfileDetails()
+        }
+      });
+    }
 
   ngOnInit() {
-    this.getProfileDetails();
     window.addEventListener('message', (event) => {
       if (event.data && event.data.type === 'formDirty') {
         this.isDirty = event.data.isDirty;
@@ -96,16 +110,16 @@ export class ObservationComponent implements OnInit, isDeactivatable {
     }
     this.profileService.getProfileAndEntityConfigData().subscribe((mappedIds) => {
       if (mappedIds) {
-        this.apiConfig['profileData'] = mappedIds;
+        const mappedIdsString = JSON.stringify(mappedIds) || "";
+        localStorage.setItem("profileData", mappedIdsString); 
+        let storedProfileData:any = localStorage.getItem('profileData');
+        this.apiConfig['profileData'] =  JSON.parse(storedProfileData);;
         this.apiConfig['baseURL'] = environment.surveyBaseURL ?? environment.baseURL;
         this.apiConfig['userAuthToken'] = localStorage.getItem('accToken');
         this.apiConfig['solutionType'] = "observation";
         this.apiConfig['fileSizeLimit'] = 50;
-      } else {
-        history.replaceState(null, '', '/');
-        this.navCtrl.back()
-      }
       this.showDetails = true
+      }
     });
   }
 }
