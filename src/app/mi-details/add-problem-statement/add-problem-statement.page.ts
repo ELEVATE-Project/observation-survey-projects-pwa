@@ -56,7 +56,7 @@ export class AddProblemStatementPage implements OnInit {
   async getProblemStatementList(){
     this.showLoading = true;
     await this.loader.showLoading("LOADER_MSG");
-    this.ProjectsApiService.post(urlConfig['miDetail'].problemStatementListingUrl+`?isAPrivateProgram=${this.isActivatedProgram}&language=`,{}).pipe(
+    this.ProjectsApiService.post(urlConfig['miDetail'].problemStatementListingUrl+`?isAPrivateProgram=${this.isActivatedProgram}`,{}).pipe(
       finalize(async ()=>{
         await this.loader.dismissLoading();
         this.showLoading = false;
