@@ -18,7 +18,7 @@
         "myImprovementsUrl":"/project/v1/userProjects/list",
         "recommendationUrl":"",
         "filterUrl": "/project/v1/projectAttributes/find",
-        "savedListUrl": "/project/v1/wishlist/list?language=en",
+        "savedListUrl": "/project/v1/wishlist/list?",
         "setLanguageUrl":"/user/v1/user/setLanguagePreference",
         "exploreListingUrl":"/project/v1/template/list?hasSpotlight=false"
     },

@@ -47,7 +47,7 @@ export class MyImprovementsListingPage  {
 
   async getImprovements($event?: any) {
     await this.loaderService.showLoading('LOADER_MSG');
-    let url = `${urlConfig.project.myImprovementsUrl}?&page=${this.page}&limit=${this.limit}&search=`;
+    let url = `${urlConfig.project.myImprovementsUrl}?&page=${this.page}&limit=${this.limit}&search=&status=inProgress`;
     this.projectsApiService.post(url,{}).subscribe({
       next: async (response: any) => {
         await this.loaderService.dismissLoading();
