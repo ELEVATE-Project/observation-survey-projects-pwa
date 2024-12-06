@@ -4,37 +4,58 @@ import { AuthGuard } from 'authentication_frontend_library';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then((m) => m.HomePageModule),
+    loadChildren: () =>
+      import('./home/home.module').then((m) => m.HomePageModule),
     canActivate: [AuthGuard],
   },
-  { path: 'list',
-    loadChildren: () => import('./generic-listing-page/generic-listing-page.module').then(m => m.GenericListingPageModule),
-    canActivate: [AuthGuard]
+  {
+    path: 'list',
+    loadChildren: () =>
+      import('./generic-listing-page/generic-listing-page.module').then(
+        (m) => m.GenericListingPageModule
+      ),
+    canActivate: [AuthGuard],
   },
   {
     path: 'project-details',
-    loadChildren: () => import('./project/project.module').then( m => m.ProjectPageModule),
+    loadChildren: () =>
+      import('./project/project.module').then((m) => m.ProjectPageModule),
   },
   {
     path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule),
-    canActivate: [AuthGuard]
+    loadChildren: () =>
+      import('./profile/profile.module').then((m) => m.ProfilePageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'profile-edit',
-    loadChildren: () => import('./profile-edit/profile-edit.module').then( m => m.ProfileEditPageModule),
-    canActivate: [AuthGuard]
+    loadChildren: () =>
+      import('./profile-edit/profile-edit.module').then(
+        (m) => m.ProfileEditPageModule
+      ),
+    canActivate: [AuthGuard],
   },
-  { path: '', loadChildren: () => import('authentication_frontend_library').then(m => m.SlRoutingRoutingModule) },
+  {
+    path: 'auth',
+    loadChildren: () =>
+      import('authentication_frontend_library').then(
+        (m) => m.SlRoutingRoutingModule
+      ),
+  },
   {
     path: '**',
-    redirectTo: 'home'
-  }
+    redirectTo: 'intro',
+  },
+  {
+    path: 'intro',
+    loadChildren: () =>
+      import('./intro/intro.module').then((m) => m.IntroPageModule),
+  },
 ];
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}
