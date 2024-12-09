@@ -111,5 +111,11 @@
   "SEARCH_TEXT":"Enter here",
   "EVIDENCES":"Evidences",
   "NO_TASK_FOUND":"No Task Found",
-  "CONTINUE": "Continue"
+  "CONTINUE": "Continue",
+  "ONGOING_MI":"Ongoing MI",
+  "COMPLETED_MI":"Completed MI",
+  "ONGOING":"Ongoing",
+  "COMPLETED":"Completed",
+  "DUE_DATE":"Due Date",
+  "MY_JOURNEY":"My Journey"
 }
