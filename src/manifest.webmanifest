@@ -1,11 +1,11 @@
 {
-  "name": "Elevate PWA",
-  "short_name": "Elevate PWA",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "name": "MItra",
+  "short_name": "MItra",
+  "start_url": "/",
   "display": "standalone",
-  "scope": "./",
-  "start_url": "./",
+  "background_color": "#ffffff",
+  "theme_color": "#572E91",
+  "description": "MItra is a progressive web app for Micro Improvment consumption and creation.",
   "icons": [
     {
       "src": "assets/icons/elevate-logo-72x72.png",
