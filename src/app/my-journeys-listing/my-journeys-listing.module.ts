@@ -10,6 +10,7 @@ import { MyJourneysListingPage } from './my-journeys-listing.page';
 import { SharedModule } from '../shared/shared.module';
 import { MyJourneyPage } from './my-journey/my-journey.page';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
     MyJourneysListingPageRoutingModule,
     SharedModule,
     MatIconModule,
+    TranslateModule
   ],
   declarations: [MyJourneysListingPage,MyJourneyPage]
 })

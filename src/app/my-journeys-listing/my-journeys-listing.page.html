@@ -1,14 +1,14 @@
 <app-application-header [config]="headerConfig" ></app-application-header>
 
 <ion-content [fullscreen]="true">
-  <div class="cards-list layout-wrapper">
   @if (myjourneys.length > 0) {
+    <div class="cards-list layout-wrapper">
     @for (item of myjourneys; track $index) {
       <app-my-journey-card [myJourney]="item" ></app-my-journey-card>
     }
+  </div>
   }
   @else {
     <app-no-data [message]="'NO_DATA_MSG'" ></app-no-data>
   }
-</div>
 </ion-content>

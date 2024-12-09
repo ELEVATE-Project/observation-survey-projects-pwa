@@ -35,7 +35,6 @@
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
-    padding-left: 12px;
     gap: 20px;
     margin-top: 10px;
 
@@ -66,10 +65,21 @@
     .ongoing-head{
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        p{
-            font-size: 18px;
-            font-weight: 400;
+        width: 100%;
+        // justify-content: space-between;
+        div{
+          display: flex;
+          justify-content: flex-start;
+          width: 85%;
+          p{
+              font-size: 18px;
+              font-weight: 400;
+          }
+        }
+        span{
+          width: 15%;
+          display: flex;
+          justify-content: flex-start;
         }
     }
     .ongoing-title{

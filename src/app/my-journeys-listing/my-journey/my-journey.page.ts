@@ -50,6 +50,12 @@ export class MyJourneyPage  {
     this.selectedSegment = event.detail.value;
     this.myJourneyInprogress=[];
     this.myJourneyCompleted=[];
+    this.inProgressPage = 1;
+    this.inProgressLimit = 15;
+    this.inProgressCount = 0;
+    this.completedPage = 1;
+    this.completedLimit = 15;
+    this.completedCount = 0;
     this.getProjects(this.selectedSegment)
 
   }
@@ -122,5 +128,30 @@ export class MyJourneyPage  {
     } else {
       return Math.round((completedCount / totalTasks) * 100);
     }
+  }
+
+  navigateproject(id:any){
+    this.router.navigate(['project-details'], { state: { _id: id } });
+  }
+
+  ionViewWillLeave(){
+    this.myJourneyInprogress=[];
+    this.myJourneyCompleted=[];
+    this.inProgressPage = 1;
+    this.inProgressLimit = 15;
+    this.inProgressCount = 0;
+    this.completedPage = 1;
+    this.completedLimit = 15;
+    this.completedCount = 0;
+  }
+
+  loadOngoingData(event:any){
+    this.inProgressPage += 1;
+    this.getProjects('inProgress',event);
+  }
+
+  loadCompletedData(event:any){
+    this.completedPage += 1;
+    this.getProjects('completed',event);
   }
 }
