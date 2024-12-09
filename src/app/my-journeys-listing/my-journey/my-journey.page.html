@@ -1,0 +1,49 @@
+<app-application-header [config]="headerConfig"></app-application-header>
+
+<ion-content [fullscreen]="true">
+    <div class="journey-name" >
+      <h1  >{{programName}}</h1>
+    </div>
+    <ion-segment class="custom-segment" (ionChange)="segmentChanged($event)" value="inProgress">
+      <ion-segment-button value="inProgress">
+        <ion-label>Ongoing</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="completed">
+        <ion-label>Completed</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    @if (selectedSegment === 'inProgress') {
+      <div class="cards-list ion-margin">
+        @for (item of myJourneyInprogress; track $index) {
+          <div class="ongoing-card">
+            <div class="ongoing-head">
+              <p>Due Date: {{ item.endDate | date:'dd/MM/yy' }}</p>
+              <span>
+                <button>
+                  <mat-icon>arrow_forward</mat-icon>
+                </button>
+              </span>
+            </div>
+            <div class="ongoing-title">
+              <p>{{item.title | shortUrl:45}}</p>
+            </div>
+            <div class="progress-bar">
+              <span class="progress-text">{{ calculateProgress(item) }}%</span>
+              <div class="progress">
+                <div
+                  class="progress-fill"
+                  [style.width]="calculateProgress(item) + '%'"
+                ></div>
+                  </div>
+              </div>
+          </div>
+        }
+      </div>
+    }
+    @else if (selectedSegment === 'completed') {
+      <div >
+        <p>Second Content</p>
+      </div>
+    }
+</ion-content>

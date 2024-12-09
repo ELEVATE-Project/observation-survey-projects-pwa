@@ -1,0 +1,104 @@
+.journey-name{
+    background-color: #fff;
+    padding: 1rem 2rem;
+}
+.custom-segment {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: auto;
+    padding: 2px;
+  }
+
+
+  .custom-segment ion-segment-button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .custom-segment ion-segment-button ion-label {
+    white-space: normal;
+    overflow: visible;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .cards-list{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding-left: 12px;
+    gap: 20px;
+    margin-top: 10px;
+
+    @media (max-width: 768px){
+        justify-content: space-around;
+    }
+}
+
+  .ongoing-card{
+    background-color: #fff;
+    max-width: 370px;
+    min-width: 350px;
+    padding: 16px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border: #D9D9D9 solid 1px;
+    button{
+        padding: 6px 12px;
+        background-color: #572E91;
+        border-radius: 20px;
+        display: flex;
+        mat-icon{
+            color: #fff;
+        }
+    }
+    .ongoing-head{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        p{
+            font-size: 18px;
+            font-weight: 400;
+        }
+    }
+    .ongoing-title{
+        font-size: 18px;
+        font-weight: 600;
+    }
+    .progress-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .progress-text {
+        font-size: 16px;
+        font-weight: 400;
+      }
+
+      .progress {
+        flex-grow: 1;
+        margin-left: 10px;
+        background: #78788029;
+        height: 16px;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        background-color: #007AFF;
+        height: 100%;
+        border-radius: 10px;
+      }
+  }
