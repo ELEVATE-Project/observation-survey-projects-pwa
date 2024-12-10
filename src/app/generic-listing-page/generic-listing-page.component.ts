@@ -25,7 +25,9 @@ export class GenericListingPageComponent  implements OnInit {
   resultMsg: any;
   isMenuOpen = true
   filterQuery = ""
+  noData:boolean=false;
 
+  searchBar = true
   constructor(private activatedRoute: ActivatedRoute,private profileService: ProfileService, private projectsApiService: ProjectsApiService,
     private toastService: ToastService, private loaderService: LoaderService, private translate:TranslateService, private menuControl: MenuController
   ) {
@@ -44,6 +46,9 @@ export class GenericListingPageComponent  implements OnInit {
   }
 
   ionViewWillEnter(){
+    this.searchBar = true;
+    this.reset();
+    this.noData=true
     this.isMenuOpen = true
     this.getProfileDetails();  
   }
@@ -58,11 +63,13 @@ export class GenericListingPageComponent  implements OnInit {
   }
 
   async getData($event?:any){
+    this.noData=true;
     await this.loaderService.showLoading("LOADER_MSG")
-    let url = `${this.pageConfig.apiUrl}?page=${this.page}&limit=${this.limit}&search=${this.searchTerm}${this.filterQuery}`
+    let url = `${this.pageConfig.apiUrl}&page=${this.page}&limit=${this.limit}&searchText=${this.searchTerm}${this.filterQuery}`
     this.projectsApiService.get(url).subscribe({
       next: async(response: any)=>{
       await this.loaderService.dismissLoading()
+      this.noData=false;
       if(response.status == 200){
         this.listingData = this.listingData.concat(response.result.data)
         this.count = response.result.count
@@ -84,6 +91,7 @@ export class GenericListingPageComponent  implements OnInit {
       },
       error: async(error:any)=>{
         await this.loaderService.dismissLoading()
+        this.noData=false;
         this.toastService.presentToast(error.error.message, 'danger')
       }
     })
@@ -118,12 +126,15 @@ export class GenericListingPageComponent  implements OnInit {
 
   filterEvent($event:any){
     this.filterQuery = Object.entries($event).map(([key, value]) => `&${key}=${value}`).join('')
+    this.reset()
     this.getData()
   }
 
   ionViewWillLeave(){
+    this.searchBar = false;
     this.isMenuOpen = false
     this.menuControl.close() 
+    this.reset()
     this.searchTerm = ""
     this.filterQuery = ""
   }

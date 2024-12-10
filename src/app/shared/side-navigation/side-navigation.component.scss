@@ -1,5 +1,6 @@
 .side-navigation {
-    background-color: whitesmoke;
+  border-right: 1px solid var(--ion-color-light-shade);
+  background-color: whitesmoke;
   position: fixed;
   top: 0;
   left: 0;
@@ -16,7 +17,7 @@
 
     h1 {
       font-size: 1.8rem;
-      color: #8a38f5;
+      color: var(--primary-color);
       font-weight: bold;
     }
   }
@@ -45,7 +46,7 @@
       }
 
       &.active {
-        background-color: #8a38f5;
+        background-color: var(--primary-color);
         color: #fff;
 
         mat-icon {
@@ -55,10 +56,10 @@
 
       &:hover {
         background-color: rgba(138, 56, 245, 0.1);
-        color: #8a38f5;
+        color: var(--primary-color);
 
         mat-icon {
-          color: #8a38f5;
+          color: var(--primary-color);
         }
       }
     }

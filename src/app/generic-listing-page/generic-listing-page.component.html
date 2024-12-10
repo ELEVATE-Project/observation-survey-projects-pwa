@@ -1,14 +1,12 @@
 <app-application-header [config]="headerConfig" (actionClick)="handleActionClick($event)">
 <ng-template #search>
-  @if(pageConfig.enableSearch){
+  @if(pageConfig.enableSearch && searchBar){
     <ion-row class="search-bar">
       <ion-col size="12">
         <ion-searchbar placeholder="{{'SEARCH_BAR_PLACEHOLDER' | translate }}" [debounce]="1000"
           (ionInput)="handleInput($event)"></ion-searchbar>
       </ion-col>
     </ion-row>
-  
-
   }
 
 </ng-template>
@@ -16,21 +14,21 @@
 
 <ion-content id="filter-content">
   @if(searchTerm.length && count > 0){
-    <p class="highlight">{{resultMsg | translate}}</p> 
+    <p class="highlight">{{resultMsg | translate}}</p>
   }
 
-  @if(listingData.length){
-    <div class="cards-list">
+  @if(listingData.length > 0){
+    <div class="cards-list layout-wrapper">
       @for(data of listingData; track $index){
         <app-recommendation-card [cardData]="data"></app-recommendation-card>
       }
     </div>
-  }@else{
-    <div>NO DATA</div>
-  }
   <ion-infinite-scroll (ionInfinite)="loadData($event)" [disabled]="disableLoading">
     <ion-infinite-scroll-content loadingText="{{'LOADING' | translate}}..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
+  }@else{
+    <app-no-data [message]="'NO_DATA_MSG'" *ngIf="!noData"></app-no-data>
+  }
 </ion-content>
 @if(pageConfig.enableFilter){
   <ion-menu menuId="filter-menu" contentId="filter-content" side="end">

@@ -1,42 +1,44 @@
 <app-application-header [config]="headerConfig" (actionClick)="handleActionClick($event)"></app-application-header>
 <ion-content [fullscreen]="true">
   <div class="ion-margin-vertical">
-    <app-section-header [headerName]="'MY_IMPROVEMENTS'" [showViewMore]="myImprovements.length > 0 && myImprovements.length < (4-1)" [navigateUrl]="'/my-improvements-listing'"></app-section-header>
+    <app-section-header [headerName]="'MY_IMPROVEMENTS'" [showViewMore]="improvementsCount > limit" [navigateUrl]="'/list/my-improvements'"></app-section-header>
     @if (myImprovements.length > 0) {
 
       <app-carousel
         [items]="myImprovements"
         [template]="itemTemplate1"
-        [itemsToShow]="4"
+        [itemsToShow]="limit"
       >
       <ng-template #itemTemplate1 let-item="$item" let-index="$index">
-        <app-myimprovement-card
-        [myImprovement]="item"
-          [index]="index"
-        ></app-myimprovement-card>
+        <div class="card">
+          <app-myimprovement-card
+          [myImprovement]="item"
+            [index]="index"
+          ></app-myimprovement-card>
+        </div>
       </ng-template>
     </app-carousel>
     }
     @else {
     <div class="create-improvement-card">
         <mat-card >
-          <img class="card-image" src="assets/MI-2.0-card-images/recommendedimg.png" alt="Card image" />
+          <img class="card-image" src="assets/MI-2.0-card-images/recommended-bg.png" alt="Card image" />
           <h1 class="card-title">{{ "CREATE_YOUR_MI" | translate}}</h1>
           <button class="card-button">{{ "CREATE_IMPROVEMENT" | translate}}</button>
         </mat-card>
       </div>
     }
   </div>
-
+@if (spotlightstories.length > 0) {
   <div class="ion-margin-vertical">
 
 
-  <app-section-header [headerName]="'SPOTLIGHTS'" [showViewMore]="spotlightstories.length < (4-1)" [navigateUrl]="'/spotlight-listing'"></app-section-header>
+  <app-section-header [headerName]="'SPOTLIGHTS'" [showViewMore]="spotlightCount > limit" [navigateUrl]="'/list/spotlight'"></app-section-header>
 
   <app-carousel
     [items]="spotlightstories"
     [template]="itemTemplate2"
-    [itemsToShow]="4"
+    [itemsToShow]="limit"
   >
 
   <ng-template #itemTemplate2 let-item="$item" let-index="$index">
@@ -47,15 +49,16 @@
   </ng-template>
     </app-carousel>
 </div>
-
+}
+@if (recommendationList.length > 0) {
 <div class="ion-margin-vertical">
 
-  <app-section-header [headerName]="'RECOMMENDATIONS'" [showViewMore]="recommendationList.length < (4-1)" [navigateUrl]="'/list/recommendation'"></app-section-header>
+  <app-section-header [headerName]="'RECOMMENDATIONS'" [showViewMore]="recommendationCount > limit" [navigateUrl]="'/list/recommendations'"></app-section-header>
 
   <app-carousel
     [items]="recommendationList"
     [template]="itemTemplate"
-    [itemsToShow]="4"
+    [itemsToShow]="limit"
   >
 
   <ng-template #itemTemplate let-item="$item" let-index="$index">
@@ -63,7 +66,8 @@
   </ng-template>
     </app-carousel>
 </div>
+}
 <!-- demo to use the nodata-component -->
-<!-- <app-no-data [noDataMsg]="'NO_DATA_MSG'"></app-no-data> -->
+<!-- <app-no-data [message]="'NO_DATA_MSG'"></app-no-data> -->
 
 </ion-content>

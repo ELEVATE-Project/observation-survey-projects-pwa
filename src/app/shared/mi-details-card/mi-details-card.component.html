@@ -1,0 +1,18 @@
+<div class="card">
+    <h1 class="card-title">
+      <ion-icon name="star"></ion-icon>
+      {{cardConfig.title | translate}}
+    </h1>
+    @if(cardConfig.text){
+      <p class="card-text">
+        {{cardConfig.text}}
+      </p>
+    }
+    @if(cardConfig.tasks?.length){
+      <ul class="numbered-list">
+          @for(task of cardConfig.tasks;track task){
+            <li>{{ task.name }}</li>
+          }
+      </ul>
+    }
+  </div>

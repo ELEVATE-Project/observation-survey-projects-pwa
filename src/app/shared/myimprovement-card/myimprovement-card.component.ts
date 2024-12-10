@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-myimprovement-card',
@@ -15,7 +16,7 @@ export class MyimprovementCardComponent implements OnInit {
 
   filteredTasksWithIndexes: { task: any; originalIndex: number }[] = [];
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.taskList = this.myImprovement.tasks;
@@ -37,28 +38,26 @@ export class MyimprovementCardComponent implements OnInit {
   }
 
   countCompletedTasks() {
-    this.completedCount = this.taskList.filter((task: any) => task.status === 'completed').length;
+    this.completedCount = this.myImprovement?.taskReport?.completed || 0;
   }
 
   calculateProgress(): void {
-    const totalTasks = this.taskList.length;
+    const totalTasks = this.myImprovement?.taskReport?.total ?? 0;
+    const completedCount = this.completedCount ?? 0;
 
-    if (totalTasks > 0) {
-      if (this.completedCount === totalTasks) {
-        this.progressValue = 99;
-        if (this.myImprovement.isreflected) {
-          this.progressValue += 1;
-        }
-      } else {
-        const taskCompletionPercentage = (this.completedCount / totalTasks) * 99;
-        this.progressValue = Math.floor(Math.min(taskCompletionPercentage, 99));
-      }
-    } else {
+    if (totalTasks === 0) {
       this.progressValue = 0;
+      return;
+    }
+
+    if (completedCount === totalTasks) {
+      this.progressValue = this.myImprovement?.isreflected ? 100 : 99;
+    } else {
+      this.progressValue = Math.round((completedCount / totalTasks) * 100);
     }
   }
 
   onImprovement(id:any) {
-    console.log("redirection to the objective");
+    this.router.navigate(['project-details'], { state: { _id: id } });
   }
 }

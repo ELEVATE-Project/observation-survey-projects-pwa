@@ -1,4 +1,8 @@
-<app-application-header [config]="headerConfig"></app-application-header>
+<app-application-header [config]="headerConfig">
+  <div header-right-content>
+    <button class="logout-button" (click)="logout()">{{ "LOGOUT" | translate }}</button>
+  </div>
+</app-application-header>
 
 <ion-content [fullscreen]="true">
   <div class="top-screen">

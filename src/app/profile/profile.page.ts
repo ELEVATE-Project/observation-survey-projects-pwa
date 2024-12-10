@@ -9,6 +9,8 @@ import { ApiBaseService } from '../services/base-api/api-base.service';
 import { environment } from 'src/environments/environment';
 import { TranslateService } from '@ngx-translate/core';
 import { actions } from '../config/actionContants';
+import { AuthService } from 'authentication_frontend_library';
+import { UtilService } from '../services/util/util.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -21,22 +23,27 @@ export class ProfilePage {
   enableFormTwo: boolean = false;
   headerConfig: any = {
     title: "PROFILE_DETAILS",
-    showBackButton:true
+    showBackButton:false
   };
   selectedLanguage:any =localStorage.getItem('languages');
   languages = actions.LANGUAGES
   formJson2:any;
   formListingUrl = (environment.baseURL.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
+  clearDatabaseHandler:any
 
   constructor(private profileService: ProfileService,
     private navCtrl: NavController,
     private loader: LoaderService,
     private toastService: ToastService,
     private apiBaseService: ApiBaseService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private authService: AuthService,
+    private utils: UtilService
   ) { }
 
   ionViewWillEnter() {
+    this.clearDatabaseHandler = this.handleMessage.bind(this);
+    window.addEventListener('message', this.clearDatabaseHandler);
     this.selectedLanguage=localStorage.getItem('languages')
     if(this.selectedLanguage == 'null'){
       let preferredLanguage:any = localStorage.getItem('preferred_language')
@@ -48,8 +55,13 @@ export class ProfilePage {
   }
   onLanguageChange(event: any) {
     this.selectedLanguage = event.detail.value;
-    localStorage.setItem('languages', this.selectedLanguage);
-    this.translate.use(this.selectedLanguage);
+    this.apiBaseService.patch(urlConfig.project.setLanguageUrl,{
+      "preferred_language":this.selectedLanguage
+    }).subscribe((res:any)=>{
+      this.setLanguage(res.result.preferred_language);
+    },(err:any)=>{
+      this.toastService.presentToast(err.error.message,'danger');
+    })
   }
   async loadFormAndData() {
     await this.loader.showLoading("LOADER_MSG");
@@ -164,5 +176,27 @@ export class ProfilePage {
         this.toastService.presentToast(err?.error?.message, 'danger');
       }
    })
+  }
+
+  setLanguage(lang: any) {
+    this.translate.use(lang);
+    let label: any = actions.LANGUAGES.find(language => language.value === lang);
+    if (label) {
+      localStorage.setItem(
+        'preferred_language',
+        JSON.stringify({ value: lang, label: label.name })
+      );
+    } else {
+      console.error('Language not found in LANGUAGES:', lang);
+    }
+  }
+
+  logout() {
+    this.authService.logout();
+  }
+  async handleMessage(event: MessageEvent) {
+    if (event.data && event.data.msg) {
+      this.utils.clearDatabase();
+    }
   }
 }

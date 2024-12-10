@@ -10,11 +10,12 @@ const routes: Routes = [
   },
   {
     path: 'list',
-    loadChildren: () =>
-      import('./generic-listing-page/generic-listing-page.module').then(
-        (m) => m.GenericListingPageModule
-      ),
-    canActivate: [AuthGuard],
+    loadChildren: () => import('./generic-listing-page/generic-listing-page.module').then((m) => m.GenericListingPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'mi-details',
+    loadChildren: () => import('./mi-details/mi-details.module').then( m => m.MiDetailsPageModule)
   },
   {
     path: 'project-details',

@@ -9,6 +9,8 @@ import { MatCardModule } from '@angular/material/card';
 import { GenericListingPageComponent } from './generic-listing-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { GenericListingPageRoutingModule } from './generic-listing-page-routing.module';
+import { MyImprovementsListingPage } from './my-improvements-listing/my-improvements-listing.page';
+import { SpotlightListingPage } from './spotlight-listing/spotlight-listing.page';
 @NgModule({
   imports: [
     CommonModule,
@@ -21,6 +23,6 @@ import { GenericListingPageRoutingModule } from './generic-listing-page-routing.
     GenericListingPageRoutingModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
-  declarations: [GenericListingPageComponent]
+  declarations: [GenericListingPageComponent,MyImprovementsListingPage,SpotlightListingPage]
 })
 export class GenericListingPageModule {}
