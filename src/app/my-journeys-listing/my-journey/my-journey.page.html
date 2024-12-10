@@ -15,7 +15,7 @@
 
     @if (selectedSegment === 'inProgress') {
       @if (myJourneyInprogress.length > 0) {
-          <div class="cards-list ion-margin">
+          <div class="cards-list ion-margin layout-wrapper">
           @for (item of myJourneyInprogress; track $index) {
             <div class="ongoing-card" (click)="navigateproject(item._id)">
               <div class="ongoing-head">

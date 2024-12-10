@@ -6,6 +6,6 @@
     <div class="duration">{{ "EXPECTED_DURATION" | translate }}: {{ cardData.metaInformation.duration }}</div>
   }
   @else if (type === 'journey') {
-    <div class="duration">{{ cardData.completedAt | date:'MMMM, yyyy' }}</div>
+    <div class="duration">{{ cardData.reflection.endDate | date:'MMMM, yyyy' }}</div>
     }
 </mat-card>
