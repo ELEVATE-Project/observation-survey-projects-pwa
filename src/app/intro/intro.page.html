@@ -1,0 +1,181 @@
+<ion-content [fullscreen]="true">
+  <ion-toolbar class="header" [ngStyle]="{'--background':meta?.headerBgColor}">
+    <ion-title size="large"><img [src]="meta?.logo" /></ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        class="login-btn"
+        fill="outline"
+        size="large"
+        (click)="login()"
+      >
+        {{authLabel}}
+        <ion-icon slot="end" name="arrow-forward"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <section class="intro" [ngStyle]="{'background':data?.intro?.bgColor}">
+    <div class="content">
+      <h1>{{data?.intro?.title}}</h1>
+
+      <p>{{data?.intro?.description}}</p>
+      <ion-button
+        [color]="button?.color"
+        *ngFor="let button of data?.intro?.buttons"
+        >{{button?.label}}</ion-button
+      >
+    </div>
+    <div class="centered-image">
+      <img src="../../assets/images/intro.png" />
+    </div>
+    <img src="../../assets/images/intro_bottom.png" class="intro_btm" />
+  </section>
+
+  <section *ngFor="let section of data?.sections" class="section">
+    <div
+      [ngStyle]="section?.backgroundImage ? {
+       'background-image': 'url(' + (isMobileView ? section?.backgroundImage?.mobile : section?.backgroundImage?.desktop) + ')',
+      'background-size': '100% 100%',
+      'background-position': 'center',
+      'background-repeat': 'no-repeat',
+      'min-height': 'auto'
+    } : {}"
+      class="background-image-section"
+    >
+      <div
+        class="content-container"
+        [ngStyle]="{
+          'padding': section?.backgroundImage 
+            ? (isMobileView ? '15% 5% 7% 5%' : '10% 5% 7% 5%')
+            : '2% 5% 2% 5%'
+        }"
+        [ngClass]="{
+        'image-left': section?.media?.align === 'left',
+        'image-right': section?.media?.align === 'right'
+      }"
+      >
+        <div class="image-section" *ngIf="section?.media?.image">
+          <video
+            *ngIf="section?.media?.type === 'video'"
+            loop
+            muted
+            autoplay
+            oncanplay="this.play()"
+            onloadedmetadata="this.muted = true"
+          >
+            <source [src]="section?.media?.image" type="video/mp4" />
+          </video>
+          <img
+            *ngIf="section?.media?.type === 'image'"
+            [src]="section?.media?.image"
+            alt="media image"
+          />
+        </div>
+        <div class="text-section">
+          <h2>{{ section?.content?.title }}</h2>
+          <p>{{ section?.content?.discription }}</p>
+          <ion-button
+            *ngIf="section?.buttons?.label"
+            [href]="section?.buttons?.url"
+            [color]="section?.buttons?.color"
+            [style.text-align]="section?.buttons?.alingment"
+          >
+            {{ section?.buttons?.label }}
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="footer">
+      <h1>Join us for every step towards education</h1>
+      <div *ngIf="isMobileView" class="circle circle-left-top"></div>
+      <div class="circle circle-left-bottom"></div>
+      <div class="circle circle-right-top"></div>
+      <div *ngIf="isMobileView" class="circle circle-right-bottom"></div>
+      <ion-grid>
+        <ion-row class="footer-content">
+          <ion-col
+            size="12"
+            size-sm="12"
+            size-lg="6"
+            size-xl="6"
+            class="left-section ft_logo_dv"
+            *ngIf="!isMobileView"
+          >
+            <img
+              src="../../assets/images/footer-logo.png"
+              alt="Logo"
+              class="logo"
+            />
+          </ion-col>
+
+          <ion-col
+            size="12"
+            size-sm="12"
+            size-lg="6"
+            size-xl="6"
+            class="right-section"
+          >
+            <form [formGroup]="formGroup">
+              <ion-grid>
+                <ion-row>
+                  <ion-col
+                    size="12"
+                    size-sm="12"
+                    size-lg="5.7"
+                    size-xl="5.7"
+                    *ngFor="let field of formFields"
+                    class="form-item"
+                  >
+                    <label>{{ field.label }}</label>
+                    <ion-input
+                      [type]="field.type"
+                      [placeholder]="field.placeholder"
+                      [formControlName]="field.formControlName"
+                    ></ion-input>
+                    <div
+                      class="error"
+                      *ngIf="
+                        formGroup.get(field.formControlName)?.invalid &&
+                        formGroup.get(field.formControlName)?.touched
+                      "
+                    >
+                      <small
+                        *ngIf="formGroup.get(field.formControlName)?.errors?.['required']"
+                      >
+                        {{ field.label }} is required.
+                      </small>
+                      <small
+                        *ngIf="formGroup.get(field.formControlName)?.errors?.['email']"
+                      >
+                        Enter a valid email.
+                      </small>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </form>
+            <div style="display: flex; justify-content: center">
+              <ion-button
+                (click)="onSubmit()"
+                [disabled]="formGroup.invalid"
+                color="dark"
+              >
+                Get in touch
+              </ion-button>
+            </div>
+          </ion-col>
+
+          <!-- Show Logo Below Form on Mobile -->
+          <ion-col size="12" *ngIf="isMobileView" style="text-align: center">
+            <img
+              src="../../assets/images/footer-logo.png"
+              alt="Logo"
+              class="logo"
+            />
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </section>
+</ion-content>
