@@ -35,12 +35,8 @@ export class MyJourneyPage  {
 
   myJourneyInprogress :any[]=[];
   myJourneyCompleted: any[]=[];
-  inProgressPage = 1;
-  inProgressLimit = 15;
-  inProgressCount = 0;
-  completedPage = 1;
-  completedLimit = 15;
-  completedCount = 0;
+  page = 1;
+  limit = 15;
   disableLoading: boolean = false;
   pageConfig: any = {};
   profilePayload: any = {};
@@ -50,12 +46,8 @@ export class MyJourneyPage  {
     this.selectedSegment = event.detail.value;
     this.myJourneyInprogress=[];
     this.myJourneyCompleted=[];
-    this.inProgressPage = 1;
-    this.inProgressLimit = 15;
-    this.inProgressCount = 0;
-    this.completedPage = 1;
-    this.completedLimit = 15;
-    this.completedCount = 0;
+    this.page = 1;
+    this.limit = 15;
     this.getProjects(this.selectedSegment)
 
   }
@@ -79,10 +71,7 @@ export class MyJourneyPage  {
     await this.loaderService.showLoading('LOADER_MSG');
     const isInProgress = status === 'inProgress';
 
-    const page = isInProgress ? this.inProgressPage : this.completedPage;
-    const limit = isInProgress ? this.completedLimit : this.inProgressLimit;
-
-    const url = `${urlConfig.project.myImprovementsUrl}?&page=${page}&limit=${limit}&search=&status=${status}&programId=${this.programId}`;
+    const url = `${urlConfig.project.myImprovementsUrl}?&page=${this.page}&limit=${this.limit}&search=&status=${status}&programId=${this.programId}`;
 
     this.projectsApiService.post(url, {}).subscribe({
       next: async (response: any) => {
@@ -90,13 +79,11 @@ export class MyJourneyPage  {
         if (response.status == 200) {
           if (isInProgress) {
             this.myJourneyInprogress = this.myJourneyInprogress.concat(response.result.data);
-            this.inProgressCount = response.result.count;
             this.disableLoading =
               !this.myJourneyInprogress.length ||
               this.myJourneyInprogress.length === response.result.count;
           } else {
             this.myJourneyCompleted = this.myJourneyCompleted.concat(response.result.data);
-            this.completedCount = response.result.count;
             this.disableLoading =
               !this.myJourneyCompleted.length ||
               this.myJourneyCompleted.length === response.result.count;
@@ -137,21 +124,12 @@ export class MyJourneyPage  {
   ionViewWillLeave(){
     this.myJourneyInprogress=[];
     this.myJourneyCompleted=[];
-    this.inProgressPage = 1;
-    this.inProgressLimit = 15;
-    this.inProgressCount = 0;
-    this.completedPage = 1;
-    this.completedLimit = 15;
-    this.completedCount = 0;
+    this.page = 1;
+    this.limit = 15;
   }
 
-  loadOngoingData(event:any){
-    this.inProgressPage += 1;
-    this.getProjects('inProgress',event);
-  }
-
-  loadCompletedData(event:any){
-    this.completedPage += 1;
-    this.getProjects('completed',event);
+  loadData(event:any){
+    this.page += 1;
+    this.getProjects(this.selectedSegment,event);
   }
 }
