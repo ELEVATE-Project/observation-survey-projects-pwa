@@ -33,7 +33,6 @@ export class MyJourneysListingPage  {
 
   ionViewWillEnter(){
     this.getProfileDetails();
-    console.log(this.myjourneys);
   }
 
   getProfileDetails() {
@@ -43,7 +42,6 @@ export class MyJourneysListingPage  {
         if (mappedIds) {
           this.profilePayload = mappedIds;
           this.getJourneys();
-          console.log(this.myjourneys.length);
         }
       });
   }
