@@ -52,6 +52,7 @@ export class ApiInterceptor implements HttpInterceptor {
       });
     } else {
       return req.clone({
+        setParams: { language: this.utilService.getSelectedLanguage() },
         setHeaders: { 'X-auth-token': token }
       });
     }

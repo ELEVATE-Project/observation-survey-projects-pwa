@@ -24,6 +24,7 @@ import { SectionHeaderComponent } from './section-header/section-header.componen
 import { NoDataComponent } from './no-data/no-data.component';
 import { MiDetailsCardComponent } from './mi-details-card/mi-details-card.component';
 import { MyimprovementCardComponent } from './myimprovement-card/myimprovement-card.component';
+import { MyJourneyCardComponent } from './my-journey-card/my-journey-card.component';
 
 @NgModule({
     declarations: [
@@ -41,7 +42,8 @@ import { MyimprovementCardComponent } from './myimprovement-card/myimprovement-c
         NoDataComponent,
         FilterComponent,
         MiDetailsCardComponent,
-        MyimprovementCardComponent
+        MyimprovementCardComponent,
+        MyJourneyCardComponent
     ],
     imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule,MatDividerModule,MatButtonModule, FormsModule,
         ReactiveFormsModule, MatFormFieldModule, MatCheckboxModule],
@@ -60,7 +62,9 @@ import { MyimprovementCardComponent } from './myimprovement-card/myimprovement-c
         NoDataComponent,
         FilterComponent,
         MiDetailsCardComponent,
-        MyimprovementCardComponent
+        MyimprovementCardComponent,
+        MyJourneyCardComponent,
+        ShortUrlPipe
     ],
     providers: [ShortUrlPipe]
 })
