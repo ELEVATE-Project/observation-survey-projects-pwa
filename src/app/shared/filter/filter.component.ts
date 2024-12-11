@@ -25,7 +25,7 @@ export class FilterComponent  implements OnInit {
   }
 
   getFilterList(){
-    this.apiService.get(`${urlConfig.project.filterUrl}?language=en`).subscribe({
+    this.apiService.get(`${urlConfig.project.filterUrl}?`).subscribe({
       next: (response: any)=>{
         if(response.status == 200){
           this.filterList = response.result;
