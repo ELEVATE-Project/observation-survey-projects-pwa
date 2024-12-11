@@ -1,9 +1,8 @@
 <app-application-header [config]="headerConfig" (actionClick)="handleActionClick($event)"></app-application-header>
 <ion-content [fullscreen]="true">
   <div class="ion-margin-vertical">
-    <app-section-header [headerName]="'MY_IMPROVEMENTS'" [showViewMore]="improvementsCount > limit" [navigateUrl]="'/list/my-improvements'"></app-section-header>
+    <app-section-header [headerName]="'MY_IMPROVEMENTS'" [showViewMore]="improvementsCount > limit" [navigateUrl]="'/list/my-improvements'" *ngIf="!noData"></app-section-header>
     @if (myImprovements.length > 0) {
-
       <app-carousel
         [items]="myImprovements"
         [template]="itemTemplate1"
@@ -20,7 +19,7 @@
     </app-carousel>
     }
     @else {
-    <div class="create-improvement-card">
+    <div class="create-improvement-card" *ngIf="!noData">
         <mat-card >
           <img class="card-image" src="assets/MI-2.0-card-images/recommended-bg.png" alt="Card image" />
           <h1 class="card-title">{{ "CREATE_YOUR_MI" | translate}}</h1>
