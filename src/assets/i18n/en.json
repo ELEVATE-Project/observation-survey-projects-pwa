@@ -117,5 +117,6 @@
   "ONGOING":"Ongoing",
   "COMPLETED":"Completed",
   "DUE_DATE":"Due Date",
-  "MY_JOURNEY":"My Journey"
+  "MY_JOURNEY":"My Journey",
+  "SEARCH_RESULT_NOT_FOUND":"Search results not found. Try searching for something else."
 }

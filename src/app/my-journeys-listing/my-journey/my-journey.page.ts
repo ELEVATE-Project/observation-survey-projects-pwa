@@ -102,25 +102,6 @@ export class MyJourneyPage  {
     });
   }
 
-  calculateProgress(item:any): any {
-    let completedCount = item?.taskReport?.completed || 0;
-    const totalTasks = item?.taskReport?.total ?? 0;
-
-    if (totalTasks === 0) {
-      return 0;
-    }
-
-    if (completedCount === totalTasks) {
-      return item?.isreflected ? 100 : 99;
-    } else {
-      return Math.round((completedCount / totalTasks) * 100);
-    }
-  }
-
-  navigateproject(id:any){
-    this.router.navigate(['project-details'], { state: { _id: id } });
-  }
-
   ionViewWillLeave(){
     this.myJourneyInprogress=[];
     this.myJourneyCompleted=[];

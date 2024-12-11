@@ -25,11 +25,11 @@ export class RecommendationCardComponent  implements OnInit {
   }
 
   redirect(){
-    if(this.type === 'explore'){
-      this.router.navigate(["mi-details",this.cardData._id ])
-    }
-    else if(this.type === 'journey'){
+    if(this.type === 'journey'){
       this.router.navigate([])
+    }
+    else{
+      this.router.navigate(["mi-details",this.cardData._id ])
     }
   }
 

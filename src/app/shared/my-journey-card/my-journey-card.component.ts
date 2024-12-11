@@ -13,7 +13,7 @@ export class MyJourneyCardComponent   {
 
 
   navigateJourney(id:any){
-    this.route.navigate(['/lists/my-journey',id],{ state: { data: this.myJourney.name } })
+    this.route.navigate(['/list/my-journeys',id],{ state: { data: this.myJourney.name } })
   }
 
 }

@@ -6,11 +6,11 @@ import { MyJourneyPage } from './my-journey/my-journey.page';
 
 const routes: Routes = [
   {
-    path: 'my-journeys',
+    path: '',
     component: MyJourneysListingPage
   },
   {
-    path: 'my-journey/:id',
+    path: ':id',
     component:MyJourneyPage
   }
 ];

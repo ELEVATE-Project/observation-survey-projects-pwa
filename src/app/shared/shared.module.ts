@@ -25,6 +25,7 @@ import { NoDataComponent } from './no-data/no-data.component';
 import { MiDetailsCardComponent } from './mi-details-card/mi-details-card.component';
 import { MyimprovementCardComponent } from './myimprovement-card/myimprovement-card.component';
 import { MyJourneyCardComponent } from './my-journey-card/my-journey-card.component';
+import { MyJourneyOngoingCardComponent } from './my-journey-ongoing-card/my-journey-ongoing-card.component';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import { MyJourneyCardComponent } from './my-journey-card/my-journey-card.compon
         FilterComponent,
         MiDetailsCardComponent,
         MyimprovementCardComponent,
-        MyJourneyCardComponent
+        MyJourneyCardComponent,
+        MyJourneyOngoingCardComponent
     ],
     imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule,MatDividerModule,MatButtonModule, FormsModule,
         ReactiveFormsModule, MatFormFieldModule, MatCheckboxModule],
@@ -64,7 +66,8 @@ import { MyJourneyCardComponent } from './my-journey-card/my-journey-card.compon
         MiDetailsCardComponent,
         MyimprovementCardComponent,
         MyJourneyCardComponent,
-        ShortUrlPipe
+        ShortUrlPipe,
+        MyJourneyOngoingCardComponent
     ],
     providers: [ShortUrlPipe]
 })

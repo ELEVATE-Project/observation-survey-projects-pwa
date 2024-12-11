@@ -17,32 +17,7 @@
       @if (myJourneyInprogress.length > 0) {
           <div class="cards-list  layout-wrapper">
           @for (item of myJourneyInprogress; track $index) {
-            <div class="ongoing-card" (click)="navigateproject(item._id)">
-              <div class="ongoing-head">
-                <div>
-                  @if (item.endDate) {
-                    <p>{{"DUE_DATE" | translate}}: {{ item.endDate | date:'dd/MM/yy' }}</p>
-                  }
-                </div>
-                <span>
-                  <button>
-                    <mat-icon>arrow_forward</mat-icon>
-                  </button>
-                </span>
-              </div>
-              <div class="ongoing-title">
-                <p>{{item.title | shortUrl:45}}</p>
-              </div>
-              <div class="progress-bar">
-                <span class="progress-text">{{ calculateProgress(item) }}%</span>
-                <div class="progress">
-                  <div
-                    class="progress-fill"
-                    [style.width]="calculateProgress(item) + '%'"
-                  ></div>
-                    </div>
-                </div>
-            </div>
+            <app-my-journey-ongoing-card [data]="item"></app-my-journey-ongoing-card>
           }
         </div>
         }
@@ -52,7 +27,7 @@
     }
     @else if (selectedSegment === 'completed') {
       @if (myJourneyCompleted.length > 0) {
-          <div class="cards-list ion-margin">
+          <div class="cards-list layout-wrapper">
           @for (item of myJourneyCompleted; track $index) {
             <app-recommendation-card [cardData]="item" [type]="'journey'"></app-recommendation-card>
           }

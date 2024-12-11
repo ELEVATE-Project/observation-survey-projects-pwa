@@ -1,0 +1,26 @@
+<div class="ongoing-card" (click)="navigateproject(data._id)">
+  <div class="ongoing-head">
+    <div>
+      @if (data.endDate) {
+        <p>{{"DUE_DATE" | translate}}: {{ data.endDate | date:'dd/MM/yy' }}</p>
+      }
+    </div>
+    <span>
+      <button>
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </span>
+  </div>
+  <div class="ongoing-title">
+    <p>{{data.title | shortUrl:45}}</p>
+  </div>
+  <div class="progress-bar">
+    <span class="progress-text">{{ calculateProgress(data) }}%</span>
+    <div class="progress">
+      <div
+        class="progress-fill"
+        [style.width]="calculateProgress(data) + '%'"
+      ></div>
+        </div>
+    </div>
+</div>
