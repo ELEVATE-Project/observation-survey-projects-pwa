@@ -32,6 +32,10 @@
     stroke: var(--primary-color) !important;
 }
 
+.search {
+  margin-top: 0 !important;
+}
+
 ::ng-deep{
     .mat-mdc-mini-fab{
       box-shadow: none !important;
