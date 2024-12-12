@@ -4,29 +4,23 @@
     <div class="journey-name" >
       <h1  >{{programName}}</h1>
     </div>
-    <ion-segment class="custom-segment" (ionChange)="segmentChanged($event)" value="inProgress">
-      <ion-segment-button value="inProgress">
+    <ion-segment class="custom-segment" (ionChange)="segmentChanged($event)" [value]="selectedSegment">
+      <ion-segment-button [value]="filterActions.inProgress">
         <ion-label>{{"ONGOING" | translate}}</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="completed">
+      <ion-segment-button [value]="filterActions.completed">
         <ion-label>{{"COMPLETED" | translate}}</ion-label>
       </ion-segment-button>
     </ion-segment>
 
-    @if (selectedSegment === 'inProgress') {
-      @if (myJourneyInprogress.length > 0) {
+  @if (selectedSegment === filterActions.inProgress && myJourneyInprogress.length > 0) {
           <div class="cards-list  layout-wrapper">
           @for (item of myJourneyInprogress; track $index) {
             <app-my-journey-ongoing-card [data]="item"></app-my-journey-ongoing-card>
           }
         </div>
         }
-        @else {
-          <app-no-data [message]="'NO_DATA_MSG'"></app-no-data>
-        }
-    }
-    @else if (selectedSegment === 'completed') {
-      @if (myJourneyCompleted.length > 0) {
+       @else if (selectedSegment === filterActions.completed && myJourneyCompleted.length > 0) {
           <div class="cards-list layout-wrapper">
           @for (item of myJourneyCompleted; track $index) {
             <app-recommendation-card [cardData]="item" [type]="'journey'"></app-recommendation-card>
@@ -36,7 +30,7 @@
         @else {
           <app-no-data [message]="'NO_DATA_MSG'"></app-no-data>
         }
-      }
+        
       <ion-infinite-scroll (ionInfinite)="loadData($event)" [disabled]="disableLoading">
         <ion-infinite-scroll-content loadingText="{{'LOADING' | translate}}..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
       </ion-infinite-scroll>

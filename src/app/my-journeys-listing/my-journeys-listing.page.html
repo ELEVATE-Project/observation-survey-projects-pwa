@@ -1,9 +1,9 @@
 <app-application-header [config]="headerConfig" ></app-application-header>
 
 <ion-content [fullscreen]="true">
-  @if (myjourneys.length > 0) {
+  @if (myJourneys.length > 0) {
     <div class="cards-list layout-wrapper">
-    @for (item of myjourneys; track $index) {
+    @for (item of myJourneys; track $index) {
       <app-my-journey-card [myJourney]="item" ></app-my-journey-card>
     }
   </div>

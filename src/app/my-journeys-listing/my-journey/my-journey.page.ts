@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoaderService } from 'src/app/services/loader/loader.service';
-import { ProfileService } from 'src/app/services/profile/profile.service';
 import { ProjectsApiService } from 'src/app/services/projects-api/projects-api.service';
 import urlConfig from 'src/app/config/url.config.json';
 import { ToastService } from 'src/app/services/toast/toast.service';
+import { actions } from 'src/app/config/actionContants';
 
 @Component({
   selector: 'app-my-journey',
@@ -18,10 +18,10 @@ export class MyJourneyPage  {
   }
   programId:any;
   programName:any;
+  filterActions: any;
   constructor(
     private router:Router,
     private route:ActivatedRoute,
-    private profileService: ProfileService,
     private loaderService: LoaderService,
     private projectsApiService: ProjectsApiService,
     private toastService: ToastService
@@ -31,6 +31,7 @@ export class MyJourneyPage  {
     this.route.params.subscribe(param=>{
       this.programId = param['id'];
   })
+  this.filterActions = actions.JOURNEY_FILTERS;
   }
 
   myJourneyInprogress :any[]=[];
@@ -40,7 +41,7 @@ export class MyJourneyPage  {
   disableLoading: boolean = false;
   pageConfig: any = {};
   profilePayload: any = {};
-  selectedSegment: string = 'inProgress';
+  selectedSegment: string = "";
 
   segmentChanged(event: any) {
     this.selectedSegment = event.detail.value;
@@ -53,23 +54,13 @@ export class MyJourneyPage  {
   }
 
   ionViewWillEnter(){
-    this.getProfileDetails();
-  }
-
-  getProfileDetails() {
-    this.profileService
-      .getProfileAndEntityConfigData()
-      .subscribe((mappedIds) => {
-        if (mappedIds) {
-          this.profilePayload = mappedIds;
-          this.getProjects('inProgress');
-        }
-      });
+    this.selectedSegment = this.filterActions.inProgress;
+    this.getProjects(this.selectedSegment);
   }
 
   async getProjects(status:any, $event?: any) {
     await this.loaderService.showLoading('LOADER_MSG');
-    const isInProgress = status === 'inProgress';
+    const isInProgress = status === this.filterActions.inProgress;
 
     const url = `${urlConfig.project.myImprovementsUrl}?&page=${this.page}&limit=${this.limit}&search=&status=${status}&programId=${this.programId}`;
 

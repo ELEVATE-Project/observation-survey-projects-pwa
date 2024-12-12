@@ -15,11 +15,11 @@
     <p>{{data.title | shortUrl:45}}</p>
   </div>
   <div class="progress-bar">
-    <span class="progress-text">{{ calculateProgress(data) }}%</span>
+    <span class="progress-text">{{ progressValue }}%</span>
     <div class="progress">
       <div
         class="progress-fill"
-        [style.width]="calculateProgress(data) + '%'"
+        [style.width]="progressValue + '%'"
       ></div>
         </div>
     </div>

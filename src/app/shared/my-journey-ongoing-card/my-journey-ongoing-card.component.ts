@@ -6,10 +6,14 @@ import { Router } from '@angular/router';
   templateUrl: './my-journey-ongoing-card.component.html',
   styleUrls: ['./my-journey-ongoing-card.component.scss'],
 })
-export class MyJourneyOngoingCardComponent   {
+export class MyJourneyOngoingCardComponent implements OnInit  {
   @Input() data:any;
-
+  progressValue:any;
   constructor(private router:Router) { }
+
+  ngOnInit(): void {
+    this.progressValue = this.calculateProgress(this.data);
+  }
 
   calculateProgress(item:any): any {
     let completedCount = item?.taskReport?.completed || 0;
