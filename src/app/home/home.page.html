@@ -1,9 +1,7 @@
 <app-application-header [config]="headerConfig" (actionClick)="handleActionClick($event)"></app-application-header>
 <ion-content [fullscreen]="true">
   <div class="ion-margin-vertical">
-    @if(!noData){
-      <app-section-header [headerName]="'MY_IMPROVEMENTS'" [showViewMore]="improvementsCount > limit" [navigateUrl]="'/list/my-improvements'"></app-section-header>
-    }
+    <app-section-header [headerName]="'MY_IMPROVEMENTS'" [showViewMore]="improvementsCount > limit" [navigateUrl]="'/list/my-improvements'"></app-section-header>
     @if (myImprovements.length > 0) {
       <app-carousel
         [items]="myImprovements"
