@@ -7,6 +7,7 @@ import { ProfileService } from 'src/app/services/profile/profile.service';
 import { UtilService } from 'src/app/services/util/util.service';
 import { fromEvent, map, merge, startWith } from 'rxjs';
 import { ToastService } from '../services/toast/toast.service';
+
 @Component({
   selector: 'app-observation',
   templateUrl: './observation.component.html',
@@ -19,18 +20,19 @@ export class ObservationComponent implements OnInit, isDeactivatable {
   saveQuestioner: boolean = false;
   showDetails = false;
   isOnline:any;
-  private onlineStatus: boolean = true;
+  onlineStatus: boolean = true;
 
   constructor(private navCtrl: NavController, private profileService: ProfileService,
     private utils: UtilService, private toast:ToastService,
     private alertService: AlertService) { 
+      this.toast.dismissToast();
 
       const onlineEvent = fromEvent(window, 'online').pipe(map(() => true));
       const offlineEvent = fromEvent(window, 'offline').pipe(map(() => false));
       merge(onlineEvent, offlineEvent).pipe(startWith(navigator.onLine)).subscribe((isOnline:any) => {
         this.onlineStatus = isOnline;
         if (!this.onlineStatus) {
-          this.toast.presentToast('NETWORK_OFFLINE', 'danger');
+          this.showDetails = true;
         }else{
           this.getProfileDetails()
         }
@@ -118,7 +120,7 @@ export class ObservationComponent implements OnInit, isDeactivatable {
         this.apiConfig['userAuthToken'] = localStorage.getItem('accToken');
         this.apiConfig['solutionType'] = "observation";
         this.apiConfig['fileSizeLimit'] = 50;
-      this.showDetails = true
+        this.showDetails = true
       }
     });
   }
