@@ -24,6 +24,8 @@ import { SectionHeaderComponent } from './section-header/section-header.componen
 import { NoDataComponent } from './no-data/no-data.component';
 import { MiDetailsCardComponent } from './mi-details-card/mi-details-card.component';
 import { MyimprovementCardComponent } from './myimprovement-card/myimprovement-card.component';
+import { ShareLinkComponent } from './share-link/share-link.component';
+ShareLinkComponent
 
 @NgModule({
     declarations: [
@@ -41,7 +43,8 @@ import { MyimprovementCardComponent } from './myimprovement-card/myimprovement-c
         NoDataComponent,
         FilterComponent,
         MiDetailsCardComponent,
-        MyimprovementCardComponent
+        MyimprovementCardComponent,
+        ShareLinkComponent
     ],
     imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule,MatDividerModule,MatButtonModule, FormsModule,
         ReactiveFormsModule, MatFormFieldModule, MatCheckboxModule],
@@ -60,7 +63,8 @@ import { MyimprovementCardComponent } from './myimprovement-card/myimprovement-c
         NoDataComponent,
         FilterComponent,
         MiDetailsCardComponent,
-        MyimprovementCardComponent
+        MyimprovementCardComponent,
+        ShareLinkComponent
     ],
     providers: [ShortUrlPipe]
 })

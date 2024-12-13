@@ -110,6 +110,11 @@
     "CONTINUE": "जारी रखें",
     "APPLY": "लागू करें",
     "CLEAR_ALL": "सब हटाएं",
-    "FILTER": "फ़िल्टर"
+    "FILTER": "फ़िल्टर",
+    "TIMELINE": "समयरेखा",
+    "SUMMARY": "सारांश",
+    "RESOURCES": "संसाधन",
+    "SHARE": "साझा करें",
+    "DOWNLOAD": "डाउनलोड करें"
   }
   

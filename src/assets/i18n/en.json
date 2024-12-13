@@ -111,5 +111,10 @@
   "SEARCH_TEXT":"Enter here",
   "EVIDENCES":"Evidences",
   "NO_TASK_FOUND":"No Task Found",
-  "CONTINUE": "Continue"
+  "CONTINUE": "Continue",
+  "TIMELINE":"Timeline",
+  "SUMMARY":"Summary",
+  "RESOURCES":"Resources",
+  "SHARE":"Share",
+  "DOWNLOAD":"Download"
 }
