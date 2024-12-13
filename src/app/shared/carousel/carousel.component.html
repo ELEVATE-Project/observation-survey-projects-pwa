@@ -1,21 +1,6 @@
-<ng-container *appResponsive="'mobile'">
-  <swiper-container #swiperContainer
-    [slidesPerView]="1.2"
-    [spaceBetween]="10"
-    [loop]="false"
-    class="carousel"
-  >
-    @for (item of items.slice(0,itemsToShow); track item; let i = $index) {
-    <swiper-slide>
-      <ng-container
-        *ngTemplateOutlet="template; context: { $item: item, $index:i}"
-      ></ng-container>
-    </swiper-slide>
-    }
-  </swiper-container>
-</ng-container>
 
-<ng-container *appResponsive="'desktop'">
+
+<ng-container>
   <div class="desktop-container">
 
   @for (item of items.slice(0,itemsToShow); track item;let i = $index) {
