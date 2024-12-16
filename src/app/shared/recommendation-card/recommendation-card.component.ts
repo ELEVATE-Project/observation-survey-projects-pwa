@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./recommendation-card.component.scss'],
 })
 export class RecommendationCardComponent  implements OnInit {
+  @Input() type:any = 'explore';
   @Input() cardData: any
   imageFormats = ["jpg", "png", "jpeg", "gif", "tiff", "tif", "webp"]
   cardImage = "assets/MI-2.0-card-images/recommended-bg.png"
@@ -24,7 +25,12 @@ export class RecommendationCardComponent  implements OnInit {
   }
 
   redirect(){
-    this.router.navigate(["mi-details",this.cardData._id ])
+    if(this.type === 'journey'){
+      this.router.navigate([])
+    }
+    else{
+      this.router.navigate(["mi-details",this.cardData._id ])
+    }
   }
 
 }

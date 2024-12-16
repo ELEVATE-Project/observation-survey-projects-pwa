@@ -28,6 +28,10 @@ const routes: Routes = [
   {
     path: 'spotlight',
     component: SpotlightListingPage
+  },
+  {
+    path:'my-journeys',
+    loadChildren: () => import('../my-journeys-listing/my-journeys-listing.module').then( m => m.MyJourneysListingPageModule)
   }
 ];
 

@@ -1,0 +1,20 @@
+<div class="journey-card" (click)="navigateJourney(myJourney._id)">
+  <div class="card-title">
+    <p>{{myJourney?.name | shortUrl:45}}</p>
+    <span>
+      <button>
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </span>
+  </div>
+  <div class="card-body">
+    <div class="on-going">
+      <p>{{'ONGOING_MI' | translate}}</p>
+      <span>{{myJourney?.ongoingProjects}}</span>
+    </div>
+    <div class="completed">
+      <p>{{"COMPLETED_MI" | translate}}</p>
+      <span>{{myJourney?.completedProjects}}</span>
+    </div>
+  </div>
+</div>

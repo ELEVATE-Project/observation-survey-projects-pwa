@@ -75,7 +75,7 @@ export class MiDetailsPage implements OnInit {
   async getProjectDetails(){
     this.showLoading = true;
     await this.loader.showLoading("LOADER_MSG");
-    this.ProjectsApiService.get(urlConfig['miDetail'].miDetailUrl+`${this.projectId}?language=`).pipe(
+    this.ProjectsApiService.get(urlConfig['miDetail'].miDetailUrl+`${this.projectId}?`).pipe(
       finalize(async ()=>{
         await this.loader.dismissLoading();
         this.showLoading = false;

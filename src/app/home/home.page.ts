@@ -79,7 +79,7 @@ export class HomePage {
   }
 
 async  getdata() {
-    let  improvements =  `${urlConfig.project.myImprovementsUrl}?&page=${this.page}&limit=${this.limit}&language=en`;
+    let  improvements =  `${urlConfig.project.myImprovementsUrl}?&page=${this.page}&limit=${this.limit}&status=inProgress`;
     const urls = {
       spotlight: `${urlConfig.project.spotlightUrl}&page=${this.page}&limit=${this.limit}`,
     };

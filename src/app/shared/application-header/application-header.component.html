@@ -4,31 +4,31 @@
       <div class="header-left">
        <div class="left-container">
         <ng-content select="[header-left-content]"></ng-content>
-        @if(config.showBackButton){
+        @if(config?.showBackButton){
           <ion-buttons slot="start">
             <ion-button (click)="onBackClick()">
               <ion-icon name="arrow-back-outline"></ion-icon>
             </ion-button>
           </ion-buttons>
          }
-         @if(config.title){
+         @if(config?.title){
           <h1 class="header-title">{{ config.title | translate }}</h1>
          }
        </div>
       </div>
         <div class="header-actions">
           <ng-content select="[header-right-content]"></ng-content>
-          @if(config.customActions){
+          @if(config?.customActions){
           <ion-buttons  class="buttons-container">
             @for(action of config.customActions;track action){
               <ion-button
               class="action-button"
               (click)="onActionClick(action.actionName)"
             >
-            @if(action.icon){
+            @if(action?.icon){
               <ion-icon [name]="action.icon" class="action-icon"></ion-icon>
             }
-            @if(action.text){
+            @if(action?.text){
               <span class="header-text">{{action.text | translate}}</span>
             }
             </ion-button>
