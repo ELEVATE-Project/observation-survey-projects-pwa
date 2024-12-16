@@ -28,10 +28,14 @@
   </ion-infinite-scroll>
   }@else{
     @if (searchTerm.length) {
-      <app-no-data [message]="'SEARCH_RESULT_NOT_FOUND'" *ngIf="!noData"></app-no-data>
+      @if (!noData) {
+        <app-no-data [message]="'SEARCH_RESULT_NOT_FOUND'" ></app-no-data>
+      }
     }
     @else {
-      <app-no-data [message]="'NO_DATA_MSG'" *ngIf="!noData"></app-no-data>
+      @if (!noData) {
+        <app-no-data [message]="'NO_DATA_MSG'" ></app-no-data>
+      }
     }
   }
 </ion-content>
