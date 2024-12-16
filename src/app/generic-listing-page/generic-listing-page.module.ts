@@ -11,6 +11,8 @@ import { SharedModule } from '../shared/shared.module';
 import { GenericListingPageRoutingModule } from './generic-listing-page-routing.module';
 import { MyImprovementsListingPage } from './my-improvements-listing/my-improvements-listing.page';
 import { SpotlightListingPage } from './spotlight-listing/spotlight-listing.page';
+import { MyJourneyPage } from '../my-journeys-listing/my-journey/my-journey.page';
+import { MyJourneysListingPage } from '../my-journeys-listing/my-journeys-listing.page';
 @NgModule({
   imports: [
     CommonModule,
@@ -23,6 +25,6 @@ import { SpotlightListingPage } from './spotlight-listing/spotlight-listing.page
     GenericListingPageRoutingModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
-  declarations: [GenericListingPageComponent,MyImprovementsListingPage,SpotlightListingPage]
+  declarations: [GenericListingPageComponent,MyImprovementsListingPage,SpotlightListingPage,MyJourneysListingPage,MyJourneyPage]
 })
 export class GenericListingPageModule {}
