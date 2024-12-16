@@ -26,7 +26,7 @@ export class AddProblemStatementPage implements OnInit {
   count = 0;
   disableLoading: boolean = false
   isRadioDisabled: boolean = false;
-  isActivatedProgram:any=true;
+  isAPrivateProgram:any=true;
   constructor(private router: Router,
     private route:ActivatedRoute,
     private toastService :ToastService,
@@ -59,14 +59,14 @@ export class AddProblemStatementPage implements OnInit {
   async getProblemStatementList($event?:any){
     this.showLoading = true;
     await this.loader.showLoading("LOADER_MSG");
-    this.ProjectsApiService.post(urlConfig['miDetail'].problemStatementListingUrl+`?isAPrivateProgram=${this.isActivatedProgram}&page=${this.page}&limit=${this.limit}`,{}).pipe(
+    this.ProjectsApiService.post(urlConfig['miDetail'].problemStatementListingUrl+`?isAPrivateProgram=${this.isAPrivateProgram}&page=${this.page}&limit=${this.limit}`,{}).pipe(
       finalize(async ()=>{
         await this.loader.dismissLoading();
         this.showLoading = false;
       })
     ).subscribe((res:any)=>{
       if (res?.status == 200) {
-        this.options = this.options.concat(res.result.data);
+        this.options = res.result.data ? this.options.concat(res.result.data) : []
         this.disableLoading = !this.options.length || this.options.length == res.result.count;
       }
       if($event){
