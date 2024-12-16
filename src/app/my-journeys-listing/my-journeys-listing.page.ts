@@ -37,9 +37,7 @@ export class MyJourneysListingPage  {
       next: async (response: any) => {
         await this.loaderService.dismissLoading();
         if (response.status == 200) {
-          this.myJourneys = this.myJourneys.concat(
-            response.result.data
-          );
+          this.myJourneys = response.result.data ? this.myJourneys.concat(response.result.data) : []
           this.count = response.result.count;
           this.disableLoading =
             !this.myJourneys.length ||
