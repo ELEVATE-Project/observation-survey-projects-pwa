@@ -13,7 +13,7 @@ export class MyJourneyCardComponent   {
 
 
   navigateJourney(id:any){
-    this.route.navigate(['/list/my-journeys',id])
+    this.route.navigate(['/list/my-journey',id])
   }
 
 }

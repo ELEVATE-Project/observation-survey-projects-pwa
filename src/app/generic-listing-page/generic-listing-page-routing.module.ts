@@ -4,6 +4,8 @@ import { GenericListingPageComponent } from './generic-listing-page.component';
 import { listingConfig } from '../config/listingPageConfig';
 import { MyImprovementsListingPage } from './my-improvements-listing/my-improvements-listing.page';
 import { SpotlightListingPage } from './spotlight-listing/spotlight-listing.page';
+import { MyJourneysListingPage } from '../my-journeys-listing/my-journeys-listing.page';
+import { MyJourneyPage } from '../my-journeys-listing/my-journey/my-journey.page';
 
 const routes: Routes = [
   {
@@ -30,8 +32,12 @@ const routes: Routes = [
     component: SpotlightListingPage
   },
   {
-    path:'my-journeys',
-    loadChildren: () => import('../my-journeys-listing/my-journeys-listing.module').then( m => m.MyJourneysListingPageModule)
+    path: 'my-journeys',
+    component: MyJourneysListingPage
+  },
+  {
+    path: 'my-journey/:id',
+    component:MyJourneyPage
   }
 ];
 
