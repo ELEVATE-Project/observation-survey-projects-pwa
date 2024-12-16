@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { MiDetailsPage } from './mi-details.page';
 import { AddProblemStatementPage } from './add-problem-statement/add-problem-statement.page';
+import { ViewDetailsPage } from './view-details/view-details.page';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: 'add-problem-statement/:id',
     component: AddProblemStatementPage
+  },
+  {
+    path:'view-details',
+    component:ViewDetailsPage,
   }
 ];
 

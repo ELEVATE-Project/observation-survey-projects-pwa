@@ -116,5 +116,7 @@
   "SUMMARY":"Summary",
   "RESOURCES":"Resources",
   "SHARE":"Share",
-  "DOWNLOAD":"Download"
+  "DOWNLOAD":"Download",
+  "TEXT_COPY_SUCCESS":"Text copied to clipboard",
+  "SHARE_PROJECT":"Share Project"
 }

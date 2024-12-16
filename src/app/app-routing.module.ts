@@ -17,10 +17,6 @@ const routes: Routes = [
     loadChildren: () => import('./mi-details/mi-details.module').then( m => m.MiDetailsPageModule)
   },
   {
-    path: 'veiw-details',
-    loadChildren: () => import('./veiw-details/veiw-details.module').then( m => m.VeiwDetailsPageModule)
-  },
-  {
     path: 'project-details',
     loadChildren: () => import('./project/project.module').then( m => m.ProjectPageModule),
   },

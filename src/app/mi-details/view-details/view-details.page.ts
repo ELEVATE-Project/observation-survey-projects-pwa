@@ -4,19 +4,20 @@ import { LoaderService } from 'src/app/services/loader/loader.service';
 import { ProjectsApiService } from 'src/app/services/projects-api/projects-api.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import  urlConfig  from 'src/app/config/url.config.json';
-import { UtilService } from '../services/util/util.service';
+import { UtilService } from '../../services/util/util.service';
 import { Clipboard } from '@capacitor/clipboard';
 import { Share } from '@capacitor/share';
-import { ShareLinkComponent } from '../shared/share-link/share-link.component';
+import { ShareLinkComponent } from '../../shared/share-link/share-link.component';
 import { PopoverController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-veiw-details',
-  templateUrl: './veiw-details.page.html',
-  styleUrls: ['./veiw-details.page.scss'],
+  selector: 'app-view-details',
+  templateUrl: './view-details.page.html',
+  styleUrls: ['./view-details.page.scss'],
 })
-export class VeiwDetailsPage implements OnInit {
+export class ViewDetailsPage implements OnInit {
   headerConfig:any={
     showBackButton:true
   }
@@ -26,10 +27,11 @@ export class VeiwDetailsPage implements OnInit {
   constructor(
     private toastService :ToastService,
     private loader : LoaderService,
-    private ProjectsApiService: ProjectsApiService,
+    private projectsApiService: ProjectsApiService,
     private utilService:UtilService,
     private popoverController:PopoverController,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+    private translate: TranslateService
   ) { 
     this.route.params.subscribe(param=>{
       this.projectId = param['id'];
@@ -47,7 +49,7 @@ export class VeiwDetailsPage implements OnInit {
         await Clipboard.write({
           string: textToCopy,
         });
-        this.toastService.presentToast('Text copied to clipboard', 'success');
+        this.toastService.presentToast('TEXT_COPY_SUCCESS', 'success');
       } catch (err:any) {
         this.toastService.presentToast(err?.message, 'danger');
       }
@@ -59,7 +61,7 @@ export class VeiwDetailsPage implements OnInit {
     if (this.utilService.isMobile()) {
       try {
         const shareOptions = {
-          title: 'Share Project',
+          title: this.translate.instant('SHARE_PROJECT'),
           url: text,
         };
         await Share.share(shareOptions);
@@ -87,7 +89,7 @@ async setOpenForCopyLink(url:any){
   popover.onDidDismiss().then((data:any) => {
    if (data.data) {
      Clipboard.write({string:url});
-     this.toastService.presentToast('Link copied to clipboard', 'success');
+     this.toastService.presentToast('LINK_COPY_SUCCESS', 'success');
    }
  });
 }
@@ -113,7 +115,7 @@ async setOpenForCopyLink(url:any){
 
   async getProjectDetails(){
   //   await this.loader.showLoading("LOADER_MSG");
-  //   this.ProjectsApiService.get().pipe(
+  //   this.projectsApiService.get().pipe(
   //     finalize(async ()=>{
   //       await this.loader.dismissLoading();
   //     })
