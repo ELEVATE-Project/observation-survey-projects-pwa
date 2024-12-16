@@ -20,7 +20,11 @@ export class AddProblemStatementPage implements OnInit {
   showLoading:boolean = true;
   problemStatement: string = '';
   selectedOption: string = '';
-  options :any;
+  options :any[]=[];
+  page = 1;
+  limit = 15;
+  count = 0;
+  disableLoading: boolean = false
   isRadioDisabled: boolean = false;
   isActivatedProgram:any=true;
   constructor(private router: Router,
@@ -52,17 +56,21 @@ export class AddProblemStatementPage implements OnInit {
     this.selectedOption = this.selectedOption === selectedValue ? '' : selectedValue;
   }
 
-  async getProblemStatementList(){
+  async getProblemStatementList($event?:any){
     this.showLoading = true;
     await this.loader.showLoading("LOADER_MSG");
-    this.ProjectsApiService.post(urlConfig['miDetail'].problemStatementListingUrl+`?isAPrivateProgram=${this.isActivatedProgram}`,{}).pipe(
+    this.ProjectsApiService.post(urlConfig['miDetail'].problemStatementListingUrl+`?isAPrivateProgram=${this.isActivatedProgram}&page=${this.page}&limit=${this.limit}`,{}).pipe(
       finalize(async ()=>{
         await this.loader.dismissLoading();
         this.showLoading = false;
       })
     ).subscribe((res:any)=>{
       if (res?.status == 200) {
-        this.options=res.result
+        this.options = this.options.concat(res.result.data);
+        this.disableLoading = !this.options.length || this.options.length == res.result.count;
+      }
+      if($event){
+        $event.target.complete()
       }
     },
     (err: any) => {
@@ -104,6 +112,17 @@ export class AddProblemStatementPage implements OnInit {
 
   isFormValid(): boolean {
     return this.problemStatement.trim().length > 0 || !!this.selectedOption;
+  }
+
+  loadData($event: any){
+    this.page +=1
+    this.getProblemStatementList($event)
+  }
+
+  ionViewWillLeave(){
+    this.page = 1;
+    this.limit = 15;
+    this.count = 0;
   }
 
 }

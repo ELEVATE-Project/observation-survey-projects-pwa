@@ -27,7 +27,6 @@ export class MyJourneyPage  {
     private toastService: ToastService
   ) {
     const navigation = this.router.getCurrentNavigation();
-    this.programName = navigation?.extras.state?.['data'];
     this.route.params.subscribe(param=>{
       this.programId = param['id'];
   })
@@ -49,25 +48,25 @@ export class MyJourneyPage  {
     this.myJourneyCompleted=[];
     this.page = 1;
     this.limit = 15;
-    this.getProjects(this.selectedSegment)
+    this.getProjects();
 
   }
 
   ionViewWillEnter(){
     this.selectedSegment = this.filterActions.inProgress;
-    this.getProjects(this.selectedSegment);
+    this.getProjects();
   }
 
-  async getProjects(status:any, $event?: any) {
+  async getProjects($event?: any) {
     await this.loaderService.showLoading('LOADER_MSG');
-    const isInProgress = status === this.filterActions.inProgress;
+    const isInProgress = this.selectedSegment === this.filterActions.inProgress;
 
-    const url = `${urlConfig.project.myImprovementsUrl}?&page=${this.page}&limit=${this.limit}&search=&status=${status}&programId=${this.programId}`;
-
+    const url = `${urlConfig.project.myImprovementsUrl}?&page=${this.page}&limit=${this.limit}&search=&status=${this.selectedSegment}&programId=${this.programId}`;
     this.projectsApiService.post(url, {}).subscribe({
       next: async (response: any) => {
         await this.loaderService.dismissLoading();
         if (response.status == 200) {
+          this.programName = response.result.programName;
           this.updateJourneyData(response.result.data, response.result.count, isInProgress);
         } else {
           this.toastService.presentToast(response.message, 'danger');
@@ -98,6 +97,6 @@ export class MyJourneyPage  {
 
   loadData(event:any){
     this.page += 1;
-    this.getProjects(this.selectedSegment,event);
+    this.getProjects(event);
   }
 }
