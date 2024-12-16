@@ -68,17 +68,7 @@ export class MyJourneyPage  {
       next: async (response: any) => {
         await this.loaderService.dismissLoading();
         if (response.status == 200) {
-          if (isInProgress) {
-            this.myJourneyInprogress = this.myJourneyInprogress.concat(response.result.data);
-            this.disableLoading =
-              !this.myJourneyInprogress.length ||
-              this.myJourneyInprogress.length === response.result.count;
-          } else {
-            this.myJourneyCompleted = this.myJourneyCompleted.concat(response.result.data);
-            this.disableLoading =
-              !this.myJourneyCompleted.length ||
-              this.myJourneyCompleted.length === response.result.count;
-          }
+          this.updateJourneyData(response.result.data, response.result.count, isInProgress);
         } else {
           this.toastService.presentToast(response.message, 'danger');
         }
@@ -91,6 +81,12 @@ export class MyJourneyPage  {
         this.toastService.presentToast(error.error.message, 'danger');
       },
     });
+  }
+
+  private updateJourneyData(data: any[], count: number, isInProgress: boolean): void {
+    const journey = isInProgress ? 'myJourneyInprogress' : 'myJourneyCompleted';
+    this[journey] = this[journey].concat(data);
+    this.disableLoading = !this[journey].length || this[journey].length === count;
   }
 
   ionViewWillLeave(){
