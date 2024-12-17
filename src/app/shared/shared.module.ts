@@ -47,7 +47,7 @@ import { MyJourneyOngoingCardComponent } from './my-journey-ongoing-card/my-jour
         MyimprovementCardComponent,
         ShareLinkComponent,
         MyJourneyCardComponent,
-        MyJourneyOngoingCardComponent,
+        MyJourneyOngoingCardComponent
     ],
     imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule,MatDividerModule,MatButtonModule, FormsModule,
         ReactiveFormsModule, MatFormFieldModule, MatCheckboxModule],
