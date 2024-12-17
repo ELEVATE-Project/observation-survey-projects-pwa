@@ -44,7 +44,10 @@ import { MyJourneyOngoingCardComponent } from './my-journey-ongoing-card/my-jour
         NoDataComponent,
         FilterComponent,
         MiDetailsCardComponent,
-        MyimprovementCardComponent
+        MyimprovementCardComponent,
+        ShareLinkComponent,
+        MyJourneyCardComponent,
+        MyJourneyOngoingCardComponent,
     ],
     imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule,MatDividerModule,MatButtonModule, FormsModule,
         ReactiveFormsModule, MatFormFieldModule, MatCheckboxModule],
@@ -63,7 +66,10 @@ import { MyJourneyOngoingCardComponent } from './my-journey-ongoing-card/my-jour
         NoDataComponent,
         FilterComponent,
         MiDetailsCardComponent,
-        MyimprovementCardComponent
+        MyimprovementCardComponent,
+        ShareLinkComponent,
+        MyJourneyCardComponent,
+        MyJourneyOngoingCardComponent
     ],
     providers: [ShortUrlPipe]
 })

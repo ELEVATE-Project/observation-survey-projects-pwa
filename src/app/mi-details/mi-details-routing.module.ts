@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { MiDetailsPage } from './mi-details.page';
 import { AddProblemStatementPage } from './add-problem-statement/add-problem-statement.page';
-import { ViewDetailsPage } from './view-details/view-details.page';
+import { ViewStoryPage } from './view-details/view-story.page';
 
 const routes: Routes = [
   {
@@ -15,8 +15,8 @@ const routes: Routes = [
     component: AddProblemStatementPage
   },
   {
-    path:'view-details',
-    component:ViewDetailsPage,
+    path:'view-story/:id',
+    component:ViewStoryPage,
   }
 ];
 
