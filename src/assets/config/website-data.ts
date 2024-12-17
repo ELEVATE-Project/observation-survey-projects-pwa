@@ -1,13 +1,13 @@
-export const META = {
+export const DATA = {
   logo: '../../assets/images/shikshagrahaLogo.png',
   headerBgColor: '#572e91',
-};
-export const DATA = {
   intro: {
     title: 'The Micro-Improvement Approach',
     description:
       'Micro-Improvements are short, relevant, and tangible improvements that are continuously implemented over time by leaders at all levels of the education ecosystem. The MI framework is designed to be highly inclusive and foster a culture of continuous improvement in the education system.',
     bgColor: '#572e91',
+    banner: '../../assets/images/intro.png',
+    bottomBanner: '../../assets/images/intro_bottom.png',
     buttons: [
       {
         label: 'Explore',
@@ -88,47 +88,50 @@ export const DATA = {
       },
     },
   ],
+  footer: {
+    footerTitle: 'Join us for every step towards education',
+    footerLogo: '../../assets/images/footer-logo.png',
+    footerForm: [
+      {
+        label: 'First name',
+        placeholder: 'Enter your first name',
+        type: 'text',
+        formControlName: 'firstName',
+        validators: ['required'],
+      },
+      {
+        label: 'Last name',
+        placeholder: 'Enter your last name',
+        type: 'text',
+        formControlName: 'lastName',
+        validators: ['required'],
+      },
+      {
+        label: 'E-mail',
+        placeholder: 'Enter your email',
+        type: 'email',
+        formControlName: 'email',
+        validators: ['required', 'email'],
+      },
+      {
+        label: 'Phone number',
+        placeholder: 'Enter your phone number',
+        type: 'tel',
+        formControlName: 'phoneNumber',
+        validators: ['required'],
+      },
+      {
+        label: 'Organization',
+        placeholder: 'Enter your organization',
+        type: 'text',
+        formControlName: 'organization',
+      },
+      {
+        label: 'Industry',
+        placeholder: 'Enter your industry',
+        type: 'text',
+        formControlName: 'industry',
+      },
+    ],
+  },
 };
-
-export const FOOTER_FORM = [
-  {
-    label: 'First name',
-    placeholder: 'Enter your first name',
-    type: 'text',
-    formControlName: 'firstName',
-    validators: ['required'],
-  },
-  {
-    label: 'Last name',
-    placeholder: 'Enter your last name',
-    type: 'text',
-    formControlName: 'lastName',
-    validators: ['required'],
-  },
-  {
-    label: 'E-mail',
-    placeholder: 'Enter your email',
-    type: 'email',
-    formControlName: 'email',
-    validators: ['required', 'email'],
-  },
-  {
-    label: 'Phone number',
-    placeholder: 'Enter your phone number',
-    type: 'tel',
-    formControlName: 'phoneNumber',
-    validators: ['required'],
-  },
-  {
-    label: 'Organization',
-    placeholder: 'Enter your organization',
-    type: 'text',
-    formControlName: 'organization',
-  },
-  {
-    label: 'Industry',
-    placeholder: 'Enter your industry',
-    type: 'text',
-    formControlName: 'industry',
-  },
-];

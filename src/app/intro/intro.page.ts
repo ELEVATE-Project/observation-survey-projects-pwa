@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
-import { META, DATA, FOOTER_FORM } from '../core/constants/introPageConstant';
+import { DATA } from 'src/assets/config/website-data';
 @Component({
   selector: 'app-intro',
   templateUrl: './intro.page.html',
@@ -12,10 +12,8 @@ export class IntroPage implements OnInit {
   formGroup!: FormGroup;
   isMobileView: boolean = false;
   authLabel = 'Login';
+  data: any = DATA;
 
-  meta = META;
-  formFields = FOOTER_FORM;
-  data = DATA;
   constructor(
     private fb: FormBuilder,
     private platform: Platform,
@@ -30,8 +28,9 @@ export class IntroPage implements OnInit {
     });
   }
   createForm(): void {
+    if (!this.data.footer.footerForm) return;
     const controls: any = {};
-    this.formFields.forEach((field) => {
+    this.data.footer.footerForm.forEach((field: any) => {
       const validators = [];
       if (field.validators?.includes('required')) {
         validators.push(Validators.required);
@@ -53,11 +52,10 @@ export class IntroPage implements OnInit {
   }
 
   checkIfMobileView() {
-    this.isMobileView = this.platform.width() < 576; // Mobile breakpoint (sm)
+    this.isMobileView = this.platform.width() < 576;
   }
 
   login() {
-    console.log('login');
-    this.router.navigateByUrl('auth');
+    this.router.navigate(['/auth/landing']);
   }
 }

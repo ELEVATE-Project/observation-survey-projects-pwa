@@ -1,6 +1,6 @@
 <ion-content [fullscreen]="true">
-  <ion-toolbar class="header" [ngStyle]="{'--background':meta?.headerBgColor}">
-    <ion-title size="large"><img [src]="meta?.logo" /></ion-title>
+  <ion-toolbar class="header" [ngStyle]="{'--background':data?.headerBgColor}">
+    <ion-title size="large"><img [src]="data?.logo" /></ion-title>
     <ion-buttons slot="end">
       <ion-button
         class="login-btn"
@@ -16,18 +16,18 @@
   <section class="intro" [ngStyle]="{'background':data?.intro?.bgColor}">
     <div class="content">
       <h1>{{data?.intro?.title}}</h1>
-
       <p>{{data?.intro?.description}}</p>
       <ion-button
         [color]="button?.color"
         *ngFor="let button of data?.intro?.buttons"
-        >{{button?.label}}</ion-button
       >
+        {{button?.label}}
+      </ion-button>
     </div>
     <div class="centered-image">
-      <img src="../../assets/images/intro.png" />
+      <img [src]="data?.intro?.banner" />
     </div>
-    <img src="../../assets/images/intro_bottom.png" class="intro_btm" />
+    <img [src]="data?.intro?.bottomBanner" class="intro_btm" />
   </section>
 
   <section *ngFor="let section of data?.sections" class="section">
@@ -87,7 +87,7 @@
   </section>
   <section>
     <div class="footer">
-      <h1>Join us for every step towards education</h1>
+      <h1>{{data?.footer.footerTitle}}</h1>
       <div *ngIf="isMobileView" class="circle circle-left-top"></div>
       <div class="circle circle-left-bottom"></div>
       <div class="circle circle-right-top"></div>
@@ -102,11 +102,7 @@
             class="left-section ft_logo_dv"
             *ngIf="!isMobileView"
           >
-            <img
-              src="../../assets/images/footer-logo.png"
-              alt="Logo"
-              class="logo"
-            />
+            <img [src]="data?.footer.footerLogo" alt="Logo" class="logo" />
           </ion-col>
 
           <ion-col
@@ -124,7 +120,7 @@
                     size-sm="12"
                     size-lg="5.7"
                     size-xl="5.7"
-                    *ngFor="let field of formFields"
+                    *ngFor="let field of data?.footer.footerForm"
                     class="form-item"
                   >
                     <label>{{ field.label }}</label>
@@ -168,11 +164,7 @@
 
           <!-- Show Logo Below Form on Mobile -->
           <ion-col size="12" *ngIf="isMobileView" style="text-align: center">
-            <img
-              src="../../assets/images/footer-logo.png"
-              alt="Logo"
-              class="logo"
-            />
+            <img [src]="data?.footer.footerLogo" alt="Logo" class="logo" />
           </ion-col>
         </ion-row>
       </ion-grid>
