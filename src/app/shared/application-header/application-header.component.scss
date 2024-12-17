@@ -1,5 +1,5 @@
 .header-container {
-  --background: #f4f4f4;
+  --background: var(--color-background);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -8,21 +8,22 @@
 
 ion-header.collapsible-header {
   --opacity: 1;
-  --background: rgba(244, 244, 244, 1);
+  --background: var(--color-background);
 }
 
 .header-content {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  align-items: center;
+  align-items:center; 
+  gap: 1rem;
+  flex-wrap: nowrap; 
 }
 
 .header-left {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.5rem; 
+  flex-direction: column;
+  flex-grow: 1; 
 }
 
 .left-container {
@@ -40,23 +41,29 @@ ion-header.collapsible-header {
   font-size: 1.2rem;
   color: var(--color-header); 
   margin: 0;
+  font-weight: 700;
+  word-break: break-word;
 }
 
 .header-actions {
   display: flex;
   align-items: center;
   gap: 0.5rem; 
+  flex-shrink: 0;
+  white-space: nowrap; 
+  max-width: 120px; 
 }
 
 .buttons-container{
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 }
 
 .header-text {
   font-size: 8px;
   text-transform: lowercase;
+  word-wrap: break-word; 
 }
 
 .action-icon{

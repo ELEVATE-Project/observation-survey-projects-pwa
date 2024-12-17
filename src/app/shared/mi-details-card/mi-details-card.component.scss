@@ -1,0 +1,53 @@
+.card {
+    background: var(--general-btn-text-color);
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+}
+.card-title {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+}
+  
+.card-title ion-icon {
+    font-size: 1rem;
+    color: var(--color-text);
+    margin-right: 0.5rem;
+    padding-bottom: 5px;
+}
+  
+.card-text {
+    font-size: 0.9rem;
+    color: var(--color-header);
+    line-height: 1.6;
+}
+  
+.numbered-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: list-counter;
+}
+  
+.numbered-list li {
+    font-size: 0.9rem;
+    color: var(--color-header);
+    margin-bottom: 0.5rem;
+    padding-left: 1rem;
+    position: relative;
+    line-height: 1.6;
+}
+  
+.numbered-list li::before {
+    content: counter(list-counter) ". ";
+    counter-increment: list-counter;
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--color-header);
+    font-size: 1rem;
+}

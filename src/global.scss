@@ -106,8 +106,8 @@ mat-label {
 
 
 :root {
-  --ion-default-font: "NotoSans-Regular";
-  --ion-font-family: "NotoSans-Regular";
+  --ion-default-font: "Urbanist", sans-serif;
+  --ion-font-family:  "Urbanist", sans-serif;
   --color-primary: #572E91;
   --color-secondary: #572E91;
   --color-light: whitesmoke;
@@ -146,6 +146,9 @@ mat-label {
   --disabled-btn-bg: gainsboro;
   --disabled-btn-text: gray;
   --color-header:#38373B;
+  --color-background:#F5F5F5;
+  --color-text:#387576;
+  --color-input-field:#F0F0FF;
 
   /* Borders */
   --border-color: #ccc;
@@ -255,4 +258,22 @@ ion-segment-button {
 .popup-class{
   --height: 125px;
   --width:450px;
+}
+
+.layout-wrapper{
+  max-width: 80vw;
+  margin: auto;
+
+  @media (max-width: 768px){
+    max-width: 100vw;
+  }
+}
+
+.login-container{
+  height: calc(100vh - 3.75rem);
+  justify-content: start !important;
+}
+
+.header{
+  background-color: var(--color-light) !important;
 }

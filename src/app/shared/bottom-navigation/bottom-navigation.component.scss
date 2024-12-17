@@ -12,7 +12,6 @@ ion-row{
 
 .bottom-nav-bar {
   color: #000;
-  position: fixed;
   display: flex;
   bottom: 0;
   z-index: 10;
@@ -33,7 +32,7 @@ ion-row{
     color: #000;
 
     &.active {
-      color: #8a38f5;
+      color: var(--primary-color);
     }
 
     .nav-label {

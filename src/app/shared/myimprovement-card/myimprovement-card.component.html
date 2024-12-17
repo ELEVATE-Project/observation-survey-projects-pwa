@@ -4,20 +4,28 @@
   (click)="onImprovement(myImprovement._id)"
 >
   <div class="card-header">
-    <span class="improvement-title">{{ myImprovement.title }}</span>
+    <span class="improvement-title">{{ myImprovement.title | shortUrl:24 }}</span>
     <button>
       <mat-icon>arrow_forward</mat-icon>
     </button>
   </div>
+    <div class="card-body" >
+  @if (filteredTasksWithIndexes.length > 0) {
   <ul class="task-list">
     @for (item of filteredTasksWithIndexes; track $index) {
     <li
       [ngClass]="{ 'strikethrough': item.task.status === 'completed' }"
     >
-      {{ item.originalIndex + 1 }}. {{ item.task.name }}
+      {{ item.originalIndex + 1 }}. {{ item.task.name | shortUrl:36 }}
     </li>
     }
   </ul>
+  }
+  @else {
+    <div class="no-task">
+      <p>{{"NO_TASK_FOUND" | translate}}</p>
+    </div>
+  }
   <div class="progress-bar">
     <span class="progress-text">{{ progressValue }}%</span>
     <div class="progress">
@@ -25,6 +33,7 @@
         class="progress-fill"
         [style.width]="progressValue + '%'"
       ></div>
+        </div>
     </div>
   </div>
 </div>
