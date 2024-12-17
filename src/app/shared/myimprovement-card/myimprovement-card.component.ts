@@ -19,7 +19,7 @@ export class MyimprovementCardComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.taskList = this.myImprovement.tasks;
+    this.taskList = this.myImprovement.tasks.filter((data:any) => {return !data.isDeleted})
     const tasksWithIndexes = this.taskList.map((task: any, idx: number) => ({
       task,
       originalIndex: idx,

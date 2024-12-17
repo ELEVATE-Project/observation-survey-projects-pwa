@@ -44,6 +44,11 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'reflection',
+    loadChildren: () => import('./reflection/reflection.module').then( m => m.ProjectPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: '**',
     redirectTo: 'intro',
   },

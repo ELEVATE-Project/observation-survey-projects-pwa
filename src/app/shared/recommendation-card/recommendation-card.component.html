@@ -2,5 +2,10 @@
   <img class="card-image" src="{{ cardImage }}" alt="Card image" loading="lazy"/>
   <div class="card-title">{{ cardData.title | shortUrl:50 }}</div>
   <div class="card-description">{{ cardData.description | shortUrl }}</div>
-  <div class="duration">{{ "EXPECTED_DURATION" | translate }}: {{ cardData.metaInformation.duration }}</div>
+  @if (type === 'journey') {
+    <div class="duration">{{ cardData.reflection.endDate | date:'MMMM, yyyy' }}</div>
+  }
+  @else {
+    <div class="duration">{{ "EXPECTED_DURATION" | translate }}: {{ cardData.metaInformation.duration }}</div>
+  }
 </mat-card>
