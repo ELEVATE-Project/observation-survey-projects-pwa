@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { MiDetailsPage } from './mi-details.page';
 import { AddProblemStatementPage } from './add-problem-statement/add-problem-statement.page';
-import { ViewStoryPage } from './view-details/view-story.page';
+import { ViewStoryPage } from './view-story/view-story.page';
 
 const routes: Routes = [
   {

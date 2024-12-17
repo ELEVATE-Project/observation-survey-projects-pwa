@@ -10,7 +10,7 @@ import { MiDetailsPage } from './mi-details.page';
 import { SharedModule } from '../shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { AddProblemStatementPage } from './add-problem-statement/add-problem-statement.page';
-import { ViewStoryPage } from './view-details/view-story.page';
+import { ViewStoryPage } from './view-story/view-story.page';
 
 @NgModule({
   imports: [
