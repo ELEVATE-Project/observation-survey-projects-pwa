@@ -1,0 +1,31 @@
+<app-application-header [config]="headerConfig">
+  <div header-right-content>
+    <button class="header-button" (click)="doItLater()">{{ "DO_IT_LATER" | translate }}</button>
+  </div>
+</app-application-header>
+<ion-content>
+  <div class="layout-wrapper">
+    <div class="reflection-heading">
+      <h1>{{ "REFLECTION" | translate }}</h1>
+      <div class="reflection-border"></div>
+    </div>
+    <h2 class="sub-heading">{{ "COMPLETED_IMPROVEMENT_JOURNEY_MSG" | translate }}</h2>
+    <h2 class="sub-heading">{{ "REFLECT_YOUR_EXPERIENCE" | translate }}</h2>
+
+    <ol class="reflection-points">
+      @for(reflectionPoint of reflectionPointsList; track $index){
+        <li>{{ $index+1 }}. {{ reflectionPoint | translate }}</li>
+      }
+    </ol>
+
+    <div class="sub-heading">{{ "READY_TO_REFLECT" | translate }}</div>
+
+    <div class="button-section">
+      <ion-button>
+        <mat-icon>keyboard</mat-icon>
+        {{ "LETS_GO" | translate }}
+      </ion-button>
+    </div>
+  </div>
+
+</ion-content>

@@ -31,7 +31,9 @@
     <ion-infinite-scroll-content loadingText="{{'LOADING' | translate}}..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
   }@else{
-    <app-no-data [message]="'NO_DATA_MSG'" *ngIf="!noData"></app-no-data>
+      @if (!noData) {
+        <app-no-data [message]="searchTerm.length ? 'SEARCH_RESULT_NOT_FOUND' : 'NO_DATA_MSG'"></app-no-data>
+      }
   }
 </ion-content>
 @if(pageConfig.enableFilter){

@@ -25,7 +25,8 @@ import { NoDataComponent } from './no-data/no-data.component';
 import { MiDetailsCardComponent } from './mi-details-card/mi-details-card.component';
 import { MyimprovementCardComponent } from './myimprovement-card/myimprovement-card.component';
 import { ShareLinkComponent } from './share-link/share-link.component';
-ShareLinkComponent
+import { MyJourneyCardComponent } from './my-journey-card/my-journey-card.component';
+import { MyJourneyOngoingCardComponent } from './my-journey-ongoing-card/my-journey-ongoing-card.component';
 
 @NgModule({
     declarations: [
@@ -43,8 +44,7 @@ ShareLinkComponent
         NoDataComponent,
         FilterComponent,
         MiDetailsCardComponent,
-        MyimprovementCardComponent,
-        ShareLinkComponent
+        MyimprovementCardComponent
     ],
     imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule,MatDividerModule,MatButtonModule, FormsModule,
         ReactiveFormsModule, MatFormFieldModule, MatCheckboxModule],
@@ -63,8 +63,7 @@ ShareLinkComponent
         NoDataComponent,
         FilterComponent,
         MiDetailsCardComponent,
-        MyimprovementCardComponent,
-        ShareLinkComponent
+        MyimprovementCardComponent
     ],
     providers: [ShortUrlPipe]
 })

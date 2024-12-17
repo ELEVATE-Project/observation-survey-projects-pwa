@@ -118,5 +118,21 @@
   "SHARE":"Share",
   "DOWNLOAD":"Download",
   "TEXT_COPY_SUCCESS":"Text copied to clipboard",
-  "SHARE_PROJECT":"Share Project"
+  "SHARE_PROJECT":"Share Project",
+  "ONGOING_MI":"Ongoing MI",
+  "COMPLETED_MI":"Completed MI",
+  "ONGOING":"Ongoing",
+  "COMPLETED":"Completed",
+  "DUE_DATE":"Due Date",
+  "MY_JOURNEY":"My Journey",
+  "SEARCH_RESULT_NOT_FOUND":"Search results not found. Try searching for something else.",
+  "REFLECTION": "Reflection",
+  "DO_IT_LATER": "I will do it later",
+  "COMPLETED_IMPROVEMENT_JOURNEY_MSG": "You've completed your micro-improvement journey!",
+  "REFLECT_YOUR_EXPERIENCE": "Take a moment to reflect on your experience.",
+  "REFLECTION_POINT_ONE": "Share your thoughts on the highlights you experienced, the challenges you faced, and the outcomes you’ve achieved in your MI journey.",
+  "REFLECTION_POINT_TWO": "Reflect on what went well and what you might do differently next time.",
+  "REFLECTION_POINT_THREE": "Add more photos to visually highlight the changes.",
+  "READY_TO_REFLECT": "Ready to reflect?",
+  "LETS_GO": "Let's Go"
 }

@@ -16,5 +16,9 @@ export const actions = {
     LANGUAGES:[
         { value: 'en', name: 'English' },
         { value: 'hi', name: 'Hindi' },
-    ]
+    ],
+    JOURNEY_FILTERS : {
+        inProgress : "inProgress",
+        completed:"completed",
+    }
 }

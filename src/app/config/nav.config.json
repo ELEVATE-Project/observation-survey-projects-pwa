@@ -2,6 +2,6 @@
     { "label": "HOME", "icon": "home", "route": "/home", "keepNavBar":true },
     { "label": "EXPLORE", "icon": "search", "route": "/list/explore", "keepNavBar":true},
     { "label": "CREATE", "icon": "add_circle_outlined", "route": "/create", "keepNavBar":false },
-    { "label": "MY_JOURNEYS", "icon": "folder", "route": "/my-journeys", "keepNavBar":true },
+    { "label": "MY_JOURNEYS", "icon": "folder", "route": "/list/my-journeys", "keepNavBar":true },
     { "label": "PROFILE", "icon": "person", "route": "/profile", "keepNavBar":true}
 ]

@@ -1,0 +1,12 @@
+.cards-list{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-top: 20px;
+
+    @media (max-width: 768px){
+        justify-content: space-around;
+    }
+}

@@ -32,7 +32,7 @@
           </div>
       }
     </div>
-@if(options?.length > 0){
+@if(options.length){
   <div class="radio-container">
     <ion-radio-group [(ngModel)]="selectedOption">
       @for(option of options;track option){
@@ -45,6 +45,9 @@
   </div>
 }
   </div>
+  <ion-infinite-scroll (ionInfinite)="loadData($event)" [disabled]="disableLoading">
+    <ion-infinite-scroll-content loadingText="{{'LOADING' | translate}}..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
 <ion-footer collapse="fade" class="ion-no-border">
   <ion-toolbar>
