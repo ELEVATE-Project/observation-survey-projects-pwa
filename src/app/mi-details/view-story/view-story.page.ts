@@ -56,19 +56,18 @@ export class ViewStoryPage implements OnInit {
   }
 
   async share(){
-    let text:any;
     if (this.utilService.isMobile()) {
       try {
         const shareOptions = {
           title: this.translate.instant('SHARE_PROJECT'),
-          url: text,
+          url: this.viewProjectDetails.story.pdfInformation[0].sharableUrl,
         };
         await Share.share(shareOptions);
       } catch (err:any) {
         this.toastService.presentToast(err?.message, 'danger');
       }
     }else {
-      this.setOpenForCopyLink(text);
+      this.setOpenForCopyLink(this.viewProjectDetails.story.pdfInformation[0].sharableUrl);
     }
     
   }
@@ -94,22 +93,20 @@ async setOpenForCopyLink(url:any){
 }
 
   download(){
-    // fetch()
-    // .then((resp) => resp.blob())
-    // .then((blob) => {     
-     
-      
-    //   const url = window.URL.createObjectURL();
-    //   const a = document.createElement('a');
-    //   a.href = url;
-    //   a.download = '';
-    //   a.click();
-    //   window.URL.revokeObjectURL(downloadURL);
-    //   this.toastService.presentToast('download success', 'success');
-    // })
-    // .catch((err) => {
-    //   this.toastService.presentToast(err?.error?.message, 'danger');
-    // });
+    fetch(this.viewProjectDetails.story.pdfInformation[0].url)
+    .then((resp) => resp.blob())
+    .then((blob) => {  
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${this.viewProjectDetails.title}.pdf`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+      this.toastService.presentToast('download success', 'success');
+    })
+    .catch((err) => {
+      this.toastService.presentToast(err?.error?.message, 'danger');
+    });
   }
 
   async getProjectDetails(){
@@ -120,13 +117,11 @@ async setOpenForCopyLink(url:any){
       })
     ).subscribe(async (res:any)=>{
       if (res?.status == 200) {
-        console.log("res",res)
         this.viewProjectDetails=res.result
         this.viewProjectDetails.attachments = this.viewProjectDetails.attachments.map((item: any) => ({
           ...item,
           isImage: this.utilService.isFileType(item.sourcePath,'image'),
         }));
-        console.log("this.view",this.viewProjectDetails)
         await this.filterAndSeparateFiles(this.viewProjectDetails.attachments)
       }
     },
@@ -151,7 +146,6 @@ filterAndSeparateFiles(files:any) {
       const category:any = Object.keys(regexPatterns).find((key:any) => regexPatterns[key].test(fileType));
       this.resource[category]?.push(file);
     });
-    console.log("resource",this.resource)
   }
   
 }
