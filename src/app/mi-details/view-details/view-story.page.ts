@@ -13,11 +13,11 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-view-details',
-  templateUrl: './view-details.page.html',
-  styleUrls: ['./view-details.page.scss'],
+  selector: 'app-view-story',
+  templateUrl: './view-story.page.html',
+  styleUrls: ['./view-story.page.scss'],
 })
-export class ViewDetailsPage implements OnInit {
+export class ViewStoryPage implements OnInit {
   headerConfig:any={
     showBackButton:true
   }
@@ -43,11 +43,10 @@ export class ViewDetailsPage implements OnInit {
   }
 
   async copyText() {
-    const textToCopy:any=this.viewProjectDetails.summary;
-    if (textToCopy) {
+    if (this.viewProjectDetails.story.summary) {
       try {
         await Clipboard.write({
-          string: textToCopy,
+          string: this.viewProjectDetails.story.summary,
         });
         this.toastService.presentToast('TEXT_COPY_SUCCESS', 'success');
       } catch (err:any) {
@@ -114,30 +113,32 @@ async setOpenForCopyLink(url:any){
   }
 
   async getProjectDetails(){
-  //   await this.loader.showLoading("LOADER_MSG");
-  //   this.projectsApiService.get().pipe(
-  //     finalize(async ()=>{
-  //       await this.loader.dismissLoading();
-  //     })
-  //   ).subscribe((res:any)=>{
-  //     if (res?.status == 200) {
-  //       this.viewProjectDetails=res.result
-  //       this.viewProjectDetails.evidences = this.viewProjectDetails.evidences.map((item: any) => ({
-  //         ...item,
-  //         isImage: this.utilService.isFileType(item.link, 'image'),
-  //       }));
-  //       this.filterAndSeparateFiles(this.viewProjectDetails.resources)
-  //     }
-  //   },
-  //   (err: any) => {
-  //     this.toastService.presentToast(err?.error?.message, 'danger');
-  //   }
-  // )
+    await this.loader.showLoading("LOADER_MSG");
+    this.projectsApiService.post(urlConfig['miDetail'].viewDetailUrl+`${this.projectId}`,{}).pipe(
+      finalize(async ()=>{
+        await this.loader.dismissLoading();
+      })
+    ).subscribe(async (res:any)=>{
+      if (res?.status == 200) {
+        console.log("res",res)
+        this.viewProjectDetails=res.result
+        this.viewProjectDetails.attachments = this.viewProjectDetails.attachments.map((item: any) => ({
+          ...item,
+          isImage: this.utilService.isFileType(item.sourcePath,'image'),
+        }));
+        console.log("this.view",this.viewProjectDetails)
+        await this.filterAndSeparateFiles(this.viewProjectDetails.attachments)
+      }
+    },
+    (err: any) => {
+      this.toastService.presentToast(err?.error?.message, 'danger');
+    }
+  )
   }
   
 
 filterAndSeparateFiles(files:any) {
-  if(files.length > 0){
+  if(files.length == 0){
     return ;
   }
   const regexPatterns:any = {
@@ -150,6 +151,7 @@ filterAndSeparateFiles(files:any) {
       const category:any = Object.keys(regexPatterns).find((key:any) => regexPatterns[key].test(fileType));
       this.resource[category]?.push(file);
     });
+    console.log("resource",this.resource)
   }
   
 }

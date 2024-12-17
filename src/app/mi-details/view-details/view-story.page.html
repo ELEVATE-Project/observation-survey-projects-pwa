@@ -15,15 +15,21 @@
   <div class="layout-wrapper">
 
   <div class="author-container ion-padding">
-    <h1 class="title-header">{{viewProjectDetails.title}}</h1>
+    @if(viewProjectDetails.title){
+      <h1 class="title-header">{{viewProjectDetails.title}}</h1>
+    }
     <div class="author-text">
-      @if(viewProjectDetails.author){
+      @if(viewProjectDetails.story.authorName){
       <span>{{"BY" | translate}} </span>
-      <span>{{viewProjectDetails.author}}</span>
+      <div class="author-span">
+        <span>{{viewProjectDetails.story.authorName}}</span>
+        <span>{{viewProjectDetails.story.location}}</span>
+      </div>
       }
     </div>
   </div>
 
+@if(viewProjectDetails.story.summary){
   <div class="summary-container">
     <div class="summary-head">
       <h1 class="summary-title">{{"SUMMARY" | translate}}</h1>
@@ -31,25 +37,26 @@
         <ion-icon name="copy-outline"></ion-icon>
       </button>
     </div>
-    <p class="summary-text" id="summaryText"></p>
+    <p class="summary-text">{{viewProjectDetails.story.summary}}</p>
   </div>
+}
   
-  @if(viewProjectDetails.problemStatement){
+  @if(viewProjectDetails.story.problemStatement){
     <app-mi-details-card
-        [cardConfig]="{ title: 'PROBLEM_STATEMENT', text: viewProjectDetails.problemStatement }">
+        [cardConfig]="{ title: 'PROBLEM_STATEMENT', text: viewProjectDetails.story.problemStatement }">
     </app-mi-details-card>
   }
 
 
-@if(viewProjectDetails.description){
+@if(viewProjectDetails.story.objective){
   <app-mi-details-card 
-    [cardConfig]="{ title: 'OBJECTIVE', text: viewProjectDetails.description }">
+    [cardConfig]="{ title: 'OBJECTIVE', text: viewProjectDetails.story.objective }">
   </app-mi-details-card>
 }
 
-@if(viewProjectDetails.timeLine){
+@if(viewProjectDetails.story.timeline){
   <app-mi-details-card 
-    [cardConfig]="{ title: 'TIMELINE', text: viewProjectDetails.description }">
+    [cardConfig]="{ title: 'TIMELINE', text: viewProjectDetails.story.timeline}">
   </app-mi-details-card>
 }
 
@@ -59,13 +66,13 @@
   </app-mi-details-card>
 }
 
-@if(viewProjectDetails.impact){
+@if(viewProjectDetails.story.impact){
   <app-mi-details-card 
-    [cardConfig]="{ title: 'IMPACT', text: viewProjectDetails.impact }">
+    [cardConfig]="{ title: 'IMPACT', text: viewProjectDetails.story.impact }">
   </app-mi-details-card>
 }
 
-@if(viewProjectDetails.resources.length > 0){
+@if(viewProjectDetails.attachments.length > 0){
   <div class="resource-container">
     <h1 class="resource-title">
       <ion-icon name="star"></ion-icon>
@@ -76,8 +83,8 @@
         @for(image of resource.images;track image){
           <div class="item">
             <ion-icon name="image-outline"></ion-icon>
-            <a [href]="image.downloadUrl" download="{{image.title}}">
-              <span>{{image.title}}</span>
+            <a [href]="image.url" download="{{image.url}}">
+              <span>{{image.name}}</span>
             </a>
           </div>
         }
@@ -87,9 +94,9 @@
       <ul class="resource-list">
         @for(document of resource.documents;track document){
         <li>
-          <a [href]="document.filepath" download="{{document.filepath}}">
+          <a [href]="document.url" download="{{document.url}}">
             <ion-icon name="link"></ion-icon>
-            {{document.title}}
+            {{document.name}}
           </a>
         </li>
       }
@@ -101,8 +108,8 @@
         @for(video of resource.videos;track video){
           <div class="item">
             <ion-icon name="videocam"></ion-icon>
-            <a [href]="video.filepath" download="{{video.filepath}}">
-              <span>{{video.title}}</span>
+            <a [href]="video.url" download="{{video.url}}">
+              <span>{{video.name}}</span>
             </a>
           </div>
         }
@@ -112,21 +119,21 @@
 }
 
 <div class="bottom-container">
-    @if(viewProjectDetails.text.length>0){
-      <p class="bottom-text">{{viewProjectDetails.text}}</p>
+    @if(viewProjectDetails.story.text){
+      <p class="bottom-text">{{viewProjectDetails.story.text}}</p>
     }
-    @if(viewProjectDetails.evidences.length > 0){
+    @if(viewProjectDetails.attachments.length > 0){
     <div class="evidences-container">
       <h1 class="evidences-title">
         {{ "EVIDENCES"| translate }}
       </h1>
       <div class="image-container">
-        @for(item of viewProjectDetails.evidences;track item){
+        @for(item of viewProjectDetails.attachments;track item){
           <div  class="image-item">
             @if(item.isImage){
-              <img class="image-placeholder" [src]="item.downloadableUrl" [alt]="item.title" />
+              <img class="image-placeholder" [src]="item.url" [alt]="item.name" />
             }@else{
-              <a [href]="item.downloadableUrl" target="_blank" class="file-link">{{ item.title }}</a>
+              <a [href]="item.url" target="_blank" class="file-link">{{ item.name }}</a>
             }
           </div>
         }

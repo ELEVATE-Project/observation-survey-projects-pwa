@@ -47,6 +47,12 @@ ion-content {
         font-size: 0.875rem;
         color: var(--color-header);
     }
+
+    .author-span{
+        display: flex;
+        align-content: center;
+        gap: 0.5rem;
+    }
 }
   
 
@@ -137,6 +143,7 @@ ion-content {
         margin-bottom: 0.3rem;
         font-size: 0.9rem;
         color: #333;
+        text-align: center; 
         counter-increment: list-counter;
     }
     .resource-list li::before {
