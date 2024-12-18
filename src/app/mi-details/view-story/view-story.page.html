@@ -122,24 +122,6 @@
     @if(storyDetails.text){
       <p class="bottom-text">{{storyDetails.text}}</p>
     }
-    @if(viewProjectDetails.attachments.length > 0){
-    <div class="evidences-container">
-      <h1 class="evidences-title">
-        {{ "EVIDENCES"| translate }}
-      </h1>
-      <div class="image-container">
-        @for(item of viewProjectDetails.attachments;track item){
-          <div  class="image-item">
-            @if(item.isImage){
-              <img class="image-placeholder" [src]="item.url" [alt]="item.name" />
-            }@else{
-              <a [href]="item.url" target="_blank" class="file-link">{{ item.name }}</a>
-            }
-          </div>
-        }
-      </div>
-    </div>
-    }
 </div>
   </div>
 </ion-content>

@@ -118,10 +118,6 @@ async setOpenForCopyLink(url:any){
       if (res?.status == 200) {
         this.viewProjectDetails=res.result;
         this.storyDetails=this.viewProjectDetails.story;
-        this.viewProjectDetails.attachments = this.viewProjectDetails.attachments.map((item: any) => ({
-          ...item,
-          isImage: this.utilService.isFileType(item.sourcePath,'image'),
-        }));
         await this.filterAndSeparateFiles(this.viewProjectDetails.attachments)
       }
     },
