@@ -68,12 +68,12 @@ export const DATA = {
         title: 'Micro-Improvement Dashboard',
         discription:
           'The MI Dashboard is a public, dynamic platform that provides  real-time data on micro-improvements offering insights at national, state, district, and school levels. Powered by data analytics and designed for scalability, this dashboard enables data-driven decisions that can transform schools at scale.',
-        align: 'right',
+        align: 'left',
       },
       media: {
         image: '../../assets/images/Portalvideowithmockup.mp4',
         type: 'video',
-        align: 'left',
+        align: 'right',
       },
       buttons: {
         label: 'Record your story',
