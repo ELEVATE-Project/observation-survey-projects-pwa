@@ -15,21 +15,21 @@
   <div class="layout-wrapper">
 
   <div class="author-container ion-padding">
-    @if(viewProjectDetails.title){
-      <h1 class="title-header">{{viewProjectDetails.title}}</h1>
+    @if(storyDetails.title){
+      <h1 class="title-header">{{storyDetails.title}}</h1>
     }
     <div class="author-text">
-      @if(viewProjectDetails.story.authorName){
+      @if(storyDetails.authorName){
       <span>{{"BY" | translate}} </span>
       <div class="author-span">
-        <span>{{viewProjectDetails.story.authorName}}</span>
-        <span>{{viewProjectDetails.story.location}}</span>
+        <span>{{storyDetails.authorName}}</span>
+        <span>{{storyDetails.location}}</span>
       </div>
       }
     </div>
   </div>
 
-@if(viewProjectDetails.story.summary){
+@if(storyDetails.summary){
   <div class="summary-container">
     <div class="summary-head">
       <h1 class="summary-title">{{"SUMMARY" | translate}}</h1>
@@ -37,26 +37,26 @@
         <ion-icon name="copy-outline"></ion-icon>
       </button>
     </div>
-    <p class="summary-text">{{viewProjectDetails.story.summary}}</p>
+    <p class="summary-text">{{storyDetails.summary}}</p>
   </div>
 }
   
-  @if(viewProjectDetails.story.problemStatement){
+  @if(storyDetails.problemStatement){
     <app-mi-details-card
-        [cardConfig]="{ title: 'PROBLEM_STATEMENT', text: viewProjectDetails.story.problemStatement }">
+        [cardConfig]="{ title: 'PROBLEM_STATEMENT', text: storyDetails.problemStatement }">
     </app-mi-details-card>
   }
 
 
-@if(viewProjectDetails.story.objective){
+@if(storyDetails.objective){
   <app-mi-details-card 
-    [cardConfig]="{ title: 'OBJECTIVE', text: viewProjectDetails.story.objective }">
+    [cardConfig]="{ title: 'OBJECTIVE', text: storyDetails.objective }">
   </app-mi-details-card>
 }
 
-@if(viewProjectDetails.story.timeline){
+@if(storyDetails.timeline){
   <app-mi-details-card 
-    [cardConfig]="{ title: 'TIMELINE', text: viewProjectDetails.story.timeline}">
+    [cardConfig]="{ title: 'TIMELINE', text: storyDetails.timeline}">
   </app-mi-details-card>
 }
 
@@ -66,9 +66,9 @@
   </app-mi-details-card>
 }
 
-@if(viewProjectDetails.story.impact){
+@if(storyDetails.impact){
   <app-mi-details-card 
-    [cardConfig]="{ title: 'IMPACT', text: viewProjectDetails.story.impact }">
+    [cardConfig]="{ title: 'IMPACT', text: storyDetails.impact }">
   </app-mi-details-card>
 }
 
@@ -94,9 +94,9 @@
       <ul class="resource-list">
         @for(document of resource.documents;track document){
         <li>
-          <a [href]="document.url" download="{{document.url}}">
+          <a [href]="document.url" download="{{document.url}}" class="list-item">
             <ion-icon name="link"></ion-icon>
-            {{document.name}}
+            <span>{{document.name}}</span>
           </a>
         </li>
       }
@@ -119,8 +119,8 @@
 }
 
 <div class="bottom-container">
-    @if(viewProjectDetails.story.text){
-      <p class="bottom-text">{{viewProjectDetails.story.text}}</p>
+    @if(storyDetails.text){
+      <p class="bottom-text">{{storyDetails.text}}</p>
     }
     @if(viewProjectDetails.attachments.length > 0){
     <div class="evidences-container">

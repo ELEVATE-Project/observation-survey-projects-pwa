@@ -154,6 +154,11 @@ ion-content {
         font-size: 1.1rem;
         color: #333;
     }
+    .list-item{
+        display: flex;
+        justify-content: center;
+        gap: 0.3rem;
+    }
 }  
   
 .bottom-container{

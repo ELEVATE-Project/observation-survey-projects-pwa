@@ -10,7 +10,6 @@ import { Share } from '@capacitor/share';
 import { ShareLinkComponent } from '../../shared/share-link/share-link.component';
 import { PopoverController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-view-story',
@@ -24,14 +23,14 @@ export class ViewStoryPage implements OnInit {
   projectId:any;
   resource:any={ images: [], videos: [], documents: []};
   viewProjectDetails:any;
+  storyDetails:any;
   constructor(
     private toastService :ToastService,
     private loader : LoaderService,
     private projectsApiService: ProjectsApiService,
     private utilService:UtilService,
     private popoverController:PopoverController,
-    private route:ActivatedRoute,
-    private translate: TranslateService
+    private route:ActivatedRoute
   ) { 
     this.route.params.subscribe(param=>{
       this.projectId = param['id'];
@@ -43,10 +42,10 @@ export class ViewStoryPage implements OnInit {
   }
 
   async copyText() {
-    if (this.viewProjectDetails.story.summary) {
+    if (this.storyDetails.summary) {
       try {
         await Clipboard.write({
-          string: this.viewProjectDetails.story.summary,
+          string: this.storyDetails.summary,
         });
         this.toastService.presentToast('TEXT_COPY_SUCCESS', 'success');
       } catch (err:any) {
@@ -59,15 +58,15 @@ export class ViewStoryPage implements OnInit {
     if (this.utilService.isMobile()) {
       try {
         const shareOptions = {
-          title: this.translate.instant('SHARE_PROJECT'),
-          url: this.viewProjectDetails.story.pdfInformation[0].sharableUrl,
+          title: this.storyDetails.title,
+          url: this.storyDetails.pdfInformation[0].sharableUrl,
         };
         await Share.share(shareOptions);
       } catch (err:any) {
         this.toastService.presentToast(err?.message, 'danger');
       }
     }else {
-      this.setOpenForCopyLink(this.viewProjectDetails.story.pdfInformation[0].sharableUrl);
+      this.setOpenForCopyLink(this.storyDetails.pdfInformation[0].sharableUrl);
     }
     
   }
@@ -117,7 +116,8 @@ async setOpenForCopyLink(url:any){
       })
     ).subscribe(async (res:any)=>{
       if (res?.status == 200) {
-        this.viewProjectDetails=res.result
+        this.viewProjectDetails=res.result;
+        this.storyDetails=this.viewProjectDetails.story;
         this.viewProjectDetails.attachments = this.viewProjectDetails.attachments.map((item: any) => ({
           ...item,
           isImage: this.utilService.isFileType(item.sourcePath,'image'),
