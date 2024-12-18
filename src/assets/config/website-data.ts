@@ -71,7 +71,7 @@ export const DATA = {
         align: 'right',
       },
       media: {
-        image: '../../assets/images/Midashboardportalsection.mp4',
+        image: '../../assets/images/Portalvideowithmockup.mp4',
         type: 'video',
         align: 'left',
       },
