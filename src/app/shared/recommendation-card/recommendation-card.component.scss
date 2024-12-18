@@ -1,20 +1,22 @@
-mat-card{
-    min-width: 330px;
-    max-width: 330px;
+mat-card {
     min-height: 450px;
+    height: 100%;
+    width: 100%;
+    min-width: 70%;
+    margin: auto;
     border: 1px solid lightgray;
     padding: 12px;
     border-radius: 10px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    margin: 15px !important;
-    margin-left: 0px !important;
+    box-sizing: border-box;
 
     .card-image{
         height: 200px;
-        border-radius: 10px;
+        border-radius: 0.625rem;
         object-fit: cover;
+        width: 100%;
     }
 
     .card-title{
@@ -25,7 +27,7 @@ mat-card{
 
     .card-description{
         font-size: 14px;
-        flex: 1;
+        flex-grow: 1;
     }
 
     .duration{

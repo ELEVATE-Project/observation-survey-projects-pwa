@@ -37,4 +37,14 @@ export class UtilService {
     let selectedLanguage:any = localStorage.getItem("preferred_language")
     return JSON.parse(selectedLanguage)?.value || "en"
   }
+  isFileType(fileUrl: string, type: 'image' | 'pdf' | 'doc' | 'video'): boolean {
+    const regexMap: { [key in 'image' | 'pdf' | 'doc' | 'video']: RegExp } = {
+      image: /\.(jpeg|jpg|gif|png|svg|webp)$/i,
+      pdf: /\.pdf$/i,
+      doc: /\.(docx?|odt)$/i,
+      video: /\.(mp4|mov|avi)$/i,
+    };
+
+    return regexMap[type].test(fileUrl);
+  }
 }

@@ -24,6 +24,7 @@ import { SectionHeaderComponent } from './section-header/section-header.componen
 import { NoDataComponent } from './no-data/no-data.component';
 import { MiDetailsCardComponent } from './mi-details-card/mi-details-card.component';
 import { MyimprovementCardComponent } from './myimprovement-card/myimprovement-card.component';
+import { ShareLinkComponent } from './share-link/share-link.component';
 import { MyJourneyCardComponent } from './my-journey-card/my-journey-card.component';
 import { MyJourneyOngoingCardComponent } from './my-journey-ongoing-card/my-journey-ongoing-card.component';
 
@@ -44,6 +45,7 @@ import { MyJourneyOngoingCardComponent } from './my-journey-ongoing-card/my-jour
         FilterComponent,
         MiDetailsCardComponent,
         MyimprovementCardComponent,
+        ShareLinkComponent,
         MyJourneyCardComponent,
         MyJourneyOngoingCardComponent
     ],
@@ -65,8 +67,8 @@ import { MyJourneyOngoingCardComponent } from './my-journey-ongoing-card/my-jour
         FilterComponent,
         MiDetailsCardComponent,
         MyimprovementCardComponent,
+        ShareLinkComponent,
         MyJourneyCardComponent,
-        ShortUrlPipe,
         MyJourneyOngoingCardComponent
     ],
     providers: [ShortUrlPipe]
