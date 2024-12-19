@@ -1,0 +1,45 @@
+.cancel-button{
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+
+}
+
+.copy-link-div{
+    display:flex;
+    justify-content: space-between;
+    cursor: pointer;
+    margin: 15px;
+}
+
+.copy-link-div p{
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    color: --color-primary;
+}
+
+.button-icon{
+    height: 2vh;
+    width: 2vw;
+}
+
+.button-copy{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: #fff;
+    color: var(--ion-color-primary);
+    cursor: pointer;
+}
+
+.button-copy ion-icon{
+    width: 3vw;
+    height: 3vh;
+}
+
+.button-text{
+    font-size: 1rem;
+    color: var(--ion-color-primary);
+}
+
