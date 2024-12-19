@@ -12,7 +12,7 @@ export const DATA = {
       {
         label: 'Explore',
         action: '',
-        url: '',
+        url: '/home',
         alingment: 'center',
         color: 'dark',
       },
@@ -83,8 +83,8 @@ export const DATA = {
         color: 'dark',
       },
       backgroundImage: {
-        desktop: '../../assets/images/Subtract.png',
-        mobile: '../../assets/images/mobile_bg.png',
+        desktop: '../../assets/images/Frame_end_of_section_desk.png',
+        mobile: '../../assets/images/Frame_end_of_section_mb.png',
       },
     },
   ],
