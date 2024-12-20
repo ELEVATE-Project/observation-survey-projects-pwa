@@ -46,10 +46,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'auth',
+    path: 'intro',
     loadChildren: () =>
-      import('authentication_frontend_library').then(
-        (m) => m.SlRoutingRoutingModule
+      import('./intro/intro.module').then(
+        (m) => m.IntroPageModule
       ),
   },
   {
@@ -58,13 +58,13 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: '**',
+    path: '',
     redirectTo: 'intro',
   },
   {
-    path: 'intro',
+    path: 'auth',
     loadChildren: () =>
-      import('./intro/intro.module').then((m) => m.IntroPageModule),
+      import('authentication_frontend_library').then((m) => m.SlRoutingRoutingModule),
   },
 ];
 @NgModule({

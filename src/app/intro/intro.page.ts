@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
+import { AuthService } from 'authentication_frontend_library';
 import { DATA } from 'src/assets/config/website-data';
 @Component({
   selector: 'app-intro',
@@ -17,7 +18,8 @@ export class IntroPage implements OnInit {
   constructor(
     private fb: FormBuilder,
     private platform: Platform,
-    private router: Router
+    private router: Router,
+    private authService:AuthService
   ) {}
 
   ngOnInit() {
@@ -26,6 +28,10 @@ export class IntroPage implements OnInit {
     this.platform.resize.subscribe(() => {
       this.checkIfMobileView();
     });
+  }
+
+  ionViewWillEnter(){
+    this.checkAuthLabel();
   }
   createForm(): void {
     if (!this.data.footer.footerForm) return;
@@ -55,7 +61,23 @@ export class IntroPage implements OnInit {
     this.isMobileView = this.platform.width() < 576;
   }
 
-  login() {
-    this.router.navigate(['/auth/landing']);
+  checkAuthLabel(): void {
+    const userData = localStorage.getItem('name');
+    this.authLabel = userData ? 'Logout' : 'Login';
+  }
+
+  authentication(){
+    if(this.authLabel === 'Login'){
+      this.router.navigate(['/landing']);
+    }
+    else{
+      this.authService.logout();
+    }
+  }
+
+  onClick(action: any) {
+    if (action?.url) {
+      this.router.navigate([action.url]);
+    }
   }
 }

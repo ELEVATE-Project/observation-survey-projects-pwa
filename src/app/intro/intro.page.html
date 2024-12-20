@@ -6,7 +6,7 @@
         class="login-btn"
         fill="outline"
         size="large"
-        (click)="login()"
+        (click)="authentication()"
       >
         {{authLabel}}
         <ion-icon slot="end" name="arrow-forward"></ion-icon>
@@ -20,6 +20,7 @@
       <ion-button
         [color]="button?.color"
         *ngFor="let button of data?.intro?.buttons"
+        (click)="onClick(button)"
       >
         {{button?.label}}
       </ion-button>
@@ -78,6 +79,7 @@
             [href]="section?.buttons?.url"
             [color]="section?.buttons?.color"
             [style.text-align]="section?.buttons?.alingment"
+            (click)="onClick(section?.buttons)"
           >
             {{ section?.buttons?.label }}
           </ion-button>
