@@ -19,6 +19,7 @@
       <p>{{data?.intro?.description}}</p>
       <ion-button
         [color]="button?.color"
+        (click)="navigateToMohini()"
         *ngFor="let button of data?.intro?.buttons"
       >
         {{button?.label}}

@@ -27,6 +27,10 @@ export class IntroPage implements OnInit {
       this.checkIfMobileView();
     });
   }
+
+  navigateToMohini(){
+    window.location.href = '/mohini/login'
+  }
   createForm(): void {
     if (!this.data.footer.footerForm) return;
     const controls: any = {};
@@ -49,6 +53,7 @@ export class IntroPage implements OnInit {
     } else {
       console.log('Form Invalid');
     }
+    this.router.navigate(['create-project/mitra-chat'])
   }
 
   checkIfMobileView() {
