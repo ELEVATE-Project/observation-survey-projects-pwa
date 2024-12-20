@@ -29,7 +29,7 @@ export class IntroPage implements OnInit {
   }
 
   navigateToMohini(){
-    window.location.href = '/mohini/login'
+    this.router.navigate(['/mohini/login'])
   }
   createForm(): void {
     if (!this.data.footer.footerForm) return;
