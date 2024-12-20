@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'authentication_frontend_library';
 const routes: Routes = [
+  { path: 'mohini', redirectTo: '', pathMatch: 'full' },
   {
     path: 'home',
     loadChildren: () =>
