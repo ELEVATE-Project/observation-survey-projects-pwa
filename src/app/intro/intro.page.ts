@@ -27,7 +27,6 @@ export class IntroPage implements OnInit {
       this.checkIfMobileView();
     });
   }
-
   createForm(): void {
     if (!this.data.footer.footerForm) return;
     const controls: any = {};
