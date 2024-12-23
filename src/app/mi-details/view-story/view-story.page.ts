@@ -11,6 +11,7 @@ import { ShareLinkComponent } from '../../shared/share-link/share-link.component
 import { PopoverController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { actions } from 'src/app/config/actionContants';
+import { Resource } from 'src/app/interfaces/viewresource';
 
 @Component({
   selector: 'app-view-story',
@@ -22,7 +23,7 @@ export class ViewStoryPage implements OnInit {
     showBackButton:true
   }
   projectId:any;
-  resource:any={ images: [], videos: [], documents: []};
+  resource:Resource={ images: [], videos: [], documents: [] };
   viewProjectDetails:any;
   storyDetails:any;
   constructor(
@@ -136,8 +137,12 @@ filterAndSeparateFiles(files:any) {
   const regexPatterns:any = actions.REGEX_MAP
   files.forEach((file:any) => {
       const fileType = file.type.toLowerCase();
-      const category:any = Object.keys(regexPatterns).find((key:any) => regexPatterns[key].test(fileType));
-      this.resource[category]?.push(file);
+      const category:keyof Resource= Object.keys(regexPatterns).find((key:any) => 
+        regexPatterns[key].test(fileType)
+      ) as keyof Resource;
+      if (category && this.resource[category]) {
+        this.resource[category].push(file);
+      }
     });
   }
   

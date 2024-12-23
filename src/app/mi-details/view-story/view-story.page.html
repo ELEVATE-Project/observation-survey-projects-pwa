@@ -16,14 +16,14 @@
 
   <div class="author-container ion-padding">
     @if(storyDetails?.title){
-      <h1 class="title-header">{{storyDetails.title}}</h1>
+      <h1 class="title-header">{{storyDetails?.title}}</h1>
     }
     @if(storyDetails?.authorName){
     <div class="author-text">
       <span>{{"BY" | translate}} </span>
       <div class="author-span">
-        <span>{{storyDetails.authorName}}</span>
-        <span>{{storyDetails.location}}</span>
+        <span>{{storyDetails?.authorName}}</span>
+        <span>{{storyDetails?.location}}</span>
       </div>
     </div>
     }
@@ -37,79 +37,79 @@
         <ion-icon name="copy-outline"></ion-icon>
       </button>
     </div>
-    <p class="summary-text">{{storyDetails.summary}}</p>
+    <p class="summary-text">{{storyDetails?.summary}}</p>
   </div>
 }
   
   @if(storyDetails?.problemStatement){
     <app-mi-details-card
-        [cardConfig]="{ title: 'PROBLEM_STATEMENT', text: storyDetails.problemStatement }">
+        [cardConfig]="{ title: 'PROBLEM_STATEMENT', text: storyDetails?.problemStatement }">
     </app-mi-details-card>
   }
 
 
 @if(storyDetails?.objective){
   <app-mi-details-card 
-    [cardConfig]="{ title: 'OBJECTIVE', text: storyDetails.objective }">
+    [cardConfig]="{ title: 'OBJECTIVE', text: storyDetails?.objective }">
   </app-mi-details-card>
 }
 
 @if(storyDetails?.timeline){
   <app-mi-details-card 
-    [cardConfig]="{ title: 'TIMELINE', text: storyDetails.timeline}">
+    [cardConfig]="{ title: 'TIMELINE', text: storyDetails?.timeline}">
   </app-mi-details-card>
 }
 
-@if(viewProjectDetails?.tasks?.length>0){
+@if(viewProjectDetails?.tasks?.length){
   <app-mi-details-card
-    [cardConfig]="{ title: 'ACTION_STEPS', tasks: viewProjectDetails.tasks }">
+    [cardConfig]="{ title: 'ACTION_STEPS', tasks: viewProjectDetails?.tasks }">
   </app-mi-details-card>
 }
 
 @if(storyDetails?.impact){
   <app-mi-details-card 
-    [cardConfig]="{ title: 'IMPACT', text: storyDetails.impact }">
+    [cardConfig]="{ title: 'IMPACT', text: storyDetails?.impact }">
   </app-mi-details-card>
 }
 
-@if(viewProjectDetails?.attachments?.length > 0){
+@if(viewProjectDetails?.attachments?.length){
   <div class="resource-container">
     <h1 class="resource-title">
       <ion-icon name="star"></ion-icon>
       {{"RESOURCES" | translate}}
     </h1>
-    @if(resource?.images?.length > 0){
+    @if(resource.images.length){
       <div class="resource-item">
         @for(image of resource.images;track image){
           <div class="item">
             <ion-icon name="image-outline"></ion-icon>
-            <a [href]="image.url" download="{{image.url}}">
-              <span>{{image.name}}</span>
+            <a [href]="image?.url" download="{{image?.url}}">
+              <span>{{image?.name}}</span>
             </a>
           </div>
         }
       </div>
     }
-    @if(resource?.documents?.length > 0){
+    @if(resource.documents.length){
       <ul class="resource-list">
         @for(document of resource.documents;track document){
         <li>
-          <a [href]="document.url" download="{{document.url}}" class="list-item">
+          <a [href]="document?.url" download="{{document?.url}}" class="list-item">
             <ion-icon name="link"></ion-icon>
-            <span>{{document.name}}</span>
+            <span>{{document?.name}}</span>
           </a>
         </li>
       }
     </ul>
     }
 
-    @if(resource?.videos?.length > 0){
+    @if(resource.videos.length){
       <div class="resource-item">
         @for(video of resource.videos;track video){
           <div class="item">
             <ion-icon name="videocam"></ion-icon>
-            <a [href]="video.url" download="{{video.url}}">
-              <span>{{video.name}}</span>
+            <a [href]="video?.url" download="{{video?.url}}">
+              <span>{{video?.name}}</span>
             </a>
           </div>
         }
@@ -120,7 +120,7 @@
 
 @if(storyDetails?.text){
 <div class="bottom-container">
-      <p class="bottom-text">{{storyDetails.text}}</p>
+      <p class="bottom-text">{{storyDetails?.text}}</p>
 </div>
 }
   </div>
