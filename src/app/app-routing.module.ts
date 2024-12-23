@@ -58,10 +58,6 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: '**',
-    redirectTo: 'intro',
-  },
-  {
     path: 'intro',
     loadChildren: () =>
       import('./intro/intro.module').then((m) => m.IntroPageModule),
