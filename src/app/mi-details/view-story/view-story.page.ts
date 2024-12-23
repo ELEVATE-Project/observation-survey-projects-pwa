@@ -10,6 +10,7 @@ import { Share } from '@capacitor/share';
 import { ShareLinkComponent } from '../../shared/share-link/share-link.component';
 import { PopoverController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
+import { actions } from 'src/app/config/actionContants';
 
 @Component({
   selector: 'app-view-story',
@@ -42,7 +43,7 @@ export class ViewStoryPage implements OnInit {
   }
 
   async copyText() {
-    if (this.storyDetails.summary) {
+    if (this.storyDetails?.summary) {
       try {
         await Clipboard.write({
           string: this.storyDetails.summary,
@@ -132,11 +133,7 @@ filterAndSeparateFiles(files:any) {
   if(files.length == 0){
     return ;
   }
-  const regexPatterns:any = {
-    images: /^(bmp|gif|jpeg|jpg|png|ico|svg|tif|tiff|webp)$/i,
-    videos: /^(avi|mpeg|ogv|mp4|mov|mkv|wmv|ogg|m4v|flv|3gp|3g2)$/i,
-    documents: /^(csv|doc|docx|pdf|ppt|pptx|xls|xlsx|odp|ods|odt|rtf|txt|xhtml|xml|xul)$/i,
-  };
+  const regexPatterns:any = actions.REGEX_MAP
   files.forEach((file:any) => {
       const fileType = file.type.toLowerCase();
       const category:any = Object.keys(regexPatterns).find((key:any) => regexPatterns[key].test(fileType));

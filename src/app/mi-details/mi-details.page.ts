@@ -77,7 +77,7 @@ export class MiDetailsPage implements OnInit {
         this.projectDetails=res.result
         this.projectDetails.evidences = this.projectDetails.evidences.map((item: any) => ({
           ...item,
-          isImage: this.utilService.isFileType(item.link, 'image'),
+          isImage: this.utilService.isFileType(item.type, 'images'),
         }));
         this.saved=res.result.wishlist
         this.headerConfig.customActions = [{ icon: this.saved ? 'bookmark' : 'bookmark-outline', actionName: 'save' }];
