@@ -9,7 +9,7 @@
       <li
       class="side-nav-item"
       [class.active]="selectedIndex === i"
-      (click)="onNavigate(item.route, i)"
+      (click)="onNavigate(item, i)"
     >
       <mat-icon fontSet="material-icons-outlined">{{ item.icon }}</mat-icon>
       <span class="label">{{ item.label | translate }}</span>

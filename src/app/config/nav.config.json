@@ -1,7 +1,7 @@
 [
     { "label": "HOME", "icon": "home", "route": "/home", "keepNavBar":true },
     { "label": "EXPLORE", "icon": "search", "route": "/list/explore", "keepNavBar":true},
-    { "label": "CREATE", "icon": "add_circle_outlined", "route": "/create", "keepNavBar":false },
+    { "label": "CREATE", "icon": "add_circle_outlined", "route": "/create-project/mitra-chat", "keepNavBar":false,"customNav":true },
     { "label": "MY_JOURNEYS", "icon": "folder", "route": "/list/my-journeys", "keepNavBar":true },
     { "label": "PROFILE", "icon": "person", "route": "/profile", "keepNavBar":true}
 ]
