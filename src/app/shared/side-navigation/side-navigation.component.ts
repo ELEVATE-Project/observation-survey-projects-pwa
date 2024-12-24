@@ -23,9 +23,9 @@ export class SideNavigationComponent implements OnInit, OnDestroy{
 
   }
 
-  onNavigate(route: string, index: number): void {
+  onNavigate(item: any, index: number): void {
     this.navigationService.setSelectedIndex(index);
-    this.router.navigate([route]);
+    item.customNav ? window.location.href = item.route : this.router.navigate([item.route]);
   }
 
   ngOnDestroy(): void {
