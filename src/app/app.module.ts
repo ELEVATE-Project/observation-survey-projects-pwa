@@ -43,11 +43,11 @@ export function translateHttpLoaderFactory(httpClient: HttpClient) {
     })
   ],
   providers: [{ provide:RouteReuseStrategy, useClass: IonicRouteStrategy },
-    {
-      provide: LIBRARY_CONFIG,
-      useFactory: configFactory,
-      deps: [HttpClient]
-    },
+    // {
+    //   provide: LIBRARY_CONFIG,
+    //   useFactory: configFactory,
+    //   deps: [HttpClient]
+    // },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptor,
