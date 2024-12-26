@@ -28,7 +28,9 @@ export class AppComponent {
     //   });
     // }
 
-    this.router.navigate(['/home'])
+    if(!localStorage.getItem('accToken')){
+      this.router.navigate(['/home'])
+    }
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
