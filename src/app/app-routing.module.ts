@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from 'authentication_frontend_library';
+// import { AuthGuard } from 'authentication_frontend_library';
 const routes: Routes = [
   // /* Do not change mohini & create-project route objects, they're necessary to load Reflection and Project Creation react apps via nginx */
   { path: 'mohini',
@@ -15,12 +15,10 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () =>
       import('./home/home.module').then((m) => m.HomePageModule),
-    canActivate: [AuthGuard],
   },
   {
     path: 'list',
     loadChildren: () => import('./generic-listing-page/generic-listing-page.module').then((m) => m.GenericListingPageModule),
-    canActivate: [AuthGuard]
   },
   {
     path: 'mi-details',
@@ -35,7 +33,6 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: () =>
       import('./profile/profile.module').then((m) => m.ProfilePageModule),
-    canActivate: [AuthGuard],
   },
   {
     path: 'profile-edit',
@@ -43,7 +40,6 @@ const routes: Routes = [
       import('./profile-edit/profile-edit.module').then(
         (m) => m.ProfileEditPageModule
       ),
-    canActivate: [AuthGuard],
   },
   // {
   //   path: 'auth',
@@ -55,7 +51,6 @@ const routes: Routes = [
   {
     path: 'reflection',
     loadChildren: () => import('./reflection/reflection.module').then( m => m.ProjectPageModule),
-    canActivate: [AuthGuard]
   },
   {
     path: 'intro',
