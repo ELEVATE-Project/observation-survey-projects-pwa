@@ -4,11 +4,11 @@ import { AuthGuard } from 'authentication_frontend_library';
 const routes: Routes = [
   // /* Do not change mohini & create-project route objects, they're necessary to load Reflection and Project Creation react apps via nginx */
   { path: 'mohini',
-    redirectTo: 'mohini', 
+    redirectTo: '', 
     pathMatch: 'full' 
   },
   { path: 'create-project', 
-    redirectTo: 'create-project', 
+    redirectTo: '', 
     pathMatch: 'full'
    },
   {
