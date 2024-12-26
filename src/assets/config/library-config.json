@@ -2,7 +2,7 @@
     "projectName": "MItra",
     "landingPageTitle": "Create account",
     "baseUrl": "<baseUrl>",
-    "redirectRouteOnLoginSuccess": "observation",
+    "redirectRouteOnLoginSuccess": "home",
     "loginApiPath": "/user/v1/account/login",
     "logoutApiPath": "/user/v1/account/logout",
     "signUpApiPath": "/user/v1/account/create",
