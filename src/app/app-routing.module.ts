@@ -5,11 +5,11 @@ const routes: Routes = [
   // /* Do not change mohini & create-project route objects, they're necessary to load Reflection and Project Creation react apps via nginx */
   { path: 'mohini',
     redirectTo: '', 
-    pathMatch: 'full' 
+    pathMatch: 'prefix' 
   },
   { path: 'create-project', 
     redirectTo: '', 
-    pathMatch: 'full'
+    pathMatch: 'prefix'
    },
   {
     path: 'home',
@@ -64,7 +64,8 @@ const routes: Routes = [
   },
   {
     path:'',
-    redirectTo:'home'
+    redirectTo:'/home',
+    pathMatch:'full'
   }
 ];
 @NgModule({
