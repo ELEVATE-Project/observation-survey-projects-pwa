@@ -37,17 +37,17 @@ export function translateHttpLoaderFactory(httpClient: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-      registrationStrategy: 'registerWhenStable:30000'
-    })
+    // ServiceWorkerModule.register('ngsw-worker.js', {
+    //   enabled: environment.production,
+    //   registrationStrategy: 'registerWhenStable:30000'
+    // })
   ],
   providers: [{ provide:RouteReuseStrategy, useClass: IonicRouteStrategy },
-    // {
-    //   provide: LIBRARY_CONFIG,
-    //   useFactory: configFactory,
-    //   deps: [HttpClient]
-    // },
+    {
+      provide: LIBRARY_CONFIG,
+      useFactory: configFactory,
+      deps: [HttpClient]
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptor,
