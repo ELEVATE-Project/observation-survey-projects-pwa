@@ -27,17 +27,17 @@
   <!-- Add the following script tag to register the service worker -->
   <script>
 
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then(registrations => {
-        registrations.forEach(registration => {
-          registration.unregister().then(() => {
-            console.log('Old service worker unregistered.');
-          }).catch(err => {
-            console.error('Error unregistering service worker:', err);
-          });
+if ('serviceWorker' in navigator && location.protocol === 'https:') {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('ngsw-worker.js') 
+        .then(function(registration) {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch(function(error) {
+          console.error('Service Worker registration failed:', error);
         });
-      });
-    }
+    });
+  }
 
   </script>
 
