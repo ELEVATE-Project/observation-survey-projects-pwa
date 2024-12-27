@@ -18,15 +18,16 @@ export class AppComponent {
   constructor(private swUpdate: SwUpdate, private router:Router, private translate :TranslateService) {}
 
   ngOnInit(){
-    // if (this.swUpdate.isEnabled) {
-    //   this.swUpdate.checkForUpdate().then((data) => {
-    //     if(data){
-    //       this.swUpdate.activateUpdate().then((data)=>{
-    //         window.location.reload()
-    //       })
-    //     }
-    //   });
-    // }
+    if (this.swUpdate.isEnabled) {
+      this.swUpdate.checkForUpdate().then((data) => {
+        if(data){
+          this.swUpdate.activateUpdate().then((data)=>{
+            window.location.reload()
+          })
+        }
+      });
+    }
+    
 
     if(!localStorage.getItem('accToken')){
       this.router.navigate(['/home'])
