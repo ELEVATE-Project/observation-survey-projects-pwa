@@ -39,7 +39,7 @@ export function translateHttpLoaderFactory(httpClient: HttpClient) {
     }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerImmediately'
     })
   ],
   providers: [{ provide:RouteReuseStrategy, useClass: IonicRouteStrategy },
