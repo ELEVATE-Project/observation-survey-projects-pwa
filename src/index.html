@@ -2,42 +2,42 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8"/>
+  <meta charset="utf-8" />
   <title>MItra</title>
 
-  <base href="/"/>
+  <base href="/" />
 
-  <meta name="color-scheme" content="light"/>
-  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <meta name="format-detection" content="telephone=no"/>     
-  <meta name="msapplication-tap-highlight" content="no"/>
+  <meta name="color-scheme" content="light" />
+  <meta name="viewport"
+    content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
   <script rel="preload" src="assets/env/env.js" as="script"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-    <!-- add to homescreen for ios -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <!-- add to homescreen for ios -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#1976d2"> 
-   <!-- Add the following script tag to register the service worker -->
-   <script>
- if ('serviceWorker' in navigator && location.protocol === 'https:') {
-  navigator.serviceWorker.getRegistrations().then((registrations) => {
-    for (const registration of registrations) {
-      registration.unregister();
-    }
-    navigator.serviceWorker.register('service-worker.js')
-      .then((registration) => {
-        registration.update();
-        console.log('Service Worker registered with scope:', registration.scope);
-      })
-      .catch((error) => {
-        console.error('Service Worker registration failed:', error);
+  <meta name="theme-color" content="#1976d2">
+  <!-- Add the following script tag to register the service worker -->
+  <script>
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(registrations => {
+        registrations.forEach(registration => {
+          registration.unregister().then(() => {
+            console.log('Old service worker unregistered.');
+          }).catch(err => {
+            console.error('Error unregistering service worker:', err);
+          });
+        });
       });
-  });
-}
+    }
 
   </script>
 
