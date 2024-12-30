@@ -34,14 +34,6 @@
           registration.unregister().then(() => {
             console.log('Old service worker unregistered.');
 
-            caches.keys().then(keyList => {
-              return Promise.all(
-                keyList.map(key => {
-                  return caches.delete(key);
-                }),
-              );
-            });
-
            // Re-register the service worker after unregistration
 
             if ('serviceWorker' in navigator && location.protocol === 'https:') {
