@@ -32,7 +32,7 @@
         registrations.forEach(registration => {
           registration.unregister().then(() => {
             console.log('Old service worker unregistered.');
-           // Re-register the service worker after unregistration
+            // Re-register the service worker after unregistration
 
             if ('serviceWorker' in navigator && location.protocol === 'https:') {
               window.addEventListener('load', function () {
