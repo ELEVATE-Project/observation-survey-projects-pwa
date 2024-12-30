@@ -62,6 +62,17 @@ const routes: Routes = [
     loadChildren: () =>
       import('./intro/intro.module').then((m) => m.IntroPageModule),
   },
+  {
+    path:'',
+    redirectTo: 'intro',
+  },
+  {
+    path: 'auth',
+    loadChildren: () =>
+      import('authentication_frontend_library').then(
+        (m) => m.SlRoutingRoutingModule
+      ),
+  },
 ];
 @NgModule({
   imports: [
