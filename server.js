@@ -6,6 +6,7 @@ const port = process.env.PORT || 1818;
 app.use(express.static(path.join(__dirname, 'www')));
 
 app.get('*', (req, res) => {
+    res.header('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     res.sendFile(path.join(__dirname, 'www', 'index.html'));
   });
 
