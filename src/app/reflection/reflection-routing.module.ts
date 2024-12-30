@@ -5,7 +5,7 @@ import { ReflectionPage } from './reflection.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':id',
     component: ReflectionPage,
   },
 ];

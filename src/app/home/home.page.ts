@@ -1,16 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { IonicSlides } from '@ionic/angular';
 import { register } from 'swiper/element/bundle';
-import { HttpClient } from '@angular/common/http';
 import { LoaderService } from '../services/loader/loader.service';
 import urlConfig from 'src/app/config/url.config.json';
 import { ToastService } from '../services/toast/toast.service';
 import { Router } from '@angular/router';
-import { UtilService } from 'src/app/services/util/util.service';
 import { ProfileService } from '../services/profile/profile.service';
 import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 import { TranslateService } from '@ngx-translate/core'
 import { catchError, combineLatest, finalize, map, of } from 'rxjs';
+import { GwApiService } from '../services/gw-api/gw-api.service';
 register();
 @Component({
   selector: 'app-home',
@@ -37,7 +36,7 @@ export class HomePage {
   profilePayload:any;
 
 
-  constructor(private router: Router, private profileService: ProfileService,private translate: TranslateService) {
+  constructor(private router: Router, private profileService: ProfileService,private translate: TranslateService, private gwApiService: GwApiService) {
     this.baseApiService = inject(ProjectsApiService);
     this.loader = inject(LoaderService)
     this.toastService = inject(ToastService)
@@ -73,9 +72,23 @@ export class HomePage {
     this.profileService.getProfileAndEntityConfigData().subscribe(async (mappedIds) => {
       if (mappedIds) {
         this.profilePayload = mappedIds;
+        this.getRecommendation()
       await  this.getdata();
       }
     });
+  }
+
+  getRecommendation(){
+    let url = `${urlConfig.recommendation.listingUrl}?page=${this.page}&limit=${this.limit}`
+    this.gwApiService.get(url).subscribe({
+      next: async(response: any)=>{
+        this.recommendationList = response?.result?.data || []
+        this.recommendationCount = response?.result?.count || 0
+      },
+      error: async(error:any)=>{
+        this.toastService.presentToast(error.error.message, 'danger')
+      }
+    })
   }
 
 async  getdata() {

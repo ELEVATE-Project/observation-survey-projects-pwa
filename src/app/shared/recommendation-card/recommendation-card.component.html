@@ -6,6 +6,6 @@
     <div class="duration">{{ cardData.reflection.endDate | date:'MMMM, yyyy' }}</div>
   }
   @else {
-    <div class="duration">{{ "EXPECTED_DURATION" | translate }}: {{ cardData.metaInformation.duration }}</div>
+    <div class="duration">{{ "EXPECTED_DURATION" | translate }}: {{ cardData?.metaInformation?.duration || cardData.duration }}</div>
   }
 </mat-card>

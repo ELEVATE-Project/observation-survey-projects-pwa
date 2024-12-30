@@ -20,7 +20,7 @@
   @if(listingData.length > 0){
     <div class="cards-list layout-wrapper">
       @for(data of listingData; track $index){
-        <app-recommendation-card [cardData]="data"></app-recommendation-card>
+        <app-recommendation-card [cardData]="data" [type]="pageConfig.type"></app-recommendation-card>
       }
     </div>
   <ion-infinite-scroll (ionInfinite)="loadData($event)" [disabled]="disableLoading">

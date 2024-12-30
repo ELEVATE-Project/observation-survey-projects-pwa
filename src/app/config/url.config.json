@@ -20,7 +20,8 @@
         "filterUrl": "/project/v1/projectAttributes/find",
         "savedListUrl": "/project/v1/wishlist/list?",
         "setLanguageUrl":"/user/v1/user/setLanguagePreference",
-        "exploreListingUrl":"/project/v1/template/list?hasSpotlight=false"
+        "exploreListingUrl":"/project/v1/template/list?hasSpotlight=false",
+        "updateProject": "/project/v1/userProjects/update/"
     },
     "formListing": {
         "listingUrl": "/v1/forms/read"
@@ -57,5 +58,10 @@
     "save":{
         "saveAdd":"/project/v1/wishlist/add/",
         "saveRemove":"/project/v1/wishlist/remove/"
+    },
+    "recommendation": {
+        "listingUrl": "/api/generate-recommendation/",
+        "detailsUrl": "/api/shikshalokam/project/",
+        "startImpUrl": "/api/shikshalokam/start-project/"
     }
 }
