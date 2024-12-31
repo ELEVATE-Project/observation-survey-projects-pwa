@@ -23,6 +23,7 @@ export class ViewStoryPage implements OnInit {
     showBackButton:true
   }
   projectId:any;
+  attachments:any
   resource:Resource={ images: [], videos: [], documents: [] };
   viewProjectDetails:any;
   storyDetails:any;
@@ -120,7 +121,13 @@ async setOpenForCopyLink(url:any){
       if (res?.status == 200) {
         this.viewProjectDetails=res.result;
         this.storyDetails=this.viewProjectDetails.story;
-        await this.filterAndSeparateFiles(this.viewProjectDetails.attachments)
+        this.attachments = this.viewProjectDetails.attachments.map((item:any)=>{
+            return {
+              ...item,
+              type:this.fileExtension(item.type)
+            }
+        })
+        await this.filterAndSeparateFiles(this.attachments)
       }
     },
     (err: any) => {
@@ -129,6 +136,10 @@ async setOpenForCopyLink(url:any){
   )
   }
   
+fileExtension(type: string): string {
+    const extension = type.split('/')[1];
+    return extension;
+}
 
 filterAndSeparateFiles(files:any) {
   if(files.length == 0){
