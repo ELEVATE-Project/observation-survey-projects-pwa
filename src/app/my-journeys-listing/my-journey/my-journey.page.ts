@@ -18,6 +18,7 @@ export class MyJourneyPage  {
   }
   programId:any;
   programName:any;
+  noData:any=false;
   filterActions: any;
   constructor(
     private router:Router,
@@ -53,11 +54,13 @@ export class MyJourneyPage  {
   }
 
   ionViewWillEnter(){
+    this.noData=true
     this.selectedSegment = this.filterActions.inProgress;
     this.getProjects();
   }
 
   async getProjects($event?: any) {
+    this.noData=true;
     await this.loaderService.showLoading('LOADER_MSG');
     const isInProgress = this.selectedSegment === this.filterActions.inProgress;
 
@@ -65,6 +68,7 @@ export class MyJourneyPage  {
     this.projectsApiService.post(url, {}).subscribe({
       next: async (response: any) => {
         await this.loaderService.dismissLoading();
+        this.noData=false;
         if (response.status == 200) {
           this.programName = response.result.programName;
           this.updateJourneyData(response.result.data, response.result.count, isInProgress);
@@ -77,6 +81,7 @@ export class MyJourneyPage  {
       },
       error: async (error: any) => {
         await this.loaderService.dismissLoading();
+        this.noData=false;
         this.toastService.presentToast(error.error.message, 'danger');
       },
     });
