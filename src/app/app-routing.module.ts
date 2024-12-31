@@ -66,6 +66,7 @@ const routes: Routes = [
         (m) => m.SlRoutingRoutingModule
       ),
   },
+  
 ];
 @NgModule({
   imports: [
