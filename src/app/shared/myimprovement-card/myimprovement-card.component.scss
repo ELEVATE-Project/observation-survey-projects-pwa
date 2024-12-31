@@ -2,10 +2,9 @@
     background-color: #fff;
     border-radius: 20px;
     box-shadow: 4px 4px 2.3px rgba(0, 0, 0, 0.05);
-    min-width: 320px;
+    min-width: 30%;
     min-height: 200px;
     height: 100%;
-    max-width: 320px;
     font-family: Arial, sans-serif;
     color: #333;
     overflow: hidden;
@@ -27,6 +26,7 @@
     padding: 10px 15px;
     border-radius: 20px 20px 0 0;
     font-weight: bold;
+    height: 70px;
     font-size: 16px;
     border: 1.82px solid #C0C0C0;
     button{
@@ -72,7 +72,7 @@
   .task-list {
     list-style: none;
     padding: 0;
-    font-size: 16px;
+    font-size: 1rem; 
     color: #555;
     padding: 10px 15px;
     font-weight: 400;
@@ -93,7 +93,7 @@
   }
 
   .progress-text {
-    font-size: 16px;
+    font-size: 1rem; 
     font-weight: 400;
   }
 
@@ -101,7 +101,7 @@
     flex-grow: 1;
     margin-left: 10px;
     background: #78788029;
-    height: 16px;
+    height: 1rem;
     border-radius: 10px;
     overflow: hidden;
   }
@@ -119,6 +119,7 @@
   .no-task{
     height: 100%;
     width: 100%;
+    margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;

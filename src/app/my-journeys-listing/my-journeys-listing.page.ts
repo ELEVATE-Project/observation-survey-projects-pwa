@@ -18,6 +18,7 @@ export class MyJourneysListingPage  {
   limit = 15;
   count = 0;
   disableLoading: boolean = false;
+  noData:any=false;
 
   constructor(
     private loaderService: LoaderService,
@@ -26,16 +27,19 @@ export class MyJourneysListingPage  {
   ) { }
 
   ionViewWillEnter(){
+    this.noData=true
     this.getJourneys();
   }
 
 
   async getJourneys($event?: any) {
+    this.noData=true;
     await this.loaderService.showLoading('LOADER_MSG');
     let url = `${urlConfig.program.listingUrl}?isAPrivateProgram=true&page=${this.page}&limit=${this.limit}&search=&getProjectsCount=true`;
     this.projectsApiService.post(url,{}).subscribe({
       next: async (response: any) => {
         await this.loaderService.dismissLoading();
+        this.noData=false;
         if (response.status == 200) {
           this.myJourneys = response.result.data ? this.myJourneys.concat(response.result.data) : []
           this.count = response.result.count;
@@ -51,6 +55,7 @@ export class MyJourneysListingPage  {
       },
       error: async (error: any) => {
         await this.loaderService.dismissLoading();
+        this.noData=false;
         this.toastService.presentToast(error.error.message, 'danger');
       },
     });
