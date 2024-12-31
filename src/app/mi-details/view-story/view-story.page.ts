@@ -103,7 +103,7 @@ async setOpenForCopyLink(url:any){
       a.download = `${this.viewProjectDetails.title}.pdf`;
       a.click();
       window.URL.revokeObjectURL(url);
-      this.toastService.presentToast('download success', 'success');
+      this.toastService.presentToast('DOWNLOADED_SUCCESSFULLY', 'success');
     })
     .catch((err) => {
       this.toastService.presentToast(err?.error?.message, 'danger');
