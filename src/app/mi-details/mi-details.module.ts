@@ -10,6 +10,7 @@ import { MiDetailsPage } from './mi-details.page';
 import { SharedModule } from '../shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { AddProblemStatementPage } from './add-problem-statement/add-problem-statement.page';
+import { RecommendationDetailsPage } from './recommendation-details/recommendation-details.page';
 import { ViewStoryPage } from './view-story/view-story.page';
 
 @NgModule({
@@ -21,6 +22,6 @@ import { ViewStoryPage } from './view-story/view-story.page';
     SharedModule,
     TranslateModule,
   ],
-  declarations: [MiDetailsPage,AddProblemStatementPage,ViewStoryPage]
+  declarations: [MiDetailsPage,AddProblemStatementPage, RecommendationDetailsPage, ViewStoryPage]
 })
 export class MiDetailsPageModule {}

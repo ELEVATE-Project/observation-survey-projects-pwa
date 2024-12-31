@@ -5,6 +5,7 @@ import { ProjectsApiService } from 'src/app/services/projects-api/projects-api.s
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { finalize } from 'rxjs';
 import  urlConfig  from 'src/app/config/url.config.json'
+import { GwApiService } from 'src/app/services/gw-api/gw-api.service';
 
 @Component({
   selector: 'app-add-problem-statement',
@@ -27,14 +28,22 @@ export class AddProblemStatementPage implements OnInit {
   disableLoading: boolean = false
   isRadioDisabled: boolean = false;
   isAPrivateProgram:any=true;
+  fromRecommendation = false
+  recommendedTemplateId: any
   constructor(private router: Router,
     private route:ActivatedRoute,
     private toastService :ToastService,
     private loader : LoaderService,
-    private ProjectsApiService: ProjectsApiService
+    private ProjectsApiService: ProjectsApiService,
+    private gwApiService: GwApiService
   ) { 
       this.route.params.subscribe(param=>{
         this.projectTemplateId = param['id'];
+      })
+      this.route.queryParams.subscribe(param => {
+        this.selectedOption = param["programId"] ? param["programId"] : ""
+        this.recommendedTemplateId = param["templateId"]
+        this.fromRecommendation = param["recommendation"] == "true"
       })
   }
 
@@ -123,6 +132,32 @@ export class AddProblemStatementPage implements OnInit {
     this.page = 1;
     this.limit = 15;
     this.count = 0;
+  }
+
+  async createProject(){
+    await this.loader.showLoading("LOADER_MSG");
+    let url = `${urlConfig.recommendation.startImpUrl}?id=${this.projectTemplateId}`
+    let payload:any = {}
+    if (this.problemStatement.trim()) {
+      payload["programName"] = this.problemStatement.trim()
+    }else{
+      payload["programId"] = this.selectedOption
+    }
+    if(this.recommendedTemplateId){
+      payload["projectTemplateId"] = this.recommendedTemplateId
+    }
+    this.gwApiService.post(url,payload).subscribe({
+      next: async(response: any)=>{
+        await this.loader.dismissLoading();
+        this.router.navigate(['project-details'], {state: { _id: response.result._id || response.result.projectId, solutionId: response.result.solutionId || null },
+          replaceUrl: true
+        });
+      },
+      error: async(error:any)=>{
+        await this.loader.dismissLoading();
+        this.toastService.presentToast(error?.error?.message, 'danger')
+      }
+    })
   }
 
 }
