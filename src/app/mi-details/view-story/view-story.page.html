@@ -60,9 +60,9 @@
   </app-mi-details-card>
 }
 
-@if(viewProjectDetails?.tasks?.length){
+@if(storyDetails?.length){
   <app-mi-details-card
-    [cardConfig]="{ title: 'ACTION_STEPS', tasks: viewProjectDetails?.tasks }">
+    [cardConfig]="{ title: 'ACTION_STEPS', text: storyDetails?.actionSteps }">
   </app-mi-details-card>
 }
 
