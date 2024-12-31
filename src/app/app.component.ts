@@ -30,7 +30,7 @@ export class AppComponent {
     
 
     if(!localStorage.getItem('accToken')){
-      this.router.navigate([''])
+      this.router.navigate(['/home'])
     }
 
     this.router.events.subscribe((event) => {
