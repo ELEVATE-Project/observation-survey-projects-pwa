@@ -28,7 +28,9 @@
         </div>
         }
         @else {
-          <app-no-data [message]="'NO_DATA_MSG'"></app-no-data>
+          @if(!noData){
+            <app-no-data [message]="'NO_DATA_MSG'"></app-no-data>
+          }
         }
         
       <ion-infinite-scroll (ionInfinite)="loadData($event)" [disabled]="disableLoading">

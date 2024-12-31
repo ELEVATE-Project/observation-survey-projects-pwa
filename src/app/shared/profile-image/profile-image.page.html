@@ -2,7 +2,7 @@
   <div class="profile-image-container">
     <div *ngIf="!profileImageData?.image || profileImageData?.image==''; else Img">
       <img src="../../../../assets/prof-img/user.png" class="profile-image" />
-      <div *ngIf="isMobile" class="camera-icon-container">
+      <div *ngIf="uploadImage" class="camera-icon-container">
         <ion-icon name="camera" (click)="uploadPhoto('CAMERA'); clearFileInput();" class="camera-icon"></ion-icon>
       </div>
     </div>
