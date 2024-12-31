@@ -20,7 +20,7 @@ export class IntroPage implements OnInit {
     private fb: FormBuilder,
     private platform: Platform,
     private router: Router,
-    private authService: AuthService
+    private authService:AuthService
   ) {}
 
   ngOnInit() {
@@ -71,7 +71,8 @@ export class IntroPage implements OnInit {
     this.isMobileView = this.platform.width() < 576;
   }
 
-checkAuthLabel(): void {
+
+  checkAuthLabel(): void {
     const userData = localStorage.getItem('name');
     this.authLabel = userData ? 'Logout' : 'Login';
   }

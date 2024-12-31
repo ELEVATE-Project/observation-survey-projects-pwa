@@ -46,27 +46,27 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'intro',
+    loadChildren: () =>
+      import('./intro/intro.module').then(
+        (m) => m.IntroPageModule
+      ),
+  },
+  {
     path: 'reflection',
     loadChildren: () => import('./reflection/reflection.module').then( m => m.ProjectPageModule),
     canActivate: [AuthGuard]
   },
   {
-    path: 'intro',
-    loadChildren: () =>
-      import('./intro/intro.module').then((m) => m.IntroPageModule),
-  },
-  {
-    path:'',
+    path: '',
     redirectTo: 'intro',
   },
   {
     path: 'auth',
     loadChildren: () =>
-      import('authentication_frontend_library').then(
-        (m) => m.SlRoutingRoutingModule
-      ),
+      import('authentication_frontend_library').then((m) => m.SlRoutingRoutingModule),
   },
-  
+
 ];
 @NgModule({
   imports: [
