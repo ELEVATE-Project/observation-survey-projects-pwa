@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MiDetailsPage } from './mi-details.page';
 import { AddProblemStatementPage } from './add-problem-statement/add-problem-statement.page';
 import { RecommendationDetailsPage } from './recommendation-details/recommendation-details.page';
+import { ViewStoryPage } from './view-story/view-story.page';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'add-problem-statement/:id',
     component: AddProblemStatementPage
+  },
+  {
+    path:'view-story/:id',
+    component:ViewStoryPage,
   }
 ];
 

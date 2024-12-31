@@ -34,6 +34,7 @@ export class HomePage {
   spotlightCount=0;
   recommendationCount=0;
   profilePayload:any;
+  noData:boolean=false;
 
 
   constructor(private router: Router, private profileService: ProfileService,private translate: TranslateService, private gwApiService: GwApiService) {
@@ -44,6 +45,7 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
+    this.noData=true
     this.languageSetting();
     this.setHeaderConfig();
       this.getProfileDetails();
@@ -92,7 +94,8 @@ export class HomePage {
   }
 
 async  getdata() {
-    let  improvements =  `${urlConfig.project.myImprovementsUrl}?&page=${this.page}&limit=${this.limit}&status=inProgress`;
+  this.noData=true;
+    let  improvements =  `${urlConfig.project.myImprovementsUrl}?&page=${this.page}&limit=${this.limit}&language=en`;
     const urls = {
       spotlight: `${urlConfig.project.spotlightUrl}&page=${this.page}&limit=${this.limit}`,
     };
@@ -126,6 +129,7 @@ async  getdata() {
         }),
         finalize(async () => {
           await this.loader.dismissLoading();
+          this.noData=false;
         })
       )
       .subscribe({

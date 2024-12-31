@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { DbService } from '../db/db.service';
 import { jwtDecode } from 'jwt-decode';
+import { actions } from 'src/app/config/actionContants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilService {
-
+  regex:any = actions.REGEX_MAP
   constructor(private popoverController: PopoverController,private dbService:DbService) { }
 
   isMobile(){
@@ -36,5 +37,8 @@ export class UtilService {
   getSelectedLanguage(){
     let selectedLanguage:any = localStorage.getItem("preferred_language")
     return JSON.parse(selectedLanguage)?.value || "en"
+  }
+  isFileType(fileUrl: string, type: 'images' | 'pdf' | 'doc' | 'video'): boolean {
+    return this.regex[type].test(fileUrl);
   }
 }

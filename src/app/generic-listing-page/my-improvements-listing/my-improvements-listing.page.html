@@ -1,13 +1,15 @@
 <app-application-header [config]="headerConfig"></app-application-header>
 
 <ion-content [fullscreen]="true">
-  <div class="cards-list layout-wrapper">
-        @for (item of myImprovements; track $index) {
-          <div class="card">
+  <ion-grid class="layout-wrapper">
+  <ion-row>
+      @for (item of myImprovements; track $index){
+        <ion-col size="12" size-sm="6" size-md="6" size-lg="4">
             <app-myimprovement-card [myImprovement]="item" [index]="$index"></app-myimprovement-card >
-          </div>
+        </ion-col>
             }
-          </div>
+      </ion-row>
+  </ion-grid>
   <ion-infinite-scroll (ionInfinite)="loadData($event)" [disabled]="disableLoading">
     <ion-infinite-scroll-content loadingText="{{'LOADING' | translate}}..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
