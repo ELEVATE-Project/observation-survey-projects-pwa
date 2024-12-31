@@ -34,7 +34,7 @@
             ],
             "styles": ["src/global.scss", "src/theme/variables.scss","node_modules/project-player/styles.css"],
             "scripts": ["node_modules/project-player/project-player-component.js"],
-            "serviceWorker": true,
+            "serviceWorker": false,
             "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {

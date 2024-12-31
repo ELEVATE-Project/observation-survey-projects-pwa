@@ -27,6 +27,11 @@ export class AppComponent {
         }
       });
     }
+    
+
+    if(!localStorage.getItem('accToken')){
+      this.router.navigate([''])
+    }
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {

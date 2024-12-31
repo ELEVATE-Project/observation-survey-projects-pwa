@@ -136,4 +136,8 @@ async  getdata() {
   }
 }
 
+  create(){
+    window.location.href = "/create-project/mitra-chat"
+  }
+
 }

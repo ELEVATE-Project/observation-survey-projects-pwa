@@ -28,6 +28,13 @@
           </mat-card>
         </div>
       }
+    <div class="create-improvement-card">
+        <mat-card >
+          <img class="card-image" src="assets/MI-2.0-card-images/recommended-bg.png" alt="Card image" />
+          <h1 class="card-title">{{ "CREATE_YOUR_MI" | translate}}</h1>
+          <button class="card-button" (click)="create()">{{ "CREATE_IMPROVEMENT" | translate}}</button>
+        </mat-card>
+      </div>
     }
   </div>
 @if (spotlightstories.length > 0) {

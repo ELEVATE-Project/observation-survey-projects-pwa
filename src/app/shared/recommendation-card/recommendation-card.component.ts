@@ -17,7 +17,7 @@ export class RecommendationCardComponent  implements OnInit {
   ngOnInit() {
     let evidenceListOne = this.cardData?.evidences || []
     let evidenceListTwo = this.cardData?.categories ? this.cardData.categories.flatMap((data:any) => data.evidences ?? []) : []
-    let evidenceList = [...evidenceListTwo, ...evidenceListOne]
+    let evidenceList = [...evidenceListOne, ...evidenceListTwo]
     let image = evidenceList.find((data:any) => this.imageFormats.includes(data.type))
     if(image){
       this.cardImage = image.downloadableUrl
