@@ -3,20 +3,21 @@
   <div class="ion-margin-vertical">
     <app-section-header [headerName]="'MY_IMPROVEMENTS'" [showViewMore]="improvementsCount > limit" [navigateUrl]="'/list/my-improvements'"></app-section-header>
     @if (myImprovements.length > 0) {
+      <ion-grid>
       <app-carousel
         [items]="myImprovements"
         [template]="itemTemplate1"
         [itemsToShow]="limit"
       >
+      <ion-row>
       <ng-template #itemTemplate1 let-item="$item" let-index="$index">
-        <div class="card">
-          <app-myimprovement-card
-          [myImprovement]="item"
-            [index]="index"
-          ></app-myimprovement-card>
-        </div>
-      </ng-template>
-    </app-carousel>
+              <ion-col size="12" size-sm="6" size-md="6" size-lg="4">
+                  <app-myimprovement-card [myImprovement]="item" [index]="index"></app-myimprovement-card>
+              </ion-col>
+        </ng-template>
+      </ion-row>
+      </app-carousel>
+  </ion-grid>
     }
     @else {
       @if(!noData){
@@ -62,18 +63,21 @@
 <div class="ion-margin-vertical">
 
   <app-section-header [headerName]="'RECOMMENDATIONS'" [showViewMore]="recommendationCount > limit" [navigateUrl]="'/list/recommendations'"></app-section-header>
-  <div  class="recommendations-list">
+    <ion-grid>
   <app-carousel
     [items]="recommendationList"
     [template]="itemTemplate"
     [itemsToShow]="limit"
   >
-
+  <ion-row>
   <ng-template #itemTemplate let-item="$item" let-index="$index">
+    <ion-col size="12" size-sm="6" size-md="6" size-lg="4">
     <app-recommendation-card [cardData]="item" type="recommendation"></app-recommendation-card>
+    </ion-col>
   </ng-template>
+</ion-row>
     </app-carousel>
-  </div>
+  </ion-grid>
 </div>
 }
 <!-- demo to use the nodata-component -->
