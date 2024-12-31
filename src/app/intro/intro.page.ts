@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
+import { AuthService } from 'authentication_frontend_library';
 import { DATA } from 'src/assets/config/website-data';
 @Component({
   selector: 'app-intro',
@@ -13,20 +14,35 @@ export class IntroPage implements OnInit {
   isMobileView: boolean = false;
   authLabel = 'Login';
   data: any = DATA;
+  logoutHanldler:any;
 
   constructor(
     private fb: FormBuilder,
     private platform: Platform,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
+    this.logoutHanldler = this.handleMessage.bind(this);
+      window.addEventListener('message', this.logoutHanldler);
     this.createForm();
     this.checkIfMobileView();
     this.platform.resize.subscribe(() => {
       this.checkIfMobileView();
     });
   }
+
+  async handleMessage(event: MessageEvent){
+    if(event.data.msg){
+      this.checkAuthLabel();
+    }
+  }
+
+  ionViewWillEnter(){
+    this.checkAuthLabel();
+  }
+
   createForm(): void {
     if (!this.data.footer.footerForm) return;
     const controls: any = {};
@@ -55,7 +71,27 @@ export class IntroPage implements OnInit {
     this.isMobileView = this.platform.width() < 576;
   }
 
-  login() {
-    this.router.navigate(['/auth/landing']);
+checkAuthLabel(): void {
+    const userData = localStorage.getItem('name');
+    this.authLabel = userData ? 'Logout' : 'Login';
+  }
+
+ async authentication(){
+    if(this.authLabel === 'Login'){
+      this.router.navigate(['/login']);
+    }
+    else{
+    this.authService.logout();
+    }
+  }
+
+  onClick(action: any) {
+    if (action?.url) {
+      this.router.navigate([action.url]);
+    }
+  }
+
+  ngOnDestroy(): void {
+        window.removeEventListener('message', this.logoutHanldler);
   }
 }
