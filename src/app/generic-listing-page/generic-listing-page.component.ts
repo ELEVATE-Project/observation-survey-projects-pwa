@@ -78,8 +78,8 @@ export class GenericListingPageComponent  implements OnInit {
       await this.loaderService.dismissLoading()
       this.noData=false;
       if(response){
-        this.listingData = this.listingData.concat(response.result.data)
-        this.count = response.result.count
+        this.listingData = this.listingData.concat(response?.result?.data || [])
+        this.count = response?.result?.count || 0
         this.disableLoading = !this.listingData.length || this.listingData.length == response.result.count;
         let translateKey = this.count > 1 ? 'SEARCH_RESULTS' : 'SEARCH_RESULT'
         if(this.pageConfig.enableSearch){

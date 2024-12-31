@@ -12,25 +12,25 @@
     </div>
   </div>
 
-  @if(projectDetails.problemStatement){
+  @if(projectDetails?.problemStatement){
     <app-mi-details-card
         [cardConfig]="{ title: 'PROBLEM_STATEMENT', text: projectDetails.problemStatement }">
     </app-mi-details-card>
   }
 
-@if(projectDetails.description){
+@if(projectDetails?.description){
   <app-mi-details-card 
     [cardConfig]="{ title: 'OBJECTIVE', text: projectDetails.description }">
   </app-mi-details-card>
 }
 
-@if(projectDetails.task.length){
+@if(projectDetails?.task?.length){
   <app-mi-details-card
     [cardConfig]="{ title: 'ACTION_STEPS', tasks: projectDetails.task }">
   </app-mi-details-card>
 }
 
-@if(projectDetails.impact){
+@if(projectDetails?.impact){
   <app-mi-details-card 
     [cardConfig]="{ title: 'IMPACT', text: projectDetails.impact }">
   </app-mi-details-card>

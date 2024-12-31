@@ -1,6 +1,7 @@
 interface Environment {
   baseURL: string;
   production: boolean;
+  gwBaseUrl: string
 }
 
 //projects and survey for non-docker
@@ -15,6 +16,7 @@ interface Environment {
 export const environment:Environment = {
   production: true,
   baseURL: window['env' as any]['baseURL' as any] as unknown as string,
+  gwBaseUrl: window['env' as any]['gwBaseUrl' as any] as unknown as string,
 }
 
 //survey-only

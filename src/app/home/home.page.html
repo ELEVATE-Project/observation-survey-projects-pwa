@@ -54,7 +54,7 @@
 <div class="ion-margin-vertical">
 
   <app-section-header [headerName]="'RECOMMENDATIONS'" [showViewMore]="recommendationCount > limit" [navigateUrl]="'/list/recommendations'"></app-section-header>
-
+  <div  class="recommendations-list">
   <app-carousel
     [items]="recommendationList"
     [template]="itemTemplate"
@@ -65,6 +65,7 @@
     <app-recommendation-card [cardData]="item" type="recommendation"></app-recommendation-card>
   </ng-template>
     </app-carousel>
+  </div>
 </div>
 }
 <!-- demo to use the nodata-component -->
