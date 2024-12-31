@@ -1,6 +1,9 @@
 import {  Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import urlConfig from 'src/app/config/url.config.json';
+import { ProjectsApiService } from '../services/projects-api/projects-api.service';
+import { ToastService } from '../services/toast/toast.service';
 
 @Component({
   selector: 'app-reflection',
@@ -14,8 +17,10 @@ export class ReflectionPage  implements OnInit {
   reflectionPointsList = ["REFLECTION_POINT_ONE", "REFLECTION_POINT_TWO", "REFLECTION_POINT_THREE"]
   projectId:any
 
-  constructor(private location: Location, private router: Router, private activatedRoute: ActivatedRoute){
-    this.activatedRoute.queryParams.subscribe(param=>{
+  constructor(private location: Location, private activatedRoute: ActivatedRoute, private projectApiService: ProjectsApiService,
+    private toastService: ToastService
+  ){
+    this.activatedRoute.params.subscribe(param=>{
       this.projectId = param["id"]
     })
   }
@@ -27,6 +32,15 @@ export class ReflectionPage  implements OnInit {
   }
 
   startReflection(){
-    window.location.href = `/mohini/voice-chat/?projectId=${this.projectId}`
+    let url = urlConfig.project.updateProject + this.projectId
+    let payload = { reflectionStatus: "started" }
+    this.projectApiService.post(url,payload).subscribe({
+      next: (response: any) => {
+        window.location.replace(`/mohini/voice-chat/?projectId=${this.projectId}`)
+      },
+      error: (error:any) => {
+        this.toastService.presentToast(error?.error?.message, 'danger')
+      }
+    })
   }
 }

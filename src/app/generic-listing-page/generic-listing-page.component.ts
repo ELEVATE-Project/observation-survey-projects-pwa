@@ -6,6 +6,7 @@ import { ToastService } from '../services/toast/toast.service';
 import { LoaderService } from '../services/loader/loader.service';
 import { MenuController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { GwApiService } from '../services/gw-api/gw-api.service';
 
 @Component({
   selector: 'app-generic-listing-page',
@@ -29,7 +30,8 @@ export class GenericListingPageComponent  implements OnInit {
 
   searchBar = true
   constructor(private activatedRoute: ActivatedRoute,private profileService: ProfileService, private projectsApiService: ProjectsApiService,
-    private toastService: ToastService, private loaderService: LoaderService, private translate:TranslateService, private menuControl: MenuController
+    private toastService: ToastService, private loaderService: LoaderService, private translate:TranslateService, private menuControl: MenuController,
+    private gwApiService: GwApiService
   ) {
     activatedRoute.data.subscribe((data:any)=>{
       this.pageConfig = structuredClone(data);
@@ -66,13 +68,18 @@ export class GenericListingPageComponent  implements OnInit {
     this.noData=true;
     await this.loaderService.showLoading("LOADER_MSG")
     let url = `${this.pageConfig.apiUrl}&page=${this.page}&limit=${this.limit}&searchText=${this.searchTerm}${this.filterQuery}`
-    this.projectsApiService.get(url).subscribe({
+    let serviceToTrigger = this.projectsApiService
+    if(this.pageConfig?.type == "recommendation"){
+      url = `${this.pageConfig.apiUrl}?page=${this.page}&limit=${this.limit}`
+      serviceToTrigger = this.gwApiService 
+    }
+    serviceToTrigger.get(url).subscribe({
       next: async(response: any)=>{
       await this.loaderService.dismissLoading()
       this.noData=false;
-      if(response.status == 200){
-        this.listingData = this.listingData.concat(response.result.data)
-        this.count = response.result.count
+      if(response){
+        this.listingData = this.listingData.concat(response?.result?.data || [])
+        this.count = response?.result?.count || 0
         this.disableLoading = !this.listingData.length || this.listingData.length == response.result.count;
         let translateKey = this.count > 1 ? 'SEARCH_RESULTS' : 'SEARCH_RESULT'
         if(this.pageConfig.enableSearch){

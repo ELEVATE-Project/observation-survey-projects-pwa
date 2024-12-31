@@ -37,3 +37,11 @@ mat-card{
 .card{
     margin: 15px;
 }
+
+.recommendations-list{
+    padding-left: 14px;
+}
+
+.recommendations-list > mat-card{
+    margin-right: 14px
+}

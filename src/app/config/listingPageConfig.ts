@@ -19,11 +19,12 @@ export const listingConfig = {
         }
     },
     recommendations : {
-        apiUrl: "",
+        apiUrl: urlConfig.recommendation.listingUrl,
         enableSearch: false,
         headerConfig: {
             title:'RECOMMENDATIONS',
             showBackButton : true
-        }
+        },
+        type: "recommendation"
     }
 }

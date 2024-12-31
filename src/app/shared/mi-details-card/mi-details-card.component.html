@@ -11,7 +11,7 @@
     @if(cardConfig.tasks?.length){
       <ul class="numbered-list">
           @for(task of cardConfig.tasks;track task){
-            <li>{{ task.name }}</li>
+            <li>{{ task.name || task.task_name }}</li>
           }
       </ul>
     }

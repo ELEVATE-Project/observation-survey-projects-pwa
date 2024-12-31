@@ -22,7 +22,7 @@
         <ion-row>
       @for(data of listingData; track $index){
         <ion-col size="12" size-sm="6" size-md="6" size-lg="4">
-        <app-recommendation-card [cardData]="data"></app-recommendation-card>
+          <app-recommendation-card [cardData]="data" [type]="pageConfig.type"></app-recommendation-card>
         </ion-col>
       }
         </ion-row>

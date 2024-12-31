@@ -1,0 +1,74 @@
+<app-application-header [config]="headerConfig"></app-application-header>
+@if(projectDetails){
+<ion-content class="ion-padding">
+  <div class="layout-wrapper">
+  <div class="spacing ion-padding">
+    <h1 class="text-header">{{projectDetails?.title}}</h1>
+    <div class="text-muted">
+      @if(projectDetails?.author){
+      <span>{{"BY" | translate}} </span>
+          <span>{{projectDetails.author}}</span>
+        }
+    </div>
+  </div>
+
+  @if(projectDetails?.problemStatement){
+    <app-mi-details-card
+        [cardConfig]="{ title: 'PROBLEM_STATEMENT', text: projectDetails.problemStatement }">
+    </app-mi-details-card>
+  }
+
+@if(projectDetails?.description){
+  <app-mi-details-card 
+    [cardConfig]="{ title: 'OBJECTIVE', text: projectDetails.description }">
+  </app-mi-details-card>
+}
+
+@if(projectDetails?.task?.length){
+  <app-mi-details-card
+    [cardConfig]="{ title: 'ACTION_STEPS', tasks: projectDetails.task }">
+  </app-mi-details-card>
+}
+
+@if(projectDetails?.impact){
+  <app-mi-details-card 
+    [cardConfig]="{ title: 'IMPACT', text: projectDetails.impact }">
+  </app-mi-details-card>
+}
+
+  <div class="bottom-container">
+    @if(projectDetails?.text?.length){
+      @for(data of projectDetails.text; track $index){
+        <p class="bottom-text">{{data}}</p>
+      }
+    }
+    @if(projectDetails?.evidences?.length){
+    <div class="evidences-container">
+      <h1 class="evidences-title">
+        {{ "EVIDENCES"| translate }}
+      </h1>
+      <div class="image-container">
+        @for(item of projectDetails.evidences;track item){
+          <div  class="image-item">
+            @if(item.isImage){
+              <img class="image-placeholder" [src]="item.downloadableUrl" [alt]="item.title" />
+            }@else{
+              <a [href]="item.downloadableUrl" target="_blank" class="file-link">{{ item.title }}</a>
+            }
+          </div>
+        }
+      </div>
+    </div>
+    }
+  </div>
+  </div>
+</ion-content>
+}
+<ion-footer collapse="fade" class="ion-no-border">
+  <ion-toolbar>
+    <ion-button expand="block" fill="solid" class="responsive-button" (click)="starImprovement()">
+      {{"START_IMPROVEMENT" | translate}}
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
+
