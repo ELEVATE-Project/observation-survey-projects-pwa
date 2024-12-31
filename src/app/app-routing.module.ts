@@ -8,7 +8,7 @@ const routes: Routes = [
     pathMatch: 'prefix'
   },
   { path: 'create-project',
-    redirectTo: '',
+    redirectTo: '', 
     pathMatch: 'prefix'
    },
   {
