@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { isDeactivatable } from './../services/guard/guard.service';
@@ -14,7 +14,7 @@ import { ToastService } from '../services/toast/toast.service';
   styleUrls: ['./observation.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ObservationComponent implements OnInit, isDeactivatable {
+export class ObservationComponent implements isDeactivatable {
   apiConfig: any = {};
   isDirty: boolean = false;
   saveQuestioner: boolean = false;
@@ -24,27 +24,12 @@ export class ObservationComponent implements OnInit, isDeactivatable {
 
   constructor(private navCtrl: NavController, private profileService: ProfileService,
     private utils: UtilService, private toast:ToastService,
-    private alertService: AlertService) { 
-      this.toast.dismissToast();
+    private alertService: AlertService) {}
 
-      const onlineEvent = fromEvent(window, 'online').pipe(map(() => true));
-      const offlineEvent = fromEvent(window, 'offline').pipe(map(() => false));
-      merge(onlineEvent, offlineEvent).pipe(startWith(navigator.onLine)).subscribe((isOnline:any) => {
-        this.onlineStatus = isOnline;
-        if (!this.onlineStatus) {
-          this.showDetails = true;
-        }else{
-          this.getProfileDetails()
-        }
-      });
-    }
-
-  ngOnInit() {
-    window.addEventListener('message', (event) => {
-      if (event.data && event.data.type === 'formDirty') {
-        this.isDirty = event.data.isDirty;
-      }
-    });
+  ionViewWillEnter(){
+    this.toast.dismissToast();
+    this.getOnlineStatus();
+    this.windowEventListner();
   }
 
   ionViewWillLeave() {
@@ -121,6 +106,27 @@ export class ObservationComponent implements OnInit, isDeactivatable {
         this.apiConfig['solutionType'] = "observation";
         this.apiConfig['fileSizeLimit'] = 50;
         this.showDetails = true
+      }
+    });
+  }
+
+  getOnlineStatus(){
+    const onlineEvent = fromEvent(window, 'online').pipe(map(() => true));
+      const offlineEvent = fromEvent(window, 'offline').pipe(map(() => false));
+      merge(onlineEvent, offlineEvent).pipe(startWith(navigator.onLine)).subscribe((isOnline:any) => {
+        this.onlineStatus = isOnline;
+        if (!this.onlineStatus) {
+          this.showDetails = true;
+        }else{
+          this.getProfileDetails()
+        }
+      });
+  }
+
+  windowEventListner(){
+    window.addEventListener('message', (event) => {
+      if (event.data && event.data.type === 'formDirty') {
+        this.isDirty = event.data.isDirty;
       }
     });
   }
