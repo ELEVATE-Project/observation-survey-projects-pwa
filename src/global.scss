@@ -42,7 +42,7 @@ ion-button, ion-select-option{
 }
 
 h1, h2, h3, h4, h5, h6, ion-header {
-  font-family: "Manrope", sans-serif;
+  font-family: "Manrope", sans-serif !important;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -93,6 +93,7 @@ ion-label, ion-item {
 mat-label {
   color: black;
   font-weight: 500;
+  font-family: "Urbanist", sans-serif;
 }
 
 .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
@@ -258,6 +259,11 @@ ion-segment-button {
 .popup-class{
   --height: 125px;
   --width:450px;
+}
+
+ion-modal{
+  --height: 160px;
+  --width: 280px;
 }
 
 .layout-wrapper{
