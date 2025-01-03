@@ -58,10 +58,6 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: '',
-    redirectTo: 'intro',
-  },
-  {
     path: 'auth',
     loadChildren: () =>
       import('authentication_frontend_library').then((m) => m.SlRoutingRoutingModule),
