@@ -27,7 +27,7 @@ import { MyimprovementCardComponent } from './myimprovement-card/myimprovement-c
 import { ShareLinkComponent } from './share-link/share-link.component';
 import { MyJourneyCardComponent } from './my-journey-card/my-journey-card.component';
 import { MyJourneyOngoingCardComponent } from './my-journey-ongoing-card/my-journey-ongoing-card.component';
-import { ModalComponent } from './modal/modal.component';
+import { LogoutModalComponent } from './logout-modal/logout-modal.component';
 
 @NgModule({
     declarations: [
@@ -49,7 +49,7 @@ import { ModalComponent } from './modal/modal.component';
         ShareLinkComponent,
         MyJourneyCardComponent,
         MyJourneyOngoingCardComponent,
-        ModalComponent
+        LogoutModalComponent,
     ],
     imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule,MatDividerModule,MatButtonModule, FormsModule,
         ReactiveFormsModule, MatFormFieldModule, MatCheckboxModule],
@@ -72,7 +72,7 @@ import { ModalComponent } from './modal/modal.component';
         ShareLinkComponent,
         MyJourneyCardComponent,
         MyJourneyOngoingCardComponent,
-        ModalComponent
+        LogoutModalComponent,
     ],
     providers: [ShortUrlPipe]
 })

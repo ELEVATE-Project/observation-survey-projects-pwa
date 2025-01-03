@@ -11,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { actions } from '../config/actionContants';
 import { AuthService } from 'authentication_frontend_library';
 import { UtilService } from '../services/util/util.service';
-import { ModalComponent } from '../shared/modal/modal.component';
+import { LogoutModalComponent } from '../shared/logout-modal/logout-modal.component';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-profile',
@@ -199,7 +199,8 @@ export class ProfilePage {
 
   async openModal() {
     const modal = await this.modalCtrl.create({
-      component: ModalComponent,
+      component: LogoutModalComponent,
+      cssClass:'popup-class'
     });
     modal.present();
 

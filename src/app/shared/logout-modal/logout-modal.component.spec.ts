@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ModalComponent } from './modal.component';
+import { LogoutModalComponent } from './logout-modal.component';
 
-describe('ModalComponent', () => {
-  let component: ModalComponent;
-  let fixture: ComponentFixture<ModalComponent>;
+describe('LogoutModalComponent', () => {
+  let component: LogoutModalComponent;
+  let fixture: ComponentFixture<LogoutModalComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [LogoutModalComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ModalComponent);
+    fixture = TestBed.createComponent(LogoutModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

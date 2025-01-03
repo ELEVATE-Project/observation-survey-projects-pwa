@@ -3,10 +3,10 @@ import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss'],
+  templateUrl: './logout-modal.component.html',
+  styleUrls: ['./logout-modal.component.scss'],
 })
-export class ModalComponent  {
+export class LogoutModalComponent  {
 
   constructor(private modalCtrl: ModalController) {}
 
