@@ -135,5 +135,6 @@
   "REFLECTION_POINT_THREE": "Add more photos to visually highlight the changes.",
   "READY_TO_REFLECT": "Ready to reflect?",
   "LETS_GO": "Let's Go",
-  "DOWNLOADED_SUCCESSFULLY": "Downloaded successfully"
+  "DOWNLOADED_SUCCESSFULLY": "Downloaded successfully",
+  "CONFIRM_LOGOUT_MSG":"Are you sure you want to logout?"
 }
