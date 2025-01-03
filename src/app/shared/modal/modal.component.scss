@@ -1,0 +1,48 @@
+.modal{
+    display: flex;
+    flex-direction: column;
+}
+
+.logout-title {
+    margin-top: 10px;
+}
+div{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+h1{
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1rem;
+    color: #555;
+}
+
+div:last-child {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 10px 0px;
+}
+button{
+    padding: 0.5rem 2rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+}
+
+.logout-btn{
+    background-color: var(--color-light);
+    color: var(--color-primary);
+    border: 0.063rem solid var(--color-primary);
+  }
+
+
+  .cancel-btn{
+    background-color: var(--color-primary);
+    color: var(--color-light);
+    border: none;
+  }
