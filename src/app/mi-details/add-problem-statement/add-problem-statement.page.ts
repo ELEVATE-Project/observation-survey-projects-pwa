@@ -30,7 +30,7 @@ export class AddProblemStatementPage implements OnInit {
   isAPrivateProgram:any=true;
   fromRecommendation = false
   recommendedTemplateId: any
-  characterLimit = 150;
+  characterLimit = 200;
   constructor(private router: Router,
     private route:ActivatedRoute,
     private toastService :ToastService,
