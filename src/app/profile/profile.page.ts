@@ -77,6 +77,12 @@ export class ProfilePage {
       )
       .subscribe(([formJsonRes, profileFormDataRes]: any) => {
         if (formJsonRes?.status === 200 || profileFormDataRes?.status === 200) {
+          if(profileFormDataRes.result.image){
+            localStorage.setItem('image',profileFormDataRes.result.image)
+          }
+          else{
+            localStorage.setItem('image','null')
+          }
           this.formJson = formJsonRes?.result?.data || [];
           this.formData = profileFormDataRes?.result;
           this.mapProfileDataToFormJson(this.formData);

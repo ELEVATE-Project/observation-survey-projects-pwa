@@ -66,8 +66,11 @@ export class ProfileService {
           if (entityConfigRes?.status === 200 && profileFormDataRes?.status === 200) {
             const profileData = entityConfigRes?.result?.meta?.profileKeys;
             const profileDetails = profileFormDataRes?.result;
-            if(!profileDetails.image){
-              localStorage.setItem('image','null');
+            if(profileFormDataRes.result.image){
+              localStorage.setItem('image',profileFormDataRes.result.image)
+            }
+            else{
+              localStorage.setItem('image','null')
             }
             if (profileDetails?.state) {
               return this.fetchEntitieIds(profileDetails, profileData);
