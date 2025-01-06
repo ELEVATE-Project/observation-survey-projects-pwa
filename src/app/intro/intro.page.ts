@@ -84,7 +84,7 @@ export class IntroPage implements OnInit {
       this.router.navigate(['/login']);
     }
     else{
-      this.openModal();
+      this.openModal()
     }
   }
 
