@@ -78,7 +78,7 @@ export class ProfileEditPage implements isDeactivatable {
   }
 
   mapProfileDataToFormJson(formData?: any) {
-    this.formJson.image = this.formData.image || "";
+    this.formJson.image = this.formData.image || null;
     this.formJson.isUploaded = true;
     if (formData.user_roles) {
       formData.roles = formData.user_roles.map((role: any) => ({
@@ -289,6 +289,9 @@ export class ProfileEditPage implements isDeactivatable {
 
   updateProfile() {
     if (this.formLib?.myForm.valid && this.formLib2?.myForm.valid) {
+      if(!this.formJson.image){
+      localStorage.setItem('image','null')
+      }
       if (this.formJson.image && !this.formJson.isUploaded) {
         this.getImageUploadUrl(this.localImage);
       } else {
@@ -451,6 +454,7 @@ export class ProfileEditPage implements isDeactivatable {
         })
       )
       .subscribe((res: any) => {
+        localStorage.setItem('image',res.result.signedUrl)
         this.upload(file, res.result)
           .subscribe({
             next: () => {
