@@ -149,7 +149,8 @@ export class AddProblemStatementPage implements OnInit {
     this.gwApiService.post(url,payload).subscribe({
       next: async(response: any)=>{
         await this.loader.dismissLoading();
-        this.router.navigate(['project-details'], {state: { _id: response.result._id || response.result.projectId, solutionId: response.result.solutionId || null },
+        this.router.navigate(['project-details'], {state: { _id: response.result._id || response.result.projectId || response.result.projects[0]._id,
+          solutionId: response.result.solutionId || null },
           replaceUrl: true
         });
       },
