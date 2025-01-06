@@ -110,10 +110,8 @@ export class IntroPage implements OnInit {
 
   onClick(action: any) {
     let authenticated = this.isAuthenticated();
-    if(authenticated){
-      if (action?.url) {
+    if(authenticated && action?.url){
       this.router.navigate([action.url]);
-      }
     }
     else{
     this.router.navigate(['/login']);
