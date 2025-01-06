@@ -3,9 +3,12 @@
     <div class="logout-title">
       <h1>{{"LOGOUT"|translate}}</h1>
       <p>{{"CONFIRM_LOGOUT_MSG"|translate}}</p>
+      @if(unSyncedDataList.length){
+        <p>{{ "UNSYNCED_DATA_MSG" | translate }}</p>
+      }
     </div>
     <div >
-      <button (click)="confirm()"  class="logout-btn">{{"LOGOUT"|translate}}</button>
+      <button (click)="confirm()"  class="logout-btn">{{(unSyncedDataList.length ? "LOGOUT_ANYWAY" : "LOGOUT")|translate}}</button>
       <button (click)="cancel()"  class="cancel-btn">{{"CANCEL"|translate}}</button>
     </div>
   </div>

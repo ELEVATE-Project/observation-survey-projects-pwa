@@ -77,7 +77,7 @@ export class ProfilePage {
       )
       .subscribe(([formJsonRes, profileFormDataRes]: any) => {
         if (formJsonRes?.status === 200 || profileFormDataRes?.status === 200) {
-          if(profileFormDataRes.result.image){
+          if(profileFormDataRes?.result?.image){
             localStorage.setItem('image',profileFormDataRes.result.image)
           }
           else{
