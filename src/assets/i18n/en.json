@@ -136,5 +136,7 @@
   "READY_TO_REFLECT": "Ready to reflect?",
   "LETS_GO": "Let's Go",
   "DOWNLOADED_SUCCESSFULLY": "Downloaded successfully",
-  "CONFIRM_LOGOUT_MSG":"Are you sure you want to logout?"
+  "CONFIRM_LOGOUT_MSG":"Are you sure you want to logout?",
+  "UNSYNCED_DATA_MSG": "Progress of some of your MIs has not been synced. Please sync your progress for individual MIs before logging out.",
+  "LOGOUT_ANYWAY": "Log Out Anyway"
 }
