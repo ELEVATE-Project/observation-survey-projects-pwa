@@ -103,10 +103,20 @@ export class IntroPage implements OnInit {
       this.checkAuthLabel();
       }
     }
+    
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('name');
+  }
 
   onClick(action: any) {
-    if (action?.url) {
+    let authenticated = this.isAuthenticated();
+    if(authenticated){
+      if (action?.url) {
       this.router.navigate([action.url]);
+      }
+    }
+    else{
+    this.router.navigate(['/login']);
     }
   }
 
