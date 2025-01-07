@@ -65,9 +65,11 @@ export class ObservationComponent implements isDeactivatable {
             role: 'exit',
             handler: () => {
               this.saveQuestioner = true;
-              if (event) {
-                this.navCtrl.back();
-              }
+              this.windowEventListnerConfirmation((confirmation:any) => {
+                if (confirmation) {
+                  this.navCtrl.back();
+                }
+              });
               return true;
             }
           }
@@ -128,6 +130,20 @@ export class ObservationComponent implements isDeactivatable {
       if (event.data && event.data.type === 'formDirty') {
         this.isDirty = event.data.isDirty;
       }
+
+      if (event.data && event.data.type === 'saveQuestionerToggle') {
+        this.saveQuestioner = event.data.toggle;
+      }
     });
+  }
+
+  windowEventListnerConfirmation(callback:any) {
+    const handleMessage = (event:any) => {
+      if (event.data && event.data.type === 'saveQuestionerConfirmation') {
+        callback(event.data.confirmation);
+        window.removeEventListener('message', handleMessage);
+      }
+    };
+    window.addEventListener('message', handleMessage);
   }
 }
