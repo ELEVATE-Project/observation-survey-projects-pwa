@@ -64,7 +64,7 @@ export class AddProblemStatementPage implements OnInit {
 
   toggleReadMore(optionId:any,event: Event) {
     event.stopPropagation();
-    this.options.map((option:any)=>{
+    this.options=this.options.map((option:any)=>{
       if (option._id === optionId) {
         option.isExpanded = !option.isExpanded;
       }
@@ -90,12 +90,15 @@ export class AddProblemStatementPage implements OnInit {
       })
     ).subscribe((res:any)=>{
       if (res?.status == 200) {
-        this.options = (res.result.data ? this.options.concat(res.result.data) : []).map(option => {
+        this.options = [
+          ...this.options,
+          ...(res.result.data|| []).map((option:any) => {
               return {
                 ...option,
                 isExpanded : this.isTextTooLong(option),
               }
             })
+        ];
         this.disableLoading = !this.options.length || this.options.length == res.result.count;
       }
       if($event){
