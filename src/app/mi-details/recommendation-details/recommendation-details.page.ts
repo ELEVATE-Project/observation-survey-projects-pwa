@@ -64,6 +64,7 @@ export class RecommendationDetailsPage implements OnInit {
     this.projectDetails.author = this.projectDetails?.other_params?.template_author
     this.projectDetails.impact = this.projectDetails?.other_params?.impact
     this.projectDetails.text = this.projectDetails?.other_params?.text || []
+    this.projectDetails.description = this.projectDetails.description || this.projectDetails.actual_objective || this.projectDetails.expected_objective
   }
 
   starImprovement(){

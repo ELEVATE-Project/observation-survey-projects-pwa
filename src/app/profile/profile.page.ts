@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ProfileService } from '../services/profile/profile.service';
-import { NavController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { LoaderService } from '../services/loader/loader.service';
 import { catchError, finalize } from 'rxjs';
 import { ToastService } from '../services/toast/toast.service';
@@ -11,6 +11,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { actions } from '../config/actionContants';
 import { AuthService } from 'authentication_frontend_library';
 import { UtilService } from '../services/util/util.service';
+import { LogoutModalComponent } from '../shared/logout-modal/logout-modal.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -38,12 +40,12 @@ export class ProfilePage {
     private apiBaseService: ApiBaseService,
     private translate: TranslateService,
     private authService: AuthService,
-    private utils: UtilService
+    private utils: UtilService,
+    private modalCtrl: ModalController,
+    private router:Router
   ) { }
 
   ionViewWillEnter() {
-    this.clearDatabaseHandler = this.handleMessage.bind(this);
-    window.addEventListener('message', this.clearDatabaseHandler);
     this.selectedLanguage=localStorage.getItem('languages')
     if(this.selectedLanguage == 'null'){
       let preferredLanguage:any = localStorage.getItem('preferred_language')
@@ -75,6 +77,12 @@ export class ProfilePage {
       )
       .subscribe(([formJsonRes, profileFormDataRes]: any) => {
         if (formJsonRes?.status === 200 || profileFormDataRes?.status === 200) {
+          if(profileFormDataRes?.result?.image){
+            localStorage.setItem('image',profileFormDataRes.result.image)
+          }
+          else{
+            localStorage.setItem('image','null')
+          }
           this.formJson = formJsonRes?.result?.data || [];
           this.formData = profileFormDataRes?.result;
           this.mapProfileDataToFormJson(this.formData);
@@ -192,11 +200,22 @@ export class ProfilePage {
   }
 
   logout() {
-    this.authService.logout();
+    this.openModal();
   }
-  async handleMessage(event: MessageEvent) {
-    if (event.data && event.data.msg) {
+
+  async openModal() {
+    const modal = await this.modalCtrl.create({
+      component: LogoutModalComponent,
+      cssClass:'popup-class'
+    });
+    modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'confirm') {
+      localStorage.clear();
       this.utils.clearDatabase();
+      this.router.navigate(['/intro']);
     }
   }
 }

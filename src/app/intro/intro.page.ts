@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Platform } from '@ionic/angular';
-import { AuthService } from 'authentication_frontend_library';
+import { ModalController, Platform } from '@ionic/angular';
 import { DATA } from 'src/assets/config/website-data';
+import { LogoutModalComponent } from '../shared/logout-modal/logout-modal.component';
+import { UtilService } from '../services/util/util.service';
 @Component({
   selector: 'app-intro',
   templateUrl: './intro.page.html',
@@ -20,7 +21,8 @@ export class IntroPage implements OnInit {
     private fb: FormBuilder,
     private platform: Platform,
     private router: Router,
-    private authService:AuthService
+    private modalCtrl: ModalController,
+    private utils: UtilService
   ) {}
 
   ngOnInit() {
@@ -82,13 +84,37 @@ export class IntroPage implements OnInit {
       this.router.navigate(['/login']);
     }
     else{
-    this.authService.logout();
+      this.openModal()
     }
   }
 
+  async openModal() {
+    const modal = await this.modalCtrl.create({
+      component: LogoutModalComponent,
+      cssClass:'popup-class'
+    });
+    modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'confirm') {
+      localStorage.clear();
+      this.utils.clearDatabase();
+      this.checkAuthLabel();
+      }
+    }
+    
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('name');
+  }
+
   onClick(action: any) {
-    if (action?.url) {
+    let authenticated = this.isAuthenticated();
+    if(authenticated && action?.url){
       this.router.navigate([action.url]);
+    }
+    else{
+    this.router.navigate(['/login']);
     }
   }
 
