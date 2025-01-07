@@ -92,7 +92,7 @@ export class AddProblemStatementPage implements OnInit {
       if (res?.status == 200) {
         this.options = [
           ...this.options,
-          ...(res.result.data|| []).map((option:any) => {
+          ...(res?.result?.data|| [])?.map((option:any) => {
               return {
                 ...option,
                 isExpanded : this.isTextTooLong(option),
