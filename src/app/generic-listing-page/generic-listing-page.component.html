@@ -1,15 +1,28 @@
 <app-application-header [config]="headerConfig" (actionClick)="handleActionClick($event)">
-<ng-template #search>
-  @if(pageConfig.enableSearch && searchBar){
-    <ion-row class="search-bar">
-      <ion-col size="12">
-        <ion-searchbar placeholder="{{'SEARCH_BAR_PLACEHOLDER' | translate }}" [debounce]="1000"
-          (ionInput)="handleInput($event)"></ion-searchbar>
-      </ion-col>
-    </ion-row>
-  }
-
-</ng-template>
+  <ng-template #search>
+    @if(pageConfig.enableSearch && searchBar){
+      <ion-row class="search-bar">
+        <ion-col size="12">
+          <ion-searchbar  class="searchbar-with-record-icon" placeholder="{{'SEARCH_BAR_PLACEHOLDER' | translate }}" [debounce]="1000"
+            [(ngModel)]="searchTerm" (ionInput)="handleInput($event)" animated="true">
+            <button *ngIf="!searchTerm.length"
+            class="voice-record-btn"
+            [ngClass]="{ 'recording': isRecording }"
+            (click)="toggleRecording()"
+            aria-label="Voice Search"
+          >
+            <ion-icon
+              [name]="isRecording ? 'stop-circle' : 'mic-outline'"
+              class="voice-record-icon"
+            ></ion-icon>
+          </button>
+          
+          </ion-searchbar>
+        </ion-col>
+      </ion-row>
+    }
+  </ng-template>
+  
 </app-application-header>
 
 <ion-content id="filter-content">
@@ -17,7 +30,10 @@
     <p class="highlight">{{resultMsg | translate}}</p>
   }
 
+  beofre we go to lsiting
+
   @if(listingData.length > 0){
+    inside the listing data
       <ion-grid class="layout-wrapper">
         <ion-row>
       @for(data of listingData; track $index){
@@ -34,6 +50,7 @@
       @if (!noData) {
         <app-no-data [message]="searchTerm.length ? 'SEARCH_RESULT_NOT_FOUND' : 'NO_DATA_MSG'"></app-no-data>
       }
+      some random html
   }
 </ion-content>
 @if(pageConfig.enableFilter){
