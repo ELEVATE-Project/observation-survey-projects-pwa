@@ -30,6 +30,7 @@ export class AddProblemStatementPage implements OnInit {
   isAPrivateProgram:any=true;
   fromRecommendation = false
   recommendedTemplateId: any
+  characterLimit = 200;
   constructor(private router: Router,
     private route:ActivatedRoute,
     private toastService :ToastService,
@@ -57,6 +58,20 @@ export class AddProblemStatementPage implements OnInit {
       this.isRadioDisabled = false;
     }
   }
+  isTextTooLong(option: any): boolean {
+    return option?.name?.length > this.characterLimit;
+  }
+
+  toggleReadMore(optionId:any,event: Event) {
+    event.stopPropagation();
+    this.options=this.options.map((option:any)=>{
+      if (option._id === optionId) {
+        option.isExpanded = !option.isExpanded;
+      }
+      return option;
+    })
+  }
+
   onInputChange() {
     this.isRadioDisabled = this.problemStatement.trim().length > 0;
   }
@@ -75,7 +90,15 @@ export class AddProblemStatementPage implements OnInit {
       })
     ).subscribe((res:any)=>{
       if (res?.status == 200) {
-        this.options = res.result.data ? this.options.concat(res.result.data) : []
+        this.options = [
+          ...this.options,
+          ...(res?.result?.data|| [])?.map((option:any) => {
+              return {
+                ...option,
+                isExpanded : this.isTextTooLong(option),
+              }
+            })
+        ];
         this.disableLoading = !this.options.length || this.options.length == res.result.count;
       }
       if($event){
