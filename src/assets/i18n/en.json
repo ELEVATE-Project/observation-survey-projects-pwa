@@ -138,5 +138,7 @@
   "DOWNLOADED_SUCCESSFULLY": "Downloaded successfully",
   "CONFIRM_LOGOUT_MSG":"Are you sure you want to logout?",
   "UNSYNCED_DATA_MSG": "Progress of some of your MIs has not been synced. Please sync your progress for individual MIs before logging out.",
-  "LOGOUT_ANYWAY": "Log Out Anyway"
+  "LOGOUT_ANYWAY": "Log Out Anyway",
+  "MICROPHONE_ACCESS_DENIED":"Microphone access is denied. Please enable it in your browser settings.",
+  "VOICE_SEARCH_FAILED":"Voice search failed, please try again"
 }

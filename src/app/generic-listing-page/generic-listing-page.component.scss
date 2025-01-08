@@ -18,3 +18,47 @@
     color: var(--color-primary);
     margin: 0px 16px;
 }
+
+.searchbar-with-record-icon {
+    position: relative;
+  }
+  
+  .voice-record-btn {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    outline: none;
+    z-index: 10;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .voice-record-btn.recording {
+    animation: pulse 1.5s infinite;
+  }
+  
+  .voice-record-icon {
+    font-size: 1.5rem;
+    color: var(--ion-color-primary);
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: translateY(-50%) scale(1); /* Keep vertical centering intact */
+      opacity: 1;
+    }
+    50% {
+      transform: translateY(-50%) scale(1.2); /* Slightly larger while staying centered */
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(-50%) scale(1); /* Return to original size */
+      opacity: 1;
+    }
+  }
+  
