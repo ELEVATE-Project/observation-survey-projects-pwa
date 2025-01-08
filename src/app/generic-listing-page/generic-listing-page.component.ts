@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 import { ProfileService } from '../services/profile/profile.service';
@@ -33,6 +33,7 @@ export class GenericListingPageComponent  implements OnInit {
   isRecording: boolean = false;
   mediaRecorder: MediaRecorder | null = null;
   audioChunks: Blob[] = [];
+  fromVoiceSearch:boolean = false;
   constructor(
     private activatedRoute: ActivatedRoute,
     private profileService: ProfileService,
@@ -43,7 +44,7 @@ export class GenericListingPageComponent  implements OnInit {
     private menuControl: MenuController,
     private gwApiService: GwApiService,
     private voiceSearch:VoiceInputService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {
     activatedRoute.data.subscribe((data:any)=>{
       this.pageConfig = structuredClone(data);
@@ -51,10 +52,11 @@ export class GenericListingPageComponent  implements OnInit {
   }
 
   async startRecording() {
+    this.fromVoiceSearch = true;
     try {
       const permissionStatus = await navigator.permissions.query({ name: 'microphone' as PermissionName });
       if (permissionStatus.state === 'denied') {
-        alert('Microphone access is denied. Please enable it in your browser settings.');
+        this.toastService.presentToast('MICROPHONE_ACCESS_DENIED','danger',5000);
         return;
       }
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -67,7 +69,6 @@ export class GenericListingPageComponent  implements OnInit {
             this.isRecording = true;
   
             this.mediaRecorder.start();
-            console.log('Recording started...');
   
             this.mediaRecorder.ondataavailable = (event) => {
               this.audioChunks.push(event.data);
@@ -75,30 +76,26 @@ export class GenericListingPageComponent  implements OnInit {
   
             this.mediaRecorder.onstop = async () => {
               stream.getTracks().forEach((track) => track.stop());
-              console.log('Recording stopped.');
               await this.loaderService.showLoading('LOADER_MSG');
               const audioBlob = new Blob(this.audioChunks, { type: 'audio/webm' });
   
-              const wavBlob = await this.convertToWav(audioBlob);
-              const base64Audio = await this.convertBlobToBase64(wavBlob);
+              const wavBlob = await this.voiceSearch.convertToWav(audioBlob);
+              const base64Audio = await this.voiceSearch.convertBlobToBase64(wavBlob);
   
               this.voiceSearch.ai4BharatASR(base64Audio).subscribe({
                 next: async (response: any) => {
                   await this.loaderService.dismissLoading();
                   if (response) {
-                    this.searchTerm = response.transcript;
-                    this.handleInput({target:{value:response.transcript}})
-                    this.cdr.detectChanges();
+                    this.handleInput({target:{value:response.transcript}});
                   }
                 },
                 error: async (err: any) => {
                   await this.loaderService.dismissLoading();
-                  this.toastService.presentToast(err.error.message, 'danger');
+                  this.toastService.presentToast('VOICE_SEARCH_FAILED', 'danger',5000);
                   throw new Error('Voice record failed!');
                 },
               });
   
-              console.log('search term',this.searchTerm)
             };
           })
           .catch((err) => {
@@ -119,128 +116,9 @@ export class GenericListingPageComponent  implements OnInit {
       this.mediaRecorder.stop();
       this.removeAnimation();
       this.isRecording = false;
-      console.log('Stopping recording...');
     }
   }
 
-async convertToWav (audioBlob:any) {
-    return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onloadend = async () => {
-        const audioContext = new (window.AudioContext || window['webkitAudioContext' as any])();
-        const audioData = new Uint8Array(reader.result as ArrayBufferLike);
-
-        try {
-        const buffer = await audioContext.decodeAudioData(audioData.buffer);
-        
-        // If no significant audio is detected, return null
-        if (!this.containsSignificantAudio(buffer)) {
-            resolve(null);
-        } else {
-            // Convert to WAV and return the blob if audio is valid
-            const wavData = this.bufferToWave(buffer, buffer.length);
-            const wavBlob = new Blob([wavData], { type: 'audio/wav' });
-            resolve(wavBlob);
-        }
-        } catch (error) {
-        reject(error);
-        }
-    };
-    reader.readAsArrayBuffer(audioBlob);
-    });
-};
-
-// Function to check if the audio contains significant sound
-containsSignificantAudio (audioBuffer:any, threshold:any = 0.3){
-    const numOfChannels = audioBuffer.numberOfChannels;
-    const channelData = [];
-
-    for (let i = 0; i < numOfChannels; i++) {
-    channelData.push(audioBuffer.getChannelData(i));
-    }
-
-    // Check each sample in each channel for significant sound
-    for (let i = 0; i < channelData[0].length; i++) {
-    for (let channel = 0; channel < numOfChannels; channel++) {
-        if (Math.abs(channelData[channel][i]) > threshold) {
-        return true; // There is significant sound
-        }
-    }
-    }
-
-    return false; // No significant sound detected
-};
-
-// Function to convert audio buffer to WAV format
-  bufferToWave(abuffer:any, len:any) {
-    const numOfChannels = abuffer.numberOfChannels;
-    const sampleRate = abuffer.sampleRate;
-    const format = 1; // PCM
-    const bitDepth = 16; // 16-bit PCM
-    const byteRate = sampleRate * numOfChannels * (bitDepth / 8);
-    const blockAlign = numOfChannels * (bitDepth / 8);
-    const wavLength = 44 + len * blockAlign;
-    const buffer = new ArrayBuffer(wavLength);
-    const view = new DataView(buffer);
-
-    // Write WAV header
-    let offset = 0;
-    const writeString = (str:any) => {
-        for (let i = 0; i < str.length; i++) {
-            view.setUint8(offset + i, str.charCodeAt(i) & 0xff);
-        }
-        offset += str.length;
-    };
-
-    // RIFF header
-    writeString('RIFF');
-    view.setUint32(offset, wavLength - 8, true); // file length
-    offset += 4;
-    writeString('WAVE'); // wave format
-
-    // Format chunk
-    writeString('fmt ');
-    view.setUint32(offset, 16, true); // chunk length
-    offset += 4;
-    view.setUint16(offset, format, true); // format type
-    offset += 2;
-    view.setUint16(offset, numOfChannels, true); // channels
-    offset += 2;
-    view.setUint32(offset, sampleRate, true); // sample rate
-    offset += 4;
-    view.setUint32(offset, byteRate, true); // byte rate
-    offset += 4;
-    view.setUint16(offset, blockAlign, true); // block align
-    offset += 2;
-    view.setUint16(offset, bitDepth, true); // bits per sample
-    offset += 2;
-
-    writeString('data');
-    view.setUint32(offset, len * blockAlign, true);
-    offset += 4;
-
-    for (let i = 0; i < len; i++) {
-        for (let channel = 0; channel < numOfChannels; channel++) {
-            const sample = abuffer.getChannelData(channel)[i];
-            view.setInt16(offset, sample < 0 ? sample * 0x8000 : sample * 0x7FFF, true);
-            offset += 2;
-        }
-    }
-
-    return view;
-};
-
-convertBlobToBase64 (blob:any) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(blob);
-        reader.onloadend = () => {
-            const base64String = (reader.result as string).split(',')[1];
-            resolve(base64String);
-        };
-        reader.onerror = (error) => reject(error);
-    });
-};
 
   toggleRecording() {
     if (this.isRecording) {
@@ -308,9 +186,11 @@ convertBlobToBase64 (blob:any) {
         if (response) {
           this.listingData = this.listingData.concat(
             response?.result?.data || []
-          );
+          )
           console.log('got listing data',this.listingData)
           this.count = response?.result?.count || 0;
+          console.log('count',this.count);
+          
           this.disableLoading =
             !this.listingData.length ||
             this.listingData.length == response.result.count;
@@ -326,8 +206,12 @@ convertBlobToBase64 (blob:any) {
                 this.resultMsg = translatedTitle;
               });
           }
+          this.detectChangesPostVoiceSearch();
+
         } else {
+          this.detectChangesPostVoiceSearch();
           this.toastService.presentToast(response.message, 'danger');
+
         }
         if ($event) {
           $event.target.complete();
@@ -337,8 +221,16 @@ convertBlobToBase64 (blob:any) {
         await this.loaderService.dismissLoading();
         this.noData = false;
         this.toastService.presentToast(error.error.message, 'danger');
+        this.detectChangesPostVoiceSearch();
       },
-    });
+      });
+  }
+
+  detectChangesPostVoiceSearch(){
+    if(this.fromVoiceSearch){
+      this.cdr.detectChanges();
+      this.fromVoiceSearch = false;
+    }
   }
 
   handleActionClick(event?: any) {

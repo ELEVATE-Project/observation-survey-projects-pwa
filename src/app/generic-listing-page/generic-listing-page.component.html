@@ -30,10 +30,7 @@
     <p class="highlight">{{resultMsg | translate}}</p>
   }
 
-  beofre we go to lsiting
-
-  @if(listingData.length > 0){
-    inside the listing data
+  @if(listingData.length){
       <ion-grid class="layout-wrapper">
         <ion-row>
       @for(data of listingData; track $index){
@@ -50,7 +47,6 @@
       @if (!noData) {
         <app-no-data [message]="searchTerm.length || filterQuery ? 'SEARCH_RESULT_NOT_FOUND' : 'NO_DATA_MSG'"></app-no-data>
       }
-      some random html
   }
 </ion-content>
 @if(pageConfig.enableFilter){
