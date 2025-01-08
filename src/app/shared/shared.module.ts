@@ -55,6 +55,7 @@ import { LogoutModalComponent } from './logout-modal/logout-modal.component';
         ReactiveFormsModule, MatFormFieldModule, MatCheckboxModule],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     exports: [
+        ShortUrlPipe,
         RecommendationCardComponent,
         BottomNavigationComponent,
         SideNavigationComponent,

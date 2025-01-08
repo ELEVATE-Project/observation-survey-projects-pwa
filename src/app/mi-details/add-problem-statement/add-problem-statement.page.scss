@@ -93,6 +93,13 @@ ion-content {
     text-transform: capitalize;
 }
 
+.read-more-less {
+    color: var(--primary-color);
+    cursor: pointer; 
+    font-weight: bold; 
+    text-decoration: underline; 
+}
+
 .fixed-toolbar {
     position: fixed;
     bottom: 0;
@@ -110,7 +117,7 @@ ion-item {
     --min-height: auto;
     --border-color: transparent;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 }
   
 ion-label {
@@ -121,7 +128,8 @@ ion-label {
   
 ion-radio {
     --border-color: transparent;
-    --padding-start: 0; 
+    --padding-start: 20px; 
+    margin-top: 1rem;
 }
 ion-toolbar {
     --background: var(--color-background);

@@ -37,7 +37,22 @@
     <ion-radio-group [(ngModel)]="selectedOption">
       @for(option of options;track option){
         <ion-item (click)="onRadioSelect(option._id)">
-          <ion-label>{{ option.name }}</ion-label>
+          <ion-label>
+            @if(option?.name?.length > characterLimit ){
+              @if(option?.isExpanded){
+                <span>{{ option?.name | shortUrl:characterLimit }}</span>
+              }
+              @else{
+                <span>{{ option?.name}}</span>
+              }
+              <span class="read-more-less" (click)="toggleReadMore(option._id, $event)">
+                {{ option?.isExpanded ? ( 'READ_MORE' | translate ) : ('READ_LESS' | translate) }}
+              </span>
+            }
+            @else{
+              <span>{{ option?.name }}</span>
+            }
+          </ion-label>
           <ion-radio slot="start" [value]="option._id" aria-label="option.name" [disabled]="isRadioDisabled"></ion-radio>
         </ion-item>
       }
