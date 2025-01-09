@@ -1,0 +1,15 @@
+<div class="preview-card">
+  <div class="header-container">
+    <ion-icon name="close" class="close-icon" (click)="closePopover()"></ion-icon>
+  </div>
+
+  <div class="content-container">
+    @if(type === 'images'){
+      <img [src]="url" alt="name" class="media-content"/>
+    }@else if(type === 'videos') {
+      <video class="media-content" controls>
+        <source [src]="url" type="video/mp4" />
+      </video>
+    }
+  </div>
+</div>

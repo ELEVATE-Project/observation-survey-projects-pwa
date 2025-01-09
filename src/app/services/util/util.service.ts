@@ -38,7 +38,13 @@ export class UtilService {
     let selectedLanguage:any = localStorage.getItem("preferred_language")
     return JSON.parse(selectedLanguage)?.value || "en"
   }
-  isFileType(fileUrl: string, type: 'images' | 'pdf' | 'doc' | 'video'): boolean {
-    return this.regex[type].test(fileUrl);
+
+  isFileType(fileType: string) {
+    for (const [type, regex] of Object.entries(actions.REGEX_MAP)) {
+      if (regex.test(fileType)) {
+          return type;
+      }
+    }
+  return;
   }
 }

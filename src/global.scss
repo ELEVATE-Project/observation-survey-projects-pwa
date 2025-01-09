@@ -262,7 +262,14 @@ ion-segment-button {
   --max-width:450px;
 }
 
-
+.resource-preview-popover{
+  --min-width: 45%;
+  --max-width: 45%;
+  @media (max-width: 600px) {
+    --min-width: 80%;
+    --max-width: 80%;
+  }
+}
 .layout-wrapper{
   max-width: 80vw;
   margin: auto;

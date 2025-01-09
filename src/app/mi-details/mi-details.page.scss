@@ -23,6 +23,25 @@ ion-content {
   color: var(--color-header);
 }
 
+.video {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.video-icon {
+  font-size: 1.5rem; 
+  color: var(--color-primary);
+}
+
+.video-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-primary);
+}
+
 .bottom-container{
   display: flex;
   flex-direction: column;
