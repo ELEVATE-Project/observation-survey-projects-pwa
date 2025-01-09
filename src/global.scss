@@ -258,7 +258,8 @@ ion-segment-button {
 
 .popup-class{
   --height: auto;
-  --width:450px;
+  --width:80%;
+  --max-width:450px;
 }
 
 
@@ -278,4 +279,12 @@ ion-segment-button {
 
 .header{
   background-color: var(--color-light) !important;
+}
+
+.mdc-text-field--filled.mdc-text-field--disabled{
+  background-color: transparent !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled){
+  background-color: transparent !important;
 }
