@@ -47,8 +47,13 @@
       <div class="image-container">
         @for(item of projectDetails.evidences;track item){
           <div  class="image-item">
-            @if(item.isImage){
-              <img class="image-placeholder" [src]="item.downloadableUrl" [alt]="item.title" />
+            @if(item.isType == 'images'){
+              <img class="image-placeholder" [src]="item.downloadableUrl" [alt]="item.title" (click)="previewResource(item)"/>
+            }@else if(item.isType == 'videos'){
+              <div  class="video" (click)="previewResource(item)">
+                <ion-icon name="play-circle-outline" class="video-icon" ></ion-icon>
+                <ion-label class="video-label">{{item.title}}</ion-label>
+            </div>
             }@else{
               <a [href]="item.downloadableUrl" target="_blank" class="file-link">{{ item.title }}</a>
             }

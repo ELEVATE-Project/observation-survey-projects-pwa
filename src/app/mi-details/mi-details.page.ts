@@ -6,6 +6,8 @@ import { ProjectsApiService } from 'src/app/services/projects-api/projects-api.s
 import { ToastService } from 'src/app/services/toast/toast.service';
 import  urlConfig  from 'src/app/config/url.config.json';
 import { UtilService } from 'src/app/services/util/util.service';
+import { EvidencePreviewCardComponent } from '../shared/evidence-preview-card/evidence-preview-card.component';
+import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-mi-details',
@@ -22,6 +24,7 @@ export class MiDetailsPage implements OnInit {
   saved:boolean=false;
   projectDetails:any;
   constructor(private router: Router,
+    private popoverController:PopoverController,
     private route : ActivatedRoute,
     private toastService :ToastService,
     private loader : LoaderService,
@@ -39,6 +42,19 @@ export class MiDetailsPage implements OnInit {
 
   saveClick(event:any){
     this.handleSaved(this.saved ? 'remove' : 'add')
+  }
+  async previewResource(item: any) {
+    const popover = await this.popoverController.create({
+      component: EvidencePreviewCardComponent,
+      componentProps: {
+        type: item.isType,
+        name: item.title,
+        url: item.downloadableUrl,
+      },
+      cssClass: 'resource-preview-popover',
+      backdropDismiss: true,
+    });
+    await popover.present();
   }
 
   async handleSaved(actionType: 'add' | 'remove'){
@@ -77,7 +93,7 @@ export class MiDetailsPage implements OnInit {
         this.projectDetails=res.result
         this.projectDetails.evidences = this.projectDetails.evidences.map((item: any) => ({
           ...item,
-          isImage: this.utilService.isFileType(item.type, 'images'),
+          isType: this.utilService.isFileType(item.type),
         }));
         this.saved=res.result.wishlist
         this.headerConfig.customActions = [{ icon: this.saved ? 'bookmark' : 'bookmark-outline', actionName: 'save' }];

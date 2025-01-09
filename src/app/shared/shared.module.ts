@@ -28,6 +28,7 @@ import { ShareLinkComponent } from './share-link/share-link.component';
 import { MyJourneyCardComponent } from './my-journey-card/my-journey-card.component';
 import { MyJourneyOngoingCardComponent } from './my-journey-ongoing-card/my-journey-ongoing-card.component';
 import { LogoutModalComponent } from './logout-modal/logout-modal.component';
+import { EvidencePreviewCardComponent } from './evidence-preview-card/evidence-preview-card.component';
 
 @NgModule({
     declarations: [
@@ -50,6 +51,7 @@ import { LogoutModalComponent } from './logout-modal/logout-modal.component';
         MyJourneyCardComponent,
         MyJourneyOngoingCardComponent,
         LogoutModalComponent,
+        EvidencePreviewCardComponent
     ],
     imports: [CommonModule, IonicModule, TranslateModule, MatIconModule, RouterModule,MatDividerModule,MatButtonModule, FormsModule,
         ReactiveFormsModule, MatFormFieldModule, MatCheckboxModule],
@@ -59,6 +61,7 @@ import { LogoutModalComponent } from './logout-modal/logout-modal.component';
         RecommendationCardComponent,
         BottomNavigationComponent,
         SideNavigationComponent,
+        EvidencePreviewCardComponent,
         PopoverComponent,
         ShareLinkPopupComponent,
         SpotlightCardComponent,
