@@ -68,6 +68,8 @@ export class ObservationComponent implements isDeactivatable {
               this.windowEventListnerConfirmation((confirmation:any) => {
                 if (confirmation) {
                   this.navCtrl.back();
+                }else{
+                  this.windowEventListner();
                 }
               });
               return true;
