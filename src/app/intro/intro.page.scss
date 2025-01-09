@@ -1,7 +1,21 @@
 .header {
   color: #fff;
-  padding: 25px 50px;
+  padding: 25px 5vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
+
+ion-title img {
+  min-width: 150px;
+  max-width: 300px;
+  width: 40vw;
+  height: auto;
+  object-fit: contain;
+}
+
 .intro {
   min-height: 300px;
   color: #fff;
@@ -19,6 +33,12 @@
   min-height: 46px;
   --padding-start: 18px;
   --padding-end: 18px;
+
+  font-size: 1rem;
+  white-space: nowrap;
+  flex: 0 1 auto;
+  min-width: 120px;
+  max-width: 200px;
 }
 
 ion-button {

@@ -30,6 +30,9 @@
     font-weight: 700;
   }
 
+  .segment-button-checked{
+    background: color-mix(in srgb, var(--ion-color-primary) 20%, transparent);  }
+
   .cards-list{
     display: flex;
     flex-direction: row;
