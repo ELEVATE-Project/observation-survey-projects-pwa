@@ -108,4 +108,13 @@ export class MiDetailsPage implements OnInit {
   starImprovement(){
     this.router.navigate(['/mi-details/add-problem-statement',this.projectId]);
   }
+
+  getDots(length: number): number[] {
+    if (length === 2) {
+      return Array(2).fill(0);
+    } else if (length >= 3) {
+      return Array(3).fill(0);
+    }
+    return []; 
+  }
 }

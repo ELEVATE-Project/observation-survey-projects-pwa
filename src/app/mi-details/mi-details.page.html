@@ -9,6 +9,32 @@
           <span>{{projectDetails.author}}</span>
         }
     </div>
+      @if(projectDetails.testimonials
+      ){
+    <div class="text-muted">
+      <ion-grid>
+        <app-carousel
+          [items]="projectDetails?.testimonials"
+          [template]="itemTemplate1"
+        >
+        <ion-row>
+        <ng-template #itemTemplate1 let-item="$item" let-index="$index">
+                <ion-col size="12" >
+                  <span>{{item.text}} </span>
+                  <br>
+                  <span>- {{item.author}}</span>
+                </ion-col>
+          </ng-template>
+        </ion-row>
+        </app-carousel>
+    </ion-grid>
+    @if (projectDetails?.testimonials.length > 1) {
+      <div class="dots">
+        <span *ngFor="let dot of getDots(projectDetails?.testimonials.length)"></span>
+      </div>
+    }
+  </div>
+}
   </div>
 
   @if(projectDetails.problemStatement){
@@ -20,6 +46,12 @@
 @if(projectDetails.description){
   <app-mi-details-card 
     [cardConfig]="{ title: 'OBJECTIVE', text: projectDetails.description }">
+  </app-mi-details-card>
+}
+
+@if(projectDetails?.duration){
+  <app-mi-details-card
+    [cardConfig]="{ title: 'TIMELINE', text: projectDetails?.duration}">
   </app-mi-details-card>
 }
 
