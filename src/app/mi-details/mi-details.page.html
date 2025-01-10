@@ -82,10 +82,12 @@
         @for(item of projectDetails.evidences;track item){
           <div  class="image-item">
             @if(item.isType == 'images'){
-              <img class="image-placeholder" [src]="item.downloadableUrl" [alt]="item.title"/>
-              <div class="icon-container" (click)="previewResource(item)">
-                <ion-icon name="image-outline" class="evidence-icon"></ion-icon>
-                <ion-label class="image-label">{{item.title}}</ion-label>
+              <div (click)="previewResource(item)">
+                <img class="image-placeholder" [src]="item.downloadableUrl" [alt]="item.title"/>
+                <div class="icon-container" >
+                  <ion-icon name="image-outline" class="evidence-icon"></ion-icon>
+                  <ion-label class="image-label">{{item.title}}</ion-label>
+                </div>
               </div>
             }@else if(item.isType == 'videos'){
               <div  class="video" (click)="previewResource(item)">
