@@ -92,11 +92,13 @@ export class MiDetailsPage implements OnInit {
     ).subscribe((res:any)=>{
       if (res?.status == 200) {
         this.projectDetails=res.result
-        this.projectDetails.evidences = this.projectDetails.evidences.map((item: any) => ({
-          ...item,
-          isType: this.utilService.isFileType(item.type),
-        }));
-        this.saved=res.result.wishlist
+        if(this.projectDetails?.evidences){
+          this.projectDetails.evidences = this.projectDetails.evidences.map((item: any) => ({
+            ...item,
+            isType: this.utilService.isFileType(item.type),
+          }));
+        }
+        this.saved= res?.result?.wishlist
         this.headerConfig.customActions = [{ icon: this.saved ? 'bookmark' : 'bookmark-outline', actionName: 'save' }];
         this.getDots();
       }

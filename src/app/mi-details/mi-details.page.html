@@ -28,7 +28,7 @@
         </ion-row>
         </app-carousel>
     </ion-grid>
-    @if (projectDetails?.testimonials.length > 1) {
+    @if (projectDetails?.testimonials?.length > 1) {
       <div class="dots">
         @for (item of dots; track $index) {
           <span></span>
@@ -57,7 +57,7 @@
   </app-mi-details-card>
 }
 
-@if(projectDetails.tasks.length>0){
+@if(projectDetails?.tasks?.length>0){
   <app-mi-details-card
     [cardConfig]="{ title: 'ACTION_STEPS', tasks: projectDetails.tasks }">
   </app-mi-details-card>
@@ -70,10 +70,10 @@
 }
 
   <div class="bottom-container">
-    @if(projectDetails.text.length>0){
+    @if(projectDetails.text?.length){
       <p class="bottom-text">{{projectDetails.text}}</p>
     }
-    @if(projectDetails.evidences.length > 0){
+    @if(projectDetails?.evidences?.length){
     <div class="evidences-container">
       <h1 class="evidences-title">
         {{ "EVIDENCES"| translate }}
