@@ -63,7 +63,8 @@
     "recommendation": {
         "listingUrl": "/api/generate-recommendation/",
         "detailsUrl": "/api/shikshalokam/project/",
-        "startImpUrl": "/api/shikshalokam/start-project/"
+        "startImpUrl": "/api/shikshalokam/start-project/",
+        "wishlist":"/api/shikshalokam/wishlist-project/"
     },
     "speechToText":{
         "bhashini":"/api/ai4bharat/asr"

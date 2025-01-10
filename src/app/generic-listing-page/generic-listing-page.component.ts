@@ -187,10 +187,7 @@ export class GenericListingPageComponent  implements OnInit {
           this.listingData = this.listingData.concat(
             response?.result?.data || []
           )
-          console.log('got listing data',this.listingData)
           this.count = response?.result?.count || 0;
-          console.log('count',this.count);
-          
           this.disableLoading =
             !this.listingData.length ||
             this.listingData.length == response.result.count;
