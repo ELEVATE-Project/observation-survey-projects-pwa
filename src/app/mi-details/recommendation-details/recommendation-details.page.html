@@ -1,4 +1,4 @@
-<app-application-header [config]="headerConfig"></app-application-header>
+<app-application-header [config]="headerConfig" (actionClick)="saveClick($event)"></app-application-header>
 @if(projectDetails){
 <ion-content class="ion-padding">
   <div class="layout-wrapper">
