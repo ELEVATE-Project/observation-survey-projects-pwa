@@ -9,7 +9,7 @@
           <span>{{projectDetails.author}}</span>
         }
     </div>
-      @if(projectDetails.testimonials
+      @if(projectDetails?.testimonials
       ){
     <div class="text-muted">
       <ion-grid>
@@ -20,9 +20,9 @@
         <ion-row>
         <ng-template #itemTemplate1 let-item="$item" let-index="$index">
                 <ion-col size="12" >
-                  <span>{{item.text}} </span>
+                  <span>{{item?.text}} </span>
                   <br>
-                  <span>- {{item.author}}</span>
+                  <span>- {{item?.author}}</span>
                 </ion-col>
           </ng-template>
         </ion-row>
@@ -30,7 +30,9 @@
     </ion-grid>
     @if (projectDetails?.testimonials.length > 1) {
       <div class="dots">
-        <span *ngFor="let dot of getDots(projectDetails?.testimonials.length)"></span>
+        @for (item of getDots(projectDetails?.testimonials.length); track $index) {
+          <span></span>
+        }
       </div>
     }
   </div>
