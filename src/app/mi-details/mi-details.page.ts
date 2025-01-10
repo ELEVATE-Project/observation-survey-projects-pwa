@@ -23,6 +23,7 @@ export class MiDetailsPage implements OnInit {
   showLoading:boolean = true;
   saved:boolean=false;
   projectDetails:any;
+  dots: number[] = [];
   constructor(private router: Router,
     private popoverController:PopoverController,
     private route : ActivatedRoute,
@@ -97,6 +98,7 @@ export class MiDetailsPage implements OnInit {
         }));
         this.saved=res.result.wishlist
         this.headerConfig.customActions = [{ icon: this.saved ? 'bookmark' : 'bookmark-outline', actionName: 'save' }];
+        this.getDots();
       }
     },
     (err: any) => {
@@ -108,4 +110,15 @@ export class MiDetailsPage implements OnInit {
   starImprovement(){
     this.router.navigate(['/mi-details/add-problem-statement',this.projectId]);
   }
+
+  getDots():any {
+    const length = this.projectDetails?.testimonials?.length || 0;
+  if (length === 2) {
+    this.dots = Array(2).fill(0);
+  } else if (length >= 3) {
+    this.dots = Array(3).fill(0);
+  } else {
+    this.dots = [];
+  }
+}
 }

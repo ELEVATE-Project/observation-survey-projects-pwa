@@ -34,7 +34,7 @@ export const DATA = {
       buttons: {
         label: 'Access MItra',
         action: '',
-        url: '',
+        url: '/home',
         alingment: 'left',
         color: 'dark',
       },
