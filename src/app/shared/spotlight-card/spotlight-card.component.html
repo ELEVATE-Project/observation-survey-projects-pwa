@@ -129,11 +129,10 @@
     </div>
 
     <div class="spotlight-content">
-      <p>{{ spotlightStory?.testimonials[0].text | shortUrl }}</p>
-    </div>
+      <p>{{ spotlightStory?.testimonials?.[0]?.text || spotlightStory?.description | shortUrl }}</p>    </div>
 
     <div class="spotlight-author">
-      <span>- {{ spotlightStory?.testimonials[0].author | shortUrl:24 }}</span>
+      <span>- {{ spotlightStory?.testimonials?.[0]?.author || spotlightStory?.author | shortUrl:24 }}</span>
     </div>
 
     <div class="bottom-quote">
