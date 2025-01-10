@@ -30,7 +30,7 @@
     </ion-grid>
     @if (projectDetails?.testimonials.length > 1) {
       <div class="dots">
-        @for (item of getDots(projectDetails?.testimonials.length); track $index) {
+        @for (item of dots; track $index) {
           <span></span>
         }
       </div>
