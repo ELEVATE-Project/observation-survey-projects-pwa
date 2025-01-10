@@ -31,8 +31,8 @@ export class RecommendationCardComponent  implements OnInit {
   redirect(){
     if(this.type === 'journey'){
       this.router.navigate(["project-details"],{ state: { _id: this.cardData._id } })
-    }else if(this.type === 'recommendation'){
-      this.router.navigate(["mi-details/recommendation",this.cardData.id])
+    }else if((this.type === 'recommendation') || (this.cardData.referenceFrom === "AI_GENERATED")){
+      this.router.navigate(["mi-details/recommendation",this.cardData.id || this.cardData._id])
     }else{
       this.router.navigate(["mi-details",this.cardData._id ])
     }

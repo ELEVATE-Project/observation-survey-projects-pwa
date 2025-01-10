@@ -50,12 +50,20 @@ export class ApiInterceptor implements HttpInterceptor {
       return req.clone({
         headers: req.headers.delete('skipInterceptor'),
       });
-    } else {
+    }else if(this.urlWithoutBearer(req.url)){
+      return req.clone({setHeaders:{'X-auth-token':token}});
+    }
+     else {
       return req.clone({
         setParams: { language: this.utilService.getSelectedLanguage() },
         setHeaders: { 'X-auth-token': token }
       });
     }
+  }
+
+  private urlWithoutBearer(url:string):boolean{
+    return url.includes('/api/shikshalokam/wishlist-project/');
+
   }
 
   private isSpecialUrl(url: string): boolean {
