@@ -16,7 +16,7 @@ export class ReflectionPage implements OnInit, OnDestroy{
   };
   reflectionPointsList = ["REFLECTION_POINT_ONE", "REFLECTION_POINT_TWO", "REFLECTION_POINT_THREE"]
   projectId:any
-  reflectionTimeout: any;
+  redirectionTimeout: any;
 
   constructor(private location: Location, private activatedRoute: ActivatedRoute, private projectApiService: ProjectsApiService,
     private toastService: ToastService
@@ -27,14 +27,14 @@ export class ReflectionPage implements OnInit, OnDestroy{
   }
 
   ngOnInit() {
-    this.reflectionTimeout = setTimeout(() => {
-      this.startReflection(); 
+    this.redirectionTimeout = setTimeout(() => {
+      this.startReflection();
     }, 10000);
   }
 
   ngOnDestroy() {
-    if (this.reflectionTimeout) {
-      clearTimeout(this.reflectionTimeout);
+    if (this.redirectionTimeout) {
+      clearTimeout(this.redirectionTimeout);
     }
   }
 
@@ -43,8 +43,8 @@ export class ReflectionPage implements OnInit, OnDestroy{
   }
 
   startReflection(){
-    if (this.reflectionTimeout) {
-      clearTimeout(this.reflectionTimeout);
+    if (this.redirectionTimeout) {
+      clearTimeout(this.redirectionTimeout);
     }
     let url = urlConfig.project.updateProject + this.projectId
     let payload = { reflectionStatus: "started" }
