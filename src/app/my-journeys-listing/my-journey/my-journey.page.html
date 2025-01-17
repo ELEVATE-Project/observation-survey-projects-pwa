@@ -14,7 +14,7 @@
     </ion-segment>
 
   @if (selectedSegment === filterActions.inProgress && myJourneyInprogress.length > 0) {
-          <div class="cards-list  layout-wrapper">
+          <div class="cards-list ion-padding">
           @for (item of myJourneyInprogress; track $index) {
             <app-my-journey-ongoing-card [data]="item"></app-my-journey-ongoing-card>
           }

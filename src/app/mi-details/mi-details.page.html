@@ -16,6 +16,8 @@
         <app-carousel
           [items]="projectDetails?.testimonials"
           [template]="itemTemplate1"
+          [showDots]="true"
+          [itemsToShow]="projectDetails?.testimonials.length"
         >
         <ion-row>
         <ng-template #itemTemplate1 let-item="$item" let-index="$index">
@@ -28,13 +30,6 @@
         </ion-row>
         </app-carousel>
     </ion-grid>
-    @if (projectDetails?.testimonials?.length > 1) {
-      <div class="dots">
-        @for (item of dots; track $index) {
-          <span></span>
-        }
-      </div>
-    }
   </div>
 }
   </div>

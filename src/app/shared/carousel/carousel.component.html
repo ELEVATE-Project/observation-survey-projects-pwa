@@ -7,3 +7,14 @@
 
   }
 </div>
+
+@if (showDots) {
+  <div class="dots">
+    @for (item of items; track item;let i = $index) {
+      <span
+        (click)="navigateToSlide(i)"
+        [class.active]="i === activeSlide"
+      ></span>
+    }
+  </div>
+}

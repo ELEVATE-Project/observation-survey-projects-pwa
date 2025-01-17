@@ -30,6 +30,7 @@ export class ProfileEditPage implements isDeactivatable {
   enableForm: boolean = false;
   dynamicEntityValueChanged:boolean = false;
   subUrl = (environment.baseURL.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey )
+  selectedLanguage:any;
 
   constructor(
     private apiBaseService: ApiBaseService,
@@ -42,6 +43,8 @@ export class ProfileEditPage implements isDeactivatable {
   ) { }
 
   ionViewWillEnter() {
+    let preferredLanguage:any = localStorage.getItem('preferred_language')
+    this.selectedLanguage = JSON.parse(preferredLanguage)?.value
     this.loadFormAndData();
   }
 

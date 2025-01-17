@@ -15,11 +15,11 @@
     (imageRemoveEvent)="imageRemoveEvent($event)"></app-profile-image>
   <div class="ion-margin-top container" *ngIf="enableForm">
     <dynamic-form [formJson]="formJson" #formLib (onChange)="onOptionChange($event)"
-      (ionFocus)="handleSelectFocus($event)"></dynamic-form>
+      (ionFocus)="handleSelectFocus($event)" [language]="selectedLanguage"></dynamic-form>
   </div>
   <div class="ion-margin-top container" *ngIf="formJson2?.length > 0">
     <dynamic-form [formJson]="formJson2" #formLib2 (onChange)="onOptionChange2($event)"
-      (ionFocus)="handleSelectFocus($event)"></dynamic-form>
+      (ionFocus)="handleSelectFocus($event)" [language]="selectedLanguage"></dynamic-form>
   </div>
   </div>
 </ion-content>
