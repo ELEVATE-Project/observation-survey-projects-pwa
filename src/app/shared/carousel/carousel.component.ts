@@ -9,7 +9,7 @@ import { IonicSlides } from '@ionic/angular';
 })
 export class CarouselComponent{
   swiperModules = [IonicSlides];
-  @ViewChild('desktopContainer', { static: false }) desktopContainer!: ElementRef;
+  @ViewChild('desktopContainer', { static: false }) desktopContainer!: ElementRef ;
   @Input() items: any[] = [];
   @Input() template: any;
   @Input() itemsToShow = 4;
