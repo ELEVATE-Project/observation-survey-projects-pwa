@@ -12,6 +12,20 @@ export class CarouselComponent{
   @Input() items: any[] = [];
   @Input() template: any;
   @Input() itemsToShow = 4;
-  constructor() { }
+  @Input() showDots = false;
+  activeSlide = 0;
 
+  constructor() {}
+
+  navigateToSlide(index: number): void {
+    this.activeSlide = index;
+    this.scrollToSlide(index);
+  }
+
+  scrollToSlide(index: number): void {
+    const container = document.querySelector('.desktop-container') as HTMLElement;
+    if (container) {
+      container.scrollLeft = container.offsetWidth * index;
+    }
+  }
 }

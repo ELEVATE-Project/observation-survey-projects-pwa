@@ -1,6 +1,25 @@
 .desktop-container{
   display: flex;
-  flex-direction: row;
   overflow-x: scroll;
+  scroll-behavior: smooth;
   scrollbar-width: none;
+}
+.dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+
+  span {
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    border-radius: 50%;
+    background-color: lightgray;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &.active {
+      background-color: var(--ion-color-primary);
+    }
+  }
 }

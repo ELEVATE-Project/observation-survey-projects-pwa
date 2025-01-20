@@ -35,7 +35,7 @@
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
     "authentication_frontend_library": "^1.0.21",
-    "elevate-dynamic-form": "^0.0.13",
+    "elevate-dynamic-form": "^0.0.15",
     "ionicons": "^7.0.0",
     "jwt-decode": "^4.0.0",
     "network-service": "^0.0.1",

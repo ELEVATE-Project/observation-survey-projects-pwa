@@ -153,4 +153,9 @@ async  getdata() {
     window.location.href = "/create-project/mitra-chat"
   }
 
+  ionViewWillLeave(){
+    this.spotlightstories=[];
+    this.myImprovements = [];
+    this.recommendationList=[];
+  }
 }
