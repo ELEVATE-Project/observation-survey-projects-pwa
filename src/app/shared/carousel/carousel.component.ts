@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
 import { IonicSlides } from '@ionic/angular';
 
 @Component({
@@ -9,6 +9,7 @@ import { IonicSlides } from '@ionic/angular';
 })
 export class CarouselComponent{
   swiperModules = [IonicSlides];
+  @ViewChild('desktopContainer', { static: false }) desktopContainer!: ElementRef;
   @Input() items: any[] = [];
   @Input() template: any;
   @Input() itemsToShow = 4;
@@ -23,7 +24,7 @@ export class CarouselComponent{
   }
 
   scrollToSlide(index: number): void {
-    const container = document.querySelector('.desktop-container') as HTMLElement;
+    const container = this.desktopContainer.nativeElement;
     if (container) {
       container.scrollLeft = container.offsetWidth * index;
     }
