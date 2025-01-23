@@ -142,5 +142,5 @@
   "MICROPHONE_ACCESS_DENIED":"Microphone access is denied. Please enable it in your browser settings.",
   "VOICE_SEARCH_FAILED":"Voice search failed, please try again",
   "ADD_PHOTO":"ADD PHOTO",
-  "REMOVE_PHOTO":"REMOVE PHOTO"
+  "REMOVE_CURRENT_PHOTO":"REMOVE CURRENT PHOTO"
 }
