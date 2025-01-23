@@ -148,7 +148,7 @@ export class ProfilePage {
 
         control.disabled = true;
         control.validators = false;
-        control.label = control.meta?.displayLabel?.[this.selectedLanguage] || control.name;
+        control.label = control.meta?.displayLabel?.[this.selectedLanguage] || control.name ;
       }
 
       if (index === lastIndex) {
