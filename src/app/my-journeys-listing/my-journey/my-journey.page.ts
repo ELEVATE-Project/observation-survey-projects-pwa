@@ -63,9 +63,11 @@ export class MyJourneyPage  {
     this.noData=true;
     await this.loaderService.showLoading('LOADER_MSG');
     const isInProgress = this.selectedSegment === this.filterActions.inProgress;
-
+    let payload={
+      filter : "submittedCount"
+    }
     const url = `${urlConfig.project.myImprovementsUrl}?&page=${this.page}&limit=${this.limit}&search=&status=${this.selectedSegment}&programId=${this.programId}`;
-    this.projectsApiService.post(url, {}).subscribe({
+    this.projectsApiService.post(url,payload).subscribe({
       next: async (response: any) => {
         await this.loaderService.dismissLoading();
         this.noData=false;
