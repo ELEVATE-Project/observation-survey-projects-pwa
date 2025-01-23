@@ -13,11 +13,11 @@
   <div *ngIf="uploadImage" class="upload-button-container ion-margin">
     <input type="file" (change)="upload($event)" #fileUpload accept="image/*" hidden>
     <ion-button *ngIf="!profileImageData?.image || profileImageData?.image==''; else removePhoto;" fill="clear" expand="block" (click)="uploadPhoto('ADD_PHOTO'); clearFileInput();" class="upload-button">
-      {{ "ADD PHOTO" }}
+      {{ "ADD_PHOTO" | translate }}
     </ion-button>
     <ng-template #removePhoto>
       <ion-button fill="clear" expand="block" (click)="uploadPhoto('REMOVE_PHOTO')" class="upload-button">
-        {{ ("REMOVE CURRENT PHOTO") }}
+        {{ ("REMOVE_PHOTO") | translate   }}
       </ion-button>
     </ng-template>
   </div>

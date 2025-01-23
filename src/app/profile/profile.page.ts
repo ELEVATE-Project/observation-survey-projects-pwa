@@ -61,6 +61,7 @@ export class ProfilePage {
       "preferred_language":this.selectedLanguage
     }).subscribe((res:any)=>{
       this.setLanguage(res.result.preferred_language);
+      this.loadFormAndData();
     },(err:any)=>{
       this.toastService.presentToast(err.error.message,'danger');
     })
@@ -147,7 +148,7 @@ export class ProfilePage {
 
         control.disabled = true;
         control.validators = false;
-        control.label = this.capitalizeLabelFirstLetter(control.name);
+        control.label = control.meta?.displayLabel?.[this.selectedLanguage] || control.name;
       }
 
       if (index === lastIndex) {
