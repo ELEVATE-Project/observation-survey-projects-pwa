@@ -141,5 +141,7 @@
   "LOGOUT_ANYWAY": "Log Out Anyway",
   "MICROPHONE_ACCESS_DENIED":"Microphone access is denied. Please enable it in your browser settings.",
   "VOICE_SEARCH_FAILED":"Voice search failed, please try again",
-  "NO_ONGOING_MICRO_IMPROVEMENTS":"No ongoing micro improvements at the moment."
+  "NO_ONGOING_MICRO_IMPROVEMENTS":"No ongoing micro improvements at the moment.",
+  "ADD_PHOTO":"ADD PHOTO",
+  "REMOVE_CURRENT_PHOTO":"REMOVE CURRENT PHOTO"
 }

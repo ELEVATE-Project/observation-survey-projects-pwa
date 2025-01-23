@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit, Renderer2 } from '@angular/core';
 import { IonicSlides } from '@ionic/angular';
 
 @Component({
@@ -7,7 +7,7 @@ import { IonicSlides } from '@ionic/angular';
   styleUrls: ['./carousel.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class CarouselComponent{
+export class CarouselComponent implements AfterViewInit {
   swiperModules = [IonicSlides];
   @ViewChild('desktopContainer', { static: false }) desktopContainer!: ElementRef ;
   @Input() items: any[] = [];
@@ -16,7 +16,15 @@ export class CarouselComponent{
   @Input() showDots = false;
   activeSlide = 0;
 
-  constructor() {}
+  constructor(private renderer: Renderer2) {}
+
+  ngAfterViewInit(): void {
+    if (this.desktopContainer) {
+      this.renderer.listen(this.desktopContainer.nativeElement, 'scroll', () => {
+        this.updateActiveSlide();
+      });
+    }
+  }
 
   navigateToSlide(index: number): void {
     this.activeSlide = index;
@@ -28,5 +36,12 @@ export class CarouselComponent{
     if (container) {
       container.scrollLeft = container.offsetWidth * index;
     }
+  }
+
+  updateActiveSlide(): void {
+    const container = this.desktopContainer.nativeElement;
+    const slideWidth = container.offsetWidth;
+    const scrollLeft = container.scrollLeft;
+    this.activeSlide = Math.round(scrollLeft / slideWidth);
   }
 }
