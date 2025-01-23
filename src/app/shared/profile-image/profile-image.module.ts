@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ProfileImagePageRoutingModule } from './profile-image-routing.module';
 
 import { ProfileImagePage } from './profile-image.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ProfileImagePageRoutingModule
+    ProfileImagePageRoutingModule,
+    TranslateModule
   ],
   declarations: [ProfileImagePage],
   exports: [ProfileImagePage]
