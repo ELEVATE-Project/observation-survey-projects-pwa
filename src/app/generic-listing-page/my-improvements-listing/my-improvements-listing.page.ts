@@ -47,11 +47,14 @@ export class MyImprovementsListingPage  {
 
   async getImprovements($event?: any) {
     await this.loaderService.showLoading('LOADER_MSG');
+    let payload={
+      filter : "submittedCount"
+    }
     let url = `${urlConfig.project.myImprovementsUrl}?&page=${this.page}&limit=${this.limit}&search=&status=inProgress`;
-    this.projectsApiService.post(url,{}).subscribe({
+    this.projectsApiService.post(url,payload).subscribe({
       next: async (response: any) => {
         await this.loaderService.dismissLoading();
-        if (response.status == 200) {
+        if (response?.result) {
           this.myImprovements = this.myImprovements.concat(
             response.result.data
           );

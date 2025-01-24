@@ -35,6 +35,7 @@ export class HomePage {
   recommendationCount=0;
   profilePayload:any;
   noData:boolean=false;
+  improvementSubmittedCount=0
 
 
   constructor(private router: Router, private profileService: ProfileService,private translate: TranslateService, private gwApiService: GwApiService) {
@@ -99,8 +100,11 @@ async  getdata() {
     const urls = {
       spotlight: `${urlConfig.project.spotlightUrl}&page=${this.page}&limit=${this.limit}`,
     };
+    let payload={
+      filter : "submittedCount"
+    }
     const fetchDataImprovements = (url:any) =>
-      this.baseApiService.post(url,{}).pipe(
+      this.baseApiService.post(url,payload).pipe(
         catchError((err) => {
           this.toastService.presentToast(err.error.message, 'danger');
           return of({ status: 'error', result: { data: [], count: 0 } });
@@ -122,6 +126,7 @@ async  getdata() {
         map(([improvementRes, spotlightRes]: any) => {
           this.myImprovements = improvementRes.result.data;
           this.improvementsCount = improvementRes.result.count;
+          this.improvementSubmittedCount=improvementRes.result.submittedCount
 
           this.spotlightstories = spotlightRes.result.data;
           this.spotlightCount = spotlightRes.result.count;

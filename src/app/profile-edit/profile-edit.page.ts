@@ -330,7 +330,7 @@ export class ProfileEditPage implements isDeactivatable {
               this.formLib?.myForm.markAsPristine();
               this.formLib2?.myForm.markAsPristine();
               this.navCtrl.back();
-              this.toastService.presentToast(res?.message || 'PROFILE_UPDATE_SUCCESS', 'success');
+              this.toastService.presentToast('PROFILE_UPDATE_SUCCESS', 'success');
             } else {
               this.toastService.presentToast(res?.message, 'warning');
             }
