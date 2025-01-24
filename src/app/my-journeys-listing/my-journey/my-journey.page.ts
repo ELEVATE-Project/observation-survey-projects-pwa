@@ -71,7 +71,7 @@ export class MyJourneyPage  {
       next: async (response: any) => {
         await this.loaderService.dismissLoading();
         this.noData=false;
-        if (response.status == 200) {
+        if (response.result) {
           this.programName = response.result.programName;
           this.updateJourneyData(response.result.data, response.result.count, isInProgress);
         } else {
