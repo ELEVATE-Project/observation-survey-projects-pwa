@@ -54,7 +54,7 @@ export class MyImprovementsListingPage  {
     this.projectsApiService.post(url,payload).subscribe({
       next: async (response: any) => {
         await this.loaderService.dismissLoading();
-        if (response.responseCode == "OK") {
+        if (response?.result) {
           this.myImprovements = this.myImprovements.concat(
             response.result.data
           );
