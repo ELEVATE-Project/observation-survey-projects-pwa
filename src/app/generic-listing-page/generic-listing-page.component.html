@@ -1,4 +1,4 @@
-<app-application-header [config]="headerConfig" (actionClick)="handleActionClick($event)" *ngIf="searchNoData">
+<app-application-header [config]="headerConfig" (actionClick)="handleActionClick($event)">
   <ng-template #search>
     @if(pageConfig.enableSearch && searchBar){
       <ion-row class="search-bar">

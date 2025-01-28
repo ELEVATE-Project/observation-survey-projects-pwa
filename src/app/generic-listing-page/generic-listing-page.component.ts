@@ -28,7 +28,6 @@ export class GenericListingPageComponent  implements OnInit {
   isMenuOpen = true
   filterQuery = ""
   noData:boolean=false;
-  searchNoData:boolean=false;
 
   searchBar = true
   isRecording: boolean = false;
@@ -153,7 +152,6 @@ export class GenericListingPageComponent  implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.searchNoData=false
     this.searchBar = true;
     this.reset();
     this.noData = true;
@@ -185,7 +183,6 @@ export class GenericListingPageComponent  implements OnInit {
       next: async (response: any) => {
         await this.loaderService.dismissLoading();
         this.noData = false;
-        this.searchNoData=true
         if (response) {
           this.listingData = this.listingData.concat(
             response?.result?.data || []
@@ -219,7 +216,6 @@ export class GenericListingPageComponent  implements OnInit {
       },
       error: async (error: any) => {
         await this.loaderService.dismissLoading();
-        this.searchNoData=true
         this.noData = false;
         this.toastService.presentToast(error.error.message, 'danger');
         this.detectChangesPostVoiceSearch();
