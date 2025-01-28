@@ -14,11 +14,15 @@
     </ion-segment>
 
   @if (selectedSegment === filterActions.inProgress && myJourneyInprogress.length > 0) {
-          <div class="cards-list ion-padding">
+    <ion-grid >
+      <ion-row>
           @for (item of myJourneyInprogress; track $index) {
-            <app-my-journey-ongoing-card [data]="item"></app-my-journey-ongoing-card>
+            <ion-col size="12" size-sm="6" size-md="6" size-lg="4">
+              <app-my-journey-ongoing-card [data]="item"></app-my-journey-ongoing-card>
+            </ion-col>
           }
-        </div>
+        </ion-row>
+      </ion-grid>
         }
        @else if (selectedSegment === filterActions.completed && myJourneyCompleted.length > 0) {
         <ion-grid class="layout-wrapper">
