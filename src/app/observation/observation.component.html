@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-icon name="arrow-back-outline" (click)="canPageLeave($event)" class="back-button"></ion-icon>
+        <ion-icon name="arrow-back-outline" (click)="canPageLeave()" class="back-button"></ion-icon>
       </ion-buttons>
     </ion-toolbar>
 </ion-header>
@@ -9,7 +9,7 @@
 <ion-content >
 <div class="details-background">
     @if(showDetails){
-    <observation-player [apiConfig]="apiConfig" [saveQuestioner]="saveQuestioner"></observation-player>
+    <observation-player [apiConfig]="apiConfig" [saveQuestioner]="saveQuestioner" [fromObservation]="true"></observation-player>
     }
 </div>
 </ion-content>
