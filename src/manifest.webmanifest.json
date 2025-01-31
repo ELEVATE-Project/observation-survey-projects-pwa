@@ -1,11 +1,11 @@
 {
-  "name": "MItra",
-  "short_name": "MItra",
+  "name": "Projects",
+  "short_name": "Projects",
   "start_url": "/intro",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#572E91",
-  "description": "MItra is a progressive web app for Micro Improvment consumption and creation.",
+  "description": "Projects is a progressive web app for Micro Improvment consumption and creation.",
   "icons": [
     {
       "src": "assets/icons/elevate-logo-72x72.png",

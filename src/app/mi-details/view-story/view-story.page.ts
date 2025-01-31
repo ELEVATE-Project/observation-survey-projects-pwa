@@ -69,7 +69,8 @@ export class ViewStoryPage implements OnInit {
         this.toastService.presentToast(err?.message, 'danger');
       }
     }else {
-      this.setOpenForCopyLink(this.storyDetails.pdfInformation[0].sharableUrl);
+      let url = encodeURI(this.storyDetails.pdfInformation[0].sharableUrl);
+      this.setOpenForCopyLink(url);
     }
     
   }
