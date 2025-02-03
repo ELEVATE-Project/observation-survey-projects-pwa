@@ -7,6 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class NoDataComponent  {
   @Input() message:any;
+  @Input() imgUrl:any;
+  @Input() titleMessage:any;
 
   constructor() { }
 
