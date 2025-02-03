@@ -13,6 +13,7 @@ import { UtilService } from 'src/app/services/util/util.service';
 import { ProfileService } from '../services/profile/profile.service';
 import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 import { environment } from 'src/environments/environment';
+import { PAGE_IDS } from '../core/constants/pageIds';
 register();
 @Component({
   selector: 'app-home',
@@ -34,7 +35,7 @@ export class HomePage {
   @ViewChild('solutionTemplate') solutionTemplate!: TemplateRef<any>;
   @ViewChild('recommendationTemplate') recommendationTemplate!: TemplateRef<any>;
   clearDatabaseHandler:any;
-
+  pageIdsList = PAGE_IDS
 
   constructor(private http: HttpClient, private router: Router, private utilService: UtilService,
     private profileService: ProfileService

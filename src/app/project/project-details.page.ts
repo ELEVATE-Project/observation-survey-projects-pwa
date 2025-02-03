@@ -23,7 +23,9 @@ export class ProjectDetailsPage  implements OnInit {
     maxFileSize: 50,
     baseUrl: environment.projectsBaseURL ?? environment.baseURL,
     accessToken: localStorage.getItem('accToken'),
-    profileInfo: {}
+    profileInfo: {},
+    redirectionLinks: { contentPolicyLink: "https://shikshalokam.org/mentoring/privacy-policy/",
+      profilePage: "/profile-edit" }
   }
   showDetails = false
   sharePopupHandler:any
