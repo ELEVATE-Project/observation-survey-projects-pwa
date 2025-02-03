@@ -3,10 +3,10 @@
     <img src="../../assets/images/logo.png" alt="Elevate Logo" class="header-logo" />
 
     <ion-buttons slot="end" class="buttons-section">
-      <ion-button routerLink="/project-downloads">
+      <ion-button routerLink="/project-downloads" *allowTemplateView="pageIdsList.downloads">
         {{"DOWNLOADS"|translate}}
       </ion-button>
-      <ion-button  routerLink="/profile">
+      <ion-button  routerLink="/profile" *allowTemplateView="pageIdsList.profile">
         <span class="profile-button ion-padding-horizontal">
           {{"PROFILE"|translate}}
         </span>
