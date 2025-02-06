@@ -216,7 +216,7 @@ export class ProfilePage {
     if (role === 'confirm') {
       localStorage.clear();
       this.utils.clearDatabase();
-      this.router.navigate(['/intro']);
+      this.router.navigate(['/login']);
     }
   }
 }

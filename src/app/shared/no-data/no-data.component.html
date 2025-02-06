@@ -1,11 +1,11 @@
 <div class="nodata-card">
-    @if(message?.title){
-      <h4>{{message.title | translate}}</h4>
+    @if(message?.messageOne){
+      <h4>{{message.messageOne| translate}}</h4>
     }
     @if(message?.path){
       <img [src]="message.path" alt="nodata">
     }
-    @if(message?.text){
-      <h4>{{message.text | translate}}</h4>
+    @if(message?.messageTwo){
+      <h4>{{message.mesageTwo | translate}}</h4>
     }
 </div>
