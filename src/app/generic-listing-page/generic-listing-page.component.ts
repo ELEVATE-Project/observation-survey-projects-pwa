@@ -8,7 +8,6 @@ import { MenuController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { GwApiService } from '../services/gw-api/gw-api.service';
 import { VoiceInputService } from '../services/voice-input/voice-input.service';
-import { noDataPageConfig } from '../config/noDataPageContants';
 
 @Component({
   selector: 'app-generic-listing-page',
@@ -174,7 +173,12 @@ export class GenericListingPageComponent  implements OnInit {
 
   async getData($event?: any) {
     this.noData = true;
-    this.config = this.searchTerm ? noDataPageConfig.listingSearch : noDataPageConfig.listingPage
+    this.config = this.searchTerm ? { 
+        messageTwo:"SEARCH_RESULT_NOT_FOUND",
+        image:'NO_SEARCH'
+      }:{ 
+        messageTwo:"NO_DATA_MSG" 
+      }
     await this.loaderService.showLoading('LOADER_MSG');
     let url = `${this.pageConfig.apiUrl}&page=${this.page}&limit=${this.limit}&searchText=${this.searchTerm}${this.filterQuery}`;
     let serviceToTrigger = this.projectsApiService;

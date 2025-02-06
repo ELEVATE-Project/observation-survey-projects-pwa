@@ -2,10 +2,8 @@
     @if(message?.messageOne){
       <h4>{{message.messageOne| translate}}</h4>
     }
-    @if(message?.path){
-      <img [src]="message.path" alt="nodata">
-    }
+    <img [src]="imagePath" alt="nodata">
     @if(message?.messageTwo){
-      <h4>{{message.mesageTwo | translate}}</h4>
+      <h4>{{message.messageTwo | translate}}</h4>
     }
 </div>

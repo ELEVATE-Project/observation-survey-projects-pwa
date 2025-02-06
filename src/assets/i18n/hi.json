@@ -146,7 +146,8 @@
     "SEARCH_TEXT":"समस्या विवरण दर्ज करें" ,
     "NO_PROBLEM_STATEMENT": "अभी तक कोई समस्या विवरण नहीं",
     "CREATE_OR_DISCOVER": "शुरू करने के लिए बनाएँ या खोजें",
-    "NO_ONGOING_PROJECTS": "कोई चल रही परियोजनाएँ नहीं",
-    "NO_COMPLETED_PROJECTS": "कोई पूरी की गई परियोजनाएँ नहीं"
+    "NO_PROJECTS": "{{data}} प्रोजेक्ट नहीं हैं",
+    "NO_ONGOING": "चल रहे",
+    "NO_COMPLETED": "पूर्ण"
   }
   

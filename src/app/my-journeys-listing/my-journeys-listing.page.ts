@@ -3,7 +3,6 @@ import { LoaderService } from '../services/loader/loader.service';
 import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 import { ToastService } from '../services/toast/toast.service';
 import urlConfig from 'src/app/config/url.config.json';
-import { noDataPageConfig } from '../config/noDataPageContants';
 
 @Component({
   selector: 'app-my-journeys-listing',
@@ -20,7 +19,10 @@ export class MyJourneysListingPage  {
   count = 0;
   disableLoading: boolean = false;
   noData:any=false;
-  config:any=noDataPageConfig.myJourneyListing
+  config:any={
+      messageOne:"NO_PROBLEM_STATEMENT",
+      messageTwo:"CREATE_OR_DISCOVER"
+  }
 
   constructor(
     private loaderService: LoaderService,
