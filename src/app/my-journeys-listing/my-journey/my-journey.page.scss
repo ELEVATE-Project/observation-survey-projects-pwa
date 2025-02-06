@@ -11,6 +11,15 @@
     padding: 2px;
   }
 
+app-no-data {
+    display: flex;
+    padding-top: 3rem;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+}
 
   .custom-segment ion-segment-button {
     width: 100%;

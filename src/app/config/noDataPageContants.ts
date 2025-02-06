@@ -1,0 +1,23 @@
+export const noDataPageConfig:any={
+    listingPage:{
+        path:"assets/MI-2.0-card-images/no-data.svg",
+        text:"NO_DATA_MSG"
+    },
+    listingSearch:{
+        path:"assets/MI-2.0-card-images/listingSearch-noData.svg",
+        text:"SEARCH_RESULT_NOT_FOUND"
+    },
+    myJourneyListing:{
+        title:"NO_PROBLEM_STATEMENT",
+        path:"assets/MI-2.0-card-images/myJourney-noData.svg",
+        text:"CREATE_OR_DISCOVER"
+    },
+    myJourneyOnGoing:{
+        title:"NO_ONGOING_PROJECTS",
+        path:"assets/MI-2.0-card-images/myJourney-noData.svg",
+    },
+    myJourneyCompleted:{
+        title:"NO_COMPLETED_PROJECTS",
+        path:"assets/MI-2.0-card-images/myJourney-noData.svg",
+    }
+}

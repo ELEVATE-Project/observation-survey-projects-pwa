@@ -1,4 +1,11 @@
 <div class="nodata-card">
-  <img src="assets/MI-2.0-card-images/no-data.svg" alt="nodata">
-<h4>{{message | translate}}</h4>
+    @if(message?.title){
+      <h4>{{message.title | translate}}</h4>
+    }
+    @if(message?.path){
+      <img [src]="message.path" alt="nodata">
+    }
+    @if(message?.text){
+      <h4>{{message.text | translate}}</h4>
+    }
 </div>

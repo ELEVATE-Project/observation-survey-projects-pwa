@@ -5,6 +5,7 @@ import { ProjectsApiService } from 'src/app/services/projects-api/projects-api.s
 import urlConfig from 'src/app/config/url.config.json';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { actions } from 'src/app/config/actionContants';
+import { noDataPageConfig } from 'src/app/config/noDataPageContants';
 
 @Component({
   selector: 'app-my-journey',
@@ -16,6 +17,7 @@ export class MyJourneyPage  {
     title:"MY_JOURNEY",
     showBackButton: true,
   }
+  config:any;
   programId:any;
   programName:any;
   noData:any=false;
@@ -63,6 +65,7 @@ export class MyJourneyPage  {
     this.noData=true;
     await this.loaderService.showLoading('LOADER_MSG');
     const isInProgress = this.selectedSegment === this.filterActions.inProgress;
+    this.config = isInProgress ? noDataPageConfig.myJourneyOnGoing : noDataPageConfig.myJourneyCompleted
     let payload={
       filter : "submittedCount"
     }
