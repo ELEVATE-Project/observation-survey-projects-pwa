@@ -175,7 +175,7 @@ export class GenericListingPageComponent  implements OnInit {
     this.noData = true;
     this.config = this.searchTerm ? { 
         messageTwo:"SEARCH_RESULT_NOT_FOUND",
-        image:'NO_SEARCH'
+        imageType:'search'
       }:{ 
         messageTwo:"NO_DATA_MSG" 
       }
