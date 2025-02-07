@@ -26,6 +26,14 @@
                         "description": "Manage and track your school improvement easily, by creating tasks and planning project timelines"
                     },
                     {
+                        "name": "Observations",
+                        "img": "assets/images/ic_observation.svg",
+                        "redirectionUrl": "/observation",
+                        "listType": "listing",
+                        "reportPage": true,
+                        "description": ""
+                    },
+                    {
                         "name": "Survey",
                         "img": "assets/images/ic_survey.svg",
                         "redirectionUrl": "/listing/survey",
@@ -51,6 +59,16 @@
                                 "solutionType": "improvementProject",
                                 "reportPage": false,
                                 "description": "Manage and track your school improvement easily, by creating tasks and planning project timelines"
+                            },
+                            {
+                                "name": "Observation Reports",
+                                "img": "assets/images/ic_observation.svg",
+                                "redirectionUrl": "/observation",
+                                "listType": "listing",
+                                "solutionType": "observation",
+                                "reportPage": true,
+                                "reportIdentifier": "surveyReportPage",
+                                "description": "Provide information and feedback through quick and easy observations"
                             },
                             {
                                 "name": "Survey Reports",
@@ -149,6 +167,14 @@
                 "type": "solutionList",
                 "listingData": [
                     {
+                        "name": "Observations",
+                        "img": "assets/images/ic_observation.svg",
+                        "redirectionUrl": "/observation",
+                        "listType": "listing",
+                        "reportPage": true,
+                        "description": ""
+                    },
+                    {
                         "name": "Survey",
                         "img": "assets/images/ic_survey.svg",
                         "redirectionUrl": "/listing/survey",
@@ -166,6 +192,16 @@
                         "reportPage": true,
                         "description": "Make sense of data to enable your decision-making based on your programs with ease",
                         "list": [
+                            {
+                                "name": "Observation Reports",
+                                "img": "assets/images/ic_observation.svg",
+                                "redirectionUrl": "/observation",
+                                "listType": "listing",
+                                "solutionType": "observation",
+                                "reportPage": true,
+                                "reportIdentifier": "surveyReportPage",
+                                "description": "Provide information and feedback through quick and easy observations"
+                            },
                             {
                                 "name": "Survey Reports",
                                 "img": "assets/images/ic_survey.svg",
