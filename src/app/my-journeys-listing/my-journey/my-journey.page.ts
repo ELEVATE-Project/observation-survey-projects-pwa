@@ -5,6 +5,7 @@ import { ProjectsApiService } from 'src/app/services/projects-api/projects-api.s
 import urlConfig from 'src/app/config/url.config.json';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { actions } from 'src/app/config/actionContants';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-my-journey',
@@ -16,6 +17,7 @@ export class MyJourneyPage  {
     title:"MY_JOURNEY",
     showBackButton: true,
   }
+  config:any;
   programId:any;
   programName:any;
   noData:any=false;
@@ -25,7 +27,8 @@ export class MyJourneyPage  {
     private route:ActivatedRoute,
     private loaderService: LoaderService,
     private projectsApiService: ProjectsApiService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private translate: TranslateService
   ) {
     const navigation = this.router.getCurrentNavigation();
     this.route.params.subscribe(param=>{
@@ -63,6 +66,10 @@ export class MyJourneyPage  {
     this.noData=true;
     await this.loaderService.showLoading('LOADER_MSG');
     const isInProgress = this.selectedSegment === this.filterActions.inProgress;
+    const dataType = isInProgress ? this.translate.instant('ONGOING') : this.translate.instant('COMPLETED');
+    this.translate.get('NO_PROJECTS', { data: dataType }).subscribe((translatedMessage: string) => {
+      this.config = { messageOne: translatedMessage };
+    });
     let payload={
       filter : "submittedCount"
     }

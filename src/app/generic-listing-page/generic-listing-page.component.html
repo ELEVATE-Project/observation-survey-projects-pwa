@@ -45,7 +45,7 @@
   </ion-infinite-scroll>
   }@else{
       @if (!noData) {
-        <app-no-data [message]="searchTerm.length || filterQuery ? 'SEARCH_RESULT_NOT_FOUND' : 'NO_DATA_MSG'"></app-no-data>
+        <app-no-data [message]="config"></app-no-data>
       }
   }
 </ion-content>

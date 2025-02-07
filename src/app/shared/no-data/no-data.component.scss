@@ -6,12 +6,20 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    gap: 1.5rem;
+    padding: 0.5rem;
+    text-align: center;
 }
-img{
-    width: 60%;
-    height: 60%;
-    position: relative;
-    @media only screen and (max-width: 1024px) {
-        height: auto;
-      }
+.nodata-card img {
+    max-width: 70%;
+    max-height: 70%;
+    object-fit: contain;
+    aspect-ratio: 1/1; 
+}
+
+.nodata-card h4 {
+    margin: 0;
+    font-size: 1rem;
+    max-width: 90%;
+    word-break: break-word;
 }
