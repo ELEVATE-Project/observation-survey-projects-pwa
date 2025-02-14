@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ToastService } from '../toast/toast.service';
 import { UtilService } from '../util/util.service';
 import { ApiWithoutInteceptor } from './api.service';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -68,7 +69,7 @@ export class ApiInterceptor implements HttpInterceptor {
     if (error?.status === 401) {
       localStorage.clear();
       this.utilService.clearDatabase();
-      this.router.navigateByUrl('/login');
+      location.href = environment.unauthorizedRedirectUrl
       return throwError(() => ({
         status: 401,
         error: { message: 'Your session has expired. Please log in again.' },
@@ -87,6 +88,9 @@ export class ApiInterceptor implements HttpInterceptor {
     let token = localStorage.getItem('accToken');
     if (!token) {
       return null;
+    }
+    if(environment.isAuthBypassed){
+      return token
     }
     const isValidToken = await this.utilService.validateToken(token);
     if (!isValidToken) {
