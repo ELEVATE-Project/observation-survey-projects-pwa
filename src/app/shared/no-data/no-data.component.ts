@@ -12,11 +12,11 @@ export class NoDataComponent implements OnInit{
   constructor() { }
 
   ngOnInit() {
-    switch(this.message?.imageType){
+    switch(this.message?.imageType){      
       case 'search':
         this.imagePath = "assets/MI-2.0-card-images/no-search-results.svg"
         break;
-
+      
       default:
         this.imagePath = 'assets/MI-2.0-card-images/no-data-found.svg'
         break;
