@@ -66,7 +66,7 @@ export class ViewStoryPage implements OnInit {
         };
         const result = await Share.share(shareOptions);
         if(result){
-          this.toastService.presentToast('SHARED_STORY','success');
+          this.toastService.presentToast('STORY_SHARE_MSG','success');
         }
       } catch (err:any) {
         this.toastService.presentToast(err?.message, 'danger');
