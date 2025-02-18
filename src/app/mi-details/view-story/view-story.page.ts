@@ -64,7 +64,10 @@ export class ViewStoryPage implements OnInit {
           title: this.storyDetails.title,
           url: this.storyDetails.pdfInformation[0].sharableUrl,
         };
-        await Share.share(shareOptions);
+        const result = await Share.share(shareOptions);
+        if(result){
+          this.toastService.presentToast('STORY_SHARE_MSG','success');
+        }
       } catch (err:any) {
         this.toastService.presentToast(err?.message, 'danger');
       }
