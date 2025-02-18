@@ -45,13 +45,13 @@ const routes: Routes = [
       ),
     canActivate: [AuthGuard],
   },
-  {
-    path: 'intro',
-    loadChildren: () =>
-      import('./intro/intro.module').then(
-        (m) => m.IntroPageModule
-      ),
-  },
+  // {
+  //   path: 'intro',
+  //   loadChildren: () =>
+  //     import('./intro/intro.module').then(
+  //       (m) => m.IntroPageModule
+  //     ),
+  // },
   {
     path: 'reflection',
     loadChildren: () => import('./reflection/reflection.module').then( m => m.ProjectPageModule),

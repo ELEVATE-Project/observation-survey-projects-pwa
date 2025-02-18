@@ -1,8 +1,8 @@
 <app-application-header [config]="headerConfig" ></app-application-header>
 
 <ion-content [fullscreen]="true">
-<ion-grid class="layout-wrapper">
   @if (myJourneys.length) {
+    <ion-grid class="layout-wrapper">
     <ion-row>
     @for (item of myJourneys; track $index) {
     <ion-col class="ion-padding" size="12" size-sm="6" size-md="6" size-lg="4">
@@ -10,11 +10,11 @@
     </ion-col>
     }
   </ion-row>
+</ion-grid>
   }
     @else {
       @if (!noData){
-          <app-no-data [titleMessage]="'No Projects Yet'" [imgUrl]="'assets/MI-2.0-card-images/Group 1000004830.svg'"  [message]="'NO_DATA_MSG'" ></app-no-data>
+    <app-no-data [message]="config" ></app-no-data>
     }
   }
-</ion-grid>
 </ion-content>

@@ -19,6 +19,10 @@ export class MyJourneysListingPage  {
   count = 0;
   disableLoading: boolean = false;
   noData:any=false;
+  config:any={
+      messageOne:"NO_PROBLEM_STATEMENT",
+      messageTwo:"CREATE_OR_DISCOVER"
+  }
 
   constructor(
     private loaderService: LoaderService,

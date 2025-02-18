@@ -28,6 +28,7 @@ export class GenericListingPageComponent  implements OnInit {
   isMenuOpen = true
   filterQuery = ""
   noData:boolean=false;
+  config:any;
 
   searchBar = true
   isRecording: boolean = false;
@@ -172,6 +173,12 @@ export class GenericListingPageComponent  implements OnInit {
 
   async getData($event?: any) {
     this.noData = true;
+    this.config = this.searchTerm ? { 
+        messageTwo:"SEARCH_RESULT_NOT_FOUND",
+        imageType:'search'
+      }:{ 
+        messageTwo:"NO_DATA_MSG" 
+      }
     await this.loaderService.showLoading('LOADER_MSG');
     let url = `${this.pageConfig.apiUrl}&page=${this.page}&limit=${this.limit}&searchText=${this.searchTerm}${this.filterQuery}`;
     let serviceToTrigger = this.projectsApiService;

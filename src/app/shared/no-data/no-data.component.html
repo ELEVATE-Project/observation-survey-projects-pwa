@@ -1,7 +1,9 @@
 <div class="nodata-card">
-  @if (titleMessage) {
-    <h4 class="ion-padding">{{titleMessage|translate}}</h4>
-  }
-  <img [src]="imgUrl" alt="nodata">
-<h4 class="ion-padding">{{message | translate}}</h4>
+    @if(message?.messageOne){
+      <h4>{{message.messageOne| translate}}</h4>
+    }
+    <img [src]="imagePath" alt="nodata">
+    @if(message?.messageTwo){
+      <h4>{{message.messageTwo | translate}}</h4>
+    }
 </div>
