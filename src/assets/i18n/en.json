@@ -146,5 +146,6 @@
   "NO_ONGOING_MICRO_IMPROVEMENTS":"No ongoing micro improvements at the moment.",
   "NO_PROBLEM_STATEMENT":"No Problem statement yet",
   "CREATE_OR_DISCOVER":"Create or Discover to get Started",
-  "NO_PROJECTS":"No {{data}} Projects"
+  "NO_PROJECTS":"No {{data}} Projects",
+  "SHARED_STORY":"Story shared successfully"
 }
