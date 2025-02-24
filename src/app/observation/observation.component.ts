@@ -22,6 +22,7 @@ export class ObservationComponent implements isDeactivatable {
   isOnline: any;
   onlineStatus: boolean = true;
   hasSessionList: boolean = false;
+  profileUpdate:boolean = false;
 
   constructor(private navCtrl: NavController, private profileService: ProfileService,
     private utils: UtilService, private toast: ToastService,
@@ -41,7 +42,9 @@ export class ObservationComponent implements isDeactivatable {
 
   async canPageLeave(): Promise<boolean> {
       this.isDirty = false;
+      if(!this.profileUpdate){
       this.navCtrl.back();
+      }
       return true;
   }
 
@@ -52,6 +55,7 @@ export class ObservationComponent implements isDeactivatable {
     }
     this.profileService.getProfileAndEntityConfigData().subscribe((mappedIds) => {
       if (mappedIds) {
+        this.profileUpdate = false;
         const mappedIdsString = JSON.stringify(mappedIds) || "";
         localStorage.setItem("profileData", mappedIdsString);
         let storedProfileData: any = localStorage.getItem('profileData');
@@ -61,6 +65,8 @@ export class ObservationComponent implements isDeactivatable {
         this.apiConfig['solutionType'] = "observation";
         this.apiConfig['fileSizeLimit'] = 50;
         this.showDetails = true
+      }else{
+        this.profileUpdate = true;
       }
     });
   }
