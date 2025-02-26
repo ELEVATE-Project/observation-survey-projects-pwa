@@ -43,6 +43,9 @@ export class ApiInterceptor implements HttpInterceptor {
       return req;
     }
 
+    let headers: any = localStorage.getItem('headers');
+    let extraHeaders = JSON.parse(headers);
+
     if (this.isSpecialUrl(req.url)) {
       return req.clone({
         setHeaders: { 'X-auth-token': `bearer ${token}` }
@@ -52,10 +55,17 @@ export class ApiInterceptor implements HttpInterceptor {
         headers: req.headers.delete('skipInterceptor'),
       });
     } else {
+      if(extraHeaders){
+        return req.clone({
+          setHeaders: { 'X-auth-token': token,...extraHeaders  }
+        });
+      }
+      else{
       return req.clone({
         setHeaders: { 'X-auth-token': token }
       });
     }
+  }
   }
 
   private isSpecialUrl(url: string): boolean {
