@@ -67,6 +67,6 @@
         "wishlist":"/api/shikshalokam/wishlist-project/"
     },
     "speechToText":{
-        "bhashini":"/api/ai4bharat/asr"
+        "bhashini":"/api/asr/"
     }
 }

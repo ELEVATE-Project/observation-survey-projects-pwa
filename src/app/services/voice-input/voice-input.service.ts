@@ -15,7 +15,7 @@ export class VoiceInputService {
     private loaderService: LoaderService
   ) {}
 
-  ai4BharatASR<T>(base64: any, gender = 'female'): Observable<T> {
+  ai4BharatASR<T>(base64: any, gender = 'female',route= '/explore_page'): Observable<T> {
     const header = {
       headers: { skipInterceptor: 'true' },
     };
@@ -28,6 +28,7 @@ export class VoiceInputService {
         base_64: base64,
         source_language: sourceLanguage,
         gender: gender,
+        route: route
       },
       header
     );
