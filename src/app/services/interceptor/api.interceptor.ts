@@ -43,19 +43,22 @@ export class ApiInterceptor implements HttpInterceptor {
       return req;
     }
 
+    let headers: any = localStorage.getItem('headers');
+    let extraHeaders = JSON.parse(headers);
+
     if (this.isSpecialUrl(req.url)) {
       return req.clone({
-        setHeaders: { 'X-auth-token': `bearer ${token}` }
+        setHeaders: extraHeaders ? { 'X-auth-token': `bearer ${token}`,...extraHeaders } : { 'X-auth-token': `bearer ${token}` }
       });
     } else if (req.headers.has("skipInterceptor")) {
       return req.clone({
         headers: req.headers.delete('skipInterceptor'),
       });
     } else {
-      return req.clone({
-        setHeaders: { 'X-auth-token': token }
-      });
-    }
+        return req.clone({
+          setHeaders: extraHeaders ? { 'X-auth-token': token, ...extraHeaders } : { 'X-auth-token': token }
+        });
+  }
   }
 
   private isSpecialUrl(url: string): boolean {
