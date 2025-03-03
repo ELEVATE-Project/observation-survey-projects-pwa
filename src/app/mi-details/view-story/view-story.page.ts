@@ -24,7 +24,7 @@ export class ViewStoryPage implements OnInit {
   }
   projectId:any;
   attachments:any
-  resource:Resource={ images: [], videos: [], documents: [] };
+  resource:Resource={ images: [], videos: [], documents: [], links:[] };
   viewProjectDetails:any;
   storyDetails:any;
   constructor(
@@ -126,12 +126,20 @@ async setOpenForCopyLink(url:any){
         this.viewProjectDetails=res.result;
         this.storyDetails=this.viewProjectDetails.story;
         this.attachments = this.viewProjectDetails.attachments.map((item:any)=>{
-            return {
-              ...item,
-              type:this.fileExtension(item.type)
+          return item.type === 'link' ? item : { ...item, type: this.fileExtension(item.type) };
+        })       
+        this.attachments.forEach((item:any) => {
+            if (actions.REGEX_MAP.images.test(item.type)) {
+              this.resource.images.push(item);
+            } else if (actions.REGEX_MAP.videos.test(item.type)) {
+              this.resource.videos.push(item);
+            } else if (actions.REGEX_MAP.documents.test(item.type)) {
+              this.resource.documents.push(item);
+            } else if (item.type=='link') {
+              this.resource.links.push(item);
             }
-        })
-        await this.filterAndSeparateFiles(this.attachments)
+          }
+      );
       }
     },
     (err: any) => {
@@ -145,20 +153,12 @@ fileExtension(type: string): string {
     return extension;
 }
 
-filterAndSeparateFiles(files:any) {
-  if(files.length == 0){
-    return ;
-  }
-  const regexPatterns:any = actions.REGEX_MAP
-  files.forEach((file:any) => {
-      const fileType = file.type.toLowerCase();
-      const category:keyof Resource= Object.keys(regexPatterns).find((key:any) => 
-        regexPatterns[key].test(fileType)
-      ) as keyof Resource;
-      if (category && this.resource[category]) {
-        this.resource[category].push(file);
-      }
-    });
-  }
+openAttachment(link:any){
+  let url=link.name
+  if (!/^https?:\/\//i.test(url)) {
+    url = 'http://' + url;
+}
+  window.open(url, '_blank')
+}
   
 }
