@@ -10,7 +10,6 @@ import { Share } from '@capacitor/share';
 import { ShareLinkComponent } from '../../shared/share-link/share-link.component';
 import { PopoverController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
-import { actions } from 'src/app/config/actionContants';
 import { Resource } from 'src/app/interfaces/viewresource';
 
 @Component({
@@ -23,7 +22,6 @@ export class ViewStoryPage implements OnInit {
     showBackButton:true
   }
   projectId:any;
-  attachments:any
   resource:Resource={ images: [], videos: [], documents: [], links:[] };
   viewProjectDetails:any;
   storyDetails:any;
@@ -125,21 +123,17 @@ async setOpenForCopyLink(url:any){
       if (res?.status == 200) {
         this.viewProjectDetails=res.result;
         this.storyDetails=this.viewProjectDetails.story;
-        this.attachments = this.viewProjectDetails.attachments.map((item:any)=>{
-          return item.type === 'link' ? item : { ...item, type: this.fileExtension(item.type) };
-        })       
-        this.attachments.forEach((item:any) => {
-            if (actions.REGEX_MAP.images.test(item.type)) {
-              this.resource.images.push(item);
-            } else if (actions.REGEX_MAP.videos.test(item.type)) {
-              this.resource.videos.push(item);
-            } else if (actions.REGEX_MAP.documents.test(item.type)) {
-              this.resource.documents.push(item);
-            } else if (item.type=='link') {
-              this.resource.links.push(item);
-            }
+        this.viewProjectDetails.attachments.map((item:any)=>{
+          if(item.type?.includes('image/')){
+            this.resource?.images.push(item);
+          }else if(item.type?.includes('vedio/')){
+            this.resource.videos?.push(item)
+          }else if(item.type?.includes('application/')){
+            this.resource.documents.push(item)
+          }else if(item.type == 'link'){
+            this.resource.links.push(item)
           }
-      );
+        })       
       }
     },
     (err: any) => {
@@ -148,10 +142,6 @@ async setOpenForCopyLink(url:any){
   )
   }
   
-fileExtension(type: string): string {
-    const extension = type.split('/')[1];
-    return extension;
-}
 
 openAttachment(link:any){
   let url=link.name
