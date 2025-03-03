@@ -126,7 +126,7 @@ async setOpenForCopyLink(url:any){
         this.viewProjectDetails.attachments.map((item:any)=>{
           if(item.type?.includes('image/')){
             this.resource?.images.push(item);
-          }else if(item.type?.includes('vedio/')){
+          }else if(item.type?.includes('video/')){
             this.resource.videos?.push(item)
           }else if(item.type?.includes('application/')){
             this.resource.documents.push(item)
