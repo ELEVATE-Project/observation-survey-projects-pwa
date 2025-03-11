@@ -25,7 +25,7 @@ export class ProjectDetailsPage  implements OnInit {
     accessToken: localStorage.getItem('accToken'),
     profileInfo: {},
     redirectionLinks: { contentPolicyLink: "https://shikshalokam.org/mentoring/privacy-policy/",
-      profilePage: "/profile-edit" }
+      profilePage: environment.profileRedirectPath ?? "" }
   }
   showDetails = false
   sharePopupHandler:any
