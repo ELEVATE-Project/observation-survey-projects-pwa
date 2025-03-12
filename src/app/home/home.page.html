@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <img src="../../assets/images/logo.png" alt="Elevate Logo" class="header-logo" />
+    <img [src]="logoPath" alt="Elevate Logo" class="header-logo" />
 
     <ion-buttons slot="end" class="buttons-section">
       <ion-button routerLink="/project-downloads" *allowTemplateView="pageIdsList.downloads">
@@ -56,7 +56,7 @@
             <ion-col size="6" size-md="3" (click)="navigateTo(listData)">
               <ion-card class="tiels">
                 <ion-card-content>
-                  <img [src]="listData?.img" alt="">
+                    <app-image [svgPath]="listData?.img"></app-image>
                   <h1 style="color:black">{{listData?.name}}</h1>
                 </ion-card-content>
               </ion-card>
