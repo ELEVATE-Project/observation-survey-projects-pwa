@@ -7,7 +7,8 @@ interface Environment {
   restrictedPages: any,
   unauthorizedRedirectUrl:string
   isAuthBypassed: any,
-  config:any
+  config:any,
+  profileRedirectPath: any
 }
 
 //projects and survey for non-docker
@@ -28,7 +29,8 @@ export const environment:Environment = {
   restrictedPages: window['env' as any]['restrictedPages' as any],
   unauthorizedRedirectUrl: window['env' as any]['unauthorizedRedirectUrl' as any] as unknown as string,
   isAuthBypassed: window['env' as any]['isAuthBypassed' as any] as unknown as any,
-  config: window['env' as any]['config' as any] as unknown as any
+  config: window['env' as any]['config' as any] as unknown as any,
+  profileRedirectPath: window['env' as any]['profileRedirectPath' as any] as unknown as any,
 }
 
 //survey-only
