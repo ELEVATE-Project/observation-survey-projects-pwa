@@ -11,6 +11,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
 import { AllowTemplateViewDirective } from '../shared/directives/allow-template-view.directive';
+import { ImageComponent } from '../shared/image/image.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -21,6 +22,6 @@ import { AllowTemplateViewDirective } from '../shared/directives/allow-template-
     TranslateModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
-  declarations: [HomePage, AllowTemplateViewDirective]
+  declarations: [HomePage, AllowTemplateViewDirective,ImageComponent]
 })
 export class HomePageModule {}

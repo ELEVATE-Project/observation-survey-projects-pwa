@@ -22,13 +22,14 @@ import {
 } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { RedirectionHandlerComponent } from './redirection-handler/redirection-handler.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 export function translateHttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent,CertificateVerificationPopoverComponent,ShareLinkPopupComponent,ShortUrlPipe,RedirectionHandlerComponent],
+  declarations: [AppComponent,CertificateVerificationPopoverComponent,ShareLinkPopupComponent,ShortUrlPipe,RedirectionHandlerComponent,PageNotFoundComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
     SlAuthLibModule, BrowserAnimationsModule,
     TranslateModule.forRoot({

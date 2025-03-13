@@ -94,3 +94,11 @@
   border-left: solid 2px grey;
   border-right: solid 2px grey;
 }
+
+.tiels app-image {
+  width: 60px;
+  height: 60px;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain; 
+}
