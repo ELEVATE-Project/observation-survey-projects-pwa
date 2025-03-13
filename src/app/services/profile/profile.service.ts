@@ -17,6 +17,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ProfileService {
+  profilePage = environment.profileRedirectPath || '';
   profileListingUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['profileListing'].listingUrl;
   formListingUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
   entityConfigUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['profileListing'].entityConfigUrl;
@@ -113,7 +114,7 @@ export class ProfileService {
           text: 'PROFILE_UPDATE',
           cssClass: 'primary-button',
           handler: () => {
-            this.router.navigate(['/profile-edit']);
+            this.router.navigate([this.profilePage]);
           }
         }
       ]
