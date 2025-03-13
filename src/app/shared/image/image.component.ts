@@ -33,7 +33,7 @@ export class ImageComponent implements AfterViewInit {
         const styleElement = svgElement.querySelector('style');
         if (styleElement) styleElement.remove();
 
-        const fillColor = this.fillColor || this.getCSSVariableValue('--ion-color-icon');
+        const fillColor = this.fillColor || this.getCSSVariableValue('--color-primary');
 
         svgElement.querySelectorAll('.st0, .cls-1').forEach(el => {
           this.renderer.setStyle(el, 'fill', fillColor);
