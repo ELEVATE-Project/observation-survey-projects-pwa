@@ -10,7 +10,6 @@ import { Share } from '@capacitor/share';
 import { ShareLinkComponent } from '../../shared/share-link/share-link.component';
 import { PopoverController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
-import { actions } from 'src/app/config/actionContants';
 import { Resource } from 'src/app/interfaces/viewresource';
 
 @Component({
@@ -23,8 +22,7 @@ export class ViewStoryPage implements OnInit {
     showBackButton:true
   }
   projectId:any;
-  attachments:any
-  resource:Resource={ images: [], videos: [], documents: [] };
+  resource:Resource={ images: [], videos: [], documents: [], links:[] };
   viewProjectDetails:any;
   storyDetails:any;
   constructor(
@@ -125,13 +123,17 @@ async setOpenForCopyLink(url:any){
       if (res?.status == 200) {
         this.viewProjectDetails=res.result;
         this.storyDetails=this.viewProjectDetails.story;
-        this.attachments = this.viewProjectDetails.attachments.map((item:any)=>{
-            return {
-              ...item,
-              type:this.fileExtension(item.type)
-            }
-        })
-        await this.filterAndSeparateFiles(this.attachments)
+        this.viewProjectDetails.attachments.map((item:any)=>{
+          if(item.type?.includes('image/')){
+            this.resource?.images.push(item);
+          }else if(item.type?.includes('video/')){
+            this.resource.videos?.push(item)
+          }else if(item.type?.includes('application/')){
+            this.resource.documents.push(item)
+          }else if(item.type == 'link'){
+            this.resource.links.push(item)
+          }
+        })       
       }
     },
     (err: any) => {
@@ -140,25 +142,13 @@ async setOpenForCopyLink(url:any){
   )
   }
   
-fileExtension(type: string): string {
-    const extension = type.split('/')[1];
-    return extension;
-}
 
-filterAndSeparateFiles(files:any) {
-  if(files.length == 0){
-    return ;
-  }
-  const regexPatterns:any = actions.REGEX_MAP
-  files.forEach((file:any) => {
-      const fileType = file.type.toLowerCase();
-      const category:keyof Resource= Object.keys(regexPatterns).find((key:any) => 
-        regexPatterns[key].test(fileType)
-      ) as keyof Resource;
-      if (category && this.resource[category]) {
-        this.resource[category].push(file);
-      }
-    });
-  }
+openAttachment(link:any){
+  let url=link.name
+  if (!/^https?:\/\//i.test(url)) {
+    url = 'http://' + url;
+}
+  window.open(url, '_blank')
+}
   
 }

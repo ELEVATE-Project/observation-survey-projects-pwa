@@ -2,6 +2,7 @@ export interface Resource {
     images: FileItem[];
     videos: FileItem[];
     documents: FileItem[];
+    links:FileItem[]
 }
   
 export interface FileItem {

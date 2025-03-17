@@ -115,6 +115,16 @@
         }
       </div>
     }
+
+ @if(resource.links.length){
+  <div class="resource-item">
+    @for(link of resource.links;track link){
+      <div class="item" (click)="openAttachment(link)">
+        <ion-icon name="link"></ion-icon>{{link?.name}}
+      </div>
+    }
+  </div>
+}
   </div>
 }
 
