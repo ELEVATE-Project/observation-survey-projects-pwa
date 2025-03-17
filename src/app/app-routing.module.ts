@@ -3,14 +3,6 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'authentication_frontend_library';
 const routes: Routes = [
   // /* Do not change mohini & create-project route objects, they're necessary to load Reflection and Project Creation react apps via nginx */
-  { path: 'mohini',
-    redirectTo: '', 
-    pathMatch: 'prefix' 
-  },
-  { path: 'create-project', 
-    redirectTo: '', 
-    pathMatch: 'prefix'
-   },
   {
     path: 'home',
     loadChildren: () =>
@@ -62,10 +54,17 @@ const routes: Routes = [
     loadChildren: () =>
       import('authentication_frontend_library').then((m) => m.SlRoutingRoutingModule),
   },
-  {
+  { path: 'mohini',
+    redirectTo: '', 
+    pathMatch: 'prefix' 
+  },
+  { path: 'create-project', 
+    redirectTo: '', 
+    pathMatch: 'prefix'
+   },
+   {
     path: '**',
     redirectTo: 'home',
-    pathMatch: 'full'
   }
 ];
 @NgModule({
