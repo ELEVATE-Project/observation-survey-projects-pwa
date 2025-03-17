@@ -123,6 +123,12 @@ async setOpenForCopyLink(url:any){
       if (res?.status == 200) {
         this.viewProjectDetails=res.result;
         this.storyDetails=this.viewProjectDetails.story;
+        if(!this.storyDetails?.problemStatement){
+          this.storyDetails={
+            ...this.storyDetails,
+            problemStatement:this.viewProjectDetails?.programName
+          }
+        }
         this.viewProjectDetails.attachments.map((item:any)=>{
           if(item.type?.includes('image/')){
             this.resource?.images.push(item);
