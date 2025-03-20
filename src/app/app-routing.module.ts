@@ -61,11 +61,6 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () =>
       import('authentication_frontend_library').then((m) => m.SlRoutingRoutingModule),
-  },
-  {
-    path: '**',
-    redirectTo: 'home',
-    pathMatch: 'full'
   }
 ];
 @NgModule({
