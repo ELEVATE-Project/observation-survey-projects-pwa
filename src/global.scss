@@ -71,11 +71,11 @@ mat-label {
   --mdc-outlined-text-field-focus-label-text-color: var(--color-primary);
   --mdc-filled-text-field-focus-active-indicator-color: var(--color-primary);
 
-  --primary-color: #832215;
+  --primary-color: var(--color-primary);
   --disabled-btn-bg: #0000001f;
   --disabled-btn-text: #00000061;
-  --btn-outline: #832215;
-  --error-color: rgb(150, 4, 4);
+  --btn-outline: var(--color-primary);
+  --error-color: var(--color-danger);
   --question-tip: gray;
   --general-btn-text-color: white;
   --general-btn-hover-bg: white;
