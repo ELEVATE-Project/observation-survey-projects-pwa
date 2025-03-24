@@ -62,9 +62,9 @@ export class ApiInterceptor implements HttpInterceptor {
   }
 
   private isSpecialUrl(url: string): boolean {
-    return url.includes('/logout') || 
+    return url.includes('/logout') ||
            url.includes('/user/update') ||
-           url.includes('/cloud-services/file/getSignedUrl') || 
+           url.includes('/cloud-services/file/getSignedUrl') ||
            url.includes('getDownloadableUrl');
   }
 
@@ -79,7 +79,7 @@ export class ApiInterceptor implements HttpInterceptor {
       }));
     }
     return throwError(error);
-    
+
     }
   private handleOfflineError(): Observable<any> {
         return throwError(() => ({
