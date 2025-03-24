@@ -34,6 +34,10 @@ const routes: Routes = [
     data: { pageId: PAGE_IDS.questioniare }
   },
   {
+    path:'observation',
+    loadChildren:() => import('./observation/observation.module').then(m => m.ObservationModule)
+  },
+  {
     path: 'qr-scanner',
     loadChildren: () => import('./qr-scanner/qr-scanner.module').then( m => m.QrScannerPageModule),
     canActivate: [allowPageAccessGuard],
