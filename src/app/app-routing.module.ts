@@ -58,9 +58,13 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'auth',
+    path: '',
     loadChildren: () =>
       import('authentication_frontend_library').then((m) => m.SlRoutingRoutingModule),
+  },
+  {
+    path: '**',
+    redirectTo: 'home'
   }
 ];
 @NgModule({
