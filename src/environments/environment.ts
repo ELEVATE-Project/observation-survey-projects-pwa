@@ -8,7 +8,8 @@ interface Environment {
   unauthorizedRedirectUrl:string
   isAuthBypassed: any,
   config:any,
-  profileRedirectPath: any
+  profileRedirectPath: any,
+  showHeader:any
 }
 
 //projects and survey for non-docker
@@ -31,6 +32,7 @@ export const environment:Environment = {
   isAuthBypassed: window['env' as any]['isAuthBypassed' as any] as unknown as any,
   config: window['env' as any]['config' as any] as unknown as any,
   profileRedirectPath: window['env' as any]['profileRedirectPath' as any] as unknown as any,
+  showHeader: window['env' as any]['showHeader' as any] as unknown as any,
 }
 
 //survey-only

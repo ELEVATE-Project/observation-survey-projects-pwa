@@ -148,9 +148,6 @@ export class ProjectReportPage implements OnInit {
       });
   }
 
-  goBack() {
-    this.navCtrl.back();
-  }
 
   getReportType(e: any) {
     this.reportType = e;

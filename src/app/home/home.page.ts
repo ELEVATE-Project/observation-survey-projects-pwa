@@ -21,6 +21,7 @@ register();
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
+  showHeaders = environment.showHeaders;
   logoPath = environment.config.logoPath;
   formListingUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
   swiperModules = [IonicSlides];

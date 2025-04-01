@@ -7,6 +7,7 @@ import { GenericReportComponent } from './generic-report.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -16,7 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule,
     FormsModule,
     IonicModule,
-    
+    SharedModule,
     GenericReportRoutingModule
   ]
 })

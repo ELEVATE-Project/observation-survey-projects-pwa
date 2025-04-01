@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LibraryCategoriesListComponent } from './library-categories-list/library-categories-list.component';
 import { SelectedCategoriesListComponent } from './selected-categories-list/selected-categories-list.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from '../shared/shared.module';
 
 const routes: Routes = [
   {
@@ -22,7 +23,8 @@ const routes: Routes = [
     CommonModule,
     IonicModule,
     TranslateModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedModule
   ],
   declarations: [LibraryCategoriesListComponent, SelectedCategoriesListComponent]
 })

@@ -1,3 +1,4 @@
+@if(showHeader){
 <ion-header>
   <ion-toolbar>
     <img [src]="logoPath" alt="Elevate Logo" class="header-logo" />
@@ -17,6 +18,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+}
 
 <ion-content [fullscreen]="true">
   <ng-container *ngFor="let listData of solutionList">

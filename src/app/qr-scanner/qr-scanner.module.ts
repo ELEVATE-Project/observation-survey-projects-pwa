@@ -8,6 +8,7 @@ import { QrScannerPageRoutingModule } from './qr-scanner-routing.module';
 
 import { QrScannerPage } from './qr-scanner.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -16,7 +17,8 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     FormsModule,
     IonicModule,
-    QrScannerPageRoutingModule,
+    TranslateModule,
+    SharedModule
     TranslateModule
   ],
   declarations: [QrScannerPage]

@@ -34,8 +34,5 @@ export class LibraryCategoriesListComponent  implements OnInit {
     this.router.navigate(['project-library',category.externalId],{ state: category })
   }
 
-  goBack() {
-    this.navCtrl.back();
-  }
 
 }

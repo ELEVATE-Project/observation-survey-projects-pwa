@@ -122,9 +122,6 @@ export class ProfilePage {
     });
   }
 
-  goBack() {
-    this.navCtrl.back();
-  }
 
   capitalizeLabelFirstLetter(label: string): string {
     if (!label) return '';
