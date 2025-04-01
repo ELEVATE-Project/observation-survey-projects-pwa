@@ -16,6 +16,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./project-details.page.scss']
 })
 export class ProjectDetailsPage  implements OnInit {
+  showHeader = environment.showHeader;
   router: Router;
   projectData:any;
   isOnline:any;
