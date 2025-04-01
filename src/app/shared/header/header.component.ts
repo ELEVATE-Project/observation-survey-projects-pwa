@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent   {
-  showHeaders = environment.showHeaders;
+  showHeader = environment.showHeader;
   @Input() pageTitle?: string ;
   constructor(private navCtrl: NavController) { }
 
