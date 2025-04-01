@@ -111,4 +111,8 @@ export class ProjectDetailsPage  implements OnInit {
       window.removeEventListener('message', this.sharePopupHandler);
     }
 
+    goBack(){
+      this.navCtrl.back();
+    }
+
 }
