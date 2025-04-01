@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 
@@ -8,7 +8,8 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent   {
-  skipHeaders = environment.skipHeaders;
+  showHeaders = environment.showHeaders;
+  @Input() pageTitle?: string ;
   constructor(private navCtrl: NavController) { }
 
   goBack() {

@@ -21,7 +21,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./profile-edit.page.scss'],
 })
 export class ProfileEditPage implements isDeactivatable {
-  skipHeaders = environment.skipHeaders;
+  showHeaders = environment.showHeaders;
   @ViewChild('formLib') formLib: MainFormComponent | undefined;
   @ViewChild('formLib2') formLib2: MainFormComponent | undefined;
 
