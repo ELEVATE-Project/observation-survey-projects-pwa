@@ -23,6 +23,7 @@ import {
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { RedirectionHandlerComponent } from './redirection-handler/redirection-handler.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { SharedModule } from './shared/shared.module';
 
 export function translateHttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
@@ -31,7 +32,7 @@ export function translateHttpLoaderFactory(httpClient: HttpClient) {
 @NgModule({
   declarations: [AppComponent,CertificateVerificationPopoverComponent,ShareLinkPopupComponent,ShortUrlPipe,RedirectionHandlerComponent,PageNotFoundComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
-    SlAuthLibModule, BrowserAnimationsModule,
+    SlAuthLibModule, BrowserAnimationsModule,SharedModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

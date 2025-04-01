@@ -89,9 +89,6 @@ export class ProjectDetailsPage  implements OnInit {
    }
 
 
-    goBack(){
-      this.navCtrl.back();
-    }
 
     getProfileDetails() {
       if(!this.utils.isLoggedIn()){

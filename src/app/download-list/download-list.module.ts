@@ -8,13 +8,15 @@ import { DownloadListPageRoutingModule } from './download-list-routing.module';
 
 import { DownloadListPage } from './download-list.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DownloadListPageRoutingModule,
+    TranslateModule,
+    SharedModule
     TranslateModule
   ],
   declarations: [DownloadListPage]

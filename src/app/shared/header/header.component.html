@@ -1,0 +1,10 @@
+@if(!skipHeaders){
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/" (click)="goBack()"></ion-back-button>
+      </ion-buttons>
+      <ng-content ></ng-content>
+    </ion-toolbar>
+  </ion-header>
+}

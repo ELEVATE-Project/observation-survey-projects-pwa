@@ -53,9 +53,6 @@ export class ProgramDetailsPage implements OnInit {
     // this.filteredList=[]
     this.filterData = []
   }
-  goBack() {
-    this.navCtrl.back();
-  }
 
   // filterChanged(event:any){
   //   this.programFilter = event.detail.value;

@@ -22,9 +22,6 @@ export class DownloadListPage implements OnInit {
     this.projectsList = await this.dbService.getAllTransactions()
   }
 
-  goBack() {
-    this.navCtrl.back();
-  }
 
   navigate(id:any) {
     this.router.navigate(['project-details'], { state: { _id:id || null} });

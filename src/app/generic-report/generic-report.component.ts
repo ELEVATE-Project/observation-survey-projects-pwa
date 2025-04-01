@@ -132,10 +132,6 @@ export class GenericReportComponent implements OnInit {
   }
   
 
-  goBack() {
-    this.navCtrl.back();
-  }
-
   openUrl(url:string){
     window.open(url,'_blank')
   }

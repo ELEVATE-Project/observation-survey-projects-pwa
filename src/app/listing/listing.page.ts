@@ -193,9 +193,7 @@ export class ListingPage implements OnInit {
     this.getListData();
   }
 
-  goBack() {
-    this.navCtrl.back();
-  }
+
 
   navigateTo(data: any) {
     switch (this.listType) {

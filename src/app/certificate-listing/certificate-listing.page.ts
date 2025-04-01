@@ -26,9 +26,6 @@ export class CertificateListingPage implements OnInit {
   ngOnInit() {
     this.getCertificateList()
   }
-  goBack() {
-    this.navCtrl.back();
-  }
   async getCertificateList() {
     await this.loader.showLoading("LOADER_MSG");
     this.baseApiService

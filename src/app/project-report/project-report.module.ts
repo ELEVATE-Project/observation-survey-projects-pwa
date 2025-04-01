@@ -10,6 +10,7 @@ import { ProjectReportPage } from './project-report.page';
 import { PopoverComponent } from '../shared/popover/popover.component';
 import { ReportHeaderComponent } from '../shared/report-header/report-header.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     IonicModule,
     ProjectReportPageRoutingModule,
-    TranslateModule
+    TranslateModule,SharedModule
   ],
   declarations: [ProjectReportPage,PopoverComponent,ReportHeaderComponent]
 })

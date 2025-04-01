@@ -28,7 +28,4 @@ export class ReportListPage implements OnInit {
     this.router.navigate([data?.redirectionUrl], { queryParams: { type: data.listType, reportPage: data?.reportPage } });
   }
 
-  goBack() {
-    this.navCtrl.back();
-  }
 }
