@@ -1,6 +1,6 @@
 {
-    "name": "Elevate PWA",
-    "short_name": "Elevate PWA",
+    "name": "SOT",
+    "short_name": "SOT",
     "start_url": "/",
     "display": "ngModule",
     "background_color": "#ffffff",
