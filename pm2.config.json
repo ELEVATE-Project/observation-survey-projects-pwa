@@ -1,7 +1,7 @@
 {
     "apps": [
       {
-        "name": "elevate-projects-pwa",
+        "name": "sot-elevate-projects-pwa",
         "script": "server.js",
         "args": [],
         "instances": "1",
@@ -10,7 +10,7 @@
         "merge_logs": true,
         "env": {
           "NODE_ENV": "production",
-          "PORT": 8181
+          "PORT": 8182
         }
       }
     ]
