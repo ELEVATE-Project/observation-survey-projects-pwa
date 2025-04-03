@@ -3,7 +3,7 @@
   "index": "/index.html",
   "assetGroups": [
     {
-      "name": "Elevate PWA",
+      "name": "SOT",
       "installMode": "prefetch",
       "resources": {
         "files": [
