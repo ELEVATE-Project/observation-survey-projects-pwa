@@ -71,6 +71,10 @@ const routes: Routes = [
     loadChildren: () => import('./profile-edit/profile-edit.module').then( m => m.ProfileEditPageModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'landing',
+    redirectTo: 'login'
+  },
   { path: '', loadChildren: () => import('authentication_frontend_library').then(m => m.SlRoutingRoutingModule) },
   {
     path: '**',

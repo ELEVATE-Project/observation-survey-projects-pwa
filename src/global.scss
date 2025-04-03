@@ -57,8 +57,8 @@ mat-label {
 :root {
   --ion-default-font: "NotoSans-Regular";
   --ion-font-family: "NotoSans-Regular";
-  --color-primary: #832215;
-  --color-secondary: #8C2E23;
+  --color-primary: #073763;
+  --color-secondary: #073763;
   --color-light: #ffffff;
   --color-dark: #000000;
   --color-grey: #808080;
@@ -71,10 +71,10 @@ mat-label {
   --mdc-outlined-text-field-focus-label-text-color: var(--color-primary);
   --mdc-filled-text-field-focus-active-indicator-color: var(--color-primary);
 
-  --primary-color: #832215;
+  --primary-color: #073763;
   --disabled-btn-bg: #0000001f;
   --disabled-btn-text: #00000061;
-  --btn-outline: #832215;
+  --btn-outline: #073763;
   --error-color: rgb(150, 4, 4);
   --question-tip: gray;
   --general-btn-text-color: white;
@@ -229,4 +229,10 @@ ion-segment-button {
 .popup-class{
   --height: 125px;
   --width:450px;
+}
+
+.header{
+  a, .sign-up-button{
+    display: none !important;
+  }
 }
