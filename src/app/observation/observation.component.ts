@@ -14,7 +14,7 @@ import { ToastService } from '../services/toast/toast.service';
   styleUrls: ['./observation.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ObservationComponent implements isDeactivatable {
+export class ObservationComponent {
   apiConfig: any = {};
   isDirty: boolean = false;
   saveQuestioner: boolean = false;
@@ -40,12 +40,10 @@ export class ObservationComponent implements isDeactivatable {
     }
   }
 
-  async canPageLeave(): Promise<boolean> {
-      this.isDirty = false;
-      if(!this.profileUpdate){
+  canPageLeaves(){
+    if(!this.profileUpdate){
       this.navCtrl.back();
-      }
-      return true;
+    }
   }
 
   getProfileDetails() {
