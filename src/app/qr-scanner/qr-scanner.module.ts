@@ -19,7 +19,6 @@ import { SharedModule } from '../shared/shared.module';
     IonicModule,
     TranslateModule,
     SharedModule
-    TranslateModule
   ],
   declarations: [QrScannerPage]
 })
