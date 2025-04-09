@@ -129,6 +129,12 @@ async setOpenForCopyLink(url:any){
             problemStatement:this.viewProjectDetails?.programName
           }
         }
+        if(!this.storyDetails?.timeline){
+            this.storyDetails={
+              ...this.storyDetails,
+              timeline : this.viewProjectDetails?.duration
+            }
+        }
         this.viewProjectDetails.attachments.map((item:any)=>{
           if(item.type?.includes('image/')){
             this.resource?.images.push(item);
