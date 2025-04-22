@@ -9,7 +9,7 @@
         "listingUrl": "/project/v1/solutions/list"
     },
     "project": {
-        "listingUrl": "/project/v1/solutions/targetedSolutions",
+        "listingUrl": "/solutions/mlcore/v1/targetedSolutions",
         "verifyLink": "/project/v1/solutions/verifyLink/",
         "categoriesList": "/project/v1/library/categories/list",
         "projectCategories": "/project/v1/library/categories/projects/"
@@ -32,8 +32,8 @@
 
     },
     "report":{
-        "listingUrl":"/project/v1/reports/entity",
-        "getProgramsUrl":"/project/v1/reports/getProgramsByEntity"
+        "listingUrl":"/reports/mlprojects/v1/entity",
+        "getProgramsUrl":"/reports/mlprojects/v1/getProgramsByEntity"
     },
     "program":{
         "listingUrl":"/project/v1/users/programs",

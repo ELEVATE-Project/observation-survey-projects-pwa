@@ -65,6 +65,15 @@ export class ProfileService {
     ])
       .pipe(
         map(([entityConfigRes, profileFormDataRes]: any) => {
+          let profileData = localStorage.getItem("profileData")
+          if(profileData){
+            let parsedData = JSON.parse(profileData)
+            if(parsedData?.state){
+              return parsedData
+            }else{
+              this.presentAlert();
+            }
+          }
           if (entityConfigRes?.status === 200 && profileFormDataRes?.status === 200) {
             const profileData = entityConfigRes?.result?.meta?.profileKeys;
             const profileDetails = profileFormDataRes?.result;
@@ -123,7 +132,111 @@ export class ProfileService {
 
   async getHomeConfig(listType: any, isReport?: boolean): Promise<any> {
     try {
-      const response: any = await firstValueFrom(this.projectsApiService.post(this.formListingUrl, FETCH_HOME_FORM));
+      // const response: any = await firstValueFrom(this.projectsApiService.post(this.formListingUrl, FETCH_HOME_FORM));
+      const response: any = {
+        "message": "Form fetched successfully",
+        "status": 200,
+        "result": {
+            "data": [
+                {
+                    "type": "bannerList",
+                    "listingData": [
+                        {
+                            "title": "Hey, Welcome back!",
+                            "discription": ""
+                        }
+                    ]
+                },
+                {
+                    "type": "solutionList",
+                    "listingData": [
+                        {
+                            "name": "Programs",
+                            "description": "View and participate in educational programs active in your location and designed for the role you selected",
+                            "img": "assets/images/ic_program.svg",
+                            "listType": "program",
+                            "redirectionUrl": "/listing/program",
+                            "solutionType": "isAPrivateProgram",
+                            "reportPage": false
+                        },
+                        {
+                            "name": "Projects",
+                            "img": "assets/images/ic_project.svg",
+                            "redirectionUrl": "/listing/project",
+                            "listType": "project",
+                            "solutionType": "improvementProject",
+                            "reportPage": false,
+                            "description": "Manage and track your school improvement easily, by creating tasks and planning project timelines"
+                        },
+                        {
+                            "name": "Observations",
+                            "img": "assets/images/ic_observation.svg",
+                            "redirectionUrl": "/observation",
+                            "listType": "listing",
+                            "reportPage": true,
+                            "description": ""
+                        },
+                        {
+                            "name": "Survey",
+                            "img": "assets/images/ic_survey.svg",
+                            "redirectionUrl": "/listing/survey",
+                            "listType": "survey",
+                            "solutionType": "survey",
+                            "reportPage": false,
+                            "reportIdentifier": "surveyReportPage",
+                            "description": "Provide information and feedback through quick and easy surveys"
+                        },
+                        {
+                            "name": "Reports",
+                            "img": "assets/images/ic_report.svg",
+                            "redirectionUrl": "/project-report",
+                            "listType": "report",
+                            "reportPage": true,
+                            "description": "Make sense of data to enable your decision-making based on your programs with ease",
+                            "list": [
+                                {
+                                    "name": "Improvement Project Reports",
+                                    "img": "assets/images/ic_project.svg",
+                                    "redirectionUrl": "/project-report",
+                                    "listType": "project",
+                                    "solutionType": "improvementProject",
+                                    "reportPage": false,
+                                    "description": "Manage and track your school improvement easily, by creating tasks and planning project timelines"
+                                },
+                                {
+                                    "name": "Survey Reports",
+                                    "img": "assets/images/ic_survey.svg",
+                                    "redirectionUrl": "/listing/survey",
+                                    "listType": "survey",
+                                    "solutionType": "survey",
+                                    "reportPage": true,
+                                    "reportIdentifier": "surveyReportPage",
+                                    "description": "Provide information and feedback through quick and easy surveys"
+                                },
+                                {
+                                    "name": "Observation Reports",
+                                    "img": "assets/images/ic_observation.svg",
+                                    "redirectionUrl": "/observation",
+                                    "listType": "listing",
+                                    "solutionType": "observation",
+                                    "reportPage": true,
+                                    "reportIdentifier": "surveyReportPage",
+                                    "description": "Provide information and feedback through quick and easy observations"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Library",
+                            "img": "assets/images/library.svg",
+                            "redirectionUrl": "/project-library",
+                            "listType": "library",
+                            "description": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    }
       if (response.status === 200 && response.result) {
         let data = response.result.data;
         let solutionList = data.find((item: any) => item.type === 'solutionList');
