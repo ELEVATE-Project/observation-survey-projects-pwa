@@ -98,7 +98,6 @@ const routes: Routes = [
     canActivate: [AuthGuard, allowPageAccessGuard],
     data: { pageId: PAGE_IDS.editProfile }
   },
-
   { path: '',
     // pathMatch: "prefix",
     loadChildren: () => import('authentication_frontend_library').then(m => m.SlRoutingRoutingModule),
