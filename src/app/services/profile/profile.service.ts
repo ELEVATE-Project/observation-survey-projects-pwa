@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 import { AlertService } from '../alert/alert.service';
 import { Location } from '@angular/common';
 import { FETCH_HOME_FORM } from '../../core/constants/formConstant';
-import { ProjectsApiService } from '../projects-api/projects-api.service';
 import { environment } from 'src/environments/environment';
 import { FormsService } from 'formstore-cache';
 
