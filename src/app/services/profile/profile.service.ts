@@ -65,7 +65,16 @@ export class ProfileService {
       ),
     ])
       .pipe(
-        map(async ([entityConfigRes, profileFormDataRes]: any) => {
+        map( async ([entityConfigRes, profileFormDataRes]: any) => {
+          let profileData = localStorage.getItem("profileData")
+          if(profileData){
+            let parsedData = JSON.parse(profileData)
+            if(parsedData?.state){
+              return parsedData
+            }else{
+              this.presentAlert();
+            }
+          }
           if (entityConfigRes?.status === 200 && profileFormDataRes?.status === 200) {
             const profileData = entityConfigRes?.result?.meta?.profileKeys;
             const profileDetails = profileFormDataRes?.result;
