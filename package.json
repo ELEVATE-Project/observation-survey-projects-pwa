@@ -39,6 +39,7 @@
     "chart.js": "^4.4.3",
     "chartjs-plugin-datalabels": "^2.2.0",
     "elevate-dynamic-form": "^0.0.15",
+    "formstore-cache": "^1.0.0",
     "ionicons": "^7.0.0",
     "jwt-decode": "^4.0.0",
     "network-service": "^0.0.1",
