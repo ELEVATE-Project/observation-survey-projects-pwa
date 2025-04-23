@@ -143,20 +143,20 @@ export class ProfileService {
       if (response?.data?.status === 200 && response.data.result) {
         let data = response.data.result.data;
         let solutionList = data.find((item: any) => item.type === 'solutionList');
-        let returnData: any;
+        let returnData:any
         if (solutionList) {
-          if (isReport) {
+          if(isReport){
             let reportList = solutionList.listingData.find((data: any) => data.listType === "report");
-            returnData = reportList?.list.find((data: any) => data.listType === listType);
-          } else {
+            returnData = reportList.list.find((data: any) => data.listType === listType)
+          }else{
             returnData = solutionList.listingData.find((data: any) => data.listType === listType);
           }
-          return returnData;
+          return returnData
         }
       }
-      return null;
+      return null
     } catch (error: any) {
-      this.toastService.presentToast(error?.error?.message || "API Error", "danger");
+      this.toastService.presentToast(error?.error?.message, "danger");
       throw error;
     }
   }
