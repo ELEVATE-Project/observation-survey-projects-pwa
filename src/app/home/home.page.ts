@@ -6,7 +6,7 @@ import { LoaderService } from '../services/loader/loader.service';
 import urlConfig from 'src/app/config/url.config.json';
 import { ToastService } from '../services/toast/toast.service';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs';
+import { finalize, of } from 'rxjs';
 import { FETCH_HOME_FORM, FETCH_HOME_FORM_PROJECT, FETCH_HOME_FORM_SURVEY } from '../core/constants/formConstant';
 import { AuthService } from 'authentication_frontend_library';
 import { UtilService } from 'src/app/services/util/util.service';
@@ -14,6 +14,7 @@ import { ProfileService } from '../services/profile/profile.service';
 import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 import { environment } from 'src/environments/environment';
 import { PAGE_IDS } from '../core/constants/pageIds';
+import {DbService, FormsService} from 'forms'
 register();
 @Component({
   selector: 'app-home',
@@ -30,6 +31,7 @@ export class HomePage {
   authService: AuthService;
   toastService: any;
   loader: LoaderService;
+  dbService: DbService;
   solutionList: any = [];
   isMobile = this.utilService.isMobile();
   typeTemplateMapping: { [key: string]: TemplateRef<any> } = {};
@@ -46,6 +48,7 @@ export class HomePage {
     this.loader = inject(LoaderService)
     this.authService = inject(AuthService)
     this.toastService = inject(ToastService)
+    this.dbService = inject(DbService)
   }
 
   ionViewWillEnter() {
@@ -99,6 +102,11 @@ export class HomePage {
   async handleMessage(event: MessageEvent) {
     if (event.data && event.data.msg) {
       this.utilService.clearDatabase();
+      this.dbService.clearDatabase();
+      document.documentElement.style.setProperty('--ion-color-primary', '#832215');
+      document.documentElement.style.setProperty('--ion-color-secondary', '#ffffff');
+      document.documentElement.style.setProperty('--primary-color', '#832215');
+      document.documentElement.style.setProperty('--color-primary', '#832215');
     }
   }
 }

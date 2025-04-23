@@ -15,7 +15,7 @@ import { CertificateVerificationPopoverComponent } from './shared/certificate-ve
 import { ShareLinkPopupComponent } from './shared/share-link-popup/share-link-popupcomponent';
 import { ShortUrlPipe } from './shared/pipes/short-url.pipe';
 
-import { 
+import {
   TranslateLoader,
   TranslateModule,
   TranslateService,
@@ -24,6 +24,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { RedirectionHandlerComponent } from './redirection-handler/redirection-handler.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SharedModule } from './shared/shared.module';
+import { FormsService } from 'forms';
 
 export function translateHttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
@@ -59,15 +60,25 @@ export function translateHttpLoaderFactory(httpClient: HttpClient) {
     SwUpdate,
     ShortUrlPipe
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(private translate:TranslateService){
+  formsConfig={
+    BASEURL:environment.baseURL,
+    db:{
+      dbName:"forms",
+      dbVersion:1,
+      storeName:"forms",
+    }
+  }
+  constructor(private translate:TranslateService,private formsService:FormsService){
     this.setLanguage();
+    this.formsService.setFormsConfig(this.formsConfig);
+
   }
   setLanguage() {
     this.translate.setDefaultLang('en');
-    this.translate.use('en'); 
+    this.translate.use('en');
   }
 }
 
