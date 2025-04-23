@@ -99,17 +99,17 @@ const routes: Routes = [
     data: { pageId: PAGE_IDS.editProfile }
   },
 
-  // { path: 'auth',
-  //   // pathMatch: "prefix",
-  //   loadChildren: () => import('authentication_frontend_library').then(m => m.SlRoutingRoutingModule),
-  //   canActivate:[allowPageAccessGuard],
-  //   data: { pageId: PAGE_IDS.authPages }
-  // },
-  // {
-  //   path: '**',
-  //   // redirectTo: 'home',
-  //   component: PageNotFoundComponent
-  // }
+  { path: '',
+    // pathMatch: "prefix",
+    loadChildren: () => import('authentication_frontend_library').then(m => m.SlRoutingRoutingModule),
+    canActivate:[allowPageAccessGuard],
+    data: { pageId: PAGE_IDS.authPages }
+  },
+  {
+    path: '**',
+    // redirectTo: 'home',
+    component: PageNotFoundComponent
+  }
 ];
 @NgModule({
   imports: [
