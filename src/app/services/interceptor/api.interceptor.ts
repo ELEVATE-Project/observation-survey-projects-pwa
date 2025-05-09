@@ -39,12 +39,14 @@ export class ApiInterceptor implements HttpInterceptor {
   }
 
   private addAuthHeader(req: HttpRequest<any>, token: string | null): HttpRequest<any> {
-    if (!token) {
-      return req;
-    }
+    // if (!token) {
+    //   return req;
+    // }
 
     let headers: any = localStorage.getItem('headers');
     let extraHeaders = JSON.parse(headers);
+
+    console.log("HEaders from local: ",headers)
 
     if (this.isSpecialUrl(req.url)) {
       return req.clone({
