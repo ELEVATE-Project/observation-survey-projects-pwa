@@ -58,7 +58,7 @@ const routes: Routes = [
   {
     path: 'listing/:type',
     loadChildren: () => import('./listing/listing.module').then( m => m.ListingPageModule),
-    canActivate: [AuthGuard, allowPageAccessGuard],
+    canActivate: [allowPageAccessGuard],
     data: { pageId: PAGE_IDS.listing }
   },
   {
