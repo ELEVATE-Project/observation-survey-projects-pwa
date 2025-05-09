@@ -111,6 +111,7 @@ export class ListingPage implements OnInit {
         })
       )
       .subscribe((res: any) => {
+        console.log("listing response: ",res)
         if (res?.status == 200) {
           this.solutionList.data = this.solutionList?.data.concat(res?.result?.data);
           this.solutionList.count = res?.result?.count;
@@ -125,6 +126,7 @@ export class ListingPage implements OnInit {
         }
       },
         (err: any) => {
+          console.log("listing response error: ",err)
           this.toastService.presentToast(err?.error?.message, 'danger');
         }
       );
