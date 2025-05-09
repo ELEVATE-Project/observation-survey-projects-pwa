@@ -101,6 +101,8 @@ export class ListingPage implements OnInit {
     if(this.listType !== 'project'){
       this.filter = '';
     };
+
+    console.log("url congif: ", urlConfig[this.listType].listingUrl + `?${this.listType == 'program'?`${this.stateData.solutionType}=${this.isAPrivateProgram}`:`type=${this.stateData.solutionType}`}&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}${this.stateData.reportIdentifier ? `&` +this.stateData.reportIdentifier+`=`+this.reportPage : ''}`, this.entityData);
     (this.listType == 'project'  || this.listType == 'program' ? this.ProjectsApiService : this.SamikshaApiService)
       .post(
         urlConfig[this.listType].listingUrl + `?${this.listType == 'program'?`${this.stateData.solutionType}=${this.isAPrivateProgram}`:`type=${this.stateData.solutionType}`}&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}${this.stateData.reportIdentifier ? `&` +this.stateData.reportIdentifier+`=`+this.reportPage : ''}`, this.entityData)
