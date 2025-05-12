@@ -28,6 +28,9 @@
     </ion-segment>
   }
 
+  <div (click)="observationNavigation('/managed-observation-portal/listing/observation')">Navigate to obs one</div>
+  <div (click)="observationNavigation('https://dev.oci.diksha.gov.in/managed-observation-portal/listing/observation')">Navigate to obs two</div>
+
   
   <ion-grid>
     <ion-row *ngIf="solutionList?.count > 0; else noData">

@@ -52,13 +52,13 @@ export class ProfileService {
     return combineLatest([
       this.apiBaseService.get(this.entityConfigUrl).pipe(
         catchError((err) => {
-          this.toastService.presentToast(err?.error?.message || 'FORM_LOAD_ERROR', 'danger');
+          // this.toastService.presentToast(err?.error?.message || 'FORM_LOAD_ERROR', 'danger');
           return of({ status: 'error', result: {} });
         })
       ),
       this.apiBaseService.get(this.profileListingUrl).pipe(
         catchError((err) => {
-          this.toastService.presentToast(err?.error?.message || 'PROFILE_LOAD_ERROR', 'danger');
+          // this.toastService.presentToast(err?.error?.message || 'PROFILE_LOAD_ERROR', 'danger');
           return of({ status: 'error', result: {} });
         })
       ),
