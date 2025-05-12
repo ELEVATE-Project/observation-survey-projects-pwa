@@ -36,8 +36,8 @@
         "getProgramsUrl":"/reports/mlprojects/v1/getProgramsByEntity"
     },
     "program":{
-        "listingUrl":"/project/v1/users/programs",
-        "detailsUrl":"/project/v1/users/solutions"
+        "listingUrl":"/users/mlcore/v1/programs",
+        "detailsUrl":"/users/mlcore/v1/solutions"
     },
     "certificate":{
         "verifyCertificateUrl":"/project/v1/userProjects/verifyCertificate",

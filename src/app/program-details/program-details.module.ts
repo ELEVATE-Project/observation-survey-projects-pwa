@@ -18,7 +18,8 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     IonicModule,
     TranslateModule,
-    SharedModule
+    SharedModule,
+    ProgramDetailsPageRoutingModule
   ],
   declarations: [ProgramDetailsPage]
 })
