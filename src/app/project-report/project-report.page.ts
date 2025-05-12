@@ -80,22 +80,22 @@ export class ProjectReportPage implements OnInit {
      this.projectsCategories = [
       {
         name: 'Total Projects',
-        img: '/assets/images/report-imgs/Note 1.svg',
+        img: '/managed-learn/assets/images/report-imgs/Note 1.svg',
         key: 'total',
       },
       {
         name: 'Projects Submitted',
-        img: '/assets/images/report-imgs/note.svg',
+        img: '/managed-learn/assets/images/report-imgs/note.svg',
         key: 'submitted',
       },
       {
         name: 'Projects In Progress',
-        img: '/assets/images/report-imgs/Note 4.svg',
+        img: '/managed-learn/assets/images/report-imgs/Note 4.svg',
         key: 'inProgress',
       },
       {
         name: 'Projects Started',
-        img: '/assets/images/report-imgs/Note 3.svg',
+        img: '/managed-learn/assets/images/report-imgs/Note 3.svg',
         key: 'started',
       },
     ];
@@ -164,7 +164,7 @@ export class ProjectReportPage implements OnInit {
 
   async getReportData() {
     await this.loader.showLoading('LOADER_MSG');
-      this.baseApiService.get(urlConfig[this.listType].listingUrl + `?reportType=${this.reportType}&programId=${this.programId}`)
+      this.baseApiService.post(urlConfig[this.listType].listingUrl + `?reportType=${this.reportType}&programId=${this.programId}`)
         .pipe(finalize(async () => {
           await this.loader.dismissLoading();
         }))
@@ -186,7 +186,7 @@ export class ProjectReportPage implements OnInit {
   async share() {
     await this.loader.showLoading('REPORT_SHARING_PROGRESS_MSG');
     try {
-      const res = await this.baseApiService.get(urlConfig[this.listType].listingUrl +`?requestPdf=true&reportType=${this.reportType}&programId=${this.programId}`).toPromise();
+      const res = await this.baseApiService.post(urlConfig[this.listType].listingUrl +`?requestPdf=true&reportType=${this.reportType}&programId=${this.programId}`).toPromise();
       if (res?.status === 200 && res.result) {
         this.downloadUrl = res.result?.downloadUrl || res.result?.data?.downloadUrl;
         await this.loader.dismissLoading();
@@ -248,7 +248,7 @@ export class ProjectReportPage implements OnInit {
 
   async download() {
     await this.loader.showLoading('DOWNLOAD_PROGRESS_MSG');
-    this.baseApiService.get(urlConfig[this.listType].listingUrl + `?requestPdf=true&reportType=${this.reportType}&programId=${this.programId}`)
+    this.baseApiService.post(urlConfig[this.listType].listingUrl + `?requestPdf=true&reportType=${this.reportType}&programId=${this.programId}`)
       .pipe(finalize(async () => {
         await this.loader.dismissLoading();
       }))

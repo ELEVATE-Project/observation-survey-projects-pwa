@@ -220,5 +220,10 @@ export class ListingPage implements OnInit {
         console.warn('Unknown listType:', this.listType);
     }
   }
+
+  observationNavigation(path:any){
+    console.log("PATH: ",path)
+    window.location.href = path
+  }
   
 }
