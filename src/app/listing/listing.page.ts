@@ -102,7 +102,6 @@ export class ListingPage implements OnInit {
       this.filter = '';
     };
 
-    console.log("url congif: ", urlConfig[this.listType].listingUrl + `?${this.listType == 'program'?`${this.stateData.solutionType}=${this.isAPrivateProgram}`:`type=${this.stateData.solutionType}`}&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}${this.stateData.reportIdentifier ? `&` +this.stateData.reportIdentifier+`=`+this.reportPage : ''}`, this.entityData);
     (this.listType == 'project'  || this.listType == 'program' ? this.ProjectsApiService : this.SamikshaApiService)
       .post(
         urlConfig[this.listType].listingUrl + `?${this.listType == 'program'?`${this.stateData.solutionType}=${this.isAPrivateProgram}`:`type=${this.stateData.solutionType}`}&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}${this.stateData.reportIdentifier ? `&` +this.stateData.reportIdentifier+`=`+this.reportPage : ''}`, this.entityData)
@@ -113,7 +112,6 @@ export class ListingPage implements OnInit {
         })
       )
       .subscribe((res: any) => {
-        console.log("listing response: ",res)
         if (res?.status == 200) {
           this.solutionList.data = this.solutionList?.data.concat(res?.result?.data);
           this.solutionList.count = res?.result?.count;
@@ -128,7 +126,6 @@ export class ListingPage implements OnInit {
         }
       },
         (err: any) => {
-          console.log("listing response error: ",err)
           this.toastService.presentToast(err?.error?.message, 'danger');
         }
       );
@@ -219,11 +216,5 @@ export class ListingPage implements OnInit {
       default:
         console.warn('Unknown listType:', this.listType);
     }
-  }
-
-  observationNavigation(path:any){
-    console.log("PATH: ",path)
-    window.location.href = path
-  }
-  
+  }  
 }
