@@ -46,12 +46,6 @@ export class ApiInterceptor implements HttpInterceptor {
     let headers: any = localStorage.getItem('headers');
     let extraHeaders = JSON.parse(headers);
 
-    setTimeout(() => {
-      console.log("Headers in set time out: ",localStorage.getItem('headers'))
-    }, 2000);
-
-    console.log("HEaders from local: ",headers)
-
     if (this.isSpecialUrl(req.url)) {
       return req.clone({
         setHeaders: extraHeaders ? { 'X-auth-token': `bearer ${token}`,...extraHeaders } : { 'X-auth-token': `bearer ${token}` }

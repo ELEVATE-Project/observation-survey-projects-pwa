@@ -25,8 +25,9 @@ export class ProjectDetailsPage  implements OnInit {
     baseUrl: environment.projectsBaseURL ?? environment.baseURL,
     accessToken: localStorage.getItem('accToken'),
     profileInfo: {},
-    redirectionLinks: { contentPolicyLink: "https://shikshalokam.org/mentoring/privacy-policy/",
-      profilePage: environment.profileRedirectPath ?? "" }
+    redirectionLinks: { contentPolicyLink: "https://dev.oci.diksha.gov.in/term-of-use.html",
+    profilePage: environment.profileRedirectPath ?? ""},
+    language: "en"
   }
   showDetails = false
   sharePopupHandler:any
