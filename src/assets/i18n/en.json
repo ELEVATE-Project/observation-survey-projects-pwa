@@ -76,5 +76,14 @@
   "SELECT_PROGRAM":"Select Program",
   "CLOSE":"Close",
   "DOWNLOADS_LOGOUT_INFO_MSG":"Log out will delete the files. To avoid losing them, please sync on the project details page.",
-  "BACK_TO_HOME":"Back to home"
+  "BACK_TO_HOME":"Back to home",
+  "CREATED_BY_ME": "Created by me",
+  "CREATE":"Create",
+  "PRIVACY_POLICY_TITLE":"Share Project Details",
+  "PRIVACY_POLICY_MSG1":"I confirm that this Content complies with prescribed guidelines,including the",
+  "PRIVACY_POLICY_LINK_MSG":" Terms of Use and Content Policy",
+  "PRIVACY_POLICY_MSG2":"I have not shared any personal or sensitive information and have made sure that I do not violate others privacy rights and third party rights including intellectual property rights.",
+  "PRIVACY_POLICY_BTN1":"Do Not Share",
+  "SHARE":"Share"
+
 }

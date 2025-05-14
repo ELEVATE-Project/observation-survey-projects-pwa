@@ -25,14 +25,16 @@ import { RedirectionHandlerComponent } from './redirection-handler/redirection-h
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SharedModule } from './shared/shared.module';
 import { FormsService } from 'formstore-cache';
+import { PrivacyPolicyPopupComponent } from './shared/privacy-policy-popup/privacy-policy-popup.component';
+import { FormsModule } from '@angular/forms';
 
 export function translateHttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent,CertificateVerificationPopoverComponent,ShareLinkPopupComponent,ShortUrlPipe,RedirectionHandlerComponent,PageNotFoundComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
+  declarations: [AppComponent,CertificateVerificationPopoverComponent,ShareLinkPopupComponent,ShortUrlPipe,RedirectionHandlerComponent,PageNotFoundComponent,PrivacyPolicyPopupComponent],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,FormsModule,
     SlAuthLibModule, BrowserAnimationsModule,SharedModule,
     TranslateModule.forRoot({
       loader: {

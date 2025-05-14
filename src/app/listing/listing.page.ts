@@ -4,13 +4,14 @@ import urlConfig from 'src/app/config/url.config.json';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoaderService } from '../services/loader/loader.service';
 import { ToastService } from '../services/toast/toast.service';
-import { NavController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { finalize } from 'rxjs';
 import { actions } from 'src/app/config/actionContants';
 import { ProfileService } from '../services/profile/profile.service';
 import { AlertService } from '../services/alert/alert.service';
 import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 import { SamikshaApiService } from '../services/samiksha-api/samiksha-api.service';
+import { PrivacyPolicyPopupComponent } from '../shared/privacy-policy-popup/privacy-policy-popup.component';
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.page.html',
@@ -37,7 +38,7 @@ export class ListingPage implements OnInit {
 
   constructor(private navCtrl: NavController, private router: Router,
     private profileService: ProfileService,
-    private alertService: AlertService, private activatedRoute: ActivatedRoute
+    private alertService: AlertService, private activatedRoute: ActivatedRoute, private modalCtrl: ModalController
   ) {
     this.ProjectsApiService = inject(ProjectsApiService);
     this.SamikshaApiService = inject(SamikshaApiService);
@@ -188,7 +189,7 @@ export class ListingPage implements OnInit {
   
   
 
-  loadData() {
+  loadData($event: any) {
     this.page = this.page + 1;
     this.getListData();
   }
@@ -216,5 +217,36 @@ export class ListingPage implements OnInit {
         console.warn('Unknown listType:', this.listType);
     }
   }
-  
+
+ async  createNewProject(){
+    let TandC = await this.openPrivacyPolicyPopup();
+      this.router.navigate(['project-details'],{ queryParams: {type: "projectCreate" ,option:"create",hasAcceptedTAndC:TandC} });
+  }
+  async openPrivacyPolicyPopup():Promise<boolean> {
+    const modal = await this.modalCtrl.create({
+      component: PrivacyPolicyPopupComponent,
+      componentProps: {
+        popupData: {
+          title: 'PRIVACY_POLICY_TITLE',
+          message1: 'PRIVACY_POLICY_MSG1',
+          message2: 'PRIVACY_POLICY_LINK_MSG',
+          message3: 'PRIVACY_POLICY_MSG2',
+          button1: 'PRIVACY_POLICY_BTN1',
+          button2: 'SHARE'
+        },
+        contentPolicyLink: 'https://diksha.gov.in/term-of-use.html'
+      },
+      cssClass: 'popup-class2',
+      backdropDismiss: false
+    });
+
+    await modal.present();
+
+    const { data } = await modal.onDidDismiss();
+    if (data?.buttonAction) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
