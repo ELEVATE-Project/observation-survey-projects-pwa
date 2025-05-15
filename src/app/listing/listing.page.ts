@@ -219,19 +219,19 @@ export class ListingPage implements OnInit {
   }
 
  async  createNewProject(){
-    let TandC = await this.openPrivacyPolicyPopup();
-      this.router.navigate(['project-details'],{ queryParams: {type: "projectCreate" ,option:"create",hasAcceptedTAndC:TandC} });
+    let tAndC = await this.openPrivacyPolicyPopup();
+      this.router.navigate(['project-details'],{ queryParams: {type: "projectCreate" ,option:"create",hasAcceptedTAndC:tAndC} });
   }
   async openPrivacyPolicyPopup():Promise<boolean> {
     const modal = await this.modalCtrl.create({
       component: PrivacyPolicyPopupComponent,
       componentProps: {
         popupData: {
-          title: 'PRIVACY_POLICY_TITLE',
+          title: 'SHARE_PROJECT_DETAILS',
           message1: 'PRIVACY_POLICY_MSG1',
           message2: 'PRIVACY_POLICY_LINK_MSG',
           message3: 'PRIVACY_POLICY_MSG2',
-          button1: 'PRIVACY_POLICY_BTN1',
+          button1: 'DO_NOT_SHARE',
           button2: 'SHARE'
         },
         contentPolicyLink: 'https://diksha.gov.in/term-of-use.html'
