@@ -132,6 +132,26 @@ mat-label {
   }
 }
 
+.mat-mdc-list-option .mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background, .mat-mdc-list-option .mdc-checkbox .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background, .mat-mdc-list-option .mdc-checkbox .mdc-checkbox__native-control[data-indeterminate=true]:enabled~.mdc-checkbox__background{
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.mat-mdc-list-option .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {
+  border-color: var(--color-primary) !important;
+}
+.mat-mdc-list-option .mdc-radio .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle {
+  border-color: var(--color-primary) !important;
+}
+
+.mdc-text-field--filled.mdc-text-field--disabled{
+  background-color: transparent !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled){
+  background-color: transparent !important;
+}
+
 .custom-alert {
   .alert-wrapper {
     pointer-events: auto;
@@ -230,4 +250,9 @@ ion-segment-button {
 .popup-class{
   --height: 125px;
   --width:450px;
+}
+
+.popup-class2{
+  --height: 350px;
+  --width:350px;
 }
