@@ -24,14 +24,17 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { RedirectionHandlerComponent } from './redirection-handler/redirection-handler.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SharedModule } from './shared/shared.module';
+import { FormsService } from 'formstore-cache';
+import { PrivacyPolicyPopupComponent } from './shared/privacy-policy-popup/privacy-policy-popup.component';
+import { FormsModule } from '@angular/forms';
 
 export function translateHttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent,CertificateVerificationPopoverComponent,ShareLinkPopupComponent,ShortUrlPipe,RedirectionHandlerComponent,PageNotFoundComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
+  declarations: [AppComponent,CertificateVerificationPopoverComponent,ShareLinkPopupComponent,ShortUrlPipe,RedirectionHandlerComponent,PageNotFoundComponent,PrivacyPolicyPopupComponent],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,FormsModule,
     SlAuthLibModule, BrowserAnimationsModule,SharedModule,
     TranslateModule.forRoot({
       loader: {
@@ -62,8 +65,18 @@ export function translateHttpLoaderFactory(httpClient: HttpClient) {
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(private translate:TranslateService){
+  formsConfig={
+    BASEURL:environment.baseURL,
+    db:{
+      dbName:"forms",
+      dbVersion:1,
+      storeName:"forms",
+    }
+  }
+  constructor(private translate:TranslateService,private formsService:FormsService){
     this.setLanguage();
+    this.formsService.setFormsConfig(this.formsConfig);
+
   }
   setLanguage() {
     this.translate.setDefaultLang('en');
