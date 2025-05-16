@@ -39,9 +39,9 @@ export class ApiInterceptor implements HttpInterceptor {
   }
 
   private addAuthHeader(req: HttpRequest<any>, token: string | null): HttpRequest<any> {
-    if (!token) {
-      return req;
-    }
+    // if (!token) {
+    //   return req;
+    // }
 
     let headers: any = localStorage.getItem('headers');
     let extraHeaders = JSON.parse(headers);
@@ -69,10 +69,11 @@ export class ApiInterceptor implements HttpInterceptor {
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
+    console.log("Api error: ",error)
     if (error?.status === 401) {
       localStorage.clear();
       this.utilService.clearDatabase();
-      location.href = environment.unauthorizedRedirectUrl
+      // location.href = environment.unauthorizedRedirectUrl
       return throwError(() => ({
         status: 401,
         error: { message: 'Your session has expired. Please log in again.' },
@@ -88,13 +89,15 @@ export class ApiInterceptor implements HttpInterceptor {
   }
 
   async getToken(): Promise<string | null> {
-    let token = localStorage.getItem('accToken');
+    // let token = localStorage.getItem('accToken');
+    let token = "staticValue"
     if (!token) {
       return null;
     }
     if(environment.isAuthBypassed){
       return token
     }
+    console.log("going to is valid tokem")
     const isValidToken = await this.utilService.validateToken(token);
     if (!isValidToken) {
       const data = await this.apiCallWithoutInteceptor.getAccessToken();

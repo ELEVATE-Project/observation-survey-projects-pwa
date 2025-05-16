@@ -14,7 +14,7 @@ RUN npm install --force
 
 COPY . .
 
-RUN ionic build --prod
+RUN ionic build --prod --base-href /managed-learn/
 
 FROM node:18 AS final
 
