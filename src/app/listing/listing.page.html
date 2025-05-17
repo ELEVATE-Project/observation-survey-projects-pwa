@@ -85,6 +85,14 @@
           </ion-card>
         </ion-col>
         }
+      <ion-infinite-scroll
+        (ionInfinite)="loadData($event)"
+        [disabled]="solutionList?.data.length === solutionList?.count">
+        <ion-infinite-scroll-content
+          loadingText="{{'LOAD_MORE' | translate}}..."
+          loadingSpinner="bubbles">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
       </ion-row>
       <ng-template #noData>
         <div class="no-data-container ion-margin-top" *ngIf="!showLoading">
@@ -92,11 +100,12 @@
         </div>
       </ng-template>
   </ion-grid>
+  @if (listType === 'project' && filter === 'createdByMe') {
+    <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+      <ion-fab-button  (click)="createNewProject()" style="font-size: smaller;">
+        <ion-icon name="add"></ion-icon>
+        {{"CREATE"|translate}}
+      </ion-fab-button>
+    </ion-fab>
+  }
 </ion-content>
-<ion-footer *ngIf="!(solutionList?.count === 0 || solutionList?.count === solutionList?.data?.length)">
-  <ion-toolbar>
-    <ion-button expand="block" fill="solid" shape="round" (click)="loadData()">
-      {{"LOAD_MORE"|translate}}
-    </ion-button>
-  </ion-toolbar>
-</ion-footer>

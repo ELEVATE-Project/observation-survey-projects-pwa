@@ -4,13 +4,13 @@ import urlConfig from 'src/app/config/url.config.json';
 import { ApiBaseService } from '../base-api/api-base.service';
 import { ToastService } from '../toast/toast.service';
 import { LoaderService } from '../loader/loader.service';
-import { FETCH_Profile_FORM } from 'src/app/core/constants/formConstant';
+import { FETCH_Profile_FORM, FETCH_THEME_FORM } from 'src/app/core/constants/formConstant';
 import { Router } from '@angular/router';
 import { AlertService } from '../alert/alert.service';
 import { Location } from '@angular/common';
 import { FETCH_HOME_FORM } from '../../core/constants/formConstant';
-import { ProjectsApiService } from '../projects-api/projects-api.service';
 import { environment } from 'src/environments/environment';
+import { FormsService } from 'formstore-cache';
 
 
 @Injectable({
@@ -28,7 +28,7 @@ export class ProfileService {
     private router: Router,
     private alertService: AlertService,
     private location: Location,
-    private projectsApiService: ProjectsApiService
+    private formsService:FormsService
   ) { }
 
   getFormJsonAndData(): Observable<any> {
@@ -64,7 +64,7 @@ export class ProfileService {
       ),
     ])
       .pipe(
-        map(([entityConfigRes, profileFormDataRes]: any) => {
+        map( async ([entityConfigRes, profileFormDataRes]: any) => {
           let profileData = localStorage.getItem("profileData")
           if(profileData){
             let parsedData = JSON.parse(profileData)
@@ -77,6 +77,7 @@ export class ProfileService {
           if (entityConfigRes?.status === 200 && profileFormDataRes?.status === 200) {
             const profileData = entityConfigRes?.result?.meta?.profileKeys;
             const profileDetails = profileFormDataRes?.result;
+            await this.getTheme(profileDetails)
             if (profileDetails?.state) {
               return this.fetchEntitieIds(profileDetails, profileData);
             } else {
@@ -256,5 +257,32 @@ export class ProfileService {
       this.toastService.presentToast(error?.error?.message, "danger");
       throw error;
     }
+  }
+
+  async getTheme(data: any) {
+    let orgId = localStorage.getItem('organization_id');
+    let config = {
+      url: this.formListingUrl,
+        payload: {...FETCH_THEME_FORM,"subType": orgId},
+    }
+    this.formsService.getForm(config).subscribe({
+        next: (response: any) => {
+          if ( response?.data?.status === 200 && response.data.result) {
+            const themes = response.data.result.data.fields.themes[0];
+            if (themes) {
+              const theme = themes.theme;
+              document.documentElement.style.setProperty('--ion-color-primary', theme.primaryColor);
+              document.documentElement.style.setProperty('--ion-color-secondary', theme.secondaryColor);
+              document.documentElement.style.setProperty('--primary-color', theme.primaryColor);
+              document.documentElement.style.setProperty('--color-primary', theme.primaryColor);
+            } else {
+              console.warn("No theme found for this org");
+            }
+          }
+        },
+        error: (error) => {
+          this.toastService.presentToast(error?.error?.message || "API Error", "danger");
+        }
+      });
   }
 }

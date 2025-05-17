@@ -68,7 +68,7 @@ export class ProgramDetailsPage implements OnInit {
 
     this.filterData.forEach((element:any) => {
       if(data.sectionName == element.sectionName){
-        data.show = ! data.show;
+        data.show = !data.show;
       }else{
         element.show =false;
       }
@@ -88,7 +88,7 @@ export class ProgramDetailsPage implements OnInit {
         this.programList.push({sectionName:sectionName,sectionList:[data],order:order})
        }
     })
-    this.filterData=this.programList.sort((a:any,b:any)=>{return a.order - b.order}).map((item:any)=>({ ...item,show:true}))
+    this.filterData=this.programList.sort((a:any,b:any)=> a.order - b.order).map((item:any) => ({ ...item,show: false }))
   }
 
   formatDescription() {
@@ -118,7 +118,11 @@ export class ProgramDetailsPage implements OnInit {
         break;
   
       case 'survey':
-        this.router.navigate(['questionnaire', data.solutionId]);
+        window.location.href = `/managed-observation-portal/questionnaire?index=0&submissionId=${data.submissionId}&solutionId=${data._id}`
+        break;
+
+      case 'observation':
+        window.location.href = `/managed-observation-portal/entityList/${data._id}/${data.name}/${data.entityType}/${data._id}`
         break;
 
       default:

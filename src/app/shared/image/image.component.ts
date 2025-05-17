@@ -6,7 +6,7 @@ import { AfterViewInit, Component, ElementRef, Input, OnChanges, Renderer2, View
   templateUrl: './image.component.html',
   styleUrls: ['./image.component.scss'],
 })
-export class ImageComponent implements AfterViewInit {
+export class ImageComponent implements AfterViewInit, OnChanges {
   @Input() svgPath!: string;
   @Input() fillColor?: string;
   @ViewChild('svgContainer', { static: false }) svgContainer!: ElementRef;
@@ -15,6 +15,12 @@ export class ImageComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.loadSvg();
+  }
+
+  ngOnChanges() {
+    if (this.svgContainer) {
+      this.loadSvg();
+    }
   }
 
   private getCSSVariableValue(variableName: string): string {
@@ -33,7 +39,7 @@ export class ImageComponent implements AfterViewInit {
         const styleElement = svgElement.querySelector('style');
         if (styleElement) styleElement.remove();
 
-        const fillColor = this.fillColor || this.getCSSVariableValue('--color-primary');
+        const fillColor = this.fillColor || this.getCSSVariableValue('--ion-color-primary');
 
         svgElement.querySelectorAll('.st0, .cls-1').forEach(el => {
           this.renderer.setStyle(el, 'fill', fillColor);
