@@ -144,13 +144,6 @@ mat-label {
   border-color: var(--color-primary) !important;
 }
 
-.mdc-text-field--filled.mdc-text-field--disabled{
-  background-color: transparent !important;
-}
-
-.mdc-text-field--filled:not(.mdc-text-field--disabled){
-  background-color: transparent !important;
-}
 
 .custom-alert {
   .alert-wrapper {
