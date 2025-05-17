@@ -138,11 +138,10 @@ export class ProgramDetailsPage implements OnInit {
     });
   }
   async getProgramDetails(){
-    let profileData = localStorage.getItem("profileData")
     this.showLoading = true;
     await this.loader.showLoading("LOADER_MSG");
     this.ProjectsApiService.post(
-      urlConfig['program'].detailsUrl+`/${this.programId}`,profileData
+      urlConfig['program'].detailsUrl+`/${this.programId}`,this.entityData
     ).pipe(
       finalize(async ()=>{
         await this.loader.dismissLoading();
