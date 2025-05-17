@@ -55,14 +55,29 @@ export class ProjectDetailsPage  implements OnInit {
         const url = event.data.url;
         const name= `Check out ${event.data.name}`
       if (this.utils.isMobile()) {
+        // try {
+        //   const shareOptions = {
+        //     title: 'Share Project',
+        //     text: name,
+        //     url: url,
+        //   };
+        //   await Share.share(shareOptions);
+        // } catch (err) {
+        // }
         try {
           const shareOptions = {
             title: 'Share Project',
-            text: name,
             url: url,
+            type:"share"
           };
-          await Share.share(shareOptions);
-        } catch (err) {
+          if ((window as any).FlutterChannel) {
+            (window as any).FlutterChannel.postMessage(JSON.stringify(shareOptions));
+          } else {
+            console.warn("FlutterChannel is not available");
+          }
+        } catch (err:any) {
+          console.log("download error block")
+          this.toastService.presentToast(err?.error?.message, 'danger');
         }
       } else {
         this.setOpenForCopyLink(url);
@@ -97,9 +112,9 @@ export class ProjectDetailsPage  implements OnInit {
         this.showDetails = true
         return
       }
-      this.profileService.getProfileAndEntityConfigData().subscribe((mappedIds) => {
+      this.profileService.getProfileAndEntityConfigData().subscribe(async (mappedIds) => {
         if (mappedIds) {
-          this.config.profileInfo = mappedIds;
+          this.config.profileInfo = await mappedIds;
         }else{
           history.replaceState(null, '','/');
           this.navCtrl.back()

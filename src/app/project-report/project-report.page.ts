@@ -195,9 +195,14 @@ export class ProjectReportPage implements OnInit {
             const shareOptions = {
               title: 'Project Report',
               text: 'Check out this project report',
-              url: this.downloadUrl
+              url: this.downloadUrl,
+              type:"share"
             };
-            await Share.share(shareOptions);
+            if ((window as any).FlutterChannel) {
+              (window as any).FlutterChannel.postMessage(JSON.stringify(shareOptions));
+            } else {
+              console.warn("FlutterChannel is not available");
+            }
           } catch (err:any) {
             this.toastService.presentToast(err?.error?.message, 'danger');
           }
@@ -260,7 +265,8 @@ export class ProjectReportPage implements OnInit {
             const month = String(today.getMonth() + 1).padStart(2, '0');
             const year = today.getFullYear();
             const formattedDate = `${day}-${month}-${year}`;
-            const name = `report_${formattedDate}.pdf`;
+            // const name = `report_${formattedDate}.pdf`;
+            const name = `report_${formattedDate}`;
             let downloadUrl = res.result?.downloadUrl || res.result?.data?.downloadUrl;
             this.downloadFile(downloadUrl, name);
           }
@@ -395,6 +401,21 @@ export class ProjectReportPage implements OnInit {
 
   downloadFile(url: any, name: string) {
     let fileName = name.length > 40 ? name.slice(0, 40) + '...' : name;
+    try {
+      const shareOptions = {
+        title: fileName,
+        url: url,
+        type:"download"
+      };
+      if ((window as any).FlutterChannel) {
+        (window as any).FlutterChannel.postMessage(JSON.stringify(shareOptions));
+      } else {
+        console.warn("FlutterChannel is not available");
+      }
+    } catch (err:any) {
+      this.toastService.presentToast(err?.error?.message, 'danger');
+    }
+    return
     fetch(url).then(resp => resp.blob()).then(blob => {
       const convertedUrl = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
