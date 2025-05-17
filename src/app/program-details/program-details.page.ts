@@ -130,9 +130,9 @@ export class ProgramDetailsPage implements OnInit {
     }
   }
   getProfileDetails() {
-    this.profileService.getProfileAndEntityConfigData().subscribe((mappedIds) => {
+    this.profileService.getProfileAndEntityConfigData().subscribe(async(mappedIds) => {
       if (mappedIds) {
-      this.entityData=mappedIds
+      this.entityData= await mappedIds
       this.getProgramDetails()
       }
     });
