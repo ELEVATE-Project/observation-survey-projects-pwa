@@ -27,13 +27,14 @@ import { SharedModule } from './shared/shared.module';
 import { FormsService } from 'formstore-cache';
 import { PrivacyPolicyPopupComponent } from './shared/privacy-policy-popup/privacy-policy-popup.component';
 import { FormsModule } from '@angular/forms';
+import { PopUpComponent } from './shared/pop-up/pop-up.component';
 
 export function translateHttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent,CertificateVerificationPopoverComponent,ShareLinkPopupComponent,ShortUrlPipe,RedirectionHandlerComponent,PageNotFoundComponent,PrivacyPolicyPopupComponent],
+  declarations: [AppComponent,CertificateVerificationPopoverComponent,ShareLinkPopupComponent,ShortUrlPipe,RedirectionHandlerComponent,PageNotFoundComponent,PrivacyPolicyPopupComponent,PopUpComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,FormsModule,
     SlAuthLibModule, BrowserAnimationsModule,SharedModule,
     TranslateModule.forRoot({
