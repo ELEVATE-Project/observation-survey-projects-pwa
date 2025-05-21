@@ -96,25 +96,23 @@ export class ListingPage implements OnInit {
     });
   }
 
-  async getListData(): Promise<void> {
+  async getListData($event?:any) {
     this.showLoading = true;
     await this.loader.showLoading("LOADER_MSG");
     if(this.listType !== 'project'){
       this.filter = '';
     };
 
-  return new Promise((resolve, reject) => {
     (this.listType == 'project'  || this.listType == 'program' ? this.ProjectsApiService : this.SamikshaApiService)
       .post(
-        urlConfig[this.listType].listingUrl + `?${this.listType == 'program'?`${this.stateData.solutionType}=${this.isAPrivateProgram}`:`type=${this.stateData.solutionType}`}&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}${this.stateData.reportIdentifier ? `&${this.stateData.reportIdentifier}=${this.reportPage}` : ''}`, this.entityData)
+        urlConfig[this.listType].listingUrl + `?${this.listType == 'program'?`${this.stateData.solutionType}=${this.isAPrivateProgram}`:`type=${this.stateData.solutionType}`}&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}${this.stateData.reportIdentifier ? `&` +this.stateData.reportIdentifier+`=`+this.reportPage : ''}`, this.entityData)
       .pipe(
         finalize(async () => {
           await this.loader.dismissLoading();
           this.showLoading = false;
         })
       )
-      .subscribe({
-        next: (res: any) => {
+      .subscribe((res: any) => {
         if (res?.status == 200) {
           this.solutionList.data = this.solutionList?.data.concat(res?.result?.data);
           this.solutionList.count = res?.result?.count;
@@ -124,18 +122,17 @@ export class ListingPage implements OnInit {
             this.assignStatusAndClasses(element);
             this.calculateExpiryDetails(element);
           });
-            resolve();
         } else {
           this.toastService.presentToast(res?.message, 'warning');
-            reject();
+        }
+        if($event){
+          $event.target.complete();
         }
       },
-        error: (err: any) => {
+        (err: any) => {
           this.toastService.presentToast(err?.error?.message, 'danger');
-          reject();
         }
-        });
-    });
+      );
   }
 
   checkAndUpdateExpiry(element: any) {
@@ -197,12 +194,8 @@ export class ListingPage implements OnInit {
 
 
   loadData($event: any) {
-    this.page += 1;
-    this.getListData().then(() => {
-      $event.target.complete(); // <-- Important: must call this to resume infinite scroll
-    }).catch(() => {
-      $event.target.complete(); // still complete it on error to avoid freezing
-    });
+   this.page += 1;
+   this.getListData($event);
   }
 
 
