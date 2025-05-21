@@ -1,0 +1,18 @@
+
+<ion-content class="pop-container">
+  @if(data.showCancel){
+    <div class="content-header">
+      <button  (click)="onModalDismiss(false)" >
+        <ion-icon class="button-icon"  name="close"></ion-icon>
+      </button>
+    </div>
+  }
+  <div class="content">
+    <p>{{data.message | translate}}</p>
+  </div>
+  <div class="content-footer">
+    <ion-button shape="round" (click)="onModalDismiss(true)">
+      {{data.button.text | translate}}
+    </ion-button>
+  </div>
+</ion-content>
