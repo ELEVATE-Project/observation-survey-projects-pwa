@@ -3,7 +3,7 @@
     "subSurvey":"/survey",
     "survey": {
         "listingUrl": "/survey/v1/solutions/targetedSolutions",
-        "reportUrl":"/survey/v1/reports/submissionReport?submissionId=",
+        "reportUrl":"/ml/reports/mlreports/v1/fetch",
         "detailsUrl":"/surveys/mlsurvey/v1/details?solutionId="
     },
     "observation": {
