@@ -45,21 +45,6 @@
                   <span class="certificate-tag">{{"CERTIFICATE"|translate}}</span>
                 }
               </div>
-              @if(listType == 'program'){
-                <div class="program-container">
-                  <h2 class="state">{{"STATE" | translate}} :
-                  @for(state of solution?.metaInformation?.state; track state){
-                    {{state}}
-                  }
-                  </h2>
-                    <div class="program-items">
-                      <h2 class="state"> {{ "RECOMMENDED_FOR"| translate}} :</h2>
-                      @for(data of solution?.metaInformation?.recommendedFor; track data){
-                        <div class="role-tag"> {{data}}</div>
-                      }
-                    </div>
-                </div>
-              }
               @if (listType == 'project' || (listType == 'survey' && stateData?.reportPage)) {
                 <div class="ion-padding-top">
                   <h6>{{solution?.description}}</h6>
