@@ -25,8 +25,11 @@ export class ProjectDetailsPage  implements OnInit {
     baseUrl: environment.projectsBaseURL ?? environment.baseURL,
     accessToken: localStorage.getItem('accToken'),
     profileInfo: {},
-    redirectionLinks: { contentPolicyLink: "https://dev.oci.diksha.gov.in/term-of-use.html",
-    profilePage: environment.profileRedirectPath ?? ""},
+    redirectionLinks: {
+      contentPolicyLink: "https://dev.oci.diksha.gov.in/term-of-use.html",
+      profilePage: environment.profileRedirectPath ?? "",
+      unauthorizedRedirectUrl: environment.unauthorizedRedirectUrl ?? ""
+    },
     language: "en"
   }
   showDetails = false
