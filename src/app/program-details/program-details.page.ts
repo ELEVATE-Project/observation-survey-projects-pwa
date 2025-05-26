@@ -179,8 +179,15 @@ export class ProgramDetailsPage implements OnInit {
           } else if (status === 'completed') {
             this.openPopup('completed');
           } else {
-            window.location.href = `/managed-observation-portal/questionnaire?index=0&submissionId=${data.submissionId}&solutionId=${data._id}`;
-          }
+            const queryParams = new URLSearchParams();
+            if (data.submissionId) {
+              queryParams.set('submissionId', data.submissionId);
+            }
+            if (data._id) {
+              queryParams.set('solutionId', data._id);
+            }
+            queryParams.set('index', '0');
+            window.location.href = `/managed-observation-portal/questionnaire?${queryParams.toString()}`;          }
         } else {
           this.toastService.presentToast(res?.message, 'danger');
         }
