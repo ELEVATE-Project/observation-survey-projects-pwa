@@ -185,7 +185,7 @@ export class ProfileService {
                             "solutionType": "survey",
                             "reportPage": false,
                             "reportIdentifier": "surveyReportPage",
-                            "description": "Provide information and feedback through quick and easy surveys"
+                            "description": "Provide information and feedback through quick and easy surveys.."
                         },
                         {
                             "name": "Reports",
@@ -207,22 +207,24 @@ export class ProfileService {
                                 {
                                     "name": "Survey Reports",
                                     "img": "assets/images/ic_survey.svg",
-                                    "redirectionUrl": "/listing/survey",
+                                    "redirectionUrl": "/managed-observation-portal/listing/surveyReports",
                                     "listType": "survey",
                                     "solutionType": "survey",
                                     "reportPage": true,
                                     "reportIdentifier": "surveyReportPage",
-                                    "description": "Provide information and feedback through quick and easy surveys"
+                                    "description": "Provide information and feedback through quick and easy surveys..",
+                                    "customNavigation": true
                                 },
                                 {
                                     "name": "Observation Reports",
                                     "img": "assets/images/ic_observation.svg",
-                                    "redirectionUrl": "/observation",
+                                    "redirectionUrl": "/managed-observation-portal/listing/observationReports",
                                     "listType": "listing",
                                     "solutionType": "observation",
                                     "reportPage": true,
                                     "reportIdentifier": "surveyReportPage",
-                                    "description": "Provide information and feedback through quick and easy observations"
+                                    "description": "Provide information and feedback through quick and easy observations..",
+                                    "customNavigation": true
                                 }
                             ]
                         },

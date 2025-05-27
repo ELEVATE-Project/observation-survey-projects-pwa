@@ -25,7 +25,9 @@ export class ReportListPage implements OnInit {
   }
 
   navigateTo(data: any) {
-    this.router.navigate([data?.redirectionUrl], { queryParams: { type: data.listType, reportPage: data?.reportPage } });
+    !data.customNavigation ?
+    this.router.navigate([data?.redirectionUrl], { queryParams: { type: data.listType, reportPage: data?.reportPage } }) :
+    location.href = data.redirectionUrl
   }
 
 }
