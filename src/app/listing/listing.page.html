@@ -87,10 +87,9 @@
   </ion-grid>
   @if (listType === 'project' && filter === 'createdByMe') {
     <ion-fab horizontal="end" vertical="bottom" slot="fixed">
-      <ion-fab-button  (click)="createNewProject()" style="font-size: smaller;">
-        <ion-icon name="add"></ion-icon>
-        {{"CREATE"|translate}}
-      </ion-fab-button>
+      <ion-button (click)="createNewProject()" shape="round"><ion-icon name="add"></ion-icon>
+        {{ "CREATE" | translate }}
+      </ion-button>
     </ion-fab>
   }
 </ion-content>
