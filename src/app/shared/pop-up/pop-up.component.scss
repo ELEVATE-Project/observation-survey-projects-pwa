@@ -1,6 +1,6 @@
 .content-header{
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     padding: 10px;
 }
 
@@ -11,7 +11,7 @@
 
 .content-footer{
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     margin-right: 10px;
     button{
         margin: 5px;

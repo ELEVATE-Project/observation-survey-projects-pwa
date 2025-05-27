@@ -209,6 +209,21 @@ span {
   padding: 0.3rem 0.5rem; 
 }
 
-ion-fab-button {
+ion-button {
   margin: 15px;
+  padding: 5px;
+  text-transform: none;
+}
+
+ion-button ion-icon {
+  color: var(--ion-color-primary);
+  background: white;
+  border-radius: 50%;
+  padding: 4px;
+  margin-right: 8px;
+}
+
+ion-button{
+  --padding-start: 5px !important;
+  --padding-end: 5px !important;
 }
