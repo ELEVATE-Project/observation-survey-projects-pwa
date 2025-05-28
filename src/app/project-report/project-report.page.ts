@@ -199,7 +199,7 @@ export class ProjectReportPage implements OnInit {
               type:"share"
             };
             if ((window as any).FlutterChannel) {
-              (window as any).FlutterChannel.postMessage(JSON.stringify(shareOptions));
+              (window as any).FlutterChannel.postMessage(shareOptions);
             } else {
               console.warn("FlutterChannel is not available");
             }
@@ -408,7 +408,7 @@ export class ProjectReportPage implements OnInit {
         type:"download"
       };
       if ((window as any).FlutterChannel) {
-        (window as any).FlutterChannel.postMessage(JSON.stringify(shareOptions));
+        (window as any).FlutterChannel.postMessage(shareOptions);
       } else {
         console.warn("FlutterChannel is not available");
       }
