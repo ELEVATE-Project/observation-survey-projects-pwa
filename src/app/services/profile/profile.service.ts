@@ -185,7 +185,7 @@ export class ProfileService {
                             "solutionType": "survey",
                             "reportPage": false,
                             "reportIdentifier": "surveyReportPage",
-                            "description": "Provide information and feedback through quick and easy surveys.."
+                            "description": "Provide information and feedback through quick and easy surveys"
                         },
                         {
                             "name": "Reports",
@@ -212,7 +212,7 @@ export class ProfileService {
                                     "solutionType": "survey",
                                     "reportPage": true,
                                     "reportIdentifier": "surveyReportPage",
-                                    "description": "Provide information and feedback through quick and easy surveys..",
+                                    "description": "Provide information and feedback through quick and easy surveys",
                                     "customNavigation": true
                                 },
                                 {
@@ -223,7 +223,7 @@ export class ProfileService {
                                     "solutionType": "observation",
                                     "reportPage": true,
                                     "reportIdentifier": "surveyReportPage",
-                                    "description": "Provide information and feedback through quick and easy observations..",
+                                    "description": "Provide information and feedback through quick and easy observations",
                                     "customNavigation": true
                                 }
                             ]

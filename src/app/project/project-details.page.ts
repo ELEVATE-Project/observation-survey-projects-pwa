@@ -74,7 +74,7 @@ export class ProjectDetailsPage  implements OnInit {
             type:"share"
           };
           if ((window as any).FlutterChannel) {
-            (window as any).FlutterChannel.postMessage(JSON.stringify(shareOptions));
+            (window as any).FlutterChannel.postMessage(shareOptions);
           } else {
             console.warn("FlutterChannel is not available");
           }
