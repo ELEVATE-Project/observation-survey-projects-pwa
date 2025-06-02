@@ -124,7 +124,19 @@ export class ProfileService {
           text: 'PROFILE_UPDATE',
           cssClass: 'primary-button',
           handler: () => {
-            this.router.navigate([this.profilePage]);
+            // this.router.navigate([this.profilePage]);
+            try {
+              const options = {
+                type:"redirect",
+                pathType:"profile"
+              };
+              if ((window as any).FlutterChannel) {
+                (window as any).FlutterChannel.postMessage(options);
+              } else {
+                console.warn("FlutterChannel is not available");
+                this.router.navigate([this.profilePage]);
+              }
+            } catch (err:any) {}
           }
         }
       ]
