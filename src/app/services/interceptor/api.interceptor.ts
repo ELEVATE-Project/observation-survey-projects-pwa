@@ -73,7 +73,19 @@ export class ApiInterceptor implements HttpInterceptor {
     if (error?.status === 401) {
       localStorage.clear();
       this.utilService.clearDatabase();
-      location.href = environment.unauthorizedRedirectUrl
+      // location.href = environment.unauthorizedRedirectUrl
+      try {
+        const options = {
+          type:"redirect",
+          pathType:"login"
+        };
+        if ((window as any).FlutterChannel) {
+          (window as any).FlutterChannel.postMessage(options);
+        } else {
+          console.warn("FlutterChannel is not available");
+          location.href = environment.unauthorizedRedirectUrl
+        }
+      } catch (err:any) {}
       return throwError(() => ({
         status: 401,
         error: { message: 'Your session has expired. Please log in again.' },
@@ -96,7 +108,6 @@ export class ApiInterceptor implements HttpInterceptor {
     if(environment.isAuthBypassed){
       return token
     }
-    console.log("going to is valid tokem")
     const isValidToken = await this.utilService.validateToken(token);
     if (!isValidToken) {
       const data = await this.apiCallWithoutInteceptor.getAccessToken();
