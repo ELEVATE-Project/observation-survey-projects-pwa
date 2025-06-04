@@ -72,7 +72,7 @@ export class ProjectDetailsPage  implements OnInit {
           url: url,
           type:"share"
         };
-        let response = this.utils.postMessageListener(shareOptions)
+        let response = await this.utils.postMessageListener(shareOptions)
         if(!response){
           this.toastService.presentToast("SHARE_FAILED", 'danger');
         }
