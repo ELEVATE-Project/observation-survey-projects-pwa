@@ -191,20 +191,15 @@ export class ProjectReportPage implements OnInit {
         this.downloadUrl = res.result?.downloadUrl || res.result?.data?.downloadUrl;
         await this.loader.dismissLoading();
         if (this.utilService.isMobile()) {
-          try {
             const shareOptions = {
               title: 'Project Report',
               text: 'Check out this project report',
               url: this.downloadUrl,
               type:"share"
             };
-            if ((window as any).FlutterChannel) {
-              (window as any).FlutterChannel.postMessage(shareOptions);
-            } else {
-              console.warn("FlutterChannel is not available");
-            }
-          } catch (err:any) {
-            this.toastService.presentToast(err?.error?.message, 'danger');
+          let response = await this.utilService.postMessageListener(shareOptions)
+          if(!response){
+            this.toastService.presentToast("SHARE_FAILED", 'danger');
           }
         } else {
           this.setOpenForCopyLink();
@@ -399,21 +394,16 @@ export class ProjectReportPage implements OnInit {
     this.getReportData();
   }
 
-  downloadFile(url: any, name: string) {
+  async downloadFile(url: any, name: string) {
     let fileName = name.length > 40 ? name.slice(0, 40) + '...' : name;
-    try {
       const shareOptions = {
         title: fileName,
         url: url,
         type:"download"
       };
-      if ((window as any).FlutterChannel) {
-        (window as any).FlutterChannel.postMessage(shareOptions);
-      } else {
-        console.warn("FlutterChannel is not available");
-      }
-    } catch (err:any) {
-      this.toastService.presentToast(err?.error?.message, 'danger');
+    let response = await this.utilService.postMessageListener(shareOptions)
+    if(!response){
+      this.toastService.presentToast("DOWNLOAD_FAILED", 'danger');
     }
     return
     fetch(url).then(resp => resp.blob()).then(blob => {

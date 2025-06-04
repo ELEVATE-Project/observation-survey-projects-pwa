@@ -53,7 +53,15 @@ export class RedirectionHandlerComponent  implements OnInit {
         this.profileInfo = await mappedIds;
         this.checkLinkType()
       }else{
-        this.router.navigate(['/home'],{ replaceUrl:true })
+        // this.router.navigate(['/home'],{ replaceUrl:true })
+        const options = {
+          type:"redirect",
+          pathType:"home"
+        };
+        let response = await this.utils.postMessageListener(options)
+        if(!response){
+          this.router.navigate(['/home'],{ replaceUrl:true })
+        }
       }
     });
   }
@@ -70,15 +78,18 @@ export class RedirectionHandlerComponent  implements OnInit {
   }
 
   async verifyLink(){
+    console.log("verify link called")
     if(!this.utils.isLoggedIn()){
+      console.log("Logged in")
       this.router.navigate(['project-details'], { state: { link: this.linkId, referenceFrom: "link" }, replaceUrl:true });
       return
     }
-    this.apiService.post(urlConfig.project.verifyLink+this.linkId+"?createProject=false",this.profileInfo).subscribe((response:any)=>{
+    this.apiService.post(urlConfig.project.verifyLink+this.linkId+"?createProject=false",this.profileInfo).subscribe(async(response:any)=>{
+      console.log("Api resp: ",response)
       if(response && response.result){
         switch (response.result.type) {
           case "improvementProject":
-            this.router.navigate(['/home'],{ replaceUrl:true })
+            // this.router.navigate(['/home'],{ replaceUrl:true })
             let queryData = (({ isATargetedSolution, link, projectId, solutionId }) =>
               ({ isATargetedSolution, link, projectId, solutionId }))(response.result);
             setTimeout(() => {
@@ -90,11 +101,28 @@ export class RedirectionHandlerComponent  implements OnInit {
             break;
         }
       }else{
-        this.navCtrl.back()
+        console.log("Else block")
+        const options = {
+          type:"redirect",
+          pathType:"home"
+        };
+        let response = await this.utils.postMessageListener(options)
+        if(!response){
+          this.navCtrl.back()
+        }
       }
-    },(error:any)=>{
+    },async(error:any)=>{
+      console.log("ERR bloack: ",error)
       this.toastService.presentToast("LINK_INVALID_ERROR","danger")
-      this.router.navigate(['/home'],{ replaceUrl:true })
+      // this.router.navigate(['/home'],{ replaceUrl:true })
+      const options = {
+        type:"redirect",
+        pathType:"home"
+      };
+      let response = await this.utils.postMessageListener(options)
+      if(!response){
+        this.router.navigate(['/home'],{ replaceUrl:true })
+      }
     })
   }
 

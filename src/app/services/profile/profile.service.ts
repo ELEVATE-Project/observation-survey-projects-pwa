@@ -11,6 +11,7 @@ import { Location } from '@angular/common';
 import { FETCH_HOME_FORM } from '../../core/constants/formConstant';
 import { environment } from 'src/environments/environment';
 import { FormsService } from 'formstore-cache';
+import { UtilService } from '../util/util.service';
 
 
 @Injectable({
@@ -28,7 +29,8 @@ export class ProfileService {
     private router: Router,
     private alertService: AlertService,
     private location: Location,
-    private formsService:FormsService
+    private formsService:FormsService,
+    private utils: UtilService
   ) { }
 
   getFormJsonAndData(): Observable<any> {
@@ -116,27 +118,29 @@ export class ProfileService {
           text: 'BACK',
           role: 'cancel',
           cssClass: 'secondary-button',
-          handler: () => {
-            this.location.back()
+          handler: async() => {
+            const options = {
+              type:"redirect",
+              pathType:"home"
+            };
+            let response = await this.utils.postMessageListener(options)
+            if(!response){
+              this.location.back()
+            }
           }
         },
         {
           text: 'PROFILE_UPDATE',
           cssClass: 'primary-button',
-          handler: () => {
-            // this.router.navigate([this.profilePage]);
-            try {
-              const options = {
-                type:"redirect",
-                pathType:"profile"
-              };
-              if ((window as any).FlutterChannel) {
-                (window as any).FlutterChannel.postMessage(options);
-              } else {
-                console.warn("FlutterChannel is not available");
-                this.router.navigate([this.profilePage]);
-              }
-            } catch (err:any) {}
+          handler: async() => {
+            const options = {
+              type:"redirect",
+              pathType:"profile"
+            };
+            let response = await this.utils.postMessageListener(options)
+            if(!response){
+              this.router.navigate([this.profilePage]);
+            }
           }
         }
       ]

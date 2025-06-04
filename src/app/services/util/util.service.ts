@@ -46,4 +46,20 @@ export class UtilService {
     const currentTime = new Date();
     return currentTime < tokenExpiryTime;
   }
+
+  postMessageListener(data:any):Promise<boolean>{
+    return new Promise((resolve) => {
+      try {
+        if ((window as any).FlutterChannel) {
+          (window as any).FlutterChannel.postMessage(data);
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      } catch (err: any) {
+        console.error('FlutterChannel Error:', err);
+        resolve(false);
+      }
+    });
+  }
 }

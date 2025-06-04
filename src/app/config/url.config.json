@@ -11,7 +11,7 @@
     },
     "project": {
         "listingUrl": "/solutions/mlcore/v1/targetedSolutions",
-        "verifyLink": "/project/v1/solutions/verifyLink/",
+        "verifyLink": "/solutions/mlcore/v1/verifyLink/",
         "categoriesList": "/project/v1/library/categories/list",
         "projectCategories": "/project/v1/library/categories/projects/"
     },
