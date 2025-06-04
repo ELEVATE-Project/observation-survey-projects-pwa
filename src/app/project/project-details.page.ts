@@ -67,20 +67,14 @@ export class ProjectDetailsPage  implements OnInit {
         //   await Share.share(shareOptions);
         // } catch (err) {
         // }
-        try {
-          const shareOptions = {
-            title: 'Share Project',
-            url: url,
-            type:"share"
-          };
-          if ((window as any).FlutterChannel) {
-            (window as any).FlutterChannel.postMessage(shareOptions);
-          } else {
-            console.warn("FlutterChannel is not available");
-          }
-        } catch (err:any) {
-          console.log("download error block")
-          this.toastService.presentToast(err?.error?.message, 'danger');
+        const shareOptions = {
+          title: 'Share Project',
+          url: url,
+          type:"share"
+        };
+        let response = this.utils.postMessageListener(shareOptions)
+        if(!response){
+          this.toastService.presentToast("SHARE_FAILED", 'danger');
         }
       } else {
         this.setOpenForCopyLink(url);
