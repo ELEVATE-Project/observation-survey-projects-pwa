@@ -68,7 +68,7 @@ export class ProjectDetailsPage  implements OnInit {
         // } catch (err) {
         // }
         const shareOptions = {
-          title: 'Share Project',
+          title: event.data.name,
           url: url,
           type:"share"
         };
