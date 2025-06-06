@@ -192,7 +192,7 @@ export class ProjectReportPage implements OnInit {
         await this.loader.dismissLoading();
         if (this.utilService.isMobile()) {
             const shareOptions = {
-              title: 'Project Report',
+            title: this.generateName(),
               text: 'Check out this project report',
               url: this.downloadUrl,
               type:"share"
@@ -261,7 +261,7 @@ export class ProjectReportPage implements OnInit {
             const year = today.getFullYear();
             const formattedDate = `${day}-${month}-${year}`;
             // const name = `report_${formattedDate}.pdf`;
-            const name = `report_${formattedDate}`;
+            const name = this.generateName();
             let downloadUrl = res.result?.downloadUrl || res.result?.data?.downloadUrl;
             this.downloadFile(downloadUrl, name);
           }
@@ -422,5 +422,12 @@ export class ProjectReportPage implements OnInit {
     this.selectedProgram = ""
     this.programId = ""
     this.getReportData()
+  }
+
+  generateName(){
+    const now = new Date();
+    const pad = (n: number) => String(n).padStart(2, '0');
+    const formattedDateTime = `${pad(now.getDate())}-${pad(now.getMonth() + 1)}-${now.getFullYear()}-${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(now.getSeconds())}`;
+    return `report_${formattedDateTime}`;
   }
 }
