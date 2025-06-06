@@ -84,6 +84,8 @@
   "PRIVACY_POLICY_LINK_MSG":" Terms of Use and Content Policy",
   "PRIVACY_POLICY_MSG2":"I have not shared any personal or sensitive information and have made sure that I do not violate others privacy rights and third party rights including intellectual property rights.",
   "DO_NOT_SHARE":"Do Not Share",
-  "SHARE":"Share"
+  "SHARE":"Share",
+  "SURVEY_EXPIRED":"Sorry! the form has expired.",
+  "SURVEY_COMPLETED":"Your form is Submitted!"
 
 }

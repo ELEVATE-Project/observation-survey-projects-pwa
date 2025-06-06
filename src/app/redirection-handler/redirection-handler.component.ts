@@ -48,9 +48,9 @@ export class RedirectionHandlerComponent  implements OnInit {
   }
 
   getProfileDetails() {
-    this.profileService.getProfileAndEntityConfigData().subscribe((mappedIds) => {
+    this.profileService.getProfileAndEntityConfigData().subscribe(async (mappedIds) => {
       if (mappedIds) {
-        this.profileInfo = mappedIds;
+        this.profileInfo = await mappedIds;
         this.checkLinkType()
       }else{
         this.router.navigate(['/home'],{ replaceUrl:true })

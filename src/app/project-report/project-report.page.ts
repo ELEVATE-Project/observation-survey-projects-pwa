@@ -366,7 +366,7 @@ export class ProjectReportPage implements OnInit {
                 position: 'bottom',
               },
               datalabels: {
-                formatter: (value, context) => {
+                formatter: (value:any, context:any) => {
                   const total = context.dataset.data.reduce((acc: any, cur: any) => acc + cur, 0);
                   const percentage = (value / total * 100).toFixed(1) + '%';
                   return percentage;

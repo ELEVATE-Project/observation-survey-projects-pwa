@@ -88,15 +88,15 @@ export class ListingPage implements OnInit {
   }
 
   getProfileDetails() {
-    this.profileService.getProfileAndEntityConfigData().subscribe((mappedIds) => {
+    this.profileService.getProfileAndEntityConfigData().subscribe(async (mappedIds) => {
       if (mappedIds) {
-        this.entityData = mappedIds;
+        this.entityData = await mappedIds;
         this.getListData();
       }
     });
   }
 
-  async getListData() {
+  async getListData($event?:any) {
     this.showLoading = true;
     await this.loader.showLoading("LOADER_MSG");
     if(this.listType !== 'project'){
@@ -123,6 +123,9 @@ export class ListingPage implements OnInit {
           });
         } else {
           this.toastService.presentToast(res?.message, 'warning');
+        }
+        if($event){
+          $event.target.complete();
         }
       },
         (err: any) => {
@@ -191,7 +194,7 @@ export class ListingPage implements OnInit {
 
   loadData($event: any) {
     this.page = this.page + 1;
-    this.getListData();
+    this.getListData($event);
   }
 
 

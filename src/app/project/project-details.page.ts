@@ -25,8 +25,12 @@ export class ProjectDetailsPage  implements OnInit {
     baseUrl: environment.projectsBaseURL ?? environment.baseURL,
     accessToken: localStorage.getItem('accToken'),
     profileInfo: {},
-    redirectionLinks: { contentPolicyLink: "https://shikshalokam.org/mentoring/privacy-policy/",
-      profilePage: environment.profileRedirectPath ?? "" }
+    redirectionLinks: {
+      contentPolicyLink: "https://shikshalokam.org/mentoring/privacy-policy/",
+      profilePage: environment.profileRedirectPath ?? "",
+      unauthorizedRedirectUrl: environment.unauthorizedRedirectUrl ?? ""
+    },
+    language: "en"
   }
   showDetails = false
   sharePopupHandler:any
@@ -96,9 +100,9 @@ export class ProjectDetailsPage  implements OnInit {
         this.showDetails = true
         return
       }
-      this.profileService.getProfileAndEntityConfigData().subscribe((mappedIds) => {
+      this.profileService.getProfileAndEntityConfigData().subscribe(async (mappedIds) => {
         if (mappedIds) {
-          this.config.profileInfo = mappedIds;
+          this.config.profileInfo = await mappedIds;
         }else{
           history.replaceState(null, '','/');
           this.navCtrl.back()
