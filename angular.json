@@ -35,7 +35,7 @@
             "styles": ["src/global.scss", "src/theme/variables.scss","node_modules/project-player/styles.css"],
             "scripts": ["node_modules/project-player/project-player-component.js","node_modules/questionnaire-webcomponent/web-component/questionnaire-player-webcomponent.js"],
 
-            "serviceWorker": false,
+            "serviceWorker": true,
             "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
