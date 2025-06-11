@@ -187,7 +187,7 @@ export class ProgramDetailsPage implements OnInit {
               queryParams.set('solutionId', data._id);
             }
             queryParams.set('index', '0');
-            window.location.href = `/managed-observation-portal/questionnaire?${queryParams.toString()}`;          }
+            window.location.href = `/managed-observation-portal/questionnaire?${queryParams.toString()}&solutionType=survey`;}
         } else {
           this.toastService.presentToast(res?.message, 'danger');
         }
