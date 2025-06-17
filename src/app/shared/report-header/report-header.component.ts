@@ -14,8 +14,8 @@ export class ReportHeaderComponent {
   @Output() emitReportType = new EventEmitter<any>();
   @Output() emitReportAction = new EventEmitter<any>();
   interval:any;
-
   isOpen = false;
+  popover:any
 
   constructor(public popoverController: PopoverController,) {
     this.setOptionList();
@@ -42,22 +42,28 @@ export class ReportHeaderComponent {
     ];
 
 
-    const popover = await this.popoverController.create({
+    this.popover = await this.popoverController.create({
       component: PopoverComponent,
       componentProps: { menus: menu },
       event: ev,
       translucent: true,
     });
-    popover.onDidDismiss().then((data) => {
+    this.popover.onDidDismiss().then((data:any) => {
 
       if (data.data) {
         this.emitReportAction.emit(data.data)
       }
     });
-    return await popover.present();
+    return await this.popover.present();
   }
   setOptionList(){
     let options:any = actions.INTERVALS;
     this.interval = options;
+  }
+
+  ngOnDestroy(){
+    if(this.popover){
+      this.popover.dismiss()
+    }
   }
 }
