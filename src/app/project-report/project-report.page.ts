@@ -75,6 +75,7 @@ export class ProjectReportPage implements OnInit {
   }
 
   ngOnInit() {
+    window.addEventListener('popstate', this.handlePopState);
     this.listType = 'report';
     this.getReportData();
      this.projectsCategories = [
@@ -429,5 +430,15 @@ export class ProjectReportPage implements OnInit {
     const pad = (n: number) => String(n).padStart(2, '0');
     const formattedDateTime = `${pad(now.getDate())}-${pad(now.getMonth() + 1)}-${now.getFullYear()}-${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(now.getSeconds())}`;
     return `report_${formattedDateTime}`;
+  }
+
+  ngOnDestroy(){
+    window.removeEventListener('popstate', this.handlePopState);
+  }
+
+  handlePopState = () => {
+    if (this.isProgramModel) {
+      this.isProgramModel = false;
+    }
   }
 }
