@@ -12,7 +12,7 @@ import { Clipboard } from '@capacitor/clipboard';
 import { UtilService } from '../services/util/util.service';
 import { ShareLinkPopupComponent } from '../shared/share-link-popup/share-link-popupcomponent';
 import { ProjectsApiService } from '../services/projects-api/projects-api.service';
-import { statusType } from '../core/statusConstants';
+import { statusType } from '../core/constants/statusConstants';
 
 
 @Component({
