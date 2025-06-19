@@ -12,6 +12,7 @@ import { Clipboard } from '@capacitor/clipboard';
 import { UtilService } from '../services/util/util.service';
 import { ShareLinkPopupComponent } from '../shared/share-link-popup/share-link-popupcomponent';
 import { ProjectsApiService } from '../services/projects-api/projects-api.service';
+import { statusType } from '../core/statusConstants';
 
 
 @Component({
@@ -60,6 +61,8 @@ export class ProjectReportPage implements OnInit {
 							'rgb(179, 139, 11)',
   ];
   downloadUrl: any;
+  taskChartColors:any = []
+  categoryChartColors:any = []
 
   constructor(
     private navCtrl: NavController,
@@ -173,6 +176,8 @@ export class ProjectReportPage implements OnInit {
           if (res?.status === 200) {
             if (res.result.dataAvailable) {
               this.reportData = res.result.data;
+              this.taskChartColors = this.generateChartColor(this.reportData.tasks);
+              this.categoryChartColors = this.generateChartColor(this.reportData.categories);
               this.renderChart(this.reportData.tasks, this.reportData.categories); // Update charts after data fetch
             } else {
               this.setOpen(true);
@@ -294,12 +299,13 @@ export class ProjectReportPage implements OnInit {
     const capitalizedTaskData = capitalizeAndSpaceKeys(filteredTaskData);
     const capitalizedCategoryData = capitalizeAndSpaceKeys(filteredCategoryData);
 
-
+    this.taskChartColors = this.getColors(this.taskChartColors)
+    this.categoryChartColors = this.getColors(this.categoryChartColors)
     const dataForTask = {
       labels: Object.keys(capitalizedTaskData),
       datasets: [{
         data: Object.values(capitalizedTaskData),
-        backgroundColor: this.backgroundColors,
+        backgroundColor: this.taskChartColors,
         hoverOffset: 4
       }]
     };
@@ -308,7 +314,7 @@ export class ProjectReportPage implements OnInit {
       labels: Object.keys(capitalizedCategoryData),
       datasets: [{
         data: Object.values(capitalizedCategoryData),
-        backgroundColor: this.backgroundColors,
+        backgroundColor: this.categoryChartColors,
         hoverOffset: 4
       }]
     };
@@ -439,6 +445,42 @@ export class ProjectReportPage implements OnInit {
   handlePopState = () => {
     if (this.isProgramModel) {
       this.isProgramModel = false;
+    }
+  }
+
+  generateChartColor(data:any){
+    let color = [];
+    let count = 0;
+    for (const key in data) {
+      if (key == 'total' || key == 'series' || data[key] == 0) {
+        continue;
+      }
+
+      if (key == statusType.completed) {
+        color.push({ color: '#29621B', position: count });
+      }
+
+      if (key == statusType.notStarted) {
+        color.push({ color: '#DA090D', position: count });
+      }
+      if (key == statusType.started) {
+        color.push({ color: '#ffd31a', position: count });
+      }
+      count++;
+    }
+    return color;
+  }
+
+  getColors(colorsList:any){
+    if (colorsList.length) {
+      let mainColorsList = JSON.parse(JSON.stringify(this.backgroundColors))
+      colorsList.map((data:any) => {
+        mainColorsList.splice(data.position, 0, data.color);
+      });
+      colorsList = mainColorsList;
+      return colorsList;
+    } else {
+      return this.backgroundColors
     }
   }
 }
