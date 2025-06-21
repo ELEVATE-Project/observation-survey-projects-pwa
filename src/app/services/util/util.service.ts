@@ -16,7 +16,7 @@ export class UtilService {
   }
 
   isLoggedIn(){
-    return !!localStorage.getItem('accToken')
+    return !!localStorage.getItem('accToken')?.trim()
   }
 
   async openCertificateVerificationPopover(res: any) {

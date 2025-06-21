@@ -69,11 +69,13 @@ export class ProfileService {
         map( async ([entityConfigRes, profileFormDataRes]: any) => {
           let profileData = localStorage.getItem("profileData")
           if(profileData){
+            console.log("LOcal Data present: ",profileData)
             let parsedData = JSON.parse(profileData)
             if(parsedData?.state){
               return parsedData
             }else{
               this.presentAlert();
+              return null
             }
           }
           if (entityConfigRes?.status === 200 && profileFormDataRes?.status === 200) {
@@ -121,7 +123,8 @@ export class ProfileService {
           handler: async() => {
             const options = {
               type:"redirect",
-              pathType:"home"
+              pathType:"home",
+              replacePath: true
             };
             let response = await this.utils.postMessageListener(options)
             if(!response){
