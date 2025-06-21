@@ -133,8 +133,9 @@ export class ProgramDetailsPage implements OnInit {
   }
   getProfileDetails() {
     this.profileService.getProfileAndEntityConfigData().subscribe(async(mappedIds) => {
-      if (mappedIds) {
-      this.entityData= await mappedIds
+      let data = await mappedIds
+      if (data) {
+      this.entityData= data
       this.getProgramDetails()
       }
     });

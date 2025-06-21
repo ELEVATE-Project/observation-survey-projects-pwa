@@ -87,5 +87,6 @@
   "SHARE":"Share",
   "SURVEY_EXPIRED":"Sorry! the form has expired.",
   "SURVEY_COMPLETED":"Your form is Submitted!",
-  "SHARE_FAILED":"Failed to share"
+  "SHARE_FAILED":"Failed to share",
+  "CONTENT_NOT_AVAILABLE_FOR_ROLE": "This content is not available for your role"
 }

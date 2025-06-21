@@ -110,8 +110,9 @@ export class ProjectDetailsPage  implements OnInit {
         return
       }
       this.profileService.getProfileAndEntityConfigData().subscribe(async (mappedIds) => {
-        if (mappedIds) {
-          this.config.profileInfo = await mappedIds;
+        let data = await mappedIds
+        if (data) {
+          this.config.profileInfo = data;
         }else{
           history.replaceState(null, '','/');
           this.navCtrl.back()

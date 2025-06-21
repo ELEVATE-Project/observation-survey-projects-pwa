@@ -21,6 +21,7 @@ export class RedirectionHandlerComponent  implements OnInit {
   profileInfo:any = {}
   toastService: any;
   isOnline:any;
+  permittedUsers = ["administrator", "teacher"]
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private navCtrl: NavController, private profileService: ProfileService,private network:NetworkServiceService) {
     this.apiService = inject(ProjectsApiService)
@@ -37,6 +38,7 @@ export class RedirectionHandlerComponent  implements OnInit {
         return
       }
       if(!this.utils.isLoggedIn()){
+        console.log("USER NOT LOGGED IN")
         this.checkLinkType()
       }else{
         this.getProfileDetails()
@@ -49,11 +51,14 @@ export class RedirectionHandlerComponent  implements OnInit {
 
   getProfileDetails() {
     this.profileService.getProfileAndEntityConfigData().subscribe(async(mappedIds) => {
-      if (mappedIds) {
-        this.profileInfo = await mappedIds;
+      let data = await mappedIds
+      console.log("Map id's: ",data)
+      if (data) {
+        this.profileInfo = data;
         this.checkLinkType()
       }else{
         // this.router.navigate(['/home'],{ replaceUrl:true })
+        console.log("ELSE block in profile fetch")
         const options = {
           type:"redirect",
           pathType:"home"
@@ -78,10 +83,25 @@ export class RedirectionHandlerComponent  implements OnInit {
   }
 
   async verifyLink(){
-    console.log("verify link called")
+    let userType = ""
+    userType = localStorage.getItem("userType") || localStorage.getItem("usertype") || ""
+    console.log("verify link called",userType)
     if(!this.utils.isLoggedIn()){
-      console.log("Logged in")
+      console.log("Not Logged in")
       this.router.navigate(['project-details'], { state: { link: this.linkId, referenceFrom: "link" }, replaceUrl:true });
+      return
+    }else if(!this.permittedUsers.includes(userType)){
+      console.log("Restricted")
+      this.toastService.presentToast("CONTENT_NOT_AVAILABLE_FOR_ROLE","danger")
+      const options = {
+        type:"redirect",
+        pathType:"home",
+        replacePath: true
+      };
+      let response = await this.utils.postMessageListener(options)
+      if(!response){
+        this.navCtrl.back()
+      }
       return
     }
     this.apiService.post(urlConfig.project.verifyLink+this.linkId+"?createProject=false",this.profileInfo).subscribe(async(response:any)=>{
