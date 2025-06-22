@@ -56,18 +56,19 @@ export class RedirectionHandlerComponent  implements OnInit {
       if (data) {
         this.profileInfo = data;
         this.checkLinkType()
-      }else{
-        // this.router.navigate(['/home'],{ replaceUrl:true })
-        console.log("ELSE block in profile fetch")
-        const options = {
-          type:"redirect",
-          pathType:"home"
-        };
-        let response = await this.utils.postMessageListener(options)
-        if(!response){
-          this.router.navigate(['/home'],{ replaceUrl:true })
-        }
       }
+      // else{
+        // this.router.navigate(['/home'],{ replaceUrl:true })
+        // console.log("ELSE block in profile fetch")
+        // const options = {
+        //   type:"redirect",
+        //   pathType:"home"
+        // };
+        // let response = await this.utils.postMessageListener(options)
+        // if(!response){
+        //   this.router.navigate(['/home'],{ replaceUrl:true })
+        // }
+      // }
     });
   }
 
