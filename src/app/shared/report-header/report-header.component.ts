@@ -32,11 +32,11 @@ export class ReportHeaderComponent {
   async openPopover(ev: any) {
     let menu:any =[
       {
-        title: 'Share',
+        title: 'SHARE',
         value: 'share',
       },
       {
-        title: 'Download',
+        title: 'DOWNLOAD',
         value: 'download',
       }
     ];

@@ -62,4 +62,9 @@ export class UtilService {
       }
     });
   }
+
+  getPreferredLanguage(){
+    let preferredLanguage = localStorage.getItem("preferredLanguage")
+    return preferredLanguage || "en"
+  }
 }
