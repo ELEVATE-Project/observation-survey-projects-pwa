@@ -88,5 +88,12 @@
   "SURVEY_EXPIRED":"Sorry! the form has expired.",
   "SURVEY_COMPLETED":"Your form is Submitted!",
   "SHARE_FAILED":"Failed to share",
-  "CONTENT_NOT_AVAILABLE_FOR_ROLE": "This content is not available for your role"
+  "CONTENT_NOT_AVAILABLE_FOR_ROLE": "This content is not available for your role",
+  "TOTAL_PROJECTS":"Total Projects",
+  "PROJECTS_SUBMITTED":"Projects Submitted",
+  "PROJECTS_IN_PROGRESS":"Projects In Progress",
+  "PROJECTS_STARTED":"Projects Started",
+  "PROJECT_OVERVIEW":"Project overview",
+  "SELECT":"Select",
+  "DOWNLOAD":"Download"
 }

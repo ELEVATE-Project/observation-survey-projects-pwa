@@ -94,15 +94,17 @@ export class RedirectionHandlerComponent  implements OnInit {
     }else if(!this.permittedUsers.includes(userType)){
       console.log("Restricted")
       this.toastService.presentToast("CONTENT_NOT_AVAILABLE_FOR_ROLE","danger")
-      const options = {
-        type:"redirect",
-        pathType:"home",
-        replacePath: true
-      };
-      let response = await this.utils.postMessageListener(options)
-      if(!response){
-        this.navCtrl.back()
-      }
+      setTimeout(async() => {
+        const options = {
+          type:"redirect",
+          pathType:"home",
+          replacePath: true
+        };
+        let response = await this.utils.postMessageListener(options)
+        if(!response){
+          this.navCtrl.back()
+        }
+      }, 1500);
       return
     }
     this.apiService.post(urlConfig.project.verifyLink+this.linkId+"?createProject=false",this.profileInfo).subscribe(async(response:any)=>{

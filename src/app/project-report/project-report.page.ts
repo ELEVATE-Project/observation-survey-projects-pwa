@@ -83,22 +83,22 @@ export class ProjectReportPage implements OnInit {
     this.getReportData();
      this.projectsCategories = [
       {
-        name: 'Total Projects',
+        name: 'TOTAL_PROJECTS',
         img: '/managed-learn/assets/images/report-imgs/Note 1.svg',
         key: 'total',
       },
       {
-        name: 'Projects Submitted',
+        name: 'PROJECTS_SUBMITTED',
         img: '/managed-learn/assets/images/report-imgs/note.svg',
         key: 'submitted',
       },
       {
-        name: 'Projects In Progress',
+        name: 'PROJECTS_IN_PROGRESS',
         img: '/managed-learn/assets/images/report-imgs/Note 4.svg',
         key: 'inProgress',
       },
       {
-        name: 'Projects Started',
+        name: 'PROJECTS_STARTED',
         img: '/managed-learn/assets/images/report-imgs/Note 3.svg',
         key: 'started',
       },
