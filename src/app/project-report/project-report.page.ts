@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { NavController, PopoverController } from '@ionic/angular';
 import { LoaderService } from '../services/loader/loader.service';
 import urlConfig from 'src/app/config/url.config.json';
@@ -19,7 +19,7 @@ import { ProjectsApiService } from '../services/projects-api/projects-api.servic
   templateUrl: './project-report.page.html',
   styleUrls: ['./project-report.page.scss'],
 })
-export class ProjectReportPage implements OnInit {
+export class ProjectReportPage implements OnInit,OnDestroy {
   isFilter: boolean = false;
   loader: LoaderService;
   baseApiService: any;
@@ -75,6 +75,7 @@ export class ProjectReportPage implements OnInit {
   }
 
   ngOnInit() {
+    window.addEventListener('popstate', this.handlePopState);
     this.listType = 'report';
     this.getReportData();
      this.projectsCategories = [
@@ -411,5 +412,15 @@ export class ProjectReportPage implements OnInit {
     this.selectedProgram = ""
     this.programId = ""
     this.getReportData()
+  }
+
+  handlePopState = () => {
+    if (this.isProgramModel) {
+      this.isProgramModel = false;
+    }
+  }
+
+  ngOnDestroy(){
+    window.removeEventListener('popstate', this.handlePopState);
   }
 }
