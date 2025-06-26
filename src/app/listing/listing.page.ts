@@ -88,9 +88,10 @@ export class ListingPage implements OnInit {
   }
 
   getProfileDetails() {
-    this.profileService.getProfileAndEntityConfigData().subscribe(async (mappedIds) => {
-      if (mappedIds) {
-        this.entityData = await mappedIds;
+    this.profileService.getProfileAndEntityConfigData().subscribe(async(mappedIds) => {
+      let data = await mappedIds
+      if (data) {
+      this.entityData= data
         this.getListData();
       }
     });
