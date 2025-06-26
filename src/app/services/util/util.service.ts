@@ -52,4 +52,9 @@ export class UtilService {
     !data.customNavigation ?
     this.router.navigate([data?.redirectionUrl], { queryParams: { type: data.listType, reportPage: data?.reportPage } }) :
     location.href = data.redirectionUrl  }
+
+    getPreferredLanguage(){
+      let preferredLanguage = localStorage.getItem("preferredLanguage")
+      return preferredLanguage || "en"
+    }
 }

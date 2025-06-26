@@ -86,6 +86,12 @@
   "DO_NOT_SHARE":"Do Not Share",
   "SHARE":"Share",
   "SURVEY_EXPIRED":"Sorry! the form has expired.",
-  "SURVEY_COMPLETED":"Your form is Submitted!"
-
+  "SURVEY_COMPLETED":"Your form is Submitted!",
+  "TOTAL_PROJECTS":"Total Projects",
+  "PROJECTS_SUBMITTED":"Projects Submitted",
+  "PROJECTS_IN_PROGRESS":"Projects In Progress",
+  "PROJECTS_STARTED":"Projects Started",
+  "PROJECT_OVERVIEW":"Project overview",
+  "SELECT":"Select",
+  "DOWNLOAD":"Download"
 }

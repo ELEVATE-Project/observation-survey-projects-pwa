@@ -55,7 +55,7 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12">
-        <app-report-header [reportType]="reportType" [reportTitle]="'Project overview'" (emitReportType)="getReportType($event)" (emitReportAction)="getAction($event)"></app-report-header>
+        <app-report-header [reportType]="reportType" [reportTitle]="'PROJECT_OVERVIEW'" (emitReportType)="getReportType($event)" (emitReportAction)="getAction($event)"></app-report-header>
         <div>
           <ion-row>
             @for (item of projectsCategories; track $index) {
@@ -65,7 +65,7 @@
                     <img  [src]="item.img" alt="" srcset="">
                   </div>
                   <div class="overview-description">
-                    <ion-label>{{item.name}}</ion-label>
+                    <ion-label>{{item.name | translate }}</ion-label>
 
                     <ion-label>{{reportData?.projects?.[item.key] ?? 0}}</ion-label>
                   </div>
