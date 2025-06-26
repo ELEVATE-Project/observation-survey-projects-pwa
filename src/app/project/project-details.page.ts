@@ -36,6 +36,7 @@ export class ProjectDetailsPage  implements OnInit {
   sharePopupHandler:any
     constructor(private navCtrl: NavController, private profileService: ProfileService, private utils: UtilService,private toastService:ToastService,private popoverController:PopoverController,private network:NetworkServiceService) {
       this.router = inject(Router);
+      this.config.language = this.utils.getPreferredLanguage()
       this.network.isOnline$.subscribe((status: any)=>{
         this.isOnline=status
       })
