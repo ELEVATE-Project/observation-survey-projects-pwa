@@ -6,6 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "prebuild": "node set-basehref.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -44,7 +45,7 @@
     "jwt-decode": "^4.0.0",
     "network-service": "^0.0.1",
     "questionnaire-webcomponent": "^4.1.12",
-    "project-player": "^1.1.10",
+    "project-player": "^1.3.0",
     "rxjs": "~7.8.0",
     "swiper": "^11.1.1",
     "tslib": "^2.6.3",
