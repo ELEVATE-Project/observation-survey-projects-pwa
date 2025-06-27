@@ -37,12 +37,14 @@ export class RedirectionHandlerComponent  implements OnInit {
         this.toastService.presentToast('NETWORK_OFFLINE','danger')
         return
       }
-      if(!this.utils.isLoggedIn()){
-        console.log("USER NOT LOGGED IN")
-        this.checkLinkType()
-      }else{
-        this.getProfileDetails()
-      }
+      setTimeout(() => {
+        if(!this.utils.isLoggedIn()){
+          console.log("USER NOT LOGGED IN")
+          this.checkLinkType()
+        }else{
+          this.getProfileDetails()
+        }
+      }, 2000);
     })
   }
 
