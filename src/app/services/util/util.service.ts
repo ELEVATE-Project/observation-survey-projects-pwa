@@ -30,7 +30,7 @@ export class UtilService {
       backdropDismiss: true
     });
     await popover.present();
-    await popover.onDidDismiss();
+    await popover.onDidDismiss(); 
   }
 
   async clearDatabase(){
@@ -51,7 +51,7 @@ export class UtilService {
   navigateTo(data: any) {
     !data.customNavigation ?
     this.router.navigate([data?.redirectionUrl], { queryParams: { type: data.listType, reportPage: data?.reportPage } }) :
-    location.href = `http://localhost:53381/${data.redirectionUrl}`  }
+    location.href = data.redirectionUrl  }
 
     getPreferredLanguage(){
       let preferredLanguage = localStorage.getItem("preferredLanguage")

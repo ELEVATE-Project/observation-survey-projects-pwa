@@ -64,7 +64,7 @@ export class RedirectionHandlerComponent  implements OnInit {
       case "project":
         this.verifyLink()
         break;
-
+      
       default:
         break;
     }
@@ -86,7 +86,7 @@ export class RedirectionHandlerComponent  implements OnInit {
               this.router.navigate(['project-details'], { state: { ...queryData, referenceFrom: "link" } });
             }, 100);
             break;
-
+            
           default:
             break;
         }

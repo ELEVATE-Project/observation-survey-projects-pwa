@@ -124,7 +124,7 @@ export class ProgramDetailsPage implements OnInit {
         break;
 
       case 'observation':
-        window.location.href = `http://localhost:53381/observations/entityList/${data._id}/${data.name}/${data.entityType}/${data._id}`;
+        window.location.href = `/observations/entityList/${data._id}/${data.name}/${data.entityType}/${data._id}`;
         break;
 
       default:
