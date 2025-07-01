@@ -109,4 +109,5 @@ export class HomePage {
       document.documentElement.style.setProperty('--color-primary', '#832215');
     }
   }
+
 }

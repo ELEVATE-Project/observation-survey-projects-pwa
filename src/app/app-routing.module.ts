@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then((m) => m.HomePageModule),
-    canActivate: [AuthGuard, allowPageAccessGuard],
+    canActivate: [ AuthGuard, allowPageAccessGuard],
     data: { pageId: PAGE_IDS.home }
   },
   {

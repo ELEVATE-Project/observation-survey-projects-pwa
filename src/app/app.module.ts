@@ -15,7 +15,7 @@ import { CertificateVerificationPopoverComponent } from './shared/certificate-ve
 import { ShareLinkPopupComponent } from './shared/share-link-popup/share-link-popupcomponent';
 import { ShortUrlPipe } from './shared/pipes/short-url.pipe';
 
-import { 
+import {
   TranslateLoader,
   TranslateModule,
   TranslateService,

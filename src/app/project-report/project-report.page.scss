@@ -108,9 +108,9 @@ ion-select{
 
 
 .program-modal {
-  --width: 60vw; 
+  --width: 60vw;
   --max-width: 400px;
-  --height: 50vh; 
+  --height: 50vh;
   --max-height: 400px;
   --border-radius: 15px;
   --box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
@@ -137,7 +137,7 @@ ion-select{
 .program-selection {
   margin-left: 20px;
   margin-top: 14px;
-  
+
   h1 {
     display: flex;
     flex-direction: row;
@@ -147,7 +147,7 @@ ion-select{
 
   .arrow-icon {
     font-size: 16px;
-    margin-left: 8px; 
+    margin-left: 8px;
     color: #555;
   }
 
@@ -172,7 +172,7 @@ ion-select{
 
 @media (max-width: 768px) {
   .no-data {
-    max-width: 10rem; 
+    max-width: 10rem;
     padding: 30px 0px;
   }
 }
