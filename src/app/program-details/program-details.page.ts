@@ -28,10 +28,10 @@ export class ProgramDetailsPage implements OnInit {
   filteredList: any;
   filterData:any;
   programDescription: any;
- 
+
   constructor(private route : ActivatedRoute,
     private navCtrl: NavController,
-    private toastService :ToastService, 
+    private toastService :ToastService,
     private loader : LoaderService,
     private ProjectsApiService: ProjectsApiService,
     private router: Router,
@@ -106,25 +106,25 @@ export class ProgramDetailsPage implements OnInit {
   // applyFilter(){
   //   if (this.programFilter === 'all') {
   //     this.filteredList =  this.filterData.map((item: any) => ({...item,show: false}))
-  //   } else { 
+  //   } else {
   //     this.filteredList = this.filterData.filter((item: any) => item.sectionName === this.programFilter)
   //                         .map((item: any) => ({ ...item, show: true }));
   //   }
   // }
 
   navigateTo(data:any){
-    
+
     switch (data.type) {
       case 'improvementProject':
         this.router.navigate(['project-details'], { state: { _id:data.projectId || null, solutionId: data._id} });
         break;
-  
+
       case 'survey':
         this.redirectSurvey(data);
         break;
 
       case 'observation':
-        window.location.href = `/observations/entityList/${data._id}/${data.name}/${data.entityType}/${data._id}`;
+        window.location.href = `http://localhost:53381/observations/entityList/${data._id}/${data.name}/${data.entityType}/${data._id}`;
         break;
 
       default:

@@ -107,14 +107,14 @@ export class ProjectReportPage implements OnInit,OnDestroy {
 
   openProgramModal() {
     this.setProgram(true)
-    this.page = 1; 
-    this.programList= [];  
-    this.getPrograms();  
+    this.page = 1;
+    this.programList= [];
+    this.getPrograms();
   }
 
   selectProgram(item: any) {
     this.isProgramModel=false;
-    this.selectedProgram = item.name;  
+    this.selectedProgram = item.name;
     this.programId = item._id;
     this.getReportData()
   }
@@ -124,10 +124,10 @@ export class ProjectReportPage implements OnInit,OnDestroy {
       event.target.disabled = true;
       return;
     }
-    this.page += 1;  
+    this.page += 1;
     await this.getPrograms(event);
   }
-  
+
   async getPrograms(event?: any) {
     this.listType='report';
     this.baseApiService
