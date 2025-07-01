@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, PopoverController } from '@ionic/angular';
 import { ToastService } from '../services/toast/toast.service';
 import { LoaderService } from '../services/loader/loader.service';
 import { ProjectsApiService } from '../services/projects-api/projects-api.service';
@@ -8,6 +8,7 @@ import { finalize } from 'rxjs';
 import urlConfig from 'src/app/config/url.config.json';
 // import { actions } from '../config/actionContants';
 import { ProfileService } from '../services/profile/profile.service';
+import { PopUpComponent } from '../shared/pop-up/pop-up.component';
 
 @Component({
   selector: 'app-program-details',
@@ -34,6 +35,7 @@ export class ProgramDetailsPage implements OnInit {
     private loader : LoaderService,
     private ProjectsApiService: ProjectsApiService,
     private router: Router,
+    private popoverController: PopoverController,
     private profileService: ProfileService) {
 
     this.route.params.subscribe(param=>{
@@ -88,7 +90,7 @@ export class ProgramDetailsPage implements OnInit {
         this.programList.push({sectionName:sectionName,sectionList:[data],order:order})
        }
     })
-    this.filterData=this.programList.sort((a:any,b:any)=>{return a.order - b.order}).map((item:any)=>({ ...item,show:true}))
+    this.filterData=this.programList.sort((a:any,b:any)=> a.order - b.order).map((item:any) => ({ ...item,show: false }))
   }
 
   formatDescription() {
@@ -118,7 +120,11 @@ export class ProgramDetailsPage implements OnInit {
         break;
   
       case 'survey':
-        this.router.navigate(['questionnaire', data.solutionId]);
+        this.redirectSurvey(data);
+        break;
+
+      case 'observation':
+        window.location.href = `/observations/entityList/${data._id}/${data.name}/${data.entityType}/${data._id}`;
         break;
 
       default:
@@ -126,9 +132,10 @@ export class ProgramDetailsPage implements OnInit {
     }
   }
   getProfileDetails() {
-    this.profileService.getProfileAndEntityConfigData().subscribe((mappedIds) => {
-      if (mappedIds) {
-      this.entityData=mappedIds
+    this.profileService.getProfileAndEntityConfigData().subscribe(async(mappedIds) => {
+      let data = await mappedIds
+      if (data) {
+      this.entityData= data
       this.getProgramDetails()
       }
     });
@@ -157,5 +164,57 @@ export class ProgramDetailsPage implements OnInit {
       this.toastService.presentToast(err?.error?.message, 'danger');
     }
   )
-  }  
+  }
+
+  redirectSurvey(data: any) {
+    this.ProjectsApiService.post(
+      urlConfig['survey'].detailsUrl + `${data._id}`,
+      this.entityData
+    ).subscribe(
+      (res: any) => {
+        if (res?.status === 200) {
+          const status = res.result?.assesment?.status;
+
+          if (status === 'expired') {
+            this.openPopup('expired');
+          } else if (status === 'completed') {
+            this.openPopup('completed');
+          } else {
+            const queryParams = new URLSearchParams();
+            if (data.submissionId) {
+              queryParams.set('submissionId', data.submissionId);
+            }
+            if (data._id) {
+              queryParams.set('solutionId', data._id);
+            }
+            queryParams.set('index', '0');
+            window.location.href = `/observations/questionnaire?${queryParams.toString()}`;          }
+        } else {
+          this.toastService.presentToast(res?.message, 'danger');
+        }
+      },
+      (err: any) => {
+        this.toastService.presentToast(err?.error?.message, 'danger');
+      }
+    );
+  }
+
+  async openPopup(type:any){
+    const popup = await this.popoverController.create({
+      component: PopUpComponent,
+      componentProps:{
+        data:{
+          showCancel:false,
+          message: type == 'completed' ? 'SURVEY_COMPLETED' : 'SURVEY_EXPIRED',
+          button:{text:"OK"}
+        }
+      },
+      cssClass: 'popup-class3',
+      backdropDismiss: true
+    });
+    await popup.present();
+    popup.onDidDismiss().then((data)=>{
+          return data.data;
+          })
+  }
 }

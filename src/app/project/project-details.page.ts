@@ -25,13 +25,18 @@ export class ProjectDetailsPage  implements OnInit {
     baseUrl: environment.projectsBaseURL ?? environment.baseURL,
     accessToken: localStorage.getItem('accToken'),
     profileInfo: {},
-    redirectionLinks: { contentPolicyLink: "https://shikshalokam.org/mentoring/privacy-policy/",
-      profilePage: environment.profileRedirectPath ?? "" }
+    redirectionLinks: {
+      contentPolicyLink: "https://shikshalokam.org/mentoring/privacy-policy/",
+      profilePage: environment.profileRedirectPath ?? "",
+      unauthorizedRedirectUrl: environment.unauthorizedRedirectUrl ?? ""
+    },
+    language: "en"
   }
   showDetails = false
   sharePopupHandler:any
     constructor(private navCtrl: NavController, private profileService: ProfileService, private utils: UtilService,private toastService:ToastService,private popoverController:PopoverController,private network:NetworkServiceService) {
       this.router = inject(Router);
+      this.config.language = this.utils.getPreferredLanguage()
       this.network.isOnline$.subscribe((status: any)=>{
         this.isOnline=status
       })
@@ -96,9 +101,10 @@ export class ProjectDetailsPage  implements OnInit {
         this.showDetails = true
         return
       }
-      this.profileService.getProfileAndEntityConfigData().subscribe((mappedIds) => {
-        if (mappedIds) {
-          this.config.profileInfo = mappedIds;
+      this.profileService.getProfileAndEntityConfigData().subscribe(async (mappedIds) => {
+        let data = await mappedIds
+        if (data) {
+          this.config.profileInfo = data;
         }else{
           history.replaceState(null, '','/');
           this.navCtrl.back()

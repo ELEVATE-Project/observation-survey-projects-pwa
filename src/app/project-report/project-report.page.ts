@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { NavController, PopoverController } from '@ionic/angular';
 import { LoaderService } from '../services/loader/loader.service';
 import urlConfig from 'src/app/config/url.config.json';
@@ -19,7 +19,7 @@ import { ProjectsApiService } from '../services/projects-api/projects-api.servic
   templateUrl: './project-report.page.html',
   styleUrls: ['./project-report.page.scss'],
 })
-export class ProjectReportPage implements OnInit {
+export class ProjectReportPage implements OnInit,OnDestroy {
   isFilter: boolean = false;
   loader: LoaderService;
   baseApiService: any;
@@ -75,26 +75,27 @@ export class ProjectReportPage implements OnInit {
   }
 
   ngOnInit() {
+    window.addEventListener('popstate', this.handlePopState);
     this.listType = 'report';
     this.getReportData();
      this.projectsCategories = [
       {
-        name: 'Total Projects',
+        name: 'TOTAL_PROJECTS',
         img: '/assets/images/report-imgs/Note 1.svg',
         key: 'total',
       },
       {
-        name: 'Projects Submitted',
+        name: 'PROJECTS_SUBMITTED',
         img: '/assets/images/report-imgs/note.svg',
         key: 'submitted',
       },
       {
-        name: 'Projects In Progress',
+        name: 'PROJECTS_IN_PROGRESS',
         img: '/assets/images/report-imgs/Note 4.svg',
         key: 'inProgress',
       },
       {
-        name: 'Projects Started',
+        name: 'PROJECTS_STARTED',
         img: '/assets/images/report-imgs/Note 3.svg',
         key: 'started',
       },
@@ -366,7 +367,7 @@ export class ProjectReportPage implements OnInit {
                 position: 'bottom',
               },
               datalabels: {
-                formatter: (value, context) => {
+                formatter: (value:any, context:any) => {
                   const total = context.dataset.data.reduce((acc: any, cur: any) => acc + cur, 0);
                   const percentage = (value / total * 100).toFixed(1) + '%';
                   return percentage;
@@ -411,5 +412,15 @@ export class ProjectReportPage implements OnInit {
     this.selectedProgram = ""
     this.programId = ""
     this.getReportData()
+  }
+
+  handlePopState = () => {
+    if (this.isProgramModel) {
+      this.isProgramModel = false;
+    }
+  }
+
+  ngOnDestroy(){
+    window.removeEventListener('popstate', this.handlePopState);
   }
 }

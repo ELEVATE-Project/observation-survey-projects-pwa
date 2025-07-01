@@ -27,6 +27,7 @@ import { SharedModule } from './shared/shared.module';
 import { FormsService } from 'formstore-cache';
 import { PrivacyPolicyPopupComponent } from './shared/privacy-policy-popup/privacy-policy-popup.component';
 import { FormsModule } from '@angular/forms';
+import { UtilService } from './services/util/util.service';
 
 export function translateHttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
@@ -73,14 +74,15 @@ export class AppModule {
       storeName:"forms",
     }
   }
-  constructor(private translate:TranslateService,private formsService:FormsService){
+  constructor(private translate:TranslateService,private formsService:FormsService, private utils: UtilService){
     this.setLanguage();
     this.formsService.setFormsConfig(this.formsConfig);
 
   }
   setLanguage() {
     this.translate.setDefaultLang('en');
-    this.translate.use('en'); 
+    let language = this.utils.getPreferredLanguage()
+    this.translate.use(language);
   }
 }
 

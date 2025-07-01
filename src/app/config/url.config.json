@@ -3,7 +3,8 @@
     "subSurvey":"/survey",
     "survey": {
         "listingUrl": "/survey/v1/solutions/targetedSolutions",
-        "reportUrl":"/survey/v1/reports/submissionReport?submissionId="
+        "reportUrl":"/survey/v1/reports/submissionReport?submissionId=",
+        "detailsUrl":"/survey/v1/surveys/details?solutionId="
     },
     "observation": {
         "listingUrl": "/project/v1/solutions/list"

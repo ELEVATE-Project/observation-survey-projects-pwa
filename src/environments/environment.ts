@@ -9,7 +9,8 @@ interface Environment {
   isAuthBypassed: any,
   config:any,
   profileRedirectPath: any,
-  showHeader:any
+  showHeader:any,
+  hostPath?: string;
 }
 
 //projects and survey for non-docker
@@ -33,6 +34,7 @@ export const environment:Environment = {
   config: window['env' as any]['config' as any] as unknown as any,
   profileRedirectPath: window['env' as any]['profileRedirectPath' as any] as unknown as any,
   showHeader: window['env' as any]['showHeader' as any] as unknown as any,
+  hostPath: window['env' as any]['hostPath' as any] as unknown as string
 }
 
 //survey-only

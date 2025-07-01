@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { UrlConfig } from '../interfaces/main.interface';
 import { ProfileService } from '../services/profile/profile.service';
+import { UtilService } from '../services/util/util.service';
 
 @Component({
   selector: 'app-report-list',
@@ -13,7 +14,7 @@ export class ReportListPage implements OnInit {
   stateData: any;
   listType!: keyof UrlConfig;
 
-  constructor(private navCtrl: NavController, private router: Router, private activatedRoute: ActivatedRoute, private profileService: ProfileService
+  constructor(private navCtrl: NavController, private router: Router, private activatedRoute: ActivatedRoute, private profileService: ProfileService,private utilService:UtilService
   ) {
     activatedRoute.queryParams.subscribe((params:any)=>{
       this.listType = params["type"]
@@ -25,7 +26,7 @@ export class ReportListPage implements OnInit {
   }
 
   navigateTo(data: any) {
-    this.router.navigate([data?.redirectionUrl], { queryParams: { type: data.listType, reportPage: data?.reportPage } });
-  }
+    this.utilService.navigateTo(data)
+      }
 
 }

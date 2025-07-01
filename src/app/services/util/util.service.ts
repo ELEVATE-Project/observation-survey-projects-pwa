@@ -3,13 +3,14 @@ import { CertificateVerificationPopoverComponent } from 'src/app/shared/certific
 import { PopoverController } from '@ionic/angular';
 import { DbService } from '../db/db.service';
 import { jwtDecode } from 'jwt-decode';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilService {
 
-  constructor(private popoverController: PopoverController,private dbService:DbService) { }
+  constructor(private popoverController: PopoverController,private dbService:DbService,private router: Router) { }
 
   isMobile(){
     return /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
@@ -46,4 +47,14 @@ export class UtilService {
     const currentTime = new Date();
     return currentTime < tokenExpiryTime;
   }
+
+  navigateTo(data: any) {
+    !data.customNavigation ?
+    this.router.navigate([data?.redirectionUrl], { queryParams: { type: data.listType, reportPage: data?.reportPage } }) :
+    location.href = data.redirectionUrl  }
+
+    getPreferredLanguage(){
+      let preferredLanguage = localStorage.getItem("preferredLanguage")
+      return preferredLanguage || "en"
+    }
 }

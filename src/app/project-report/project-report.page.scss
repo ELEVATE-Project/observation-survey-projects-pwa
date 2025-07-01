@@ -157,14 +157,16 @@ ion-select{
     font-size: 16px;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    padding-right: 10px;
   }
 
   .cancel-icon{
     color: var(--primary-color);
-    font-size: 18px;
+    font-size: 26px;
     margin-left: 12px;
     cursor: pointer;
+    align-self: center;
+    min-width: 26px;
   }
 }
 

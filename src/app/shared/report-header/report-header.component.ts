@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { PopoverComponent } from '../popover/popover.component';
 import { actions } from 'src/app/config/actionContants';
@@ -8,7 +8,7 @@ import { actions } from 'src/app/config/actionContants';
   templateUrl: './report-header.component.html',
   styleUrls: ['./report-header.component.scss'],
 })
-export class ReportHeaderComponent {
+export class ReportHeaderComponent implements OnDestroy {
   @Input() reportType: any;
   @Input() reportTitle: any;
   @Output() emitReportType = new EventEmitter<any>();
@@ -16,6 +16,7 @@ export class ReportHeaderComponent {
   interval:any;
 
   isOpen = false;
+  popover:any
 
   constructor(public popoverController: PopoverController,) {
     this.setOptionList();
@@ -32,32 +33,38 @@ export class ReportHeaderComponent {
   async openPopover(ev: any) {
     let menu:any =[
       {
-        title: 'Share',
+        title: 'SHARE',
         value: 'share',
       },
       {
-        title: 'Download',
+        title: 'DOWNLOAD',
         value: 'download',
       }
     ];
 
 
-    const popover = await this.popoverController.create({
+     this.popover = await this.popoverController.create({
       component: PopoverComponent,
       componentProps: { menus: menu },
       event: ev,
       translucent: true,
     });
-    popover.onDidDismiss().then((data) => {
+    this.popover.onDidDismiss().then((data:any) => {
 
       if (data.data) {
         this.emitReportAction.emit(data.data)
       }
     });
-    return await popover.present();
+    return await this.popover.present();
   }
   setOptionList(){
     let options:any = actions.INTERVALS;
     this.interval = options;
+  }
+
+  ngOnDestroy(){
+    if(this.popover){
+      this.popover.dismiss()
+    }
   }
 }

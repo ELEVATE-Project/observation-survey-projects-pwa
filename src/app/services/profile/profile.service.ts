@@ -72,6 +72,7 @@ export class ProfileService {
               return parsedData
             }else{
               this.presentAlert();
+              return null
             }
           }
           if (entityConfigRes?.status === 200 && profileFormDataRes?.status === 200) {
