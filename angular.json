@@ -19,6 +19,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "baseHref": "/ml/",
+            "deployUrl": "/ml/",
             "assets": [
               {
                 "glob": "**/*",
