@@ -81,22 +81,22 @@ export class ProjectReportPage implements OnInit,OnDestroy {
      this.projectsCategories = [
       {
         name: 'TOTAL_PROJECTS',
-        img: '/assets/images/report-imgs/Note 1.svg',
+        img: '/ml/assets/images/report-imgs/Note 1.svg',
         key: 'total',
       },
       {
         name: 'PROJECTS_SUBMITTED',
-        img: '/assets/images/report-imgs/note.svg',
+        img: '/ml/assets/images/report-imgs/note.svg',
         key: 'submitted',
       },
       {
         name: 'PROJECTS_IN_PROGRESS',
-        img: '/assets/images/report-imgs/Note 4.svg',
+        img: '/ml/assets/images/report-imgs/Note 4.svg',
         key: 'inProgress',
       },
       {
         name: 'PROJECTS_STARTED',
-        img: '/assets/images/report-imgs/Note 3.svg',
+        img: '/ml/assets/images/report-imgs/Note 3.svg',
         key: 'started',
       },
     ];
