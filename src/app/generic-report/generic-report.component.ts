@@ -43,7 +43,7 @@ export class GenericReportComponent implements OnInit {
           return answer;
         }
   
-        const trimmedAnswer = answer.trim();
+        const trimmedAnswer = answer == null ? '' : answer.trim();
         if (trimmedAnswer === '') {
           return 'No response is available'; 
         }

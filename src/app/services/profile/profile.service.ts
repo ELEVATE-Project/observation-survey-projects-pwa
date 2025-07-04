@@ -125,7 +125,7 @@ export class ProfileService {
           text: 'PROFILE_UPDATE',
           cssClass: 'primary-button',
           handler: () => {
-            this.router.navigate([this.profilePage]);
+            location.href = environment.profileRedirectPath;
           }
         }
       ]

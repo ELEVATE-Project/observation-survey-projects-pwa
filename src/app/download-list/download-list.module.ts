@@ -16,7 +16,8 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     IonicModule,
     TranslateModule,
-    SharedModule
+    SharedModule,
+    DownloadListPageRoutingModule
   ],
   declarations: [DownloadListPage]
 })

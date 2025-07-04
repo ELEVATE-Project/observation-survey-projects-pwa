@@ -1,10 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { UrlConfig } from 'src/app/interfaces/main.interface';
 import urlConfig from 'src/app/config/url.config.json';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoaderService } from '../services/loader/loader.service';
 import { ToastService } from '../services/toast/toast.service';
-import { ModalController, NavController } from '@ionic/angular';
+import { ModalController, NavController,IonSearchbar } from '@ionic/angular';
 import { finalize } from 'rxjs';
 import { actions } from 'src/app/config/actionContants';
 import { ProfileService } from '../services/profile/profile.service';
@@ -35,6 +35,7 @@ export class ListingPage implements OnInit {
   SamikshaApiService:SamikshaApiService;
   showLoading:boolean = true;
   reportPage:boolean = false
+  @ViewChild('searchBar', { static: false }) searchBar!: IonSearchbar;
 
   constructor(private navCtrl: NavController, private router: Router,
     private profileService: ProfileService,
@@ -80,6 +81,9 @@ export class ListingPage implements OnInit {
     this.page = 1;
     this.solutionList = { data: [], count: 0 };
     this.getListData();
+    setTimeout(() => {
+      this.searchBar.setFocus();
+    }, 10);
   }
   filterChanged(event: any) {
     this.solutionList = { data: [], count: 0 }

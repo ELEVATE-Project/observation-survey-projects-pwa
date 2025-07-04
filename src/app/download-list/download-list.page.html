@@ -24,17 +24,19 @@
           <ion-card class="card">
             <ion-card-content>
               <div class="list-card-div">
-                <div class="list-card-head" (click)="navigate(item.keyid)">
-                  <h1 style="color: var(--ion-color-primary);" >
+                <div class="list-card-head">
+                <section class="header-inner">
+                  <h1 style="color: var(--ion-color-primary);"  (click)="navigate(item.keyid)">
                     {{item.data.title}}
                   </h1>
+                  <div>
+                    <button class="delete-button">
+                      <ion-icon color="primary" size="large" name="trash-outline" (click)="deletePopup(item.keyid)"></ion-icon>
+                      <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+                    </button>
+                  </div>
+                </section>
                   <p>{{item.data.description}}</p>
-                </div>
-                <div class="list-card-delete">
-                  <button class="delete-button" (click)="deletePopup(item.keyid)">
-                    <span class="delete-text">{{"DELETE"|translate}}</span>
-                    <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-                  </button>
                 </div>
               </div>
             </ion-card-content>
@@ -44,7 +46,7 @@
     </ion-row>
     <ng-template #noData>
       <div class="no-data-container ion-margin-top" >
-        <img src="assets/images/no_data.jpg" alt="No data">
+        <img src="/ml/assets/images/no_data.jpg" alt="No data">
       </div>
     </ng-template>
   </ion-grid>

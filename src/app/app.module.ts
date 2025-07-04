@@ -45,7 +45,7 @@ export function translateHttpLoaderFactory(httpClient: HttpClient) {
       }
     }),
     ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
+      enabled: false,
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],
@@ -87,7 +87,7 @@ export class AppModule {
 }
 
 export function configFactory(http: HttpClient): any {
-  return http.get("/assets/config/library-config.json").pipe(switchMap((data:any)=>{
+  return http.get("/ml/assets/config/library-config.json").pipe(switchMap((data:any)=>{
     data.baseUrl = environment.baseURL
     return of(data)
   }))

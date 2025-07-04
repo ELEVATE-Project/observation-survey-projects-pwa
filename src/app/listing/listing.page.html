@@ -13,7 +13,7 @@
 
     <ion-row class="srch">
       <ion-col size="12">
-        <ion-searchbar class="srchBar" placeholder="Search your {{stateData?.listType}} here" [debounce]="1000"
+        <ion-searchbar class="srchBar" #searchBar  placeholder="Search your {{stateData?.listType}} here" [debounce]="1000"
           (ionInput)="handleInput($event)"></ion-searchbar>
       </ion-col>
     </ion-row>
@@ -35,15 +35,17 @@
         <ion-col size="12" size-md="6" class="listing-card" (click)="navigateTo(solution)">
           <ion-card class="tiels">
             <ion-card-content>
+              <div class="flex justify-end items-center">
+                @if (solution?.certificate || solution?.certificateTemplateId) {
+                  <span class="certificate-tag">{{"CERTIFICATE"|translate}}</span>
+                }
+              </div>
               <div class="flex justify-between items-center">
                 <h2><b>{{solution?.name}}</b></h2>
                 @if (listType == 'survey' && !stateData?.reportPage) {
                   <span [ngClass]="solution?.tagClass">
                     {{ solution?.statusLabel }}
                   </span>
-                }
-                @if (solution?.certificate || solution?.certificateTemplateId) {
-                  <span class="certificate-tag">{{"CERTIFICATE"|translate}}</span>
                 }
               </div>
               @if(listType == 'program'){
@@ -97,7 +99,7 @@
       </ion-row>
       <ng-template #noData>
         <div class="no-data-container ion-margin-top" *ngIf="!showLoading">
-          <img src="assets/images/no_data.jpg" alt="No data">
+          <img src="/ml/assets/images/no_data.jpg" alt="No data">
         </div>
       </ng-template>
   </ion-grid>

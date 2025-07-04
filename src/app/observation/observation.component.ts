@@ -7,6 +7,7 @@ import { ProfileService } from 'src/app/services/profile/profile.service';
 import { UtilService } from 'src/app/services/util/util.service';
 import { fromEvent, map, merge, startWith } from 'rxjs';
 import { ToastService } from '../services/toast/toast.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-observation',
@@ -14,7 +15,7 @@ import { ToastService } from '../services/toast/toast.service';
   styleUrls: ['./observation.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ObservationComponent implements isDeactivatable {
+export class ObservationComponent {
   apiConfig: any = {};
   isDirty: boolean = false;
   saveQuestioner: boolean = false;
@@ -29,7 +30,8 @@ export class ObservationComponent implements isDeactivatable {
     private profileService: ProfileService,
     private utils: UtilService,
     private toast: ToastService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private location:Location
   ) {}
 
   ionViewWillEnter() {
@@ -44,12 +46,14 @@ export class ObservationComponent implements isDeactivatable {
     }
   }
 
-  async canPageLeave(): Promise<boolean> {
-    this.isDirty = false;
-    if (!this.profileUpdate) {
-      this.navCtrl.back();
-    }
-    return true;
+  leavePage()  {
+    // this.isDirty = false;
+    // if (!this.profileUpdate) {
+    //   this.navCtrl.back();
+    // }
+    // return true;
+    this.location.back()
+
   }
 
   getProfileDetails() {
