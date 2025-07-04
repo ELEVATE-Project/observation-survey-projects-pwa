@@ -63,8 +63,9 @@ export class ObservationComponent {
     }
     this.profileService
       .getProfileAndEntityConfigData()
-      .subscribe((mappedIds) => {
-        if (mappedIds) {
+      .subscribe(async (mappedIds) => {
+        let data = await mappedIds
+        if (data) {
           this.profileUpdate = false;
           const mappedIdsString = JSON.stringify(mappedIds) || '';
           localStorage.setItem('profileData', mappedIdsString);
