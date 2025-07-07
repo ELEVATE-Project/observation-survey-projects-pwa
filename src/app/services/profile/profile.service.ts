@@ -162,7 +162,7 @@ export class ProfileService {
   }
 
   async getTheme(data: any) {
-  let orgId = localStorage.getItem('organization_id');
+    let orgId = localStorage.getItem('organization_id');
     let config = {
       url: this.formListingUrl,
         payload: {...FETCH_THEME_FORM,"subType": orgId},
