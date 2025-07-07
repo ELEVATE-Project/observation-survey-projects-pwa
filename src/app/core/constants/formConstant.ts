@@ -19,3 +19,7 @@ export const FETCH_Profile_FORM: IFORM = {
 	"type": "form",
 	"subType": "formFields",
 }
+
+export const FETCH_THEME_FORM: IFORM = {
+	"type": "theme"
+}

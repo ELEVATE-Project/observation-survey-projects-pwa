@@ -78,6 +78,7 @@ export class ProfileService {
           if (entityConfigRes?.status === 200 && profileFormDataRes?.status === 200) {
             const profileData = entityConfigRes?.result?.meta?.profileKeys;
             const profileDetails = profileFormDataRes?.result;
+            // await this.getTheme(profileDetails)
             if (profileDetails?.state) {
               return this.fetchEntitieIds(profileDetails, profileData);
             } else {
@@ -158,6 +159,33 @@ export class ProfileService {
       this.toastService.presentToast(error?.error?.message, "danger");
       throw error;
     }
+  }
+
+  async getTheme(data: any) {
+  let orgId = localStorage.getItem('organization_id');
+    let config = {
+      url: this.formListingUrl,
+        payload: {...FETCH_THEME_FORM,"subType": orgId},
+    }
+    this.formsService.getForm(config).subscribe({
+        next: (response: any) => {
+          if ( response?.data?.status === 200 && response.data.result) {
+            const themes = response.data.result.data.fields.themes[0];
+            if (themes) {
+              const theme = themes.theme;
+              document.documentElement.style.setProperty('--ion-color-primary', theme.primaryColor);
+              document.documentElement.style.setProperty('--ion-color-secondary', theme.secondaryColor);
+              document.documentElement.style.setProperty('--primary-color', theme.primaryColor);
+              document.documentElement.style.setProperty('--color-primary', theme.primaryColor);
+            } else {
+              console.warn("No theme found for this org");
+            }
+          }
+        },
+        error: (error) => {
+          this.toastService.presentToast(error?.error?.message || "API Error", "danger");
+        }
+      });
   }
 
 }
