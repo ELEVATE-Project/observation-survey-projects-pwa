@@ -78,7 +78,7 @@ export class ProfileService {
           if (entityConfigRes?.status === 200 && profileFormDataRes?.status === 200) {
             const profileData = entityConfigRes?.result?.meta?.profileKeys;
             const profileDetails = profileFormDataRes?.result;
-            await this.getTheme(profileDetails)
+            // await this.getTheme(profileDetails)
             if (profileDetails?.state) {
               return this.fetchEntitieIds(profileDetails, profileData);
             } else {

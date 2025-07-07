@@ -7,6 +7,8 @@ export const allowPageAccessGuard: CanActivateFn = (route: ActivatedRouteSnapsho
 Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree  => {
   const router = inject(Router)
   if(environment.restrictedPages.includes(route.data["pageId"])){
+    console.log(route.data["pageId"], " is restricted page");
+    console.log("this is entering in the allow page access guard");
     // location.href = environment.unauthorizedRedirectUrl
     localStorage.clear();
     let url = document.baseURI;
