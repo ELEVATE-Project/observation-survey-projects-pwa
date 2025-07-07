@@ -67,7 +67,7 @@ export class ObservationComponent {
         let data = await mappedIds
         if (data) {
           this.profileUpdate = false;
-          const mappedIdsString = JSON.stringify(mappedIds) || '';
+          const mappedIdsString = JSON.stringify(data) || '';
           localStorage.setItem('profileData', mappedIdsString);
           let storedProfileData: any = localStorage.getItem('profileData');
           this.apiConfig['profileData'] = JSON.parse(storedProfileData);

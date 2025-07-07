@@ -126,7 +126,7 @@ export class QuestionnaireComponent implements OnInit, isDeactivatable {
     this.profileService.getProfileAndEntityConfigData().subscribe(async (mappedIds) => {
       let data = await mappedIds
         if (data) {
-        this.apiConfig['profileData'] = mappedIds;
+        this.apiConfig['profileData'] = data;
       }
       this.showDetails = true
     });
