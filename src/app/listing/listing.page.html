@@ -42,7 +42,7 @@
                   </span>
                 }
                 @if (solution?.certificate || solution?.certificateTemplateId) {
-                  <span class="certificate-tag">{{"CERTIFICATE"|translate}}</span>
+                  <div class="certificate-tag">{{"CERTIFICATE"|translate}}</div>
                 }
               </div>
               @if (listType == 'project' || (listType == 'survey' && stateData?.reportPage)) {

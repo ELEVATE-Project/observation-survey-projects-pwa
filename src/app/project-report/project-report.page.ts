@@ -319,7 +319,7 @@ export class ProjectReportPage implements OnInit {
       }]
     };
 
-    const taskCanvas = document.getElementById('doughnutChart') as HTMLCanvasElement;
+    const taskCanvas = document.getElementById('doughnutChartforTask') as HTMLCanvasElement;
     const Categoriescanvas = document.getElementById('doughnutChartforcategory') as HTMLCanvasElement;
     if (taskCanvas) {
       const existingChart = Chart.getChart(taskCanvas);

@@ -30,7 +30,7 @@ ion-row.tagline {
 
 h2 {
   color: var(--ion-color-primary);
-  word-break: break-all;
+  word-break: break-word;
 }
 
 .tiels {
@@ -128,19 +128,16 @@ h2 {
 .certificate-tag {
   background-color: #fcd34d;
   color: #000000;
-  font-size: 0.75rem; 
   border-radius: 0.25rem; 
   padding: 0.25rem 0.5rem; 
   text-transform: uppercase; 
-  margin-right: 1rem; 
-  display: inline-flex; 
-  align-items: center; 
-  height: fit-content; 
+  font-size: 11px;
+  font-weight: bold;
 }
 
 @media (max-width: 767px) {
   .custom-segment ion-segment-button {
-    font-size: 12px;
+    font-size: 11px;
   }
 }
 
