@@ -91,6 +91,11 @@ mat-label {
 
   /* Borders */
   --border-color: #ccc;
+
+  ion-card{
+    margin-top: 0px;
+    margin-bottom: 8px;
+  }
 }
 
 
@@ -251,6 +256,6 @@ ion-segment-button {
   --max-width: 450px;
 }
 .popup-class2{
-  --height: 350px;
+  --height: auto;
   --width:350px;
 }

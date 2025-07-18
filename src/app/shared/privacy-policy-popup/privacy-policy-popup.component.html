@@ -1,16 +1,16 @@
-<div class="p-5">
-  <div class="flex flex-row justify-center mb-3 font-bold text-xl capitalize">
+<div class="p-3">
+  <div class="flex flex-row justify-center mb-3 font-bold text-lg capitalize">
     {{ popupData?.title | translate }}
   </div>
   <div class="flex flex-row">
     <ion-checkbox [(ngModel)]="isChecked" class="mr-3"></ion-checkbox>
-    <div>
+    <div class="text-sm">
       <span>{{ popupData?.message1 | translate }}</span>
       <a [href]="contentPolicyLink" class="text-blue-600" target="_blank">{{ popupData?.message2 | translate }}</a>.
       <span>{{ popupData?.message3 | translate }}</span>
     </div>
   </div>
-  <div class="flex flex-row mt-10">
+  <div class="flex flex-row justify-center mt-3">
     <ion-button expand="block" (click)="closePopup(false)" class="mr-3" [color]="!isChecked ? 'primary' : 'light'" shape="round">
       {{ popupData?.button1 | translate }}
     </ion-button>
