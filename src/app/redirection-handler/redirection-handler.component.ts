@@ -54,7 +54,6 @@ export class RedirectionHandlerComponent  implements OnInit {
   getProfileDetails() {
     this.profileService.getProfileAndEntityConfigData().subscribe(async(mappedIds) => {
       let data = await mappedIds
-      console.log("Map id's: ",data)
       if (data) {
         this.profileInfo = data;
         this.checkLinkType()
@@ -88,13 +87,10 @@ export class RedirectionHandlerComponent  implements OnInit {
   async verifyLink(){
     let userType = ""
     userType = localStorage.getItem("userType") || localStorage.getItem("usertype") || ""
-    console.log("verify link called",userType)
     if(!this.utils.isLoggedIn()){
-      console.log("Not Logged in")
       this.router.navigate(['project-details'], { state: { link: this.linkId, referenceFrom: "link" }, replaceUrl:true });
       return
     }else if(!this.permittedUsers.includes(userType)){
-      console.log("Restricted")
       this.toastService.presentToast("CONTENT_NOT_AVAILABLE_FOR_ROLE","danger")
       setTimeout(async() => {
         const options = {
@@ -110,7 +106,6 @@ export class RedirectionHandlerComponent  implements OnInit {
       return
     }
     this.apiService.post(urlConfig.project.verifyLink+this.linkId+"?createProject=false",this.profileInfo).subscribe(async(response:any)=>{
-      console.log("Api resp: ",response)
       if(response && response.result){
         switch (response.result.type) {
           case "improvementProject":
@@ -126,20 +121,21 @@ export class RedirectionHandlerComponent  implements OnInit {
             break;
         }
       }else{
-        console.log("Else block")
         const options = {
           type:"redirect",
           pathType:"home"
         };
+        setTimeout(async() => {
         let response = await this.utils.postMessageListener(options)
         if(!response){
           this.navCtrl.back()
         }
+        }, 1500);
       }
     },async(error:any)=>{
-      console.log("ERR bloack: ",error)
       this.toastService.presentToast("LINK_INVALID_ERROR","danger")
       // this.router.navigate(['/home'],{ replaceUrl:true })
+      setTimeout(async() => {
       const options = {
         type:"redirect",
         pathType:"home"
@@ -148,6 +144,7 @@ export class RedirectionHandlerComponent  implements OnInit {
       if(!response){
         this.router.navigate(['/home'],{ replaceUrl:true })
       }
+      }, 1500);
     })
   }
 

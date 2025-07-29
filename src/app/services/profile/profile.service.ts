@@ -51,25 +51,27 @@ export class ProfileService {
   }
 
   getProfileAndEntityConfigData() {
+    // return combineLatest([
+    //   this.apiBaseService.get(this.entityConfigUrl).pipe(
+    //     catchError((err) => {
+    //       // this.toastService.presentToast(err?.error?.message || 'FORM_LOAD_ERROR', 'danger');
+    //       return of({ status: 'error', result: {} });
+    //     })
+    //   ),
+    //   this.apiBaseService.get(this.profileListingUrl).pipe(
+    //     catchError((err) => {
+    //       // this.toastService.presentToast(err?.error?.message || 'PROFILE_LOAD_ERROR', 'danger');
+    //       return of({ status: 'error', result: {} });
+    //     })
+    //   ),
+    // ])
     return combineLatest([
-      this.apiBaseService.get(this.entityConfigUrl).pipe(
-        catchError((err) => {
-          // this.toastService.presentToast(err?.error?.message || 'FORM_LOAD_ERROR', 'danger');
-          return of({ status: 'error', result: {} });
-        })
-      ),
-      this.apiBaseService.get(this.profileListingUrl).pipe(
-        catchError((err) => {
-          // this.toastService.presentToast(err?.error?.message || 'PROFILE_LOAD_ERROR', 'danger');
-          return of({ status: 'error', result: {} });
-        })
-      ),
+      of({ status: 'error', result: {} }), of({ status: 'error', result: {} })
     ])
       .pipe(
         map( async ([entityConfigRes, profileFormDataRes]: any) => {
           let profileData = localStorage.getItem("profileData")
           if(profileData){
-            console.log("LOcal Data present: ",profileData)
             let parsedData = JSON.parse(profileData)
             if(parsedData?.state){
               return parsedData

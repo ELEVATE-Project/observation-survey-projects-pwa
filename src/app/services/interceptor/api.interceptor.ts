@@ -69,8 +69,7 @@ export class ApiInterceptor implements HttpInterceptor {
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
-    console.log("Api error: ",error)
-    if (error?.status === 401) {
+    if (error?.status === 401 || error?.status == 403) {
       localStorage.clear();
       this.utilService.clearDatabase();
       // location.href = environment.unauthorizedRedirectUrl
@@ -87,7 +86,7 @@ export class ApiInterceptor implements HttpInterceptor {
         }
       } catch (err:any) {}
       return throwError(() => ({
-        status: 401,
+        status: error?.status,
         error: { message: 'Your session has expired. Please log in again.' },
       }));
     }

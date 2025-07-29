@@ -115,7 +115,6 @@ export class ProjectDetailsPage  implements OnInit {
         if (data) {
           this.config.profileInfo = data;
         }else{
-          console.log("ELSE BLOCK IN DETAILS PAGE")
           // history.replaceState(null, '','/');
           // this.navCtrl.back()
         }
