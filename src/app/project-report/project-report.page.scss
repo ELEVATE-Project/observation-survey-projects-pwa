@@ -155,16 +155,21 @@ ion-select{
     width: 100%;
     margin-top: 8px;
     font-size: 1.5rem;
+    display: flex;
     flex-direction: row;
     padding-right: 10px;
+    span{
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
   }
 
   .cancel-icon{
     color: var(--primary-color);
     font-size: 26px;
     margin-left: 12px;
+    padding-top: 5px;
     cursor: pointer;
-    align-self: center;
     min-width: 26px;
   }
 }
