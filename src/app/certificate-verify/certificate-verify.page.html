@@ -1,0 +1,27 @@
+<app-header></app-header>
+
+<div class="contain" fullscreen>
+  <div class="card">
+    <div class="card-header">
+      <ion-icon name="checkmark-circle-outline" class="success-icon"></ion-icon>
+      <div class="title">{{ "CERTIFICATE_VERIFIED" | translate }}</div>
+    </div>
+
+    <div class="icon-wrapper">
+      <img class="icon" src="assets/icons/badge.svg" alt="Certificate Icon">
+    </div>
+
+    <div class="certificate-details">
+      <div class="issued-to">{{ "CERTIFICATE_ISSUED" | translate }}</div>
+      <div class="recipient">{{ userName }}</div>
+      <div class="message">{{ "CERTIFICATE_SUCCESS" | translate }}</div>
+      <div class="project">{{ projectName }}</div>
+      <div class="date">
+        {{ "CERTIFICATE_COMPLETION_DATE" | translate: { completedDate: (endDate | date: 'dd/MM/yyyy') } }}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

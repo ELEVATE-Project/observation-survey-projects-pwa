@@ -13,5 +13,6 @@ export const PAGE_IDS = {
     library: "LIBRARY",
     profile: "PROFILE",
     editProfile: "EDIT_PROFILE",
+    certificateVerify:'CERTIFICATE_VERIFY',
     authPages: "AUTH_PAGES"
 }
