@@ -1,0 +1,76 @@
+  .contain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    text-align: center;
+  }
+  
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .success-icon {
+    font-size: 3rem;
+    color: #4caf50;
+    margin-bottom: 0.5rem;
+  }
+  
+  .title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1.5rem 0;
+  }
+  
+  .icon {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .certificate-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 1rem;
+  }
+  
+  .issued-to {
+    color: #007bff;
+    font-size: 1rem;
+  }
+  
+  .recipient,
+  .project {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #222;
+  }
+  
+  .message {
+    font-size: 1rem;
+    color: #444;
+  }
+  
+  .date {
+    font-size: 0.9rem;
+    color: #666;
+  }
+  

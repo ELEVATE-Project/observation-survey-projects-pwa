@@ -98,6 +98,12 @@ const routes: Routes = [
     canActivate: [AuthGuard, allowPageAccessGuard],
     data: { pageId: PAGE_IDS.editProfile }
   },
+  {
+    path: 'certificate-verify/:id',
+    loadChildren: () => import('./certificate-verify/certificate-verify.module').then( m => m.CertificateVerifyPageModule),
+    canActivate: [allowPageAccessGuard],
+    data:{pageId:PAGE_IDS.certificateVerify}
+  },
   { path: '',
     // pathMatch: "prefix",
     loadChildren: () => import('authentication_frontend_library').then(m => m.SlRoutingRoutingModule),
