@@ -188,6 +188,7 @@ export class ProgramDetailsPage implements OnInit {
               queryParams.set('solutionId', data._id);
             }
             queryParams.set('index', '0');
+            queryParams.set('solutionType','survey')
             window.location.href = `/observations/questionnaire?${queryParams.toString()}`;          }
         } else {
           this.toastService.presentToast(res?.message, 'danger');
