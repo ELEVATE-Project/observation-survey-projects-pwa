@@ -38,7 +38,7 @@
     },
     "program":{
         "listingUrl":"/project/v1/users/programs",
-        "detailsUrl":"/project/v1/users/solutions"
+        "detailsUrl":"/interface/v1/users/solutions"
     },
     "certificate":{
         "verifyCertificateUrl":"/project/v1/userProjects/verifyCertificate",
