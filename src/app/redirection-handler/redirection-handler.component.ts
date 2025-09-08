@@ -39,7 +39,6 @@ export class RedirectionHandlerComponent  implements OnInit {
       }
       setTimeout(() => {
         if(!this.utils.isLoggedIn()){
-          console.log("USER NOT LOGGED IN")
           this.checkLinkType()
         }else{
           this.getProfileDetails()
@@ -85,14 +84,12 @@ export class RedirectionHandlerComponent  implements OnInit {
   }
 
   async verifyLink(){
-    console.log("Verify link called",this.utils.isLoggedIn())
     let userType = ""
     userType = localStorage.getItem("userType") || localStorage.getItem("usertype") || ""
     if(!this.utils.isLoggedIn()){
       this.router.navigate(['project-details'], { state: { link: this.linkId, referenceFrom: "link" }, replaceUrl:true });
       return
     }else if(!this.permittedUsers.includes(userType)){
-      console.log("User not permitted")
       this.toastService.presentToast("CONTENT_NOT_AVAILABLE_FOR_ROLE","danger")
       setTimeout(async() => {
         const options = {
@@ -102,7 +99,6 @@ export class RedirectionHandlerComponent  implements OnInit {
         };
         let response = await this.utils.postMessageListener(options)
         if(!response){
-          console.log("No response")
           this.navCtrl.back()
         }
       }, 1500);
@@ -112,7 +108,6 @@ export class RedirectionHandlerComponent  implements OnInit {
       if(response && response.result){
         switch (response.result.type) {
           case "improvementProject":
-            console.log("Navigating to proj details")
             // this.router.navigate(['/home'],{ replaceUrl:true })
             let queryData = (({ isATargetedSolution, link, projectId, solutionId }) =>
               ({ isATargetedSolution, link, projectId, solutionId }))(response.result);
@@ -125,7 +120,6 @@ export class RedirectionHandlerComponent  implements OnInit {
             break;
         }
       }else{
-        console.log("Else Home")
         const options = {
           type:"redirect",
           pathType:"home"
