@@ -73,6 +73,7 @@ export class RedirectionHandlerComponent  implements OnInit {
   }
 
   checkLinkType(){
+    console.log("DATA: ",this.utils.isLoggedIn(),this.profileInfo)
     switch (this.type) {
       case "project":
         this.verifyLink()
