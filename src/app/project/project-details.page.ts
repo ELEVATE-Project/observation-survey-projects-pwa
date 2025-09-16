@@ -118,7 +118,7 @@ export class ProjectDetailsPage  implements OnInit {
     }
 
     goBack(){
-      this.navCtrl.back();
+        window.history.go(-1);
     }
 
 }
