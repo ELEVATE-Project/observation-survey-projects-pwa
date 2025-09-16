@@ -119,22 +119,6 @@ export class ProfileService {
       'PROFILE_UPDATE_MSG',
       [
         {
-          text: 'BACK',
-          role: 'cancel',
-          cssClass: 'secondary-button',
-          handler: async() => {
-            const options = {
-              type:"redirect",
-              pathType:"home",
-              replacePath: true
-            };
-            let response = await this.utils.postMessageListener(options)
-            if(!response){
-              this.location.back()
-            }
-          }
-        },
-        {
           text: 'PROFILE_UPDATE',
           cssClass: 'primary-button',
           handler: async() => {
