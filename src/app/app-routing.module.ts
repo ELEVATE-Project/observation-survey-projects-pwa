@@ -4,14 +4,15 @@ import { AuthGuard } from 'authentication_frontend_library';
 import { RedirectionHandlerComponent } from './redirection-handler/redirection-handler.component';
 import { allowPageAccessGuard } from './services/guard/allowPageAccess/allow-page-access.guard';
 import { PAGE_IDS } from './core/constants/pageIds';
+import { navigateGuard } from './services/guard/navigate/navigate.guard';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 const routes: Routes = [
-  {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then((m) => m.HomePageModule),
-    canActivate: [ AuthGuard, allowPageAccessGuard],
-    data: { pageId: PAGE_IDS.home }
-  },
+  // {
+  //   path: 'home',
+  //   loadChildren: () => import('./home/home.module').then((m) => m.HomePageModule),
+  //   canActivate: [ AuthGuard, allowPageAccessGuard],
+  //   data: { pageId: PAGE_IDS.home }
+  // },
   {
     path: 'report/list',
     loadChildren: () =>
@@ -104,16 +105,16 @@ const routes: Routes = [
     canActivate: [allowPageAccessGuard],
     data:{pageId:PAGE_IDS.certificateVerify}
   },
-  { path: '',
-    // pathMatch: "prefix",
-    loadChildren: () => import('authentication_frontend_library').then(m => m.SlRoutingRoutingModule),
-    canActivate:[allowPageAccessGuard],
-    data: { pageId: PAGE_IDS.authPages }
-  },
+  // { path: '',
+  //   // pathMatch: "prefix",
+  //   loadChildren: () => import('authentication_frontend_library').then(m => m.SlRoutingRoutingModule),
+  //   canActivate:[allowPageAccessGuard],
+  //   data: { pageId: PAGE_IDS.authPages }
+  // },
   {
     path: '**',
     // redirectTo: 'home',
-    component: PageNotFoundComponent
+    canActivate:[navigateGuard]
   }
 ];
 @NgModule({
