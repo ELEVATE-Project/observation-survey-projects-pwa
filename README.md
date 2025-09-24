@@ -138,7 +138,7 @@ window["env"] = {
 };
 ```
 
-> **Note**: For detailed documentation on each environment variable, refer to the [Environment Configuration Documentation](./ENVIRONMENT_VARIABLES.md).
+> **Note**: For detailed documentation on each environment variable, refer to the [Environment Configuration Documentation](./env-variables-guide.md).
 
 ### User Authentication and Portal Setup
 
