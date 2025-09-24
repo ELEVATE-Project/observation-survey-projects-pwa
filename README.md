@@ -68,7 +68,7 @@ Setting up the Project
 3. Set the environment variables in the `src/env/env.js` file.
 4. Run `npm i -f`.
 
-Building the Application
+Serving the Application
 ------------------------
 
 1. Run the project on your local system using the following command:
@@ -139,7 +139,7 @@ window["env"] = {
 
 ### Native Deployment
 
-Deploy the portal to QA at the URL https://xyz.com/ml/
+Deploy the portal to path at the URL https://xyz.com/ml/
 
 1. **Configure Angular.json**
    ```bash
