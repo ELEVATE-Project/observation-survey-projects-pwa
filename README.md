@@ -1,4 +1,4 @@
-The Elevate PWA is developed using the Ionic framework. This document provides instructions on setting up the development environment and deploying the application.
+The Elevate Projects PWA is developed using the Ionic framework. This document provides instructions on setting up the development environment and deploying the application.
 
 Contents
 ---------------------
@@ -6,11 +6,12 @@ Contents
  * [Dependencies](#dependencies)
  * [Setting up the CLI and Prerequisites](#setting-up-the-cli-and-prerequisites)
  * [Setting up the Project](#setting-up-the-project)
- * [Building the Application](#building-the-application)
+ * [Serving the Application](#serving-the-application)
  * [Debugging the Application](#debugging-the-application)
  * [Deployment Guide](#deployment-guide)
    * [Setup and Configuration](#setup-and-configuration)
    * [Environment Configuration](#environment-configuration)
+   * [User Authentication and Portal Setup](#user-authentication-and-portal-setup)
    * [Native Deployment](#native-deployment)
    * [Docker Deployment](#docker-deployment)
 
@@ -70,7 +71,7 @@ Setting up the Project
     ```
     cd observation-survey-projects-pwa
     ```
-3. Set the environment variables in the `src/env/env.js` file.
+3. Set the environment variables in the `src/assets/env/env.js` file.
 4. Run `npm i -f`.
 
 Serving the Application
@@ -142,6 +143,26 @@ window["env"] = {
 };
 ```
 
+> **Note**: For detailed documentation on each environment variable, refer to the [Environment Configuration Documentation](./ENVIRONMENT_VARIABLES.md).
+
+### User Authentication and Portal Setup
+
+**Option 1: Integration with Existing System**
+If you have your own user login, registration, and home page to list capabilities, you can integrate this PWA by adding the following nginx path configuration to your existing setup:
+
+```nginx
+location /ml/ {
+    # Your nginx configuration for the PWA
+}
+```
+
+**Option 2: Using Elevate Portal**
+If you need a complete user authentication system with login, registration, and home page capabilities, you can use our separate portal repository:
+
+**Elevate Portal Repository**: https://github.com/ELEVATE-Project/elevate-portal
+
+This repository provides a complete user management system that can be deployed alongside this PWA. Refer to the setup documentation in that repository for detailed installation and configuration instructions.
+
 ### Native Deployment
 
 Deploy the portal to path at the URL https://xyz.com/ml/
@@ -163,7 +184,7 @@ Deploy the portal to path at the URL https://xyz.com/ml/
 
 3. **Build the project for production**
    ```bash
-   ionic build --prod 
+   ionic build --prod
    ```
 
 4. **Start the application using PM2**
