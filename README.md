@@ -5,11 +5,11 @@ Contents
 
  * [Dependencies](#dependencies)
  * [Setting up the CLI and Prerequisites](#setting-up-the-cli-and-prerequisites)
+ * [Setup and Configuration](#setup-and-configuration)
  * [Setting up the Project](#setting-up-the-project)
  * [Serving the Application](#serving-the-application)
  * [Debugging the Application](#debugging-the-application)
  * [Deployment Guide](#deployment-guide)
-   * [Setup and Configuration](#setup-and-configuration)
    * [Environment Configuration](#environment-configuration)
    * [User Authentication and Portal Setup](#user-authentication-and-portal-setup)
    * [Native Deployment](#native-deployment)
@@ -58,40 +58,8 @@ Before setting up the project for development or deployment, ensure the followin
    npm install -g pm2
    ```
 
-Setting up the Project
-----------------------
-
-1. Clone the [repository](https://github.com/ELEVATE-Project/observation-survey-projects-pwa).
-
-   ```bash
-   git clone https://github.com/ELEVATE-Project/observation-survey-projects-pwa.git
-    ```
-
-2. Go to the project folder using the below command.
-    ```
-    cd observation-survey-projects-pwa
-    ```
-3. Set the environment variables in the `src/assets/env/env.js` file.
-4. Run `npm i -f`.
-
-Serving the Application
-------------------------
-
-1. Run the project on your local system using the following command:
-
-    ```
-    ionic serve
-    ```
-
-Debugging the Application
--------------------------
-
-1. Open the running app in the browser.
-2. Start inspecting using Chrome dev tools or any alternatives.
-
-## Deployment Guide
-
-### Setup and Configuration
+Setup and Configuration
+-----------------------
 
 1. **Fork the repository** https://github.com/ELEVATE-Project/observation-survey-projects-pwa to your GitHub account
 
@@ -111,6 +79,35 @@ Debugging the Application
    git pull origin <branch-name>
    ```
 
+Setting up the Project
+----------------------
+
+1. Go to the project folder using the below command.
+    ```
+    cd observation-survey-projects-pwa
+    ```
+2. Set the environment variables.
+   - Follow the [Environment Configuration](#environment-configuration) section.
+
+3. Run `npm i -f`.
+
+Serving the Application
+------------------------
+
+1. Run the project on your local system using the following command:
+
+    ```
+    ionic serve
+    ```
+
+Debugging the Application
+-------------------------
+
+1. Open the running app in the browser.
+2. Start inspecting using Chrome dev tools or any alternatives.
+
+## Deployment Guide
+
 ### Environment Configuration
 
 Update the environment configuration file:
@@ -125,8 +122,6 @@ Configure the environment variables:
 window["env"] = {
    production: true,
    baseURL: '<BaseUrl>',
-   projectsBaseURL: '<BaseUrl>',
-   surveyBaseURL: '<BaseUrl>',
    capabilities: 'all',
    restrictedPages: ['DOWNLOADS','AUTH_PAGES','PROFILE','EDIT_PROFILE'],
    unauthorizedRedirectUrl: "/",
@@ -167,7 +162,10 @@ This repository provides a complete user management system that can be deployed 
 
 Deploy the portal to path at the URL https://xyz.com/ml/
 
-1. **Configure Angular.json**
+1. **Setup and Configuration**
+   - Follow the [Setup and Configuration](#setup-and-configuration) section above to fork, clone, and prepare your repository.
+
+2. **Configure Angular.json**
    ```bash
    cd projectpath/angular.json
    ```
@@ -177,24 +175,27 @@ Deploy the portal to path at the URL https://xyz.com/ml/
    "deployUrl": "/ml/"
    ```
 
-2. **Install dependencies and build the project**
+3. **Install dependencies and build the project**
    ```bash
    npm install --force
    ```
 
-3. **Build the project for production**
+4. **Build the project for production**
    ```bash
    ionic build --prod
    ```
 
-4. **Start the application using PM2**
+5. **Start the application using PM2**
    ```bash
    pm2 start pm2.config.json
    ```
 
 ### Docker Deployment
 
-1. **Configure Angular.json**
+1. **Setup and Configuration**
+   - Follow the [Setup and Configuration](#setup-and-configuration) section above to fork, clone, and prepare your repository.
+
+2. **Configure Angular.json**
    ```bash
    cd projectpath/angular.json
    ```
@@ -204,26 +205,26 @@ Deploy the portal to path at the URL https://xyz.com/ml/
    "deployUrl": "/ml/"
    ```
 
-2. **Install Docker** (if not already installed)
+3. **Install Docker** (if not already installed)
    - Download and install Docker from https://www.docker.com/get-started/
 
-3. **Navigate to the project directory**
+4. **Navigate to the project directory**
    ```bash
    cd /path/to/project-directory
    ```
 
-4. **Log in to Docker**
+5. **Log in to Docker**
    ```bash
    docker login -u <email-id>
    ```
 
-5. **Build the Docker image**
+6. **Build the Docker image**
    ```bash
    docker build -t <image-name>:latest .
    ```
    Note: Ensure the `.` at the end is present — it refers to the current directory.
 
-6. **Run the Docker container**
+7. **Run the Docker container**
    ```bash
    docker run -p 8080:<container-port> <image-name>:latest
    ```
