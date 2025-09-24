@@ -33,7 +33,7 @@ window["env"] = {
 | **production** | Boolean | `true` | Defines if app is in production mode. `true` for production, `false` for development. | `production: true` |
 | **baseURL** | String | - | Base URL of backend API services. | `'https://api.example.com'` |
 | **capabilities** | String | `'all'` | Defines available features/capabilities for users. | `'all'`, `'projects'`, `'surveys'`, `'observations'` |
-| **restrictedPages** | Array of Strings | `[]` | Pages restricted/hidden based on user permissions. **Available options:** [See pageIds.ts](../src/app/core/constants/pageIds.ts) | `['DOWNLOADS','PROFILE']` |
+| **restrictedPages** | Array of Strings | `[]` | Pages restricted/hidden based on user permissions. **Available options:** [See pageIds.ts](./src/app/core/constants/pageIds.ts) | `['DOWNLOADS','PROFILE']` |
 | **unauthorizedRedirectUrl** | String | `"/"` | URL to redirect unauthorized users or on session expiry. | `"/login"` |
 | **isAuthBypassed** | Boolean | `false` | Bypasses authentication checks. Useful for demo/testing. | `false` |
 | **profileRedirectPath** | String | - | Path where users go for profile actions (view/edit). | `"/profile/edit"` |
