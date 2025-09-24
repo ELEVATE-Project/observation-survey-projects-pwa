@@ -61,6 +61,11 @@ Setting up the Project
 ----------------------
 
 1. Clone the [repository](https://github.com/ELEVATE-Project/observation-survey-projects-pwa).
+
+   ```bash
+   git clone https://github.com/ELEVATE-Project/observation-survey-projects-pwa.git
+    ```
+
 2. Go to the project folder using the below command.
     ```
     cd observation-survey-projects-pwa
