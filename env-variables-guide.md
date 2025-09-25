@@ -28,7 +28,7 @@ window["env"] = {
 
 ## Configuration Variables
 
-| Variable | Type | Default | Description | Example |
+| Variable | Type | Default Value | Description | Example |
 |----------|------|---------|-------------|---------|
 | **production** | Boolean | `true` | Defines if app is in production mode. `true` for production, `false` for development. | `production: true` |
 | **baseURL** | String | - | Base URL of backend API services. | `'https://api.example.com'` |
