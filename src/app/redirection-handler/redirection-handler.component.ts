@@ -94,7 +94,7 @@ export class RedirectionHandlerComponent  implements OnInit {
         this.navCtrl.back()
       }
     },(error:any)=>{
-      this.toastService.presentToast(error.error.message,"danger")
+      this.toastService.presentToast(error?.error?.message || "LINK_INVALID_ERROR","danger")
       setTimeout(() => {
         this.router.navigate(['/home'],{ replaceUrl:true })
       }, 1000);
