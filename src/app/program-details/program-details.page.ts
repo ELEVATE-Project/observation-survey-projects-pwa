@@ -45,7 +45,14 @@ export class ProgramDetailsPage implements OnInit {
  }
 
   ngOnInit() {
+    window.addEventListener('message', this.handleMessage);
   }
+  handleMessage = async(event: MessageEvent) => {
+    if (event.data?.type === 'PROGRAMS') {
+      const stateData = event.data.data;
+      this.toastService.presentToast(stateData, 'danger',5000);
+    }
+  };
 
   ionViewWillEnter(){
     this.getProfileDetails()
