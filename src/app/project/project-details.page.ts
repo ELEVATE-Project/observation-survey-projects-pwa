@@ -54,28 +54,41 @@ export class ProjectDetailsPage  implements OnInit {
       this.projectData = this.router.getCurrentNavigation()?.extras.state;
     }
 
-    async handleMessage(event: MessageEvent) {
-      if (event.data && event.data.type === 'SHARE_LINK') {
-        const url = event.data.url;
-        const name= `Check out ${event.data.name}`
-        if (this.utils.isMobile()) {
-        console.log(event,"messaged recieved in project details page");
+async handleMessage(event: MessageEvent) {
+  if (event.data?.type === 'SHARE_LINK') {
+    const url = event.data.url;
+    const name = `Check out ${event.data.name}`;
+
+    if (this.utils.isMobile()) {
+      console.log(event, "message received in project details page");
+
+      const shareOptions = {
+        title: 'Share Project',
+        text: name,
+        url: url,
+      };
+
+      try {
+        console.log("trying to trigger share (first attempt)");
+        await Share.share(shareOptions);
+      } catch (err) {
+        console.log("Share failed, retrying once...", err);
         try {
-          console.log("trying to trigger share");
-          const shareOptions = {
-            title: 'Share Project',
-            text: name,
-            url: url,
-          };
+          console.log("trying to trigger share (retry)");
           await Share.share(shareOptions);
-        } catch (err) {
-          console.log(err,"this is catch")
-        }
-      } else {
-        this.setOpenForCopyLink(url);
+        } catch (retryErr) {
+          console.log("Retry also failed, fallback to copy link", retryErr);
+          // this.setOpenForCopyLink(url); // fallback
         }
       }
+
+    } else {
+      // fallback for desktop or unsupported mobile browsers
+      this.setOpenForCopyLink(url);
     }
+  }
+}
+
 
     async setOpenForCopyLink(value:any) {
       const popover = await this.popoverController.create({
