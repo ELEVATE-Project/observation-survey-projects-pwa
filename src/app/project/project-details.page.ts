@@ -70,7 +70,9 @@ async handleMessage(event: MessageEvent) {
 
       try {
         console.log("trying to trigger share (first attempt)");
-        await Share.share(shareOptions);
+        setTimeout(async() => {
+          await Share.share(shareOptions);
+        }  , 2000);
       } catch (err) {
         console.log("Share failed, retrying once...", err);
         try {
