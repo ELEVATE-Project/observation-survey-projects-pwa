@@ -58,7 +58,7 @@ async handleMessage(event: MessageEvent) {
   if (event.data?.type === 'SHARE_LINK') {
     const url = event.data.url;
     const name = `Check out ${event.data.name}`;
-
+    console.log("this is new log before checking platform")
     if (this.utils.isMobile()) {
       console.log(event, "message received in project details page");
 
