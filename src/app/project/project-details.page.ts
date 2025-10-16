@@ -59,9 +59,7 @@ export class ProjectDetailsPage  implements OnInit {
         const url = event.data.url;
         const name= `Check out ${event.data.name}`
         if (this.utils.isMobile()) {
-        console.log(event,"messaged recieved in project details page");
         try {
-          console.log("trying to trigger share");
           const shareOptions = {
             title: 'Share Project',
             text: name,
@@ -69,7 +67,7 @@ export class ProjectDetailsPage  implements OnInit {
           };
           await Share.share(shareOptions);
         } catch (err) {
-          console.log(err,"this is catch")
+          console.error(err,"Error")
         }
       } else {
         this.setOpenForCopyLink(url);
