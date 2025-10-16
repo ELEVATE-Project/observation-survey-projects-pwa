@@ -77,7 +77,6 @@ export class ProjectDetailsPage  implements OnInit {
       }
     }
 
-
     async setOpenForCopyLink(value:any) {
       const popover = await this.popoverController.create({
        component: ShareLinkPopupComponent,
