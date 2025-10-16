@@ -54,38 +54,39 @@ export class ProjectDetailsPage  implements OnInit {
       this.projectData = this.router.getCurrentNavigation()?.extras.state;
     }
 
+private hasRetriedShare = false;
+
 async handleMessage(event: MessageEvent) {
   if (event.data?.type === 'SHARE_LINK') {
     const url = event.data.url;
-    const name = `Check out ${event.data.name}`;
-    console.log("this is new log before checking platform")
+
     if (this.utils.isMobile()) {
-      console.log(event, "message received in project details page");
-
-      const shareOptions = {
-        title: 'Share Project',
-        text: name,
-        url: url,
-      };
-
       try {
-        console.log("trying to trigger share (first attempt)");
-        setTimeout(async() => {
-          await Share.share(shareOptions);
-        }  , 2000);
+        const shareOptions = {
+          title: 'Project Report',
+          text: 'Check out this project report',
+          url: url,
+        };
+
+        await Share.share(shareOptions);
+        this.hasRetriedShare = false;
       } catch (err) {
-        console.log("Share failed, retrying once...", err);
-        try {
-          console.log("trying to trigger share (retry)");
-          await Share.share(shareOptions);
-        } catch (retryErr) {
-          console.log("Retry also failed, fallback to copy link", retryErr);
-          // this.setOpenForCopyLink(url); // fallback
+        console.warn("Share failed:", err);
+        if (this.hasRetriedShare) {
+          console.warn("Retry already attempted, stopping further triggers");
+          this.hasRetriedShare = false;
+          return;
+        }
+        this.hasRetriedShare = true;
+        const shareIcon = document.querySelector('.material-icons[fonticon="ios_share"]');
+        if (shareIcon) {
+          console.log("Triggering manual click for retry...");
+          (shareIcon as HTMLElement).click();
+        } else {
+          console.warn("Share icon not found, using fallback");
         }
       }
-
     } else {
-      // fallback for desktop or unsupported mobile browsers
       this.setOpenForCopyLink(url);
     }
   }
