@@ -54,43 +54,28 @@ export class ProjectDetailsPage  implements OnInit {
       this.projectData = this.router.getCurrentNavigation()?.extras.state;
     }
 
-private hasRetriedShare = false;
-
-async handleMessage(event: MessageEvent) {
-  if (event.data?.type === 'SHARE_LINK') {
-    const url = event.data.url;
-
-    if (this.utils.isMobile()) {
-      try {
-        const shareOptions = {
-          title: 'Project Report',
-          text: 'Check out this project report',
-          url: url,
-        };
-
-        await Share.share(shareOptions);
-        this.hasRetriedShare = false;
-      } catch (err) {
-        console.warn("Share failed:", err);
-        if (this.hasRetriedShare) {
-          console.warn("Retry already attempted, stopping further triggers");
-          this.hasRetriedShare = false;
-          return;
+  async handleMessage(event: MessageEvent) {
+      if (event.data && event.data.type === 'SHARE_LINK') {
+        const url = event.data.url;
+        const name= `Check out ${event.data.name}`
+        if (this.utils.isMobile()) {
+        console.log(event,"messaged recieved in project details page");
+        try {
+          console.log("trying to trigger share");
+          const shareOptions = {
+            title: 'Share Project',
+            text: name,
+            url: url,
+          };
+          await Share.share(shareOptions);
+        } catch (err) {
+          console.log(err,"this is catch")
         }
-        this.hasRetriedShare = true;
-        const shareIcon = document.querySelector('.material-icons[fonticon="ios_share"]');
-        if (shareIcon) {
-          console.log("Triggering manual click for retry...");
-          (shareIcon as HTMLElement).click();
-        } else {
-          console.warn("Share icon not found, using fallback");
+      } else {
+        this.setOpenForCopyLink(url);
         }
       }
-    } else {
-      this.setOpenForCopyLink(url);
     }
-  }
-}
 
 
     async setOpenForCopyLink(value:any) {
