@@ -54,7 +54,7 @@ export class ProjectDetailsPage  implements OnInit {
       this.projectData = this.router.getCurrentNavigation()?.extras.state;
     }
 
-  async handleMessage(event: MessageEvent) {
+    async handleMessage(event: MessageEvent) {
       if (event.data && event.data.type === 'SHARE_LINK') {
         const url = event.data.url;
         const name= `Check out ${event.data.name}`
