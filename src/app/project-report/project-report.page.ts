@@ -221,7 +221,8 @@ export class ProjectReportPage implements OnInit,OnDestroy {
       component: ShareLinkPopupComponent,
       componentProps: {
         data: {
-          downloadUrl:this.downloadUrl
+          downloadUrl:this.downloadUrl,
+          showDownloadUrl:true,
         }
       },
       cssClass: 'popup-class',

@@ -248,7 +248,8 @@ ion-segment-button {
 }
 
 .popup-class{
-  --height: 125px;
+  --min-height: 125px;
+  --max-height: 170px;
   --width:450px;
 }
 
