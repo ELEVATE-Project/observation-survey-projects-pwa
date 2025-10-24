@@ -12,6 +12,20 @@
     justify-content: space-between;
     cursor: pointer;
     margin: 15px;
+    gap: 5px;
+  }
+  .copy-link-div .content{
+    display: flex;
+    flex-direction: column;
+    gap: 10px ;
+  }
+
+  .copy-link-div h3{
+    font-size: large;
+    font-weight: 700;
+  }
+  .copy-link-div h4{
+    font-size: medium;
   }
   .copy-link-div p{
     display: flex;
