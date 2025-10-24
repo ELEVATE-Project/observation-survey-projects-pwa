@@ -83,7 +83,7 @@ export class ProjectDetailsPage  implements OnInit {
            downloadUrl: value,
            showDownloadUrl:false,
            title:"PROJECT_READY_TO_SHARE",
-           text:"PROJECT_SHARE_INFO"
+           message:"PROJECT_SHARE_INFO"
          },
        },
        cssClass: 'popup-class',
