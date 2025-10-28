@@ -223,6 +223,7 @@ export class ProjectReportPage implements OnInit,OnDestroy {
         data: {
           downloadUrl:this.downloadUrl,
           showDownloadUrl:true,
+          buttonText:"COPY"
         }
       },
       cssClass: 'popup-class',

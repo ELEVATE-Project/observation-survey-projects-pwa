@@ -95,5 +95,6 @@
   "SELECT":"Select",
   "DOWNLOAD":"Download",
   "PROJECT_READY_TO_SHARE":"Your project is ready to share.",
-  "PROJECT_SHARE_INFO":"Anyone with this link can view your project details and progress."
+  "PROJECT_SHARE_INFO":"Anyone with this link can view your project details and progress.",
+  "COPY_LINK":"Copy Link"
 }

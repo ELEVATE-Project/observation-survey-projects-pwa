@@ -20,9 +20,9 @@
   </div>
 </div>
 <div class="cancel-button">
-  <ion-button (click)="onModalDismiss(true)"  fill="solid" shape="round" >
+  <ion-button (click)="onModalDismiss(true)"  fill="solid" shape="round" class="copy-button">
       <ion-icon class="button-icon"  name="copy-outline"></ion-icon>
-      <span>{{"COPY"|translate}}</span>
+      <span>{{data.buttonText | translate }}</span>
     </ion-button>
   </div>
 </ion-content>
