@@ -41,20 +41,16 @@
   <noscript>Please enable JavaScript to continue using this application.</noscript>
   <script>
     (function() {
-      if (window.env) {
-        if (window.env.config.title) {
-          document.title = window.env.config.title;
-        }
+        const tenantCode = localStorage.getItem('tenantCode') || window.env?.config?.title;
+        const brandingLogoUrl = localStorage.getItem('brandingLogoUrl') || window.env?.config?.faviconPath;
 
-        if (window.env.config.faviconPath) {
+        document.title =  `Welcome to ${tenantCode}`
+
+        if (brandingLogoUrl) {
           let link = document.querySelector("link[rel='icon']") || document.createElement("link");
           link.rel = "icon";
-          link.type = "image/svg+xml";
-          link.href = window.env.config.faviconPath;
-          if (!document.head.contains(link)) {
-            document.head.appendChild(link);
-          }
-        }
+          link.href = brandingLogoUrl;
+          if (!document.head.contains(link)) document.head.appendChild(link);
       }
     })();
   </script>
