@@ -41,14 +41,12 @@
   <noscript>Please enable JavaScript to continue using this application.</noscript>
   <script>
     (function() {
-        const tenantCode = localStorage.getItem('tenantCode');
-        const brandingLogoUrl = localStorage.getItem('brandingLogoUrl');
+        const tenantCode = localStorage.getItem('tenantCode') || window.env?.config?.title;
+        const brandingLogoUrl = localStorage.getItem('brandingLogoUrl') || window.env?.config?.faviconPath;
 
-        document.title = tenantCode
-          ? `Welcome to ${tenantCode}`
-          : (window.env?.config?.title || document.title);
+        document.title =  `Welcome to ${tenantCode}`
 
-        const iconUrl = brandingLogoUrl || window.env?.config?.faviconPath;
+        const iconUrl = brandingLogoUrl;
         if (iconUrl) {
           let link = document.querySelector("link[rel='icon']") || document.createElement("link");
           link.rel = "icon";
