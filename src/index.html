@@ -46,11 +46,10 @@
 
         document.title =  `Welcome to ${tenantCode}`
 
-        const iconUrl = brandingLogoUrl;
-        if (iconUrl) {
+        if (brandingLogoUrl) {
           let link = document.querySelector("link[rel='icon']") || document.createElement("link");
           link.rel = "icon";
-          link.href = iconUrl;
+          link.href = brandingLogoUrl;
           if (!document.head.contains(link)) document.head.appendChild(link);
       }
     })();
