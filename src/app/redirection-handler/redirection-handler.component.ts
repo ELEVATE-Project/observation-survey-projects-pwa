@@ -71,10 +71,6 @@ export class RedirectionHandlerComponent  implements OnInit {
   }
 
   async verifyLink(){
-    if(!this.utils.isLoggedIn()){
-      this.router.navigate(['project-details'], { state: { link: this.linkId, referenceFrom: "link" }, replaceUrl:true });
-      return
-    }
     this.apiService.post(urlConfig.project.verifyLink+this.linkId+"?createProject=false",this.profileInfo).subscribe((response:any)=>{
       if(response && response.result){
         switch (response.result.type) {
