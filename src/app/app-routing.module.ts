@@ -42,7 +42,7 @@ const routes: Routes = [
     path: 'qr-scanner',
     loadChildren: () => import('./qr-scanner/qr-scanner.module').then( m => m.QrScannerPageModule),
     canActivate: [allowPageAccessGuard],
-    data: { pageId: PAGE_IDS.qrScanner }
+    data: { pageId: PAGE_IDS.qrScanner ,title: 'QR Scanner'}
   },
   {
     path: 'project-downloads',
@@ -54,7 +54,7 @@ const routes: Routes = [
     path: 'program-details/:id',
     loadChildren: () => import('./program-details/program-details.module').then( m => m.ProgramDetailsPageModule),
     canActivate:[allowPageAccessGuard],
-    data: { pageId: PAGE_IDS.programDetails }
+    data: { pageId: PAGE_IDS.programDetails ,title: 'Program Details'}
   },
   {
     path: 'listing/:type',
@@ -66,19 +66,19 @@ const routes: Routes = [
     path: 'project-details',
     loadChildren: () => import('./project/project.module').then( m => m.ProjectPageModule),
     canActivate:[allowPageAccessGuard],
-    data: { pageId: PAGE_IDS.projectDetails }
+    data: { pageId: PAGE_IDS.projectDetails ,title: 'Project Details'}
   },
   {
     path: 'project-report',
     loadChildren: () => import('./project-report/project-report.module').then( m => m.ProjectReportPageModule),
     canActivate:[allowPageAccessGuard],
-    data: { pageId: PAGE_IDS.projectReport }
+    data: { pageId: PAGE_IDS.projectReport ,title: 'Projects Report'}
   },
   {
     path: 'view/:type/:id',
     component: RedirectionHandlerComponent,
     canActivate:[allowPageAccessGuard],
-    data: { pageId: PAGE_IDS.deeplinkRedirect }
+    data: { pageId: PAGE_IDS.deeplinkRedirect ,title: 'Redirecting...'}
   },
   {
     path: 'project-library',
@@ -103,7 +103,7 @@ const routes: Routes = [
     path: 'certificate-verify/:id',
     loadChildren: () => import('./certificate-verify/certificate-verify.module').then( m => m.CertificateVerifyPageModule),
     canActivate: [allowPageAccessGuard],
-    data:{pageId:PAGE_IDS.certificateVerify}
+    data:{pageId:PAGE_IDS.certificateVerify , title: 'Certificate Verify'}
   },
   // { path: '',
   //   // pathMatch: "prefix",
