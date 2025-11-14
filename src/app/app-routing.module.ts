@@ -6,6 +6,7 @@ import { allowPageAccessGuard } from './services/guard/allowPageAccess/allow-pag
 import { PAGE_IDS } from './core/constants/pageIds';
 import { navigateGuard } from './services/guard/navigate/navigate.guard';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PAGE_TITLES } from './core/constants/pageTitles';
 const routes: Routes = [
   // {
   //   path: 'home',
@@ -20,7 +21,7 @@ const routes: Routes = [
         (m) => m.ReportListPageModule
       ),
     canActivate: [allowPageAccessGuard],
-    data: { pageId: PAGE_IDS.reportsList }
+    data: { pageId: PAGE_IDS.reportsList, title: PAGE_TITLES.reportsList }
   },
   {
     path:'report-details/:id',
@@ -42,7 +43,7 @@ const routes: Routes = [
     path: 'qr-scanner',
     loadChildren: () => import('./qr-scanner/qr-scanner.module').then( m => m.QrScannerPageModule),
     canActivate: [allowPageAccessGuard],
-    data: { pageId: PAGE_IDS.qrScanner ,title: 'QR Scanner'}
+    data: { pageId: PAGE_IDS.qrScanner ,title: PAGE_TITLES.qrScanner}
   },
   {
     path: 'project-downloads',
@@ -54,7 +55,7 @@ const routes: Routes = [
     path: 'program-details/:id',
     loadChildren: () => import('./program-details/program-details.module').then( m => m.ProgramDetailsPageModule),
     canActivate:[allowPageAccessGuard],
-    data: { pageId: PAGE_IDS.programDetails ,title: 'Program Details'}
+    data: { pageId: PAGE_IDS.programDetails ,title: PAGE_TITLES.programDetails}
   },
   {
     path: 'listing/:type',
@@ -66,25 +67,25 @@ const routes: Routes = [
     path: 'project-details',
     loadChildren: () => import('./project/project.module').then( m => m.ProjectPageModule),
     canActivate:[allowPageAccessGuard],
-    data: { pageId: PAGE_IDS.projectDetails ,title: 'Project Details'}
+    data: { pageId: PAGE_IDS.projectDetails ,title: PAGE_TITLES.projectDetails}
   },
   {
     path: 'project-report',
     loadChildren: () => import('./project-report/project-report.module').then( m => m.ProjectReportPageModule),
     canActivate:[allowPageAccessGuard],
-    data: { pageId: PAGE_IDS.projectReport ,title: 'Projects Report'}
+    data: { pageId: PAGE_IDS.projectReport ,title: PAGE_TITLES.projectReport}
   },
   {
     path: 'view/:type/:id',
     component: RedirectionHandlerComponent,
     canActivate:[allowPageAccessGuard],
-    data: { pageId: PAGE_IDS.deeplinkRedirect ,title: 'Redirecting...'}
+    data: { pageId: PAGE_IDS.deeplinkRedirect ,title: PAGE_TITLES.deeplinkRedirect}
   },
   {
     path: 'project-library',
     loadChildren: () => import('./project-library/project-library.module').then(m => m.ProjectLibraryModule),
     canActivate:[allowPageAccessGuard],
-    data: { pageId: PAGE_IDS.library }
+    data: { pageId: PAGE_IDS.library, title: PAGE_TITLES.library }
   },
   {
 
@@ -103,7 +104,7 @@ const routes: Routes = [
     path: 'certificate-verify/:id',
     loadChildren: () => import('./certificate-verify/certificate-verify.module').then( m => m.CertificateVerifyPageModule),
     canActivate: [allowPageAccessGuard],
-    data:{pageId:PAGE_IDS.certificateVerify , title: 'Certificate Verify'}
+    data:{pageId:PAGE_IDS.certificateVerify , title: PAGE_TITLES.certificateVerify}
   },
   // { path: '',
   //   // pathMatch: "prefix",

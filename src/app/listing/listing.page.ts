@@ -12,7 +12,7 @@ import { AlertService } from '../services/alert/alert.service';
 import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 import { SamikshaApiService } from '../services/samiksha-api/samiksha-api.service';
 import { PrivacyPolicyPopupComponent } from '../shared/privacy-policy-popup/privacy-policy-popup.component';
-import { Title } from '@angular/platform-browser';
+import { PageTitleService } from '../services/project-title/page-title.service';
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.page.html',
@@ -41,7 +41,7 @@ export class ListingPage implements OnInit {
   constructor(private navCtrl: NavController, private router: Router,
     private profileService: ProfileService,
     private alertService: AlertService, private activatedRoute: ActivatedRoute, private modalCtrl: ModalController,
-    private titleService: Title
+    private titleService: PageTitleService
   ) {
     this.ProjectsApiService = inject(ProjectsApiService);
     this.SamikshaApiService = inject(SamikshaApiService);
@@ -51,9 +51,8 @@ export class ListingPage implements OnInit {
       this.listType = params["type"]
       this.reportPage = params["reportPage"] == "true"
       if (this.listType) {
-        const formatted = this.listType.charAt(0).toUpperCase() + this.listType.slice(1);
-        this.titleService.setTitle(`${formatted} Listing`);
-      }
+      this.titleService.setTitleForType(this.listType);
+    }
     })
   }
 

@@ -96,5 +96,19 @@
     "DOWNLOAD": "डाउनलोड करें",
     "PROJECT_READY_TO_SHARE":"आपका प्रोजेक्ट साझा करने के लिए तैयार है.",
     "PROJECT_SHARE_INFO":"इस लिंक वाला कोई भी व्यक्ति आपकी परियोजना का विवरण और प्रगति देख सकता है।",
-    "COPY_LINK":"लिंक कॉपी करें"
+    "COPY_LINK":"लिंक कॉपी करें",
+    "PAGE_TITLES": {
+      "REPORTS_LIST": "रिपोर्ट सूची",
+      "REPORT_DETAILS": "रिपोर्ट विवरण",
+      "QR_SCANNER": "क्यूआर स्कैनर",
+      "DOWNLOADS": "डाउनलोड",
+      "PROGRAM_DETAILS": "कार्यक्रम विवरण",
+      "PROJECT_DETAILS": "प्रोजेक्ट विवरण",
+      "PROJECT_REPORT": "प्रोजेक्ट रिपोर्ट",
+      "DEEPLINK_REDIRECT": "री-डायरेक्ट किया जा रहा है...",
+      "LIBRARY": "लाइब्रेरी",
+      "CERTIFICATE_VERIFY": "प्रमाणपत्र सत्यापन",
+      "PROGRAM_LIST": "कार्यक्रम सूची",
+      "PROJECT_LIST": "प्रोजेक्ट सूची"
+    }
   }

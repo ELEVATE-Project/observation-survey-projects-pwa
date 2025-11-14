@@ -4,6 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { filter, map, mergeMap } from 'rxjs/operators';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
+import { PageTitleService } from './services/project-title/page-title.service';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { Location } from '@angular/common';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private swUpdate: SwUpdate,private location: Location,private router: Router, private activatedRoute: ActivatedRoute,private titleService: Title) {
+  constructor(private swUpdate: SwUpdate,private location: Location,private router: Router, private activatedRoute: ActivatedRoute,private titleService: PageTitleService) {
      this.router.events
       .pipe(
         filter(event => event instanceof NavigationEnd),
@@ -25,7 +26,7 @@ export class AppComponent implements OnInit {
       )
       .subscribe(data => {
         if (data['title']) {
-          this.titleService.setTitle(data['title']);
+          this.titleService.setTitleByKey(data['title']);
         }
       });
   }
