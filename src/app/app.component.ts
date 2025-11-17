@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
+import { Title } from '@angular/platform-browser';
+import { filter, map, mergeMap } from 'rxjs/operators';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Location } from '@angular/common';
+import { PageTitleService } from './services/project-title/page-title.service';
+
 
 @Component({
   selector: 'app-root',
@@ -7,7 +13,23 @@ import { SwUpdate } from '@angular/service-worker';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private swUpdate: SwUpdate) {}
+  constructor(private swUpdate: SwUpdate,private location: Location,private router: Router, private activatedRoute: ActivatedRoute,private titleService: PageTitleService) {
+     this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        map(() => {
+          let route = this.activatedRoute;
+          while (route.firstChild) route = route.firstChild;
+          return route;
+        }),
+        mergeMap(route => route.data)
+      )
+      .subscribe(data => {
+        if (data['title']) {
+          this.titleService.setTitleByKey(data['title']);
+        }
+      });
+  }
 
   ngOnInit(){
     const localTheme = localStorage.getItem('theme');
