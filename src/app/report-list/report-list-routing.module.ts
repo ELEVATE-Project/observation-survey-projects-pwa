@@ -7,7 +7,6 @@ const routes: Routes = [
   {
     path: '',
     component: ReportListPage,
-    data: { title: 'Reports List' }
   }
 ];
 

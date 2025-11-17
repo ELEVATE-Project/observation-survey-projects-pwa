@@ -97,18 +97,15 @@
   "PROJECT_READY_TO_SHARE":"Your project is ready to share.",
   "PROJECT_SHARE_INFO":"Anyone with this link can view your project details and progress.",
   "COPY_LINK":"Copy Link",
-  "PAGE_TITLES": {
-      "REPORTS_LIST": "Reports List",
-      "REPORT_DETAILS": "Report Details",
-      "QR_SCANNER": "QR Scanner",
-      "DOWNLOADS": "Downloads",
-      "PROGRAM_DETAILS": "Program Details",
-      "PROJECT_DETAILS": "Project Details",
-      "PROJECT_REPORT": "Project Report",
-      "DEEPLINK_REDIRECT": "Redirecting...",
-      "LIBRARY": "Library",
-      "CERTIFICATE_VERIFY": "Certificate Verify",
-      "PROGRAM_LIST": "Program List",
-      "PROJECT_LIST": "Project List"
-    }
+  "REPORTS_LIST": "Reports List",
+  "REPORT_DETAILS": "Report Details",
+  "QR_SCANNER": "QR Scanner",
+  "PROGRAM_DETAILS": "Program Details",
+  "PROJECT_DETAILS": "Project Details",
+  "DEEPLINK_REDIRECT": "Redirecting...",
+  "LIBRARY": "Library",
+  "CERTIFICATE_VERIFY": "Certificate Verify",
+  "PROGRAM_LIST": "Program List",
+  "PROJECT_LIST": "Project List",
+  "LISTING": "Listing"
 }

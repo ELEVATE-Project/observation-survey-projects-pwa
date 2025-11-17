@@ -29,8 +29,7 @@ export class PageTitleService {
     }
 
     setTitleForType(type: string) {
-        const listKey = (PAGE_TITLES as any)[`${type}List`];
-        const key =  listKey || `PAGE_TITLES.${type.toUpperCase()}_LIST`;
+        let key = (PAGE_TITLES as any)[`${type}List`] || `Listing`;
         this.setTitleByKey(key);
     }
 
