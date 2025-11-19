@@ -6,13 +6,15 @@ import { LoaderService } from '../services/loader/loader.service';
 import urlConfig from 'src/app/config/url.config.json';
 import { ToastService } from '../services/toast/toast.service';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs';
+import { finalize, of } from 'rxjs';
 import { FETCH_HOME_FORM, FETCH_HOME_FORM_PROJECT, FETCH_HOME_FORM_SURVEY } from '../core/constants/formConstant';
 import { AuthService } from 'authentication_frontend_library';
 import { UtilService } from 'src/app/services/util/util.service';
 import { ProfileService } from '../services/profile/profile.service';
 import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 import { environment } from 'src/environments/environment';
+import { PAGE_IDS } from '../core/constants/pageIds';
+import {DbService, FormsService} from 'formstore-cache'
 register();
 @Component({
   selector: 'app-home',
@@ -20,13 +22,16 @@ register();
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
-  formListingUrl = (environment.capabilities.includes('project' || 'all') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl; 
+  showHeader = environment.showHeader;
+  logoPath = environment.config.logoPath;
+  formListingUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
   swiperModules = [IonicSlides];
   jsonData: any;
   baseApiService: any;
   authService: AuthService;
   toastService: any;
   loader: LoaderService;
+  dbService: DbService;
   solutionList: any = [];
   isMobile = this.utilService.isMobile();
   typeTemplateMapping: { [key: string]: TemplateRef<any> } = {};
@@ -34,7 +39,7 @@ export class HomePage {
   @ViewChild('solutionTemplate') solutionTemplate!: TemplateRef<any>;
   @ViewChild('recommendationTemplate') recommendationTemplate!: TemplateRef<any>;
   clearDatabaseHandler:any;
-
+  pageIdsList = PAGE_IDS
 
   constructor(private http: HttpClient, private router: Router, private utilService: UtilService,
     private profileService: ProfileService
@@ -43,6 +48,7 @@ export class HomePage {
     this.loader = inject(LoaderService)
     this.authService = inject(AuthService)
     this.toastService = inject(ToastService)
+    this.dbService = inject(DbService)
   }
 
   ionViewWillEnter() {
@@ -55,7 +61,7 @@ export class HomePage {
   }
 
   async getHomeListing() {
-    await this.loader.showLoading("Please wait while loading...");
+    await this.loader.showLoading("LOADER_MSG");
     this.baseApiService
       .post(
         this.formListingUrl, environment.capabilities == 'all' ? FETCH_HOME_FORM :  environment.capabilities == 'survey' ? FETCH_HOME_FORM_SURVEY : FETCH_HOME_FORM_PROJECT)
@@ -86,7 +92,7 @@ export class HomePage {
     if(data.listType == 'report'){
       this.router.navigate(['report/list'], { queryParams: { type: data.listType } });
     }else{
-      this.router.navigate([data?.redirectionUrl], { queryParams: { type: data.listType } });
+      this.utilService.navigateTo(data)
     }
   }
 
@@ -96,6 +102,12 @@ export class HomePage {
   async handleMessage(event: MessageEvent) {
     if (event.data && event.data.msg) {
       this.utilService.clearDatabase();
+      this.dbService.clearDatabase();
+      document.documentElement.style.setProperty('--ion-color-primary', '#832215');
+      document.documentElement.style.setProperty('--ion-color-secondary', '#ffffff');
+      document.documentElement.style.setProperty('--primary-color', '#832215');
+      document.documentElement.style.setProperty('--color-primary', '#832215');
     }
   }
+
 }

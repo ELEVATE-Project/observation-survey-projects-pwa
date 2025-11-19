@@ -1,0 +1,12 @@
+@if(showHeader){
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-icon name="arrow-back-outline" (click)="goBack()" class="back-button"></ion-icon>
+      </ion-buttons>
+      @if(pageTitle){
+        <ion-title>{{ pageTitle | translate}}</ion-title>
+      }
+    </ion-toolbar>
+  </ion-header>
+}

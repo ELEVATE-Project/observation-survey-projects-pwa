@@ -1,13 +1,15 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button (click)="canPageLeave($event)">
-        <ion-icon name="arrow-back-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title>Profile Edit</ion-title>
-  </ion-toolbar>
-</ion-header>
+@if(showHeader){
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button (click)="canPageLeave($event)">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>{{"PROFILE_EDIT"|translate}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+}
 
 <ion-content [fullscreen]="true">
   <app-profile-image [profileImageData]='formJson' [uploadImage]="true" (imageUploadEvent)="imageUploadEvent($event)"
@@ -26,7 +28,7 @@
   <ion-toolbar>
     <ion-button (click)="updateProfile()" expand="block" fill="primary" shape="solid" class="container"
       [disabled]="!(formLib?.myForm?.valid && formLib2?.myForm?.valid)">
-      Update Profile
+      {{"PROFILE_UPDATE"|translate}}
     </ion-button>
   </ion-toolbar>
 </ion-footer>

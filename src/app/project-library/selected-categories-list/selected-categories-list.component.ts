@@ -62,8 +62,5 @@ export class SelectedCategoriesListComponent {
     this.router.navigate(['project-details'], { state: { externalId: data.externalId, referenceFrom: "library" }});
   }
 
-  goBack() {
-    this.navCtrl.back();
-  }
 
 }

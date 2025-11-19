@@ -12,14 +12,13 @@
   <meta name="format-detection" content="telephone=no"/>     
   <meta name="msapplication-tap-highlight" content="no"/>
   <script rel="preload" src="assets/env/env.js" as="script"></script>
-  <link rel="icon" type="image/svg+xml" href="assets/icons/elevate-logo.svg"/>
   <!-- add to homescreen for ios -->
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#1976d2"> 
    <!-- Add the following script tag to register the service worker -->
-   <script>
+   <!-- <script>
     if ('serviceWorker' in navigator && location.protocol === 'https:') {
       window.addEventListener('load', function() {
         navigator.serviceWorker.register('service-worker.js')
@@ -31,7 +30,7 @@
           });
       });
     }
-  </script>
+  </script> -->
 
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#1976d2">
@@ -40,6 +39,21 @@
 <body>
   <app-root></app-root>
   <noscript>Please enable JavaScript to continue using this application.</noscript>
+  <script>
+    (function() {
+        const tenantCode = localStorage.getItem('tenantCode') || window.env?.config?.title;
+        const brandingLogoUrl = localStorage.getItem('brandingLogoUrl') || window.env?.config?.faviconPath;
+
+        document.title =  `Welcome to ${tenantCode}`
+
+        if (brandingLogoUrl) {
+          let link = document.querySelector("link[rel='icon']") || document.createElement("link");
+          link.rel = "icon";
+          link.href = brandingLogoUrl;
+          if (!document.head.contains(link)) document.head.appendChild(link);
+      }
+    })();
+  </script>
 </body>
 
 </html>

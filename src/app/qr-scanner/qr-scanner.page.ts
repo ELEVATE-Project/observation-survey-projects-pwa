@@ -53,7 +53,7 @@ export class QrScannerPage implements OnInit {
       const permissionStatus = await navigator.permissions.query({ name: 'camera' as any });
       if (permissionStatus.state === 'denied') {
         this.toastService.presentToast(
-          'Camera permission is required to scan QR code. Please enable it in your browser or app settings.',
+          'CAMERA_PERMISSION_REQUIRED',
           'danger',
           9000
         );
@@ -62,21 +62,27 @@ export class QrScannerPage implements OnInit {
         this.startScan();
       }
     } catch (err) {
-      this.toastService.presentToast('Error checking camera permissions.', 'danger');
+      this.toastService.presentToast('CAMERA_PERMISSION_CHECK_ERROR', 'danger');
     }
   }
   
   async startScan() {
     this.stopScanning = false;
     const stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: 'environment' }
+      video:{ 
+        width: { min: 1024, ideal: 1280, max: 1920 },
+        height: { min: 576, ideal: 720, max: 1080 },
+        frameRate: { ideal: 10, max: 15 },
+        facingMode: { exact: 'environment' }, 
+      }
     });
     this.scanActive = true;
     this.videoElement!.srcObject = stream;
     this.videoElement!.setAttribute('playsinline', 'true');
     this.videoElement!.play();
-
+    if (!this.codeReader || this.stopScanning) return;
     this.codeReader?.decodeOnceFromVideoDevice().then((response)=>{
+      if(this.stopScanning) return; 
       if(response){
         this.handleScanResult(response)
       }
@@ -89,13 +95,14 @@ export class QrScannerPage implements OnInit {
   async handleScanResult(result: Result) {
     const scannedUrl = result.getText();
     this.userId = scannedUrl.split('/').pop();
+    await this.stopScan();
     if (scannedUrl.includes('verifyCertificate')) {
       await this.getCertificate();
     } else if (scannedUrl.includes('view/project')) {
       await this.handleProjectUrl();
     } else {
       this.headerback()
-      this.toastService.presentToast('Invalid Link, please try with other link', 'danger');
+      this.toastService.presentToast('LINK_INVALID_ERROR', 'danger');
     }
   }
   async handleProjectUrl() {
@@ -116,7 +123,7 @@ export class QrScannerPage implements OnInit {
 
   async getCertificate() {
     if (!this.userId) return;
-    await this.loader.showLoading("Please wait while loading...");
+    await this.loader.showLoading("LOADER_MSG");
     this.baseApiService
       .post(urlConfig.certificate.verifyCertificateUrl + `/${this.userId}`, {})
       .pipe(
@@ -126,14 +133,13 @@ export class QrScannerPage implements OnInit {
       )
       .subscribe(
         async (res: any) => {
-          await this.stopScan();
           this.location.back();
           if (res.result) {
             setTimeout(() => {
               this.utilService.openCertificateVerificationPopover(res.result);
             }, 1000);
           } else {
-            this.toastService.presentToast('Something went wrong', 'danger');
+            this.toastService.presentToast('SOMETHING_WENT_WRONG', 'danger');
           }
         },
         (err: any) => {

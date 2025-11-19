@@ -9,16 +9,19 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { HomePage } from './home.page';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-
+import { TranslateModule } from '@ngx-translate/core';
+import { AllowTemplateViewDirective } from '../shared/directives/allow-template-view.directive';
+import { ImageComponent } from '../shared/image/image.component';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    TranslateModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
-  declarations: [HomePage]
+  declarations: [HomePage, AllowTemplateViewDirective,ImageComponent]
 })
 export class HomePageModule {}

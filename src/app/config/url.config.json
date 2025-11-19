@@ -3,7 +3,8 @@
     "subSurvey":"/survey",
     "survey": {
         "listingUrl": "/survey/v1/solutions/targetedSolutions",
-        "reportUrl":"/survey/v1/reports/submissionReport?submissionId="
+        "reportUrl":"/survey/v1/reports/submissionReport?submissionId=",
+        "detailsUrl":"/survey/v1/surveys/details?solutionId="
     },
     "observation": {
         "listingUrl": "/project/v1/solutions/list"
@@ -27,14 +28,17 @@
         "subEntityUrl": "/subEntityList",
         "getSessionImageUploadUrl":"/user/v1/cloud-services/file/getSignedUrl?fileName=",
         "getDownloadableUrl":"/user/v1/cloud-services/file/getDownloadableUrl?filePath=",
+        "refreshTokenUrl":"/user/v1/account/generateToken",
         "entityConfigUrl" : "/v1/configurations/read"
 
     },
     "report":{
-        "listingUrl":"/project/v1/reports/entity"
+        "listingUrl":"/project/v1/reports/entity",
+        "getProgramsUrl":"/project/v1/reports/getProgramsByEntity"
     },
     "program":{
-        "listingUrl":"/project/v1/programs/list"
+        "listingUrl":"/project/v1/users/programs",
+        "detailsUrl":"/interface/v1/users/solutions"
     },
     "certificate":{
         "verifyCertificateUrl":"/project/v1/userProjects/verifyCertificate",

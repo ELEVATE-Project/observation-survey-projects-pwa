@@ -18,7 +18,7 @@ export class ProfilePage {
   enableFormOne: boolean = false;
   enableFormTwo: boolean = false;
   formJson2:any;
-  formListingUrl = (environment.capabilities.includes('project' || 'all') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
+  formListingUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
 
   constructor(private profileService: ProfileService,
     private navCtrl: NavController,
@@ -35,11 +35,11 @@ export class ProfilePage {
   }
 
   async loadFormAndData() {
-    await this.loader.showLoading("Please wait while loading...");
+    await this.loader.showLoading("LOADER_MSG");
     this.profileService.getFormJsonAndData()
       .pipe(
         catchError((err) => {
-          this.toastService.presentToast(err?.error?.message || 'Error loading profile data. Please try again later.', 'danger');
+          this.toastService.presentToast(err?.error?.message || 'PROFILE_LOAD_ERROR', 'danger');
           throw err;
         }),
         finalize(async () => await this.loader.dismissLoading())
@@ -114,14 +114,14 @@ export class ProfilePage {
       }
 
       if (index === lastIndex) {
+        if(enable == "enableFormTwo"){
+          this.formJson2 = formJson.filter((data:any)=>{ return data.value })
+        }
         this[enable] = true;
       }
     });
   }
 
-  goBack() {
-    this.navCtrl.back();
-  }
 
   capitalizeLabelFirstLetter(label: string): string {
     if (!label) return '';

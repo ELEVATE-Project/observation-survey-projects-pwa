@@ -59,6 +59,7 @@ mat-label {
   --ion-font-family: "NotoSans-Regular";
   --color-primary: #832215;
   --color-secondary: #8C2E23;
+  --ion-color-primary: var(--color-primary);
   --color-light: #ffffff;
   --color-dark: #000000;
   --color-grey: #808080;
@@ -71,11 +72,11 @@ mat-label {
   --mdc-outlined-text-field-focus-label-text-color: var(--color-primary);
   --mdc-filled-text-field-focus-active-indicator-color: var(--color-primary);
 
-  --primary-color: #832215;
+  --primary-color: var(--color-primary);
   --disabled-btn-bg: #0000001f;
   --disabled-btn-text: #00000061;
-  --btn-outline: #832215;
-  --error-color: rgb(150, 4, 4);
+  --btn-outline: var(--color-primary);
+  --error-color: var(--color-danger);
   --question-tip: gray;
   --general-btn-text-color: white;
   --general-btn-hover-bg: white;
@@ -84,12 +85,15 @@ mat-label {
   --card-bg: white;
   --disabled-btn-bg: gainsboro;
   --disabled-btn-text: gray;
+  --light-opacity: #00000052;
+  --light-grey: #f1f1f1;
+
 
   /* Borders */
   --border-color: #ccc;
 }
 
-  
+
 .mat-progress-spinner circle,
 .mat-spinner circle {
     stroke: var(--color-primary) !important;
@@ -126,6 +130,26 @@ mat-label {
   .mat-mdc-select-arrow{
     display: none;
   }
+}
+
+.mat-mdc-list-option .mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background, .mat-mdc-list-option .mdc-checkbox .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background, .mat-mdc-list-option .mdc-checkbox .mdc-checkbox__native-control[data-indeterminate=true]:enabled~.mdc-checkbox__background{
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.mat-mdc-list-option .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {
+  border-color: var(--color-primary) !important;
+}
+.mat-mdc-list-option .mdc-radio .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle {
+  border-color: var(--color-primary) !important;
+}
+
+.mdc-text-field--filled.mdc-text-field--disabled{
+  background-color: transparent !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled){
+  background-color: transparent !important;
 }
 
 .custom-alert {
@@ -224,6 +248,19 @@ ion-segment-button {
 }
 
 .popup-class{
-  --height: 125px;
+  --min-height: 125px;
+  --max-height: 170px;
   --width:450px;
+}
+
+.popup-class3{
+  --min-height: 125px;
+  --min-width: 300px;
+  --max-height: 125px;
+  --max-width: 450px;
+}
+
+.popup-class2{
+  --height: 350px;
+  --width:350px;
 }

@@ -1,7 +1,17 @@
 <ion-content class="pop-container">
   <div class="pop-content">
   <div class="copy-link-div">
-    <p >{{ data.downloadUrl | shortUrl:25 }}</p>
+    <div class="content">
+      @if (data.showDownloadUrl) {
+        <p >{{ data.downloadUrl | shortUrl:25 }}</p>
+      }
+      @if(data.title){
+        <h3>{{ data.title | translate}}</h3>
+      }
+      @if (data.message) {
+        <h4>{{data.message | translate}}</h4>
+      }
+    </div>
     <div>
       <button class="button-copy" (click)="onModalDismiss(false)" >
         <ion-icon class="button-icon"  name="close"></ion-icon>
@@ -10,9 +20,9 @@
   </div>
 </div>
 <div class="cancel-button">
-  <ion-button (click)="onModalDismiss(true)"  fill="solid" shape="round" >
+  <ion-button (click)="onModalDismiss(true)"  fill="solid" shape="round" class="copy-button">
       <ion-icon class="button-icon"  name="copy-outline"></ion-icon>
-      <span>copy</span>
+      <span>{{data.buttonText | translate }}</span>
     </ion-button>
   </div>
 </ion-content>

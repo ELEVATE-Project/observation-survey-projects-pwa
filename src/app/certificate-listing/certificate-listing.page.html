@@ -1,18 +1,12 @@
 
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-icon name="arrow-back-outline" (click)="goBack()" class="back-button"></ion-icon>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-header></app-header>
 
 <ion-content class="content">
   <ion-list class="certificate-header">
     <ion-row class="ion-margin">
       <ion-col >
         <ion-text color="primary">
-          <h2>Projects Certificate</h2>
+          <h2>{{"PROJECT_CERTIFICATE"|translate}}</h2>
         </ion-text>
       </ion-col>
     </ion-row>
@@ -31,7 +25,7 @@
               <div class="certificate-icon">
                 <button class="certificate-icon-button" (click)="viewCertificate(certificate)">
                   <ion-icon class="view-icon" name="eye"></ion-icon>
-                  <span class="certificate-text">View</span>
+                  <span class="certificate-text">{{"VIEW"|translate}}</span>
                   <ion-ripple-effect type="unbounded"></ion-ripple-effect>
                 </button>
               </div>
@@ -42,7 +36,7 @@
     </ion-row>
     <ng-template #noData>
       <div class="no-data-container ion-margin-top">
-        <img src="assets/images/no_data.jpg" alt="No data">
+        <img src="/ml/assets/images/no_data.jpg" alt="No data">
       </div>
     </ng-template>
   </ion-grid>

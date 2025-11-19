@@ -1,0 +1,53 @@
+<app-header></app-header>
+
+<ion-content >
+  <ion-list class="listTitle">
+    <ion-row class="ion-margin">
+      <ion-col size="12">
+        <ion-text color="primary">
+          <h1>{{"DOWNLOADS"|translate}}</h1>
+          <p></p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+  <ion-grid>
+    <ion-row *ngIf="projectsList.length > 0" class="ion-margin download-info">
+      <ion-icon color="primary" size="large" name="information-circle-outline"></ion-icon>
+      <span class="download-text-span">
+        <p class="download-info-text">{{"DOWNLOADS_LOGOUT_INFO_MSG"|translate}}</p>
+      </span>
+    </ion-row>
+    <ion-row  *ngIf="projectsList.length > 0; else noData" >
+      @for (item of projectsList; track $index) {
+        <ion-col size="12" size-md="6" class="listing-card">
+          <ion-card class="card">
+            <ion-card-content>
+              <div class="list-card-div">
+                <div class="list-card-head">
+                <section class="header-inner">
+                  <h1 style="color: var(--ion-color-primary);"  (click)="navigate(item.keyid)">
+                    {{item.data.title}}
+                  </h1>
+                  <div>
+                    <button class="delete-button">
+                      <ion-icon color="primary" size="large" name="trash-outline" (click)="deletePopup(item.keyid)"></ion-icon>
+                      <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+                    </button>
+                  </div>
+                </section>
+                  <p>{{item.data.description}}</p>
+                </div>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      }
+    </ion-row>
+    <ng-template #noData>
+      <div class="no-data-container ion-margin-top" >
+        <img src="/ml/assets/images/no_data.jpg" alt="No data">
+      </div>
+    </ng-template>
+  </ion-grid>
+</ion-content>

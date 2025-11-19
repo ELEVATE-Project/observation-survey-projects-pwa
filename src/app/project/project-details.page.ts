@@ -7,6 +7,7 @@ import { Share } from '@capacitor/share';
 import { Clipboard } from '@capacitor/clipboard'
 import { ToastService } from '../services/toast/toast.service';
 import { ShareLinkPopupComponent } from '../shared/share-link-popup/share-link-popupcomponent';
+import { NetworkServiceService } from 'network-service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -15,19 +16,36 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./project-details.page.scss']
 })
 export class ProjectDetailsPage  implements OnInit {
+  showHeader = environment.showHeader;
   router: Router;
   projectData:any;
+  isOnline:any;
   config = {
     maxFileSize: 50,
     baseUrl: environment.projectsBaseURL ?? environment.baseURL,
     accessToken: localStorage.getItem('accToken'),
-    profileInfo: {}
+    profileInfo: {},
+    redirectionLinks: {
+      contentPolicyLink: "https://shikshalokam.org/mentoring/privacy-policy/",
+      profilePage: environment.profileRedirectPath ?? "",
+      unauthorizedRedirectUrl: environment.unauthorizedRedirectUrl ?? ""
+    },
+    language: "en"
   }
   showDetails = false
   sharePopupHandler:any
-    constructor(private navCtrl: NavController, private profileService: ProfileService, private utils: UtilService,private toastService:ToastService,private popoverController:PopoverController) {
+    constructor(private navCtrl: NavController, private profileService: ProfileService, private utils: UtilService,private toastService:ToastService,private popoverController:PopoverController,private network:NetworkServiceService) {
       this.router = inject(Router);
+      this.config.language = this.utils.getPreferredLanguage()
+      this.network.isOnline$.subscribe((status: any)=>{
+        this.isOnline=status
+      })
+      if(this.isOnline){
       this.getProfileDetails()
+      }
+      else{
+        this.showDetails = true
+      }
     }
 
     ngOnInit(): void {
@@ -39,15 +57,17 @@ export class ProjectDetailsPage  implements OnInit {
     async handleMessage(event: MessageEvent) {
       if (event.data && event.data.type === 'SHARE_LINK') {
         const url = event.data.url;
-      if (this.utils.isMobile()) {
+        const name= `Check out ${event.data.name}`
+        if (this.utils.isMobile()) {
         try {
           const shareOptions = {
-            title: 'Project Report',
-            text: 'Check out this project report',
+            title: 'Share Project',
+            text: name,
             url: url,
           };
           await Share.share(shareOptions);
         } catch (err) {
+          console.error(err,"Error")
         }
       } else {
         this.setOpenForCopyLink(url);
@@ -61,6 +81,10 @@ export class ProjectDetailsPage  implements OnInit {
        componentProps: {
          data: {
            downloadUrl: value,
+           showDownloadUrl:false,
+           title:"PROJECT_READY_TO_SHARE",
+           message:"PROJECT_SHARE_INFO",
+           buttonText:"COPY_LINK"
          },
        },
        cssClass: 'popup-class',
@@ -70,24 +94,22 @@ export class ProjectDetailsPage  implements OnInit {
      popover.onDidDismiss().then((data) => {
       if (data.data) {
         Clipboard.write({ string: value });
-        this.toastService.presentToast('Link copied to clipboard', 'success');
+        this.toastService.presentToast('LINK_COPY_SUCCESS', 'success');
       }
     });
    }
 
 
-    goBack(){
-      this.navCtrl.back();
-    }
 
     getProfileDetails() {
       if(!this.utils.isLoggedIn()){
         this.showDetails = true
         return
       }
-      this.profileService.getProfileAndEntityConfigData().subscribe((mappedIds) => {
-        if (mappedIds) {
-          this.config.profileInfo = mappedIds;
+      this.profileService.getProfileAndEntityConfigData().subscribe(async (mappedIds) => {
+        let data = await mappedIds
+        if (data) {
+          this.config.profileInfo = data;
         }else{
           history.replaceState(null, '','/');
           this.navCtrl.back()
@@ -98,6 +120,10 @@ export class ProjectDetailsPage  implements OnInit {
 
     ngOnDestroy() {
       window.removeEventListener('message', this.sharePopupHandler);
+    }
+
+    goBack(){
+        window.history.go(-1);
     }
 
 }
