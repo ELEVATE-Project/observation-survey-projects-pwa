@@ -1,16 +1,18 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { UrlConfig } from 'src/app/interfaces/main.interface';
 import urlConfig from 'src/app/config/url.config.json';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoaderService } from '../services/loader/loader.service';
 import { ToastService } from '../services/toast/toast.service';
-import { NavController } from '@ionic/angular';
+import { ModalController, NavController,IonSearchbar } from '@ionic/angular';
 import { finalize } from 'rxjs';
 import { actions } from 'src/app/config/actionContants';
 import { ProfileService } from '../services/profile/profile.service';
 import { AlertService } from '../services/alert/alert.service';
 import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 import { SamikshaApiService } from '../services/samiksha-api/samiksha-api.service';
+import { PrivacyPolicyPopupComponent } from '../shared/privacy-policy-popup/privacy-policy-popup.component';
+import { PageTitleService } from '../services/project-title/page-title.service';
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.page.html',
@@ -23,6 +25,7 @@ export class ListingPage implements OnInit {
   listType!: keyof UrlConfig;
   searchTerm: any = "";
   toastService: ToastService;
+  isAPrivateProgram:boolean=false
   stateData: any;
   page: number = 1;
   limit: number = 10;
@@ -33,10 +36,12 @@ export class ListingPage implements OnInit {
   SamikshaApiService:SamikshaApiService;
   showLoading:boolean = true;
   reportPage:boolean = false
+  @ViewChild('searchBar', { static: false }) searchBar!: IonSearchbar;
 
   constructor(private navCtrl: NavController, private router: Router,
     private profileService: ProfileService,
-    private alertService: AlertService, private activatedRoute: ActivatedRoute
+    private alertService: AlertService, private activatedRoute: ActivatedRoute, private modalCtrl: ModalController,
+    private titleService: PageTitleService
   ) {
     this.ProjectsApiService = inject(ProjectsApiService);
     this.SamikshaApiService = inject(SamikshaApiService);
@@ -45,6 +50,9 @@ export class ListingPage implements OnInit {
     activatedRoute.queryParams.subscribe((params:any)=>{
       this.listType = params["type"]
       this.reportPage = params["reportPage"] == "true"
+      if (this.listType) {
+      this.titleService.setTitleForType(this.listType);
+    }
     })
   }
 
@@ -67,7 +75,7 @@ export class ListingPage implements OnInit {
     if (!endDate) {
       return '';
     }
-  
+
     const date = new Date(endDate);
     const localTime = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
     return localTime.toDateString();
@@ -78,6 +86,9 @@ export class ListingPage implements OnInit {
     this.page = 1;
     this.solutionList = { data: [], count: 0 };
     this.getListData();
+    setTimeout(() => {
+      this.searchBar.setFocus();
+    }, 10);
   }
   filterChanged(event: any) {
     this.solutionList = { data: [], count: 0 }
@@ -86,23 +97,24 @@ export class ListingPage implements OnInit {
   }
 
   getProfileDetails() {
-    this.profileService.getProfileAndEntityConfigData().subscribe((mappedIds) => {
-      if (mappedIds) {
-        this.entityData = mappedIds;
+    this.profileService.getProfileAndEntityConfigData().subscribe(async(mappedIds) => {
+      let data = await mappedIds
+      if (data) {
+      this.entityData= data
         this.getListData();
       }
     });
   }
 
-  async getListData() {
+  async getListData($event?:any) {
     this.showLoading = true;
-    await this.loader.showLoading("Please wait while loading...");
+    await this.loader.showLoading("LOADER_MSG");
     if(this.listType !== 'project'){
       this.filter = '';
     };
-    (this.listType == 'project' ? this.ProjectsApiService : this.SamikshaApiService)
+    (this.listType == 'project'  || this.listType == 'program' ? this.ProjectsApiService : this.SamikshaApiService)
       .post(
-        urlConfig[this.listType].listingUrl + `?type=${this.stateData.solutionType}&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}${this.stateData.reportIdentifier ? `&` +this.stateData.reportIdentifier+`=`+this.reportPage : ''}`, this.entityData)
+        urlConfig[this.listType].listingUrl + `?${this.listType == 'program'?`${this.stateData.solutionType}=${this.isAPrivateProgram}`:`type=${this.stateData.solutionType}`}&page=${this.page}&limit=${this.limit}&filter=${this.filter}&search=${this.searchTerm}${this.stateData.reportIdentifier ? `&` +this.stateData.reportIdentifier+`=`+this.reportPage : ''}`, this.entityData)
       .pipe(
         finalize(async () => {
           await this.loader.dismissLoading();
@@ -121,6 +133,9 @@ export class ListingPage implements OnInit {
           });
         } else {
           this.toastService.presentToast(res?.message, 'warning');
+        }
+        if($event){
+          $event.target.complete();
         }
       },
         (err: any) => {
@@ -149,12 +164,12 @@ export class ListingPage implements OnInit {
       'completed': { tagClass: 'tag-completed', statusLabel: 'Completed' },
       'expired': { tagClass: 'tag-expired', statusLabel: 'Expired' }
     };
-  
+
     const statusInfo = (statusMappings as any)[element.status] || { tagClass: 'tag-not-started', statusLabel: 'Not Started' };
     element.tagClass = statusInfo.tagClass;
     element.statusLabel = statusInfo.statusLabel;
   }
-  
+
   calculateExpiryDetails(element: any) {
     if (element.endDate) {
       element.isExpiringSoon = this.isExpiringSoon(element.endDate);
@@ -168,50 +183,83 @@ export class ListingPage implements OnInit {
   isExpiringSoon(endDate: string | Date): boolean {
     const currentDate = new Date();
     const expiryDate = new Date(endDate);
-  
+
     const diffTime = expiryDate.getTime() - currentDate.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  
+
     return diffDays <= 2 && diffDays > 0;
   }
 
   getDaysUntilExpiry(endDate: string | Date): number {
     const currentDate = new Date();
     const expiryDate = new Date(endDate);
-  
+
     const diffTime = expiryDate.getTime() - currentDate.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  
+
     return Math.max(diffDays, 0);
   }
-  
-  
 
-  loadData() {
+
+
+  loadData($event: any) {
     this.page = this.page + 1;
-    this.getListData();
+    this.getListData($event);
   }
 
-  goBack() {
-    this.navCtrl.back();
-  }
+
 
   navigateTo(data: any) {
     switch (this.listType) {
       case 'project':
         this.router.navigate(['project-details'], { state: { _id:data._id || null, solutionId: data.solutionId} });
         break;
-  
+
       case 'survey':
-        const route = this.reportPage 
-          ? ['report-details', data.submissionId] 
+        const route = this.reportPage
+          ? ['report-details', data.submissionId]
           : ['questionnaire', data.solutionId];
         this.router.navigate(route);
         break;
-  
+
+      case 'program':
+        this.router.navigate(['program-details' ,data._id ]);
+        break;
+
       default:
         console.warn('Unknown listType:', this.listType);
     }
   }
-  
+
+ async  createNewProject(){
+    let tAndC = await this.openPrivacyPolicyPopup();
+      this.router.navigate(['project-details'],{ queryParams: {type: "projectCreate" ,option:"create",hasAcceptedTAndC:tAndC} });
+  }
+  async openPrivacyPolicyPopup():Promise<boolean> {
+    const modal = await this.modalCtrl.create({
+      component: PrivacyPolicyPopupComponent,
+      componentProps: {
+        popupData: {
+          title: 'SHARE_PROJECT_DETAILS',
+          message1: 'PRIVACY_POLICY_MSG1',
+          message2: 'PRIVACY_POLICY_LINK_MSG',
+          message3: 'PRIVACY_POLICY_MSG2',
+          button1: 'DO_NOT_SHARE',
+          button2: 'SHARE'
+        },
+        contentPolicyLink: 'https://diksha.gov.in/term-of-use.html'
+      },
+      cssClass: 'popup-class2',
+      backdropDismiss: false
+    });
+
+    await modal.present();
+
+    const { data } = await modal.onDidDismiss();
+    if (data?.buttonAction) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

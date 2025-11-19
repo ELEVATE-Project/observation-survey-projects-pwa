@@ -1,10 +1,10 @@
 <div class="report-header">
-  <h1 >{{reportTitle}}</h1>
+  <h1 >{{reportTitle | translate}}</h1>
   <div class="report-header-select">
-    <ion-select style="color: black;" aria-label="Program" interface="popover" placeholder="Select" [multiple]="false" [(ngModel)]="reportType" (ionChange)="getReportType(reportType)">
-      <ion-select-option value="0">{{interval.weekly}}</ion-select-option>
-      <ion-select-option value="1" selected>{{interval.monthly}}</ion-select-option>
-      <ion-select-option value="2">{{interval.quarterly}}</ion-select-option>
+    <ion-select style="color: black;" aria-label="Program" interface="popover" placeholder="{{'SELECT' | translate}}" [multiple]="false" [(ngModel)]="reportType" (ionChange)="getReportType(reportType)">
+      <ion-select-option value="0">{{interval.weekly | translate}}</ion-select-option>
+      <ion-select-option value="1" selected>{{interval.monthly | translate}}</ion-select-option>
+      <ion-select-option value="2">{{interval.quarterly | translate}}</ion-select-option>
     </ion-select>
     <div class="report-header-menu">
       <ion-icon   name="ellipsis-vertical-outline" (click)="openPopover($event)"></ion-icon>

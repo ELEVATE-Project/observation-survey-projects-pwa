@@ -19,6 +19,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "baseHref": "/ml/",
+            "deployUrl": "/ml/",
             "assets": [
               {
                 "glob": "**/*",
@@ -33,8 +35,9 @@
               "src/manifest.webmanifest"
             ],
             "styles": ["src/global.scss", "src/theme/variables.scss","node_modules/project-player/styles.css"],
-            "scripts": ["node_modules/project-player/project-player-component.js","node_modules/questionnaire-webcomponent/questionnaire-player-webcomponent.js"],
-            "serviceWorker": true,
+            "scripts": ["node_modules/project-player/project-player-component.js","node_modules/questionnaire-ram-webcomponent/web-component/questionnaire-player-webcomponent.js"],
+
+            "serviceWorker": false,
             "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {

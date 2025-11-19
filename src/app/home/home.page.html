@@ -1,19 +1,24 @@
+@if(showHeader){
 <ion-header>
   <ion-toolbar>
-    <ion-title slot="start">
-      <img src="../../assets/images/logo.png" alt="Elevate Logo" class="header-logo" />
-    </ion-title>
+    <img [src]="logoPath" alt="Elevate Logo" class="header-logo" />
 
-    <ion-buttons slot="end">
-      <ion-button routerLink="/profile">
-        Profile
+    <ion-buttons slot="end" class="buttons-section">
+      <ion-button routerLink="/project-downloads" *allowTemplateView="pageIdsList.downloads">
+        {{"DOWNLOADS"|translate}}
+      </ion-button>
+      <ion-button  routerLink="/profile" *allowTemplateView="pageIdsList.profile">
+        <span class="profile-button ion-padding-horizontal">
+          {{"PROFILE"|translate}}
+        </span>
       </ion-button>
       <ion-button (click)="logout()">
-        Logout
+        {{"LOGOUT"|translate}}
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+}
 
 <ion-content [fullscreen]="true">
   <ng-container *ngFor="let listData of solutionList">
@@ -53,7 +58,7 @@
             <ion-col size="6" size-md="3" (click)="navigateTo(listData)">
               <ion-card class="tiels">
                 <ion-card-content>
-                  <img [src]="listData?.img" alt="">
+                    <app-image [svgPath]="listData?.img"></app-image>
                   <h1 style="color:black">{{listData?.name}}</h1>
                 </ion-card-content>
               </ion-card>
@@ -67,7 +72,7 @@
     </ion-list>
   </ng-template>
   @if(isMobile){
-  <div class="scanner-button-container">
+  <div class="scanner-button-container" *allowTemplateView="pageIdsList.qrScanner">
     <ion-button class="scanner-button" (click)="startScan()">
       <ion-icon name="scan-outline" slot="icon-only"></ion-icon>
     </ion-button>

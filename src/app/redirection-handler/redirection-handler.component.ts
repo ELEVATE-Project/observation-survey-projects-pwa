@@ -33,7 +33,7 @@ export class RedirectionHandlerComponent  implements OnInit {
       this.type = param.get("type")
       this.linkId = param.get("id")
       if(!this.isOnline){
-        this.toastService.presentToast('You are offline, please connect to a network','danger')
+        this.toastService.presentToast('NETWORK_OFFLINE','danger')
         return
       }
       if(!this.utils.isLoggedIn()){
@@ -48,9 +48,10 @@ export class RedirectionHandlerComponent  implements OnInit {
   }
 
   getProfileDetails() {
-    this.profileService.getProfileAndEntityConfigData().subscribe((mappedIds) => {
-      if (mappedIds) {
-        this.profileInfo = mappedIds;
+    this.profileService.getProfileAndEntityConfigData().subscribe(async(mappedIds) => {
+      let data = await mappedIds
+      if (data) {
+        this.profileInfo = data;
         this.checkLinkType()
       }else{
         this.router.navigate(['/home'],{ replaceUrl:true })
@@ -63,29 +64,25 @@ export class RedirectionHandlerComponent  implements OnInit {
       case "project":
         this.verifyLink()
         break;
-    
+      
       default:
         break;
     }
   }
 
   async verifyLink(){
-    if(!this.utils.isLoggedIn()){
-      this.router.navigate(['project-details'], { state: { link: this.linkId, referenceFrom: "link" }, replaceUrl:true });
-      return
-    }
     this.apiService.post(urlConfig.project.verifyLink+this.linkId+"?createProject=false",this.profileInfo).subscribe((response:any)=>{
       if(response && response.result){
         switch (response.result.type) {
           case "improvementProject":
-            this.router.navigate(['/home'],{ replaceUrl:true })
+            window.history.replaceState({}, '','/home');
             let queryData = (({ isATargetedSolution, link, projectId, solutionId }) =>
               ({ isATargetedSolution, link, projectId, solutionId }))(response.result);
             setTimeout(() => {
               this.router.navigate(['project-details'], { state: { ...queryData, referenceFrom: "link" } });
             }, 100);
             break;
-        
+            
           default:
             break;
         }
@@ -93,8 +90,10 @@ export class RedirectionHandlerComponent  implements OnInit {
         this.navCtrl.back()
       }
     },(error:any)=>{
-      this.toastService.presentToast("Invalid Link, please try with other link","danger")
-      this.router.navigate(['/home'],{ replaceUrl:true })
+      this.toastService.presentToast(error?.error?.message || "LINK_INVALID_ERROR","danger")
+      setTimeout(() => {
+        this.router.navigate(['/home'],{ replaceUrl:true })
+      }, 2000);
     })
   }
 

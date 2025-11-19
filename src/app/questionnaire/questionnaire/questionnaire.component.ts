@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewEncapsulation, HostListener } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { isDeactivatable } from '../../services/guard/guard.service';
 import { Location } from '@angular/common';
 import { environment } from 'src/environments/environment';
+import { ProfileService } from 'src/app/services/profile/profile.service';
+import { UtilService } from 'src/app/services/util/util.service';
 @Component({
   selector: 'app-questionnaire',
   templateUrl: './questionnaire.component.html',
@@ -15,8 +17,11 @@ export class QuestionnaireComponent implements OnInit, isDeactivatable {
   apiConfig: any = {};
   isDirty: boolean = false;
   saveQuestioner: boolean = false;
+  showDetails = false;
+
   constructor(private navCtrl: NavController, private router: ActivatedRoute,
-    private alertService: AlertService, private location: Location) { }
+    private alertService: AlertService, private location: Location, private profileService: ProfileService,
+    private utils: UtilService) { }
 
   ngOnInit() {
     this.router.params.subscribe(param => {
@@ -25,6 +30,7 @@ export class QuestionnaireComponent implements OnInit, isDeactivatable {
       this.apiConfig['userAuthToken'] = localStorage.getItem('accToken');
       this.apiConfig['solutionType'] = 'survey';
       this.apiConfig['fileSizeLimit'] = 50;
+      this.getProfileDetails();
     })
 
     window.addEventListener('message', (event) => {
@@ -54,11 +60,11 @@ export class QuestionnaireComponent implements OnInit, isDeactivatable {
     }
     if (this.isDirty && !this.saveQuestioner) {
       await this.alertService.presentAlert(
-        'Save Data?',
-        'You have unsaved data, would you like to save it before exiting?',
+        'SAVE_DATA',
+        'EXIT_CONFIRMATION_MSG',
         [
           {
-            text: "Don't Save",
+            text: "DON'T_SAVE",
             cssClass: 'secondary-button',
             role: 'exit',
             handler: () => {
@@ -70,7 +76,7 @@ export class QuestionnaireComponent implements OnInit, isDeactivatable {
             }
           },
           {
-            text: 'Save',
+            text: 'SAVE',
             cssClass: 'primary-button',
             role: 'exit',
             handler: () => {
@@ -110,5 +116,19 @@ export class QuestionnaireComponent implements OnInit, isDeactivatable {
         return true;
       }
     }
+  }
+
+  getProfileDetails() {
+    if (!this.utils.isLoggedIn()) {
+      this.showDetails = true
+      return
+    }
+    this.profileService.getProfileAndEntityConfigData().subscribe(async (mappedIds) => {
+      let data = await mappedIds
+        if (data) {
+        this.apiConfig['profileData'] = data;
+      }
+      this.showDetails = true
+    });
   }
 }

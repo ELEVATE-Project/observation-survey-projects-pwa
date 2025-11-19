@@ -1,17 +1,11 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/" (click)="goBack()"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-header></app-header>
 
 <ion-content>
   <ion-list class="list-title">
     <ion-row class="ion-margin">
       <ion-col>
         <ion-text color="primary">
-          <h1>Project Categories</h1>
+          <h1>{{"PROJECT_CATEGORY"|translate}}</h1>
         </ion-text>
       </ion-col>
     </ion-row>

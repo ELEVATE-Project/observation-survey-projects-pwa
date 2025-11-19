@@ -7,6 +7,8 @@ import { ProfilePage } from './profile.page';
 import { DynamicFormModule } from 'elevate-dynamic-form';
 import { ProfileImagePageModule } from "../shared/profile-image/profile-image.module";
 import { CertificateListingPage } from '../certificate-listing/certificate-listing.page';
+import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -15,7 +17,9 @@ import { CertificateListingPage } from '../certificate-listing/certificate-listi
     IonicModule,
     ProfilePageRoutingModule,
     DynamicFormModule,
-    ProfileImagePageModule
+    ProfileImagePageModule,
+    TranslateModule,
+    SharedModule
 ],
   declarations: [ProfilePage,CertificateListingPage]
 })

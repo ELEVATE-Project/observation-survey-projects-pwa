@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { NavController, PopoverController } from '@ionic/angular';
 import { LoaderService } from '../services/loader/loader.service';
 import urlConfig from 'src/app/config/url.config.json';
@@ -7,8 +7,6 @@ import { finalize } from 'rxjs';
 import { ToastService } from '../services/toast/toast.service';
 import { Chart, registerables } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { ActivatedRoute } from '@angular/router';
-import { Platform } from '@ionic/angular';
 import { Share } from '@capacitor/share';
 import { Clipboard } from '@capacitor/clipboard';
 import { UtilService } from '../services/util/util.service';
@@ -21,7 +19,7 @@ import { ProjectsApiService } from '../services/projects-api/projects-api.servic
   templateUrl: './project-report.page.html',
   styleUrls: ['./project-report.page.scss'],
 })
-export class ProjectReportPage implements OnInit {
+export class ProjectReportPage implements OnInit,OnDestroy {
   isFilter: boolean = false;
   loader: LoaderService;
   baseApiService: any;
@@ -31,8 +29,13 @@ export class ProjectReportPage implements OnInit {
   reportType: string = "1";
   programId: string = "";
   isModalOpen = false;
+  isProgramModel=false;
+  page:any=1;
+  limit:any=10;
+  search:any=""
+  hasMorePrograms: boolean = true;
   selectedProgram: string = "";
-  programList: any;
+  programList: any = [];
   projectsCategories:any;
   backgroundColors = [
               'rgb(255, 99, 132)',
@@ -60,9 +63,7 @@ export class ProjectReportPage implements OnInit {
 
   constructor(
     private navCtrl: NavController,
-    private router: ActivatedRoute,
     private utilService: UtilService,
-    private platform: Platform,
     private popoverController: PopoverController
 
   ) {
@@ -74,52 +75,97 @@ export class ProjectReportPage implements OnInit {
   }
 
   ngOnInit() {
+    window.addEventListener('popstate', this.handlePopState);
     this.listType = 'report';
-    this.getReportData(this.reportType);
+    this.getReportData();
      this.projectsCategories = [
       {
-        name: 'Total Projects',
-        img: '/assets/images/report-imgs/Note 1.svg',
+        name: 'TOTAL_PROJECTS',
+        img: '/ml/assets/images/report-imgs/Note 1.svg',
         key: 'total',
       },
       {
-        name: 'Projects Submitted',
-        img: '/assets/images/report-imgs/note.svg',
+        name: 'PROJECTS_SUBMITTED',
+        img: '/ml/assets/images/report-imgs/note.svg',
         key: 'submitted',
       },
       {
-        name: 'Projects In Progress',
-        img: '/assets/images/report-imgs/Note 4.svg',
+        name: 'PROJECTS_IN_PROGRESS',
+        img: '/ml/assets/images/report-imgs/Note 4.svg',
         key: 'inProgress',
       },
       {
-        name: 'Projects Started',
-        img: '/assets/images/report-imgs/Note 3.svg',
+        name: 'PROJECTS_STARTED',
+        img: '/ml/assets/images/report-imgs/Note 3.svg',
         key: 'started',
       },
     ];
-    // this.getPrograms();
     setTimeout(() => {
       this.renderChart(this.reportData?.tasks, this.reportData?.categories);
     });
   }
 
-  goBack() {
-    this.navCtrl.back();
+  openProgramModal() {
+    this.setProgram(true)
+    this.page = 1;
+    this.programList= [];
+    this.getPrograms();
   }
+
+  selectProgram(item: any) {
+    this.isProgramModel=false;
+    this.selectedProgram = item.name;
+    this.programId = item._id;
+    this.getReportData()
+  }
+
+  async loadMorePrograms(event: any) {
+    if (!this.hasMorePrograms) {
+      event.target.disabled = true;
+      return;
+    }
+    this.page += 1;
+    await this.getPrograms(event);
+  }
+
+  async getPrograms(event?: any) {
+    this.listType='report';
+    this.baseApiService
+      .post(urlConfig[this.listType].getProgramsUrl+`?page=${this.page}&limit=${this.limit}&search=${this.search}`, {})
+      .pipe(finalize(async () => {
+      }))
+      .subscribe((res: any) => {
+        if (res?.status === 200 && res.result?.data?.length) {
+          this.programList= [...this.programList, ...res.result.data];
+          this.hasMorePrograms = res.result.count !== this.programList.length;
+        }else {
+          this.hasMorePrograms = false;
+        }
+        if (event) {
+          event.target.complete();
+        }
+      }, (err: any) => {
+        this.toastService.presentToast(err?.error?.message, 'danger');
+      });
+  }
+
 
   getReportType(e: any) {
     this.reportType = e;
-    this.getReportData(this.reportType);
+    this.getReportData();
+  }
+
+  setProgram(isOpen:boolean){
+    this.isProgramModel = isOpen
   }
 
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
   }
 
-  async getReportData(reportType: string) {
-    await this.loader.showLoading('Please wait while loading...');
-      this.baseApiService.get(urlConfig[this.listType].listingUrl + `?reportType=${reportType}`)
+  async getReportData() {
+    await this.loader.showLoading('LOADER_MSG');
+      this.baseApiService.get(urlConfig[this.listType].listingUrl + `?reportType=${this.reportType}&programId=${this.programId}`)
         .pipe(finalize(async () => {
           await this.loader.dismissLoading();
         }))
@@ -139,11 +185,11 @@ export class ProjectReportPage implements OnInit {
   }
 
   async share() {
-    await this.loader.showLoading('Preparing the report for sharing...');
+    await this.loader.showLoading('REPORT_SHARING_PROGRESS_MSG');
     try {
       const res = await this.baseApiService.get(urlConfig[this.listType].listingUrl +`?requestPdf=true&reportType=${this.reportType}&programId=${this.programId}`).toPromise();
       if (res?.status === 200 && res.result) {
-        this.downloadUrl = res.result.downloadUrl;
+        this.downloadUrl = res.result?.downloadUrl || res.result?.data?.downloadUrl;
         await this.loader.dismissLoading();
         if (this.utilService.isMobile()) {
           try {
@@ -160,7 +206,7 @@ export class ProjectReportPage implements OnInit {
           this.setOpenForCopyLink();
         }
       } else {
-        this.toastService.presentToast('Failed to fetch report data for sharing.', 'danger');
+        this.toastService.presentToast('SHARE_REPORT_FAILED', 'danger');
       }
     } catch (err:any) {
       this.toastService.presentToast(err?.error?.message,'danger');
@@ -175,7 +221,9 @@ export class ProjectReportPage implements OnInit {
       component: ShareLinkPopupComponent,
       componentProps: {
         data: {
-          downloadUrl:this.downloadUrl
+          downloadUrl:this.downloadUrl,
+          showDownloadUrl:true,
+          buttonText:"COPY"
         }
       },
       cssClass: 'popup-class',
@@ -185,7 +233,7 @@ export class ProjectReportPage implements OnInit {
       popover.onDidDismiss().then((data)=>{
         if(data.data){
           Clipboard.write({ string: this.downloadUrl });
-          this.toastService.presentToast('Link copied to clipboard', 'success');
+          this.toastService.presentToast('LINK_COPY_SUCCESS', 'success');
         }
       })
   }
@@ -202,7 +250,7 @@ export class ProjectReportPage implements OnInit {
   }
 
   async download() {
-    await this.loader.showLoading('Please wait while downloading...');
+    await this.loader.showLoading('DOWNLOAD_PROGRESS_MSG');
     this.baseApiService.get(urlConfig[this.listType].listingUrl + `?requestPdf=true&reportType=${this.reportType}&programId=${this.programId}`)
       .pipe(finalize(async () => {
         await this.loader.dismissLoading();
@@ -216,10 +264,11 @@ export class ProjectReportPage implements OnInit {
             const year = today.getFullYear();
             const formattedDate = `${day}-${month}-${year}`;
             const name = `report_${formattedDate}.pdf`;
-            this.downloadFile(res.result.downloadUrl, name);
+            let downloadUrl = res.result?.downloadUrl || res.result?.data?.downloadUrl;
+            this.downloadFile(downloadUrl, name);
           }
           else{
-            this.toastService.presentToast("Downloading failed !!", 'danger');
+            this.toastService.presentToast("DOWNLOAD_FAILED", 'danger');
           }
         }
       },
@@ -320,7 +369,7 @@ export class ProjectReportPage implements OnInit {
                 position: 'bottom',
               },
               datalabels: {
-                formatter: (value, context) => {
+                formatter: (value:any, context:any) => {
                   const total = context.dataset.data.reduce((acc: any, cur: any) => acc + cur, 0);
                   const percentage = (value / total * 100).toFixed(1) + '%';
                   return percentage;
@@ -344,7 +393,7 @@ export class ProjectReportPage implements OnInit {
 
   getprogram(event: any) {
     this.programId = event.detail.value;
-    this.getReportData(this.reportType);
+    this.getReportData();
   }
 
   downloadFile(url: any, name: string) {
@@ -359,5 +408,21 @@ export class ProjectReportPage implements OnInit {
       document.body.removeChild(a);
       window.URL.revokeObjectURL(convertedUrl);
     });
+  }
+
+  clearProgramFilter(){
+    this.selectedProgram = ""
+    this.programId = ""
+    this.getReportData()
+  }
+
+  handlePopState = () => {
+    if (this.isProgramModel) {
+      this.isProgramModel = false;
+    }
+  }
+
+  ngOnDestroy(){
+    window.removeEventListener('popstate', this.handlePopState);
   }
 }

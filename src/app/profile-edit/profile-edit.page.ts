@@ -21,6 +21,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./profile-edit.page.scss'],
 })
 export class ProfileEditPage implements isDeactivatable {
+  showHeader = environment.showHeader;
   @ViewChild('formLib') formLib: MainFormComponent | undefined;
   @ViewChild('formLib2') formLib2: MainFormComponent | undefined;
 
@@ -31,7 +32,7 @@ export class ProfileEditPage implements isDeactivatable {
   localImage: any;
   enableForm: boolean = false;
   dynamicEntityValueChanged:boolean = false;
-  subUrl = environment.capabilities.includes('project' || 'all') ? urlConfig.subProject : urlConfig.subSurvey
+  subUrl = environment.capabilities.includes('all') || environment.capabilities.includes('project') ? urlConfig.subProject : urlConfig.subSurvey;
 
   constructor(
     private apiBaseService: ApiBaseService,
@@ -54,11 +55,11 @@ export class ProfileEditPage implements isDeactivatable {
   }
 
   loadFormAndData() {
-    this.loader.showLoading("Please wait while loading...");
+    this.loader.showLoading("LOADER_MSG");
     this.profileService.getFormJsonAndData()
       .pipe(
         catchError((err) => {
-          this.toastService.presentToast(err?.error?.message || 'Error loading profile data. Please try again later.', 'danger');
+          this.toastService.presentToast(err?.error?.message || 'PROFILE_LOAD_ERROR', 'danger');
           throw err;
         }),
         finalize(async () => await this.loader.dismissLoading())
@@ -73,7 +74,7 @@ export class ProfileEditPage implements isDeactivatable {
               this.getOptionsData(control.name);
             }
           });
-        } 
+        }
       },(err:any)=>{
         this.toastService.presentToast(err?.error?.message, 'danger');
       })
@@ -119,7 +120,7 @@ export class ProfileEditPage implements isDeactivatable {
     const formArray = formJson ? formJson : this.formJson
     const control = formArray.find((control: any) => control.name === entityType);
     if (!control) return;
-  
+
     const hasDynamicUrl = formArray.some((control: any) => control.dynamicUrl);
     const urlPath = this.buildUrlPath(control, entityId);
 
@@ -139,7 +140,7 @@ export class ProfileEditPage implements isDeactivatable {
               value: entity?.value || entity?._id,
               externalId: entity?.externalId
             }));
-  
+
             this.updateFormOptions(entityType, options, formArray);
 
             if (!hasDynamicUrl || control.dynamicUrl) {
@@ -151,7 +152,7 @@ export class ProfileEditPage implements isDeactivatable {
         }
       });
   }
-  
+
 
   buildUrlPath(control: any, entityId?: string): string {
     if (control.dynamicUrl) {
@@ -176,11 +177,11 @@ export class ProfileEditPage implements isDeactivatable {
     const selectedValue = selectedEvent?.value;
     const entityId = selectedValue?.externalId;
    const sendFormJson = dynamicEntity? false : formJson;
-  
+
     this.updateFormValue(control.name, selectedValue?.value, sendFormJson);
     this.resetDependentControls(control.name, selectedValue?.value, sendFormJson);
     const nextEntityType = this.getNextEntityType(control.name, sendFormJson);
-  
+
     if (nextEntityType) {
       nextEntityType.map((ctrl: any) => {
         this.getOptionsData(ctrl, selectedValue?.value, sendFormJson);
@@ -193,15 +194,15 @@ export class ProfileEditPage implements isDeactivatable {
     this.dynamicEntityValueChanged = true;
     }
   }
-  
+
   onOptionChange(event: any) {
     this.handleOptionChange(event, this.formJson, true);
   }
-  
+
   onOptionChange2(event: any) {
     this.handleOptionChange(event, this.formJson2, false);
   }
- 
+
   getEntityForm(subType: any, entityData: any, firstLoad?: any) {
     const entityForm = {
       type: firstLoad ? subType?.externalId : subType,
@@ -229,7 +230,7 @@ export class ProfileEditPage implements isDeactivatable {
                   });
                 }
               }
-             
+
             });
           },
         error: (err: any) => {
@@ -259,6 +260,7 @@ export class ProfileEditPage implements isDeactivatable {
     const dependentControls = formArray.filter((formControl: any) => formControl.dependsOn === controlName);
     for (const formControl of dependentControls) {
       formControl.options = [];
+      formControl.value = ''
       this.resetFormControl(formControl.name);
       this.resetDependentControls(formControl.name, selectedValue, formArray);
     }
@@ -266,10 +268,16 @@ export class ProfileEditPage implements isDeactivatable {
 
   resetFormControl(controlName: string) {
     const control = this.formLib?.myForm.get(controlName);
+    const formControlTwo = this.formLib2?.myForm.get(controlName)
     if (control) {
       control.patchValue('');
       control.markAsPristine();
       control.markAsUntouched();
+    }
+    if(formControlTwo){
+      formControlTwo.patchValue('');
+      formControlTwo.markAsPristine();
+      formControlTwo.markAsUntouched();
     }
   }
 
@@ -293,7 +301,6 @@ export class ProfileEditPage implements isDeactivatable {
           location: "bangalore",
           about: "PWA"
         };
-        !this.formJson.isUploaded ? payload.image = "" : payload?.image;
         this.formJson.forEach((control: any) => {
           if (control.dynamicUrl) {
             const controlValues = payload[control.name]
@@ -301,6 +308,8 @@ export class ProfileEditPage implements isDeactivatable {
             payload[control.name] = result;
           }
         });
+        payload = this.removeEmptyValueKeys(payload)
+        !this.formJson.isUploaded ? payload.image = "" : payload?.image;
         this.formJson?.destFilePath ? payload.image = this.formJson?.destFilePath : "";
         this.formJson.isUploaded = true;
         this.apiBaseService.patch(this.urlProfilePath.updateUrl, payload)
@@ -313,8 +322,9 @@ export class ProfileEditPage implements isDeactivatable {
           .subscribe((res: any) => {
             if (res?.result) {
               this.formLib?.myForm.markAsPristine();
+              this.formLib2?.myForm.markAsPristine();
               this.navCtrl.back();
-              this.toastService.presentToast(res?.message || 'Profile Updated Sucessfully', 'success');
+              this.toastService.presentToast(res?.message || 'PROFILE_UPDATE_SUCCESS', 'success');
             } else {
               this.toastService.presentToast(res?.message, 'warning');
             }
@@ -322,7 +332,8 @@ export class ProfileEditPage implements isDeactivatable {
       }
     } else {
       this.formLib?.myForm.markAllAsTouched();
-      this.toastService.presentToast('Please fill out all the required fields.', 'danger');
+      this.formLib2?.myForm.markAllAsTouched();
+      this.toastService.presentToast('FORM_REQUIRED_FIELDS_ERROR', 'danger');
     }
   }
 
@@ -348,17 +359,18 @@ export class ProfileEditPage implements isDeactivatable {
     if (this.alertService.alert) {
       this.alertService.dismissAlert();
     }
-    if ((this.formLib && !this.formLib?.myForm.pristine || !this.formJson.isUploaded)) {
+    if ((this.formLib && !this.formLib?.myForm.pristine || !this.formJson.isUploaded || !this.formLib2?.myForm.pristine)) {
       await this.alertService.presentAlert(
-        'Save Data?',
-        'You have unsaved data, would you like to save it before exiting?',
+        'SAVE_DATA',
+        'EXIT_CONFIRMATION_MSG',
         [
           {
-            text: "Don't Save",
+            text: "DON'T_SAVE",
             cssClass: 'secondary-button',
             role: 'exit',
             handler: () => {
               this.formLib?.myForm.markAsPristine();
+              this.formLib2?.myForm.markAsPristine();
               !this.formJson.isUploaded ? this.formJson.isUploaded = true : this.formJson.isUploaded;
               if (event) {
                 this.navCtrl.back();
@@ -367,7 +379,7 @@ export class ProfileEditPage implements isDeactivatable {
             }
           },
           {
-            text: 'Save',
+            text: 'SAVE',
             cssClass: 'primary-button',
             role: 'cancel',
             handler: () => {
@@ -426,7 +438,7 @@ export class ProfileEditPage implements isDeactivatable {
   }
 
   async getImageUploadUrl(file: any) {
-    this.loader.showLoading("Please wait while uploading...");
+    this.loader.showLoading("UPLOAD_PROGRESS_MSG");
     const lowerCase = file?.name.replace(/[^A-Z0-9]+/ig, "_").toLowerCase();
     const apiUrl = this.urlProfilePath.getSessionImageUploadUrl + lowerCase;
 
@@ -442,10 +454,10 @@ export class ProfileEditPage implements isDeactivatable {
         this.upload(file, res.result)
           .subscribe({
             next: () => {
-              this.toastService.presentToast('Image uploaded successfully', 'success');
+              this.toastService.presentToast('IMAGE_UPLOAD_SUCCESS', 'success');
             },
             error: (err) => {
-              this.toastService.presentToast(err?.error?.message || 'Upload failed', 'danger');
+              this.toastService.presentToast(err?.error?.message || 'UPLOAD_FAILED', 'danger');
             }
           });
       });
@@ -458,5 +470,13 @@ export class ProfileEditPage implements isDeactivatable {
         this.formJson.isUploaded = true;
         this.updateProfile();
       })))
+  }
+
+  removeEmptyValueKeys(data:any){
+    return Object.fromEntries(
+      Object.entries(data).filter(([_,value]) => value !== "" && value !== null &&
+      !(Array.isArray(value) && value.length === 0) &&
+      !(typeof value === "object" && !Array.isArray(value) && Object.keys(value).length === 0))
+    )
   }
 }

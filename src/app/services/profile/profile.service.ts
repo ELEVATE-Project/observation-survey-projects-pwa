@@ -4,23 +4,23 @@ import urlConfig from 'src/app/config/url.config.json';
 import { ApiBaseService } from '../base-api/api-base.service';
 import { ToastService } from '../toast/toast.service';
 import { LoaderService } from '../loader/loader.service';
-import { FETCH_Profile_FORM } from 'src/app/core/constants/formConstant';
+import { FETCH_Profile_FORM, FETCH_THEME_FORM } from 'src/app/core/constants/formConstant';
 import { Router } from '@angular/router';
 import { AlertService } from '../alert/alert.service';
 import { Location } from '@angular/common';
 import { FETCH_HOME_FORM } from '../../core/constants/formConstant';
-import { ProjectsApiService } from '../projects-api/projects-api.service';
 import { environment } from 'src/environments/environment';
+import { FormsService } from 'formstore-cache';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
-  profileListingUrl = (environment.capabilities.includes('project' || 'all') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['profileListing'].listingUrl;
-  formListingUrl = (environment.capabilities.includes('project' || 'all') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;  
-  entityConfigUrl = (environment.capabilities.includes('project' || 'all') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['profileListing'].entityConfigUrl;  
-
+  profilePage = environment.profileRedirectPath || '';
+  profileListingUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['profileListing'].listingUrl;
+  formListingUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
+  entityConfigUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['profileListing'].entityConfigUrl;
   constructor(
     private apiBaseService: ApiBaseService,
     private loader: LoaderService,
@@ -28,20 +28,20 @@ export class ProfileService {
     private router: Router,
     private alertService: AlertService,
     private location: Location,
-    private projectsApiService: ProjectsApiService
+    private formsService:FormsService
   ) { }
 
   getFormJsonAndData(): Observable<any> {
     return combineLatest([
       this.apiBaseService.post(this.formListingUrl, FETCH_Profile_FORM).pipe(
         catchError((err) => {
-          this.toastService.presentToast(err?.error?.message || 'Error loading form JSON', 'danger');
+          this.toastService.presentToast(err?.error?.message || 'FORM_LOAD_ERROR', 'danger');
           return of({ status: 'error', result: {} });
         })
       ),
       this.apiBaseService.get(this.profileListingUrl).pipe(
         catchError((err) => {
-          this.toastService.presentToast(err?.error?.message || 'Error loading profile data', 'danger');
+          this.toastService.presentToast(err?.error?.message || 'PROFILE_LOAD_ERROR', 'danger');
           return of({ status: 'error', result: {} });
         })
       ),
@@ -52,22 +52,33 @@ export class ProfileService {
     return combineLatest([
       this.apiBaseService.get(this.entityConfigUrl).pipe(
         catchError((err) => {
-          this.toastService.presentToast(err?.error?.message || 'Error loading form JSON', 'danger');
+          this.toastService.presentToast(err?.error?.message || 'FORM_LOAD_ERROR', 'danger');
           return of({ status: 'error', result: {} });
         })
       ),
       this.apiBaseService.get(this.profileListingUrl).pipe(
         catchError((err) => {
-          this.toastService.presentToast(err?.error?.message || 'Error loading profile data', 'danger');
+          this.toastService.presentToast(err?.error?.message || 'PROFILE_LOAD_ERROR', 'danger');
           return of({ status: 'error', result: {} });
         })
       ),
     ])
       .pipe(
-        map(([entityConfigRes, profileFormDataRes]: any) => {
+        map( async ([entityConfigRes, profileFormDataRes]: any) => {
+          let profileData = localStorage.getItem("profileData")
+          if(profileData){
+            let parsedData = JSON.parse(profileData)
+            if(parsedData?.state){
+              return parsedData
+            }else{
+              this.presentAlert();
+              return null
+            }
+          }
           if (entityConfigRes?.status === 200 && profileFormDataRes?.status === 200) {
             const profileData = entityConfigRes?.result?.meta?.profileKeys;
             const profileDetails = profileFormDataRes?.result;
+            // await this.getTheme(profileDetails)
             if (profileDetails?.state) {
               return this.fetchEntitieIds(profileDetails, profileData);
             } else {
@@ -84,13 +95,18 @@ export class ProfileService {
   private fetchEntitieIds(data: any, keys: any) {
     let result: any = {};
     keys.forEach((key: any) => {
+      const value = data[key];
       if (key === 'roles' && data.user_roles) {
         result["role"] = data.user_roles.map((role: any) => role.title).join(',');
-      } else if (data[key]) {
-        if (Array.isArray(data[key])) {
-          result[key] = data[key].map((item: any) => item).join(',');
-        } else if (data[key].value) {
-          result[key] = data[key].value;
+      } else if (value) {
+        if (Array.isArray(value)) {
+          if (value.length > 0 && typeof value[0] === 'object' && 'value' in value[0]) {
+            result[key] = value.map((item: any) => item.value).join(',');
+          } else {
+            result[key] = value.join(',');
+          }
+        } else if (typeof value === 'object' && 'value' in value) {
+          result[key] = value.value;
         }
       }
     });
@@ -99,11 +115,11 @@ export class ProfileService {
 
   async presentAlert() {
     this.alertService.presentAlert(
-      'Alert',
-      'Please update your profile to access the feature.',
+      'ALERT',
+      'PROFILE_UPDATE_MSG',
       [
         {
-          text: 'Back',
+          text: 'BACK',
           role: 'cancel',
           cssClass: 'secondary-button',
           handler: () => {
@@ -111,10 +127,10 @@ export class ProfileService {
           }
         },
         {
-          text: 'Update Profile',
+          text: 'PROFILE_UPDATE',
           cssClass: 'primary-button',
           handler: () => {
-            this.router.navigate(['/profile-edit']);
+            location.href = environment.profileRedirectPath;
           }
         }
       ]
@@ -123,9 +139,14 @@ export class ProfileService {
 
   async getHomeConfig(listType: any, isReport?: boolean): Promise<any> {
     try {
-      const response: any = await firstValueFrom(this.projectsApiService.post(this.formListingUrl, FETCH_HOME_FORM));
-      if (response.status === 200 && response.result) {
-        let data = response.result.data;
+      let config = {
+        url: this.formListingUrl,
+        payload: FETCH_HOME_FORM,
+      };
+      const response: any = await firstValueFrom(this.formsService.getForm(config));
+
+      if (response?.data?.status === 200 && response.data.result) {
+        let data = response.data.result.data;
         let solutionList = data.find((item: any) => item.type === 'solutionList');
         let returnData:any
         if (solutionList) {
@@ -143,5 +164,32 @@ export class ProfileService {
       this.toastService.presentToast(error?.error?.message, "danger");
       throw error;
     }
+  }
+
+  async getTheme(data: any) {
+    let orgId = localStorage.getItem('organization_id');
+    let config = {
+      url: this.formListingUrl,
+        payload: {...FETCH_THEME_FORM,"subType": orgId},
+    }
+    this.formsService.getForm(config).subscribe({
+        next: (response: any) => {
+          if ( response?.data?.status === 200 && response.data.result) {
+            const themes = response.data.result.data.fields.themes[0];
+            if (themes) {
+              const theme = themes.theme;
+              document.documentElement.style.setProperty('--ion-color-primary', theme.primaryColor);
+              document.documentElement.style.setProperty('--ion-color-secondary', theme.secondaryColor);
+              document.documentElement.style.setProperty('--primary-color', theme.primaryColor);
+              document.documentElement.style.setProperty('--color-primary', theme.primaryColor);
+            } else {
+              console.warn("No theme found for this org");
+            }
+          }
+        },
+        error: (error) => {
+          this.toastService.presentToast(error?.error?.message || "API Error", "danger");
+        }
+      });
   }
 }

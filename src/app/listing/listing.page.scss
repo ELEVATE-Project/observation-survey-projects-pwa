@@ -133,8 +133,8 @@ h2 {
   padding: 0.25rem 0.5rem; 
   text-transform: uppercase; 
   margin-right: 1rem; 
-  display: inline-flex; 
-  align-items: center; 
+  display: flow;
+  align-items: center;
   height: fit-content; 
 }
 
@@ -176,4 +176,54 @@ span {
   background-color: #808080;
   color: #fff;
   border: 1px solid #696969;
+}
+.program-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
+}
+
+.state {
+  font-size: 14px !important;
+  color: #000;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem; 
+}
+
+.program-items {
+  color: #000 !important;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.role-tag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e0f7e9;
+  margin: 0.2rem;
+  border-radius: 10px;
+  color: #34a853;
+  font-size: 12px;
+  padding: 0.3rem 0.5rem; 
+}
+
+ion-fab-button {
+  margin: 15px;
+  padding: 5px;
+  text-transform: none;
+}
+
+ion-button ion-icon {
+  color: var(--ion-color-primary);
+  background: white;
+  border-radius: 50%;
+  padding: 4px;
+  margin-right: 8px;
+}
+
+ion-button{
+  --padding-start: 5px !important;
+  --padding-end: 5px !important;
 }

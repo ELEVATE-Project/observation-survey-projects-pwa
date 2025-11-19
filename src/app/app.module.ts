@@ -15,12 +15,37 @@ import { CertificateVerificationPopoverComponent } from './shared/certificate-ve
 import { ShareLinkPopupComponent } from './shared/share-link-popup/share-link-popupcomponent';
 import { ShortUrlPipe } from './shared/pipes/short-url.pipe';
 
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { RedirectionHandlerComponent } from './redirection-handler/redirection-handler.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { SharedModule } from './shared/shared.module';
+import { FormsService } from 'formstore-cache';
+import { PrivacyPolicyPopupComponent } from './shared/privacy-policy-popup/privacy-policy-popup.component';
+import { FormsModule } from '@angular/forms';
+import { UtilService } from './services/util/util.service';
+
+export function translateHttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
+}
+
 @NgModule({
-  declarations: [AppComponent,CertificateVerificationPopoverComponent,ShareLinkPopupComponent,ShortUrlPipe],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
-    SlAuthLibModule, BrowserAnimationsModule,
+  declarations: [AppComponent,CertificateVerificationPopoverComponent,ShareLinkPopupComponent,ShortUrlPipe,RedirectionHandlerComponent,PageNotFoundComponent,PrivacyPolicyPopupComponent],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,FormsModule,
+    SlAuthLibModule, BrowserAnimationsModule,SharedModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: translateHttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
+      enabled: false,
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],
@@ -40,10 +65,29 @@ import { ShortUrlPipe } from './shared/pipes/short-url.pipe';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  formsConfig={
+    BASEURL:environment.baseURL,
+    db:{
+      dbName:"forms",
+      dbVersion:1,
+      storeName:"forms",
+    }
+  }
+  constructor(private translate:TranslateService,private formsService:FormsService, private utils: UtilService){
+    this.setLanguage();
+    this.formsService.setFormsConfig(this.formsConfig);
+
+  }
+  setLanguage() {
+    this.translate.setDefaultLang('en');
+    let language = this.utils.getPreferredLanguage()
+    this.translate.use(language);
+  }
+}
 
 export function configFactory(http: HttpClient): any {
-  return http.get("../assets/config/library-config.json").pipe(switchMap((data:any)=>{
+  return http.get("/ml/assets/config/library-config.json").pipe(switchMap((data:any)=>{
     data.baseUrl = environment.baseURL
     return of(data)
   }))

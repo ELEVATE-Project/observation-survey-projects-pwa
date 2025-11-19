@@ -1,10 +1,4 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/" (click)="goBack()"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-header></app-header>
 
 <ion-content>
   <ion-list class="listTitle">
@@ -19,7 +13,7 @@
 
     <ion-row class="srch">
       <ion-col size="12">
-        <ion-searchbar class="srchBar" placeholder="Search your {{stateData?.listType}} here" [debounce]="1000"
+        <ion-searchbar class="srchBar" #searchBar  placeholder="Search your {{stateData?.listType}} here" [debounce]="1000"
           (ionInput)="handleInput($event)"></ion-searchbar>
       </ion-col>
     </ion-row>
@@ -28,7 +22,7 @@
     <ion-segment class="custom-segment" [(ngModel)]="filter" (ionChange)="filterChanged($event)">
       @for (filter of filters;track filter) {
         <ion-segment-button [value]="filter.value">
-          <ion-label>{{ filter.label }}</ion-label>
+          <ion-label>{{ filter.label  | translate}}</ion-label>
         </ion-segment-button>
       }
     </ion-segment>
@@ -41,6 +35,11 @@
         <ion-col size="12" size-md="6" class="listing-card" (click)="navigateTo(solution)">
           <ion-card class="tiels">
             <ion-card-content>
+              <div class="flex justify-end items-center">
+                @if (solution?.certificate || solution?.certificateTemplateId) {
+                  <span class="certificate-tag">{{"CERTIFICATE"|translate}}</span>
+                }
+              </div>
               <div class="flex justify-between items-center">
                 <h2><b>{{solution?.name}}</b></h2>
                 @if (listType == 'survey' && !stateData?.reportPage) {
@@ -48,10 +47,22 @@
                     {{ solution?.statusLabel }}
                   </span>
                 }
-                @if (solution?.certificate || solution?.certificateTemplateId) {
-                  <span class="certificate-tag">Certificate</span>
-                }
               </div>
+              @if(listType == 'program'){
+                <div class="program-container">
+                  <h2 class="state">{{"STATE" | translate}} :
+                  @for(state of solution?.metaInformation?.state; track state){
+                    {{state}}
+                  }
+                  </h2>
+                    <div class="program-items">
+                      <h2 class="state"> {{ "RECOMMENDED_FOR"| translate}} :</h2>
+                      @for(data of solution?.metaInformation?.recommendedFor; track data){
+                        <div class="role-tag"> {{data}}</div>
+                      }
+                    </div>
+                </div>
+              }
               @if (listType == 'project' || (listType == 'survey' && stateData?.reportPage)) {
                 <div class="ion-padding-top">
                   <h6>{{solution?.description}}</h6>
@@ -77,18 +88,26 @@
           </ion-card>
         </ion-col>
         }
+      <ion-infinite-scroll
+        (ionInfinite)="loadData($event)"
+        [disabled]="solutionList?.data.length === solutionList?.count">
+        <ion-infinite-scroll-content
+          loadingText="{{'LOAD_MORE' | translate}}..."
+          loadingSpinner="bubbles">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
       </ion-row>
       <ng-template #noData>
         <div class="no-data-container ion-margin-top" *ngIf="!showLoading">
-          <img src="assets/images/no_data.jpg" alt="No data">
+          <img src="/ml/assets/images/no_data.jpg" alt="No data">
         </div>
       </ng-template>
   </ion-grid>
+  @if (listType === 'project' && filter === 'createdByMe') {
+    <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+      <ion-button (click)="createNewProject()" shape="round"><ion-icon name="add"></ion-icon>
+        {{ "CREATE" | translate }}
+      </ion-button>
+    </ion-fab>
+  }
 </ion-content>
-<ion-footer *ngIf="!(solutionList?.count === 0 || solutionList?.count === solutionList?.data?.length)">
-  <ion-toolbar>
-    <ion-button expand="block" fill="solid" shape="round" (click)="loadData()">
-      Load More
-    </ion-button>
-  </ion-toolbar>
-</ion-footer>
