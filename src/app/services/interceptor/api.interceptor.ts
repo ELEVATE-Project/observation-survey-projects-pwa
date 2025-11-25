@@ -31,6 +31,7 @@ export class ApiInterceptor implements HttpInterceptor {
     return from(this.getToken()).pipe(
       switchMap((token) => {
         const authReq = this.addAuthHeader(req, token);
+        console.log("ADDED AUTH HEADERS: ",authReq)
         return next.handle(authReq).pipe(
         catchError((error: HttpErrorResponse) => this.handleError(error))
         );
@@ -70,6 +71,8 @@ export class ApiInterceptor implements HttpInterceptor {
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error?.status === 401 || error?.status == 403) {
+      console.log("API CALL ENTERED ERROR BLOCK: ", error)
+      console.log("API CALL ENTERED ERROR BLOCK STATUS: ", error?.status)
       localStorage.clear();
       this.utilService.clearDatabase();
       // location.href = environment.unauthorizedRedirectUrl
@@ -79,6 +82,7 @@ export class ApiInterceptor implements HttpInterceptor {
           pathType:"login"
         };
         if ((window as any).FlutterChannel) {
+          console.log("EMITTING DATA TO FLUTTER: ",options);
           (window as any).FlutterChannel.postMessage(options);
         } else {
           console.warn("FlutterChannel is not available");
