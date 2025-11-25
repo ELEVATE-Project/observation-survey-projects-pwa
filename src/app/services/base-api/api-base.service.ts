@@ -11,10 +11,17 @@ export class ApiBaseService {
   constructor(public http: HttpClient) { }
 
   get<T>(url: string, params?: HttpParams): Observable<T> {
+    console.log("GET API URL: ",url)
+    console.log("GET API PARAMS: ",params)
     return this.http.get<T>(this.baseURL+url, { params });
   }
 
   post<T>(url: string, body: any, headers?: HttpHeaders): Observable<T> {
+    console.log("POST API URL: ",url)
+    console.log("POST API BODY: ",body)
+    console.log("POST API HEADERS: ",headers)
+    console.log("LOCAL STORAGE HEADERS: ",localStorage.getItem('headers'))
+    console.log("LOCAL STORAGE USER ID: ",localStorage.getItem('userId'))
     return this.http.post<T>(this.baseURL+url, body, { headers });
   }
 
