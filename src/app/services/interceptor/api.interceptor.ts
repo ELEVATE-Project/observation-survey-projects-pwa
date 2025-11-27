@@ -31,7 +31,14 @@ export class ApiInterceptor implements HttpInterceptor {
     return from(this.getToken()).pipe(
       switchMap((token) => {
         const authReq = this.addAuthHeader(req, token);
-        console.log("ADDED AUTH HEADERS: ",authReq)
+        console.log("ADDED AUTH HEADERS: ",JSON.stringify(authReq))
+        let data = {
+          type: "log",
+          data: {
+            addedAuthHeaderReq: authReq
+          }
+        }
+        this.utilService.postMessageListener(data)
         return next.handle(authReq).pipe(
         catchError((error: HttpErrorResponse) => this.handleError(error))
         );
@@ -71,7 +78,7 @@ export class ApiInterceptor implements HttpInterceptor {
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error?.status === 401 || error?.status == 403) {
-      console.log("API CALL ENTERED ERROR BLOCK: ", error)
+      console.log("API CALL ENTERED ERROR BLOCK: ", JSON.stringify(error))
       console.log("API CALL ENTERED ERROR BLOCK STATUS: ", error?.status)
       localStorage.clear();
       this.utilService.clearDatabase();
@@ -81,9 +88,15 @@ export class ApiInterceptor implements HttpInterceptor {
           type:"redirect",
           pathType:"login"
         };
+        let data = {
+          type: "log",
+          data: JSON.stringify(error)
+        }
         if ((window as any).FlutterChannel) {
           console.log("EMITTING DATA TO FLUTTER: ",options);
+          console.log("EMITTING DATA TO FLUTTER (401/403): ",data);
           (window as any).FlutterChannel.postMessage(options);
+          (window as any).FlutterChannel.postMessage(data);
         } else {
           console.warn("FlutterChannel is not available");
           location.href = environment.unauthorizedRedirectUrl
