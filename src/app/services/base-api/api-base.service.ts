@@ -22,6 +22,25 @@ export class ApiBaseService {
     console.log("POST API HEADERS: ",headers)
     console.log("LOCAL STORAGE HEADERS: ",localStorage.getItem('headers'))
     console.log("LOCAL STORAGE USER ID: ",localStorage.getItem('userId'))
+    try {
+      let data = {
+        type: "log",
+        data: {
+          postRequestBody: JSON.parse(JSON.stringify(body)),
+          postApiUrl: url,
+          postApiHeaders: JSON.stringify(headers),
+          localStorageHeaders: JSON.stringify(localStorage.getItem('headers')),
+          localStorageUserId: localStorage.getItem('userId'),
+          localStorageAccessToken: localStorage.getItem('accToken')
+        }
+      }
+      if ((window as any).FlutterChannel) {
+        console.log("EMITTING DATA TO FLUTTER(API): ",JSON.stringify(data));
+        (window as any).FlutterChannel.postMessage(data);
+      } else {
+        console.warn("FlutterChannel is not available");
+      }
+    } catch (err:any) {}
     return this.http.post<T>(this.baseURL+url, body, { headers });
   }
 
