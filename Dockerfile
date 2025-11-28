@@ -20,9 +20,11 @@ FROM node:18 AS final
 
 WORKDIR /usr/src/app
 
-COPY --from=build /app/www ./www
+COPY --from=build /app/www ./www/ml
 
-COPY src/assets/env/env.js ./www/assets/env/env.js
+COPY --from=build /app/www/index.html ./www/index.html
+
+COPY src/assets/env/env.js ./www/ml/assets/env/env.js
 
 RUN npm install --force -g serve
 
