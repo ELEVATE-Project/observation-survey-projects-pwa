@@ -77,12 +77,24 @@ export class AppModule {
   constructor(private translate:TranslateService,private formsService:FormsService, private utils: UtilService){
     this.setLanguage();
     this.formsService.setFormsConfig(this.formsConfig);
+    this.handleStoredData()
 
   }
   setLanguage() {
     this.translate.setDefaultLang('en');
     let language = this.utils.getPreferredLanguage()
     this.translate.use(language); 
+  }
+
+  handleStoredData(){
+    setTimeout(() => {
+      let oldUserId = localStorage.getItem("userIdCopy")
+      let currentUserId = localStorage.getItem("userId")
+      if (!oldUserId) return
+      if(oldUserId != currentUserId){
+        this.utils.clearDatabase()
+      }
+    }, 1000);
   }
 }
 
