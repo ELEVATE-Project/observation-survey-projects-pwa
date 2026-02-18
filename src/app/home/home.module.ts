@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
 import { AllowTemplateViewDirective } from '../shared/directives/allow-template-view.directive';
 import { ImageComponent } from '../shared/image/image.component';
+import { WebviewHomeComponent } from './webview-home/webview-home.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -22,6 +23,6 @@ import { ImageComponent } from '../shared/image/image.component';
     TranslateModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
-  declarations: [HomePage, AllowTemplateViewDirective,ImageComponent]
+  declarations: [HomePage, AllowTemplateViewDirective,ImageComponent, WebviewHomeComponent]
 })
 export class HomePageModule {}
