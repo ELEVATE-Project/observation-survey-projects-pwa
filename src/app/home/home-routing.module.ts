@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { HomePage } from './home.page';
+import { WebviewHomeComponent } from './webview-home/webview-home.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomePage
+    component: WebviewHomeComponent
   }
 ];
 

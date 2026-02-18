@@ -1,0 +1,12 @@
+<ion-content>
+  <div class="card-list-container">
+    @for(data of cardsList; track data.id){
+      <ion-card class="card-block" (click)="redirect(data)">
+        <ion-card-content>
+          <app-image [svgPath]="data?.image"></app-image>
+          <div class="card-label">{{data?.name}}</div>
+        </ion-card-content>
+      </ion-card>
+    }
+  </div>
+</ion-content>
