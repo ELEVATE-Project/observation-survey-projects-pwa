@@ -74,6 +74,10 @@ export class ProfileService {
     switchMap(([entityConfigRes, profileFormDataRes]: any) => {
 
       const rawProfileData = this.getRawProfileFromStorage();
+  if (!rawProfileData) {
+    this.presentAlert();
+    return of(null);
+  }
 
       if (rawProfileData) {
 
@@ -115,7 +119,6 @@ export class ProfileService {
 
               const requiredFields: string[] = apiResponse?.result || [];
 
-              // cache for next time
               mandatoryFields[normalizedRole] = requiredFields;
               localStorage.setItem(stateId, JSON.stringify(mandatoryFields));
 
@@ -126,9 +129,8 @@ export class ProfileService {
               return of(null);
             })
           );
-      }
+        }
 
-      // 🔽 Fallback to old API logic if no local profile
       if (entityConfigRes?.status === 200 && profileFormDataRes?.status === 200) {
 
         const profileData = entityConfigRes?.result?.meta?.profileKeys;
@@ -142,11 +144,10 @@ export class ProfileService {
             )
           );
 
-        } else {
+        } 
           this.presentAlert();
           return of(null);
         }
-      }
 
       return of(null);
     }),
@@ -358,41 +359,15 @@ export class ProfileService {
       });
   }
 
-
   getRawProfileFromStorage(): any {
-    const profileData = {
-state: {
-id: "b7416eb6-56b1-492a-a85f-97988edcd693",
-name: "Karnataka"
-},
-district: {
-id: "d1f09cff-24d2-4c47-8400-2c59c5253f95",
-name: "Bangalore"
-},
-block: {
-id: "46917bef-9147-47fd-9a8d-9d6beba26810",
-name: "Bangalore Urban"
-},
-cluster: {
-id: "c64b0153-58f3-407c-b349-a339f9e34b7e",
-name: "Annakel"
-},
-// cluster:null,
-school: {
-id: "c5447cf5-e32e-4f28-b9a8-2c0ae2fff319",
-name: "LRESH"
-},
-role: "DEO,SPD,PRINCIPAL,HM,HT,PT"
-};
-return profileData;
-    // const data = localStorage.getItem('profileData');
-    // if (!data) return null;
-    // try {
-    //   return JSON.parse(data);
-    // } catch (e) {
-    //   console.error('Failed to parse profileData from localStorage:', e);
-    //   return null;
-    // }
+    const data = localStorage.getItem('profileData');
+    if (!data) return null;
+    try {
+      return JSON.parse(data);
+    } catch (e) {
+      console.error('Failed to parse profileData from localStorage:', e);
+      return null;
+    }
   }
 
   normalizeProfileData(profileData: any): any {
