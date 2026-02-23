@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { catchError, finalize, Observable, of, combineLatest, map, firstValueFrom } from 'rxjs';
+import { catchError, finalize, Observable, of, combineLatest, map, firstValueFrom, switchMap, from } from 'rxjs';
 import urlConfig from 'src/app/config/url.config.json';
 import { ApiBaseService } from '../base-api/api-base.service';
 import { ToastService } from '../toast/toast.service';
@@ -65,37 +65,102 @@ export class ProfileService {
     //     })
     //   ),
     // ])
-    return combineLatest([
-      of({ status: 'error', result: {} }), of({ status: 'error', result: {} })
-    ])
-      .pipe(
-        map( async ([entityConfigRes, profileFormDataRes]: any) => {
-          let profileData = localStorage.getItem("profileData")
-          if(profileData){
-            let parsedData = JSON.parse(profileData)
-            if(parsedData?.state){
-              return parsedData
-            }else{
-              this.presentAlert();
-              return null
-            }
+
+  return combineLatest([
+    of({ status: 'error', result: {} }),
+    of({ status: 'error', result: {} })
+  ]).pipe(
+
+    switchMap(([entityConfigRes, profileFormDataRes]: any) => {
+
+      const rawProfileData = this.getRawProfileFromStorage();
+
+      if (rawProfileData) {
+
+        if (!rawProfileData?.state?.id || !rawProfileData?.role) {
+          this.presentAlert();
+          return of(null);
+        }
+
+        const normalizedRole = this.normalizeRole(rawProfileData.role);
+        const stateId = rawProfileData.state.id;
+
+        const mandatoryFields = JSON.parse(
+          localStorage.getItem(stateId) || '{}'
+        );
+
+        const validateProfile = (requiredFields: string[]) => {
+
+          if (this.hasMissingFields(rawProfileData, requiredFields)) {
+            this.presentAlert();
+            return null;
           }
-          if (entityConfigRes?.status === 200 && profileFormDataRes?.status === 200) {
-            const profileData = entityConfigRes?.result?.meta?.profileKeys;
-            const profileDetails = profileFormDataRes?.result;
-            await this.getTheme(profileDetails)
-            if (profileDetails?.state) {
-              return this.fetchEntitieIds(profileDetails, profileData);
-            } else {
-              this.presentAlert();
-            }
-          }
-        },(err:any)=>{
-          this.toastService.presentToast(err?.error?.message, 'danger');
-        }),
-        finalize(async () => await this.loader.dismissLoading())
-      );
-  }
+
+          const result = this.normalizeProfileData({
+              ...rawProfileData,
+              role: normalizedRole
+            })
+
+          return result;
+        };
+
+        if (mandatoryFields?.[normalizedRole]) {
+          return of(validateProfile(mandatoryFields[normalizedRole]));
+        }
+
+        return this.apiBaseService
+          .get(`${urlConfig.entityTypesByLocationAndRole}${stateId}?role=${normalizedRole}`)
+          .pipe(
+            map((apiResponse: any) => {
+
+              const requiredFields: string[] = apiResponse?.result || [];
+
+              // cache for next time
+              mandatoryFields[normalizedRole] = requiredFields;
+              localStorage.setItem(stateId, JSON.stringify(mandatoryFields));
+
+              return validateProfile(requiredFields);
+            }),
+            catchError(error => {
+              console.error('Profile validation error:', error);
+              return of(null);
+            })
+          );
+      }
+
+      // 🔽 Fallback to old API logic if no local profile
+      if (entityConfigRes?.status === 200 && profileFormDataRes?.status === 200) {
+
+        const profileData = entityConfigRes?.result?.meta?.profileKeys;
+        const profileDetails = profileFormDataRes?.result;
+
+        if (profileDetails?.state) {
+
+          return from(this.getTheme(profileDetails)).pipe(
+            switchMap(() =>
+              this.fetchEntitieIds(profileDetails, profileData)
+            )
+          );
+
+        } else {
+          this.presentAlert();
+          return of(null);
+        }
+      }
+
+      return of(null);
+    }),
+
+    catchError((err: any) => {
+      this.toastService.presentToast(err?.error?.message, 'danger');
+      return of(null);
+    }),
+
+    finalize(() => {
+      this.loader.dismissLoading();
+    })
+  );
+}
 
   private fetchEntitieIds(data: any, keys: any) {
     let result: any = {};
@@ -292,4 +357,71 @@ export class ProfileService {
         }
       });
   }
+
+
+  getRawProfileFromStorage(): any {
+    const profileData = {
+state: {
+id: "b7416eb6-56b1-492a-a85f-97988edcd693",
+name: "Karnataka"
+},
+district: {
+id: "d1f09cff-24d2-4c47-8400-2c59c5253f95",
+name: "Bangalore"
+},
+block: {
+id: "46917bef-9147-47fd-9a8d-9d6beba26810",
+name: "Bangalore Urban"
+},
+cluster: {
+id: "c64b0153-58f3-407c-b349-a339f9e34b7e",
+name: "Annakel"
+},
+// cluster:null,
+school: {
+id: "c5447cf5-e32e-4f28-b9a8-2c0ae2fff319",
+name: "LRESH"
+},
+role: "DEO,SPD,PRINCIPAL,HM,HT,PT"
+};
+return profileData;
+    // const data = localStorage.getItem('profileData');
+    // if (!data) return null;
+    // try {
+    //   return JSON.parse(data);
+    // } catch (e) {
+    //   console.error('Failed to parse profileData from localStorage:', e);
+    //   return null;
+    // }
+  }
+
+  normalizeProfileData(profileData: any): any {
+    if (!profileData) return null;
+
+    const normalized: any = {};
+
+    Object.entries(profileData).forEach(([key, value]: [string, any]) => {
+      if (value && typeof value === 'object' && 'id' in value) {
+        normalized[key] = value.id;
+      } else {
+        normalized[key] = value;
+      }
+    });
+
+    return normalized;
+  }
+
+  normalizeRole(role: string): string {
+  if (!role) return '';
+
+  return role
+    .split(',')
+    .map(r => r.trim().toLowerCase())
+    .sort()
+    .join(',');
+}
+
+hasMissingFields(profileData: any, requiredFields: string[]): boolean {
+  return requiredFields?.some(field => !profileData?.[field]);
+}
 }
