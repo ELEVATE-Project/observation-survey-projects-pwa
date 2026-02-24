@@ -152,8 +152,14 @@ export class ProfileService {
       return of(null);
     }),
 
-    catchError((err: any) => {
-      this.toastService.presentToast(err?.error?.message, 'danger');
+    catchError(error => {
+      console.error('Profile validation error:', error);
+      if (error?.status === 0) {
+        this.toastService.presentToast('Network error. Please try again later.', 'danger');
+      } else {
+        this.toastService.presentToast('An error occurred while loading profile.', 'danger');
+      }
+
       return of(null);
     }),
 
