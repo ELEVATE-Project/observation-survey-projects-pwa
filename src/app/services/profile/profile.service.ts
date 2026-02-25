@@ -382,8 +382,11 @@ export class ProfileService {
     const normalized: any = {};
 
     Object.entries(profileData).forEach(([key, value]: [string, any]) => {
-      if (value && typeof value === 'object' && 'id' in value) {
-        normalized[key] = value.id;
+      if (key === 'school' && value && typeof value === 'object') {
+      normalized[key] = value?.code;
+      }
+      else if (value && typeof value === 'object' && 'id' in value) {
+        normalized[key] = value?.id;
       } else {
         normalized[key] = value;
       }
