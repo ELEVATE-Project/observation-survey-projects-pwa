@@ -383,10 +383,10 @@ export class ProfileService {
 
     Object.entries(profileData).forEach(([key, value]: [string, any]) => {
       if (key === 'school' && value && typeof value === 'object') {
-      normalized[key] = value.code || null;
+      normalized[key] = value?.code;
       }
       else if (value && typeof value === 'object' && 'id' in value) {
-        normalized[key] = value.id;
+        normalized[key] = value?.id;
       } else {
         normalized[key] = value;
       }
