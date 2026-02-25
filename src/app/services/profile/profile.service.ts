@@ -22,6 +22,7 @@ export class ProfileService {
   profileListingUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['profileListing'].listingUrl;
   formListingUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
   entityConfigUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['profileListing'].entityConfigUrl;
+  profileInfo: any;
   constructor(
     private apiBaseService: ApiBaseService,
     private loader: LoaderService,
@@ -408,4 +409,49 @@ export class ProfileService {
 hasMissingFields(profileData: any, requiredFields: string[]): boolean {
   return requiredFields?.some(field => !profileData?.[field]);
 }
+
+async getProfile() {
+    const userId = localStorage.getItem('userId');
+    if (!userId) return null;
+
+    const fields = 'organisations,roles,locations,declarations,externalIds';
+    const profileUrl = urlConfig.profileListing.getUserProfileUrl;
+    const url = `${profileUrl}/${userId}?fields=${fields}`;
+
+    try {
+      const response = await firstValueFrom(
+        this.apiBaseService.get<any>(url)
+      );
+
+      this.profileInfo = response?.result?.response;
+
+      return this.profileInfo;
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+      throw error;
+    }
+  }
+
+  getFormConfig(rootOrgId: string, subType: string) {
+    const url = urlConfig.formListing.ConfigUrl;
+
+    const payload = {
+      request: {
+        type: "profileConfig_v2",
+        action: "get",
+        subType: subType,
+        rootOrgId: rootOrgId
+      }
+    };
+
+    return this.apiBaseService.post(url, payload).pipe(
+      catchError(err => {
+        this.toastService.presentToast(
+          err?.error?.message || 'FORM_LOAD_ERROR',
+          'danger'
+        );
+        return of(null);
+      })
+    );
+  }
 }

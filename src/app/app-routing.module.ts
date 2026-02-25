@@ -88,9 +88,9 @@ const routes: Routes = [
   {
 
     path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule),
-    canActivate: [AuthGuard, allowPageAccessGuard],
-    data: { pageId: PAGE_IDS.profile }
+    loadChildren: () => import('./location-update/location-update.module').then(m => m.LocationUpdatePageModule),
+    canActivate: [allowPageAccessGuard],
+    data: { pageId: PAGE_IDS.locationUpdate }
   },
   {
     path: 'profile-edit',

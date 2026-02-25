@@ -13,5 +13,6 @@ export const PAGE_IDS = {
     library: "LIBRARY",
     profile: "PROFILE",
     editProfile: "EDIT_PROFILE",
-    authPages: "AUTH_PAGES"
+    authPages: "AUTH_PAGES",
+    locationUpdate: "LOCATION_UPDATE"
 }
