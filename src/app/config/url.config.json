@@ -17,7 +17,7 @@
     },
     "formListing": {
         "listingUrl": "/v1/forms/read",
-        "ConfigUrl":"/api/data/v1/form/read"
+        "configUrl":"/api/data/v1/form/read"
     },
     "entityListing":{
         "listingUrl": "/entity-management/v1/entities"

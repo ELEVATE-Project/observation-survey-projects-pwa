@@ -433,7 +433,7 @@ async getProfile() {
   }
 
   getFormConfig(rootOrgId: string, subType: string) {
-    const url = urlConfig.formListing.ConfigUrl;
+    const url = urlConfig.formListing.configUrl;
 
     const payload = {
       request: {

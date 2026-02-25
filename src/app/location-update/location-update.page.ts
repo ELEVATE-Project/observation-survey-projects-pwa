@@ -242,7 +242,6 @@ export class LocationUpdatePage {
                     profileLocation: [...stateAndDistrict, ...Object.values(resolvedValues)]
                 }
             }
-            console.log(payload)
             this.loader.showLoading('LOADER_MSG');
             this.locationService.updateProfile(payload).pipe(
                 finalize(async () => await this.loader.dismissLoading())

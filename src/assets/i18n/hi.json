@@ -96,8 +96,8 @@
     "PROJECT_OVERVIEW": "परियोजना का अवलोकन",
     "SELECT": "चयन करें",
     "DOWNLOAD": "डाउनलोड करें",
-    "LOCATION_UPDATE": "स्थानीय समाहरण",
-    "LOCATION_DETAILS": "स्थानीय विवरण",
-    "LOCATION_UPDATE_SUCCESSFULLY": "स्थानीय समाहरण सफलतापूर्वक समाहरण किया गया",
+    "LOCATION_UPDATE": "स्थान अपडेट",
+    "LOCATION_DETAILS": "स्थान विवरण",
+    "LOCATION_UPDATE_SUCCESSFULLY": "स्थान सफलतापूर्वक अपडेट किया गया",
     "REQUIRED": "आवश्यक"
   }
