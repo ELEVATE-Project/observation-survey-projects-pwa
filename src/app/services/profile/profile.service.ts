@@ -22,7 +22,6 @@ export class ProfileService {
   profileListingUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['profileListing'].listingUrl;
   formListingUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
   entityConfigUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['profileListing'].entityConfigUrl;
-  profileInfo: any;
   constructor(
     private apiBaseService: ApiBaseService,
     private loader: LoaderService,
@@ -423,11 +422,12 @@ async getProfile() {
         this.apiBaseService.get<any>(url)
       );
 
-      this.profileInfo = response?.result?.response;
+      const profileInfo = response?.result?.response;
 
-      return this.profileInfo;
-    } catch (error) {
+      return profileInfo;
+    } catch (error: any) {
       console.error('Error fetching profile:', error);
+      this.toastService.presentToast(error?.error?.message, 'danger');
       throw error;
     }
   }

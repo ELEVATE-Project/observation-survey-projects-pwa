@@ -13,3 +13,7 @@ export const locationType = {
     cluster: "cluster",
     school: "school"
 }
+
+export const formFieldCode = {
+    persona: "persona"
+}

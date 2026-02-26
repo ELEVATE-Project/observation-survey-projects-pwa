@@ -8,7 +8,7 @@ import { ProfileService } from '../services/profile/profile.service';
 import { LocationService } from '../services/location/location.service';
 import { EncryptionService } from '../services/encryption/encryption.service';
 import { environment } from 'src/environments/environment';
-import { locationType } from '../core/constants/statusConstants';
+import { formFieldCode, locationType } from '../core/constants/statusConstants';
 import { TranslateService } from '@ngx-translate/core';
 import { NavController } from '@ionic/angular';
 import { UtilService } from '../services/util/util.service';
@@ -39,11 +39,7 @@ export class LocationUpdatePage {
 
     // Lifecycle hook that triggers form and data loading when the page is about to enter
     ionViewWillEnter() {
-        if (this.utilService.isWebView()) {
-            this.showHeader = false;  
-        } else {
-            this.showHeader = true;  
-        }
+        this.showHeader = !this.utilService.isWebView();
         this.loadFormAndData();
     }
 
@@ -71,7 +67,7 @@ export class LocationUpdatePage {
     // Extracts the matching persona config fields based on the user's type
     getMatchedPersonaConfig(formConfigRes: any, profileDataRes: any) {
         const fields = formConfigRes?.result?.form?.data?.fields || [];
-        const personaField = fields.find((field: any) => field.code === 'persona');
+        const personaField = fields.find((field: any) => field.code === formFieldCode.persona);
         const personaChildren = personaField?.children || {};
 
         const userType = profileDataRes?.profileUserType?.type;
@@ -271,8 +267,8 @@ export class LocationUpdatePage {
 
     // Updates the localStorage profileData with the latest block, cluster, and school values
     updateLocalProfileData(resolvedValues: any) {
-        const stored = localStorage.getItem('profileData');
-        const profileData = stored ? JSON.parse(stored) : {};
+        const localProfileData = localStorage.getItem('profileData');
+        const profileData = localProfileData ? JSON.parse(localProfileData) : {};
         const updatableKeys = [locationType.block, locationType.cluster, locationType.school];
 
         for (const key of updatableKeys) {
