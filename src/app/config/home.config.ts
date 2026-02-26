@@ -25,7 +25,7 @@ export const homeCardsList = [
   },
   {
     "name": "Courses",
-    "image": "assets/images/ic_courses.svg",
+    "image": "/managed-learn/assets/images/ic_courses.svg",
     "redirectionUrl": "/",
     "type": "course"
   },
