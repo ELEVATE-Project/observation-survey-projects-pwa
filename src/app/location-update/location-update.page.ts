@@ -10,6 +10,8 @@ import { EncryptionService } from '../services/encryption/encryption.service';
 import { environment } from 'src/environments/environment';
 import { locationType } from '../core/constants/statusConstants';
 import { TranslateService } from '@ngx-translate/core';
+import { NavController } from '@ionic/angular';
+import { UtilService } from '../services/util/util.service';
 
 @Component({
     selector: 'app-location-update',
@@ -17,9 +19,8 @@ import { TranslateService } from '@ngx-translate/core';
     styleUrls: ['./location-update.page.scss'],
 })
 export class LocationUpdatePage {
-    showHeader = environment.showHeader;
+    showHeader: boolean = false;
     @ViewChild('formLib') formLib: MainFormComponent | undefined;
-
     formJson: any = [];
     formData: any;
     userLocations: any[] = [];
@@ -32,10 +33,17 @@ export class LocationUpdatePage {
         private locationService: LocationService,
         private encryptionService: EncryptionService,
         private translateService: TranslateService,
+        private navCtrl: NavController,
+        private utilService: UtilService
     ) { }
 
     // Lifecycle hook that triggers form and data loading when the page is about to enter
     ionViewWillEnter() {
+        if (this.utilService.isWebView()) {
+            this.showHeader = false;  
+        } else {
+            this.showHeader = true;  
+        }
         this.loadFormAndData();
     }
 
@@ -278,5 +286,9 @@ export class LocationUpdatePage {
         }
 
         localStorage.setItem('profileData', JSON.stringify(profileData));
+    }
+
+    goBack() {
+        this.navCtrl.back();
     }
 }

@@ -67,4 +67,10 @@ export class UtilService {
     let preferredLanguage = localStorage.getItem("preferredLanguage")
     return preferredLanguage || "en"
   }
+
+  isWebView(): boolean {
+    const userAgent = window.navigator.userAgent || '';
+    // Check if it's a Flutter WebView based on userAgent
+    return /flutter/i.test(userAgent) || /wv/i.test(userAgent); // webview or flutter identifier
+  }
 }

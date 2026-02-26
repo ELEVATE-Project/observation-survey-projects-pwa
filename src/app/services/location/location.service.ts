@@ -10,12 +10,15 @@ import { map } from 'rxjs/operators';
 export class LocationService {
 
     constructor(private apiService: ApiBaseService) { }
-    userId = localStorage.getItem("userId")
+
+    private getUserId(): string | null {
+        return localStorage.getItem('userId');
+    }
 
     getOptionList(parentId: string, entityType: string) {
-        const payload = locationPayload.getOptionList(entityType, parentId, this.userId);
+        const payload = locationPayload.getOptionList(entityType, parentId, this.getUserId());
 
-        return this.apiService.post(urlConfig.location.locationUrl, payload).pipe(
+        return this.apiService.post(urlConfig.location.locationSearchUrl, payload).pipe(
             map((res: any) => {
                 const result = res?.result?.response || [];
                 return result.map((item: any) => ({
@@ -30,9 +33,9 @@ export class LocationService {
     getSchoolList(parentId: string) {
         const payload = locationPayload.getSchoolList(parentId);
 
-        return this.apiService.post(urlConfig.location.schoolUrl, payload).pipe(
+        return this.apiService.post(urlConfig.location.getSchoolListUrl, payload).pipe(
             map((res: any) => {
-                const result = res?.result?.response?.content || res?.result?.response || [];
+                const result = res?.result?.response?.content || [];
                 return result.map((item: any) => ({
                     ...item,
                     label: item.orgName || item.name,

@@ -49,7 +49,7 @@
     },
     "entityTypesByLocationAndRole":"/kendra/entities/mlcore/v1/entityTypesByLocationAndRole/",
     "location":{
-        "locationUrl":"/learner/data/v1/location/search",
-        "schoolUrl":"/api/org/v2/search"
+        "locationSearchUrl":"/learner/data/v1/location/search",
+        "getSchoolListUrl":"/api/org/v2/search"
     }
 }
