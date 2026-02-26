@@ -97,7 +97,6 @@
   "SELECT":"Select",
   "DOWNLOAD":"Download",
   "LOCATION_UPDATE": "Location Update",
-  "LOCATION_DETAILS": "Location Details",
   "LOCATION_UPDATE_SUCCESSFULLY": "Location updated successfully",
   "REQUIRED": "Required"
 }
