@@ -259,6 +259,6 @@ export class ListingPage implements OnInit {
   }
 
   onEditProfile() {
-    window.location.href = '/managed-learn/profile';
+    this.router.navigate(['/managed-learn/profile']);
   }
 }
