@@ -21,7 +21,7 @@ export class ReportListPage implements OnInit {
   }
 
   async ngOnInit() {
-    this.stateData = await this.profileService.getHomeConfig(this.listType)
+    this.stateData = await this.profileService.getHomeConfig(this.listType);
   }
 
   navigateTo(data: any) {
@@ -29,5 +29,4 @@ export class ReportListPage implements OnInit {
     this.router.navigate([data?.redirectionUrl], { queryParams: { type: data.listType, reportPage: data?.reportPage } }) :
     location.href = data.redirectionUrl
   }
-
 }
