@@ -5,12 +5,7 @@
     <ion-row class="ion-margin">
       <ion-col >
         <ion-text color="primary">
-           @if (profileInfo) {
-              <p class="profile-details">
-                {{ profileInfo }}
-                <i class="material-icons edit-icon" (click)="onEditProfile()">edit</i>
-              </p>
-            }
+           <app-profile-info></app-profile-info>
           <h1>{{stateData?.name}}</h1>
           <p>{{stateData?.description}}</p>
         </ion-text>

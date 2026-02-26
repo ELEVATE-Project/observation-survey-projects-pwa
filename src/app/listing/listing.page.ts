@@ -35,7 +35,6 @@ export class ListingPage implements OnInit {
   SamikshaApiService:SamikshaApiService;
   showLoading:boolean = true;
   reportPage:boolean = false;
-  profileInfo: any = ''; 
 
   constructor(private navCtrl: NavController, private router: Router,
     private profileService: ProfileService,
@@ -96,8 +95,6 @@ export class ListingPage implements OnInit {
         this.getListData();
       }
     });
-
-     this.profileInfo = this.profileService.getProfileInfo();
   }
 
   async getListData($event?:any) {
@@ -256,9 +253,5 @@ export class ListingPage implements OnInit {
     } else {
       return false;
     }
-  }
-
-  onEditProfile() {
-    this.router.navigate(['/managed-learn/profile']);
   }
 }
