@@ -95,5 +95,8 @@
   "PROJECTS_STARTED":"Projects Started",
   "PROJECT_OVERVIEW":"Project overview",
   "SELECT":"Select",
-  "DOWNLOAD":"Download"
+  "DOWNLOAD":"Download",
+  "LOCATION_UPDATE": "Location Update",
+  "LOCATION_UPDATE_SUCCESSFULLY": "Location updated successfully",
+  "REQUIRED": "Required"
 }

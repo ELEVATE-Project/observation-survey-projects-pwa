@@ -409,6 +409,52 @@ hasMissingFields(profileData: any, requiredFields: string[]): boolean {
   return requiredFields?.some(field => !profileData?.[field]);
 }
 
+async getProfile() {
+    const userId = localStorage.getItem('userId');
+    if (!userId) return null;
+
+    const fields = 'organisations,roles,locations,declarations,externalIds';
+    const profileUrl = urlConfig.profileListing.getUserProfileUrl;
+    const url = `${profileUrl}/${userId}?fields=${fields}`;
+
+    try {
+      const response = await firstValueFrom(
+        this.apiBaseService.get<any>(url)
+      );
+
+      const profileInfo = response?.result?.response;
+
+      return profileInfo;
+    } catch (error: any) {
+      console.error('Error fetching profile:', error);
+      this.toastService.presentToast(error?.error?.message, 'danger');
+      throw error;
+    }
+  }
+
+  getFormConfig(rootOrgId: string, subType: string) {
+    const url = urlConfig.formListing.configUrl;
+
+    const payload = {
+      request: {
+        type: "profileConfig_v2",
+        action: "get",
+        subType: subType,
+        rootOrgId: rootOrgId
+      }
+    };
+
+    return this.apiBaseService.post(url, payload).pipe(
+      catchError(err => {
+        this.toastService.presentToast(
+          err?.error?.message || 'FORM_LOAD_ERROR',
+          'danger'
+        );
+        return of(null);
+      })
+    );
+  }
+
 buildProfileInfo(
   profileData: any,
   excludeKeys: string[] = ['state', 'district']

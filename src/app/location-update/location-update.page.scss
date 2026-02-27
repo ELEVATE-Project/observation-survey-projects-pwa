@@ -1,0 +1,19 @@
+.container {
+    margin: 15px 40px;
+}
+
+.footer-buttons {
+    display: flex;
+    gap: 10px;
+
+    ion-button {
+        flex: 1;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+}

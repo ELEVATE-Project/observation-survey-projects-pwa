@@ -1,0 +1,33 @@
+@if(showHeader){
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/" (click)="goBack()"></ion-back-button>
+      </ion-buttons>
+        <ion-title>{{ "LOCATION_UPDATE" | translate}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+}
+
+<ion-content [fullscreen]="true">
+    <div class="ion-margin-top container">
+        @if(enableForm){
+        <dynamic-form [formJson]="formJson" #formLib (onChange)="onOptionChange($event)"
+            (ionFocus)="handleSelectFocus($event)"></dynamic-form>
+        }
+    </div>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <div class="footer-buttons container">
+            <ion-button (click)="goBack()" expand="block" fill="outline" shape="solid">
+                {{"BACK"|translate}}
+            </ion-button>
+            <ion-button (click)="updateProfile()" expand="block" fill="primary" shape="solid"
+                [disabled]="!(formLib?.myForm?.valid)">
+                {{"SAVE"|translate}}
+            </ion-button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

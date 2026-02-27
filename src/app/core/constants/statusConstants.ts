@@ -5,3 +5,15 @@ export const statusType = {
     started: "started",
     submitted: "submitted"
 }
+
+export const locationType = {
+    state: "state",
+    district: "district",
+    block: "block",
+    cluster: "cluster",
+    school: "school"
+}
+
+export const formFieldCode = {
+    persona: "persona"
+}
