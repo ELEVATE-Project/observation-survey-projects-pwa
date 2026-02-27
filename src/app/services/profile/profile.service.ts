@@ -454,4 +454,31 @@ async getProfile() {
       })
     );
   }
+
+buildProfileInfo(
+  profileData: any,
+  excludeKeys: string[] = ['state', 'district']
+): string {
+
+  if (!profileData) return '';
+
+  const values: string[] = [];
+
+  Object.entries(profileData).forEach(([key, value]: [string, any]) => {
+    if (
+      !excludeKeys.includes(key) &&
+      value?.name
+    ) {
+      values.push(value.name);
+    }
+  });
+
+  return values.join(', ');
+}
+
+getProfileInfo() {
+  const rawProfileData = this.getRawProfileFromStorage();
+  if(!rawProfileData) return of(null);
+  return this.buildProfileInfo(rawProfileData)
+}
 }
