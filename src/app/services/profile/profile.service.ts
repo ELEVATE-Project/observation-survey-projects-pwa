@@ -18,7 +18,7 @@ import { UtilService } from '../util/util.service';
   providedIn: 'root',
 })
 export class ProfileService {
-  profilePage = environment.profileRedirectPath || '';
+  profilePage = '/profile';
   profileListingUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['profileListing'].listingUrl;
   formListingUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['formListing'].listingUrl;
   entityConfigUrl = (environment.capabilities.includes('all') || environment.capabilities.includes('project') ?  urlConfig.subProject : urlConfig.subSurvey ) + urlConfig['profileListing'].entityConfigUrl;
@@ -116,7 +116,10 @@ export class ProfileService {
           .get(`${urlConfig.entityTypesByLocationAndRole}${stateId}?role=${normalizedRole}`)
           .pipe(
             map((apiResponse: any) => {
-
+              if(!apiResponse?.result){
+                this.presentAlert()
+                return null
+              }
               const requiredFields: string[] = apiResponse?.result || [];
 
               mandatoryFields[normalizedRole] = requiredFields;

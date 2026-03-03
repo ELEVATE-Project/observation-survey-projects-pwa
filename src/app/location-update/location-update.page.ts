@@ -96,7 +96,8 @@ export class LocationUpdatePage {
                     required: `${this.translateService.instant('REQUIRED')} ${field.templateOptions?.labelHtml?.values?.['$0']?.toLowerCase() || field.code
                         }`
                 },
-                validators: this.mapValidators(field.validations),
+                // validators: this.mapValidators(field.validations),
+                validators: { required : true },
                 options: []
             };
 

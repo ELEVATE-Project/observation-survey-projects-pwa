@@ -3,6 +3,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    padding: 25px 0px;
 }
 
 .card-block{
@@ -36,4 +37,8 @@
     color: #000000;
     font-size: 12px;
     margin-top: 12px;
+}
+
+.home-content{
+    --background: #fff8f5 !important;
 }
