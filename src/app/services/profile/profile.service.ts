@@ -197,14 +197,15 @@ export class ProfileService {
           text: 'PROFILE_UPDATE',
           cssClass: 'primary-button',
           handler: async() => {
-            const options = {
-              type:"redirect",
-              pathType:"profile"
-            };
-            let response = await this.utils.postMessageListener(options)
-            if(!response){
-              this.router.navigate([this.profilePage]);
-            }
+            this.router.navigate([this.profilePage]);
+            // const options = {
+            //   type:"redirect",
+            //   pathType:"profile"
+            // };
+            // let response = await this.utils.postMessageListener(options)
+            // if(!response){
+            //   this.router.navigate([this.profilePage]);
+            // }
           }
         }
       ]
