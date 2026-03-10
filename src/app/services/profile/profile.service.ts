@@ -443,7 +443,7 @@ async getProfile() {
       request: {
         type: "profileConfig_v2",
         action: "get",
-        subType: subType,
+        subType: subType ? subType : "default",
         rootOrgId: rootOrgId
       }
     };

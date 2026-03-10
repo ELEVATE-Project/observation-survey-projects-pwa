@@ -35,6 +35,7 @@ export class ListingPage implements OnInit {
   SamikshaApiService:SamikshaApiService;
   showLoading:boolean = true;
   reportPage:boolean = false;
+  profileInfo: any;
 
   constructor(private navCtrl: NavController, private router: Router,
     private profileService: ProfileService,
@@ -93,6 +94,7 @@ export class ListingPage implements OnInit {
       if (data) {
         this.entityData = data;
         this.getListData();
+        this.profileInfo = this.profileService.getProfileInfo();
       }
     });
   }

@@ -18,5 +18,13 @@ export const locationPayload = {
                 'orgLocation.id': parentId
             }
         }
+    }),
+    
+    getStateList: (userId: string | null) => ({
+        params: {},
+        request: {
+            filters: { type: "state" },
+            userId: userId
+        }
     })
 };

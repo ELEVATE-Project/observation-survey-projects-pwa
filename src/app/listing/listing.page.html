@@ -5,7 +5,7 @@
     <ion-row class="ion-margin">
       <ion-col size="12">
         <ion-text color="primary">
-            <app-profile-info></app-profile-info>
+            <app-profile-info [profileInfo]="profileInfo"></app-profile-info>
           <h1>{{stateData?.name}}</h1>
           <p>{{stateData?.description}}</p>
         </ion-text>

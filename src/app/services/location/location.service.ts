@@ -53,6 +53,20 @@ export class LocationService {
     updateProfile(data: any) {
         return this.apiService.patch(urlConfig.profileListing.updateProfileUrl, data);
     }
+
+    getStateList() {
+        const payload = locationPayload.getStateList(this.getUserId());
+        return this.apiService.post(urlConfig.location.locationSearchUrl, payload).pipe(
+            map((res: any) => {
+                const result = res?.result?.response || [];
+                return result.map((item: any) => ({
+                    ...item,
+                    label: item.name,
+                    value: item.id
+                }));
+            })
+        );
+    }
 }
 
 

@@ -22,10 +22,12 @@ export class LocationUpdatePage {
     showHeader: boolean = false;
     @ViewChild('formLib') formLib: MainFormComponent | undefined;
     formJson: any = [];
-    formData: any;
+    userType: any;
     userLocations: any[] = [];
     enableForm: boolean = false;
     userId = localStorage.getItem('userId') || '';
+    subRoles: any
+    profileData: any;
     constructor(
         private loader: LoaderService,
         private toastService: ToastService,
@@ -48,8 +50,10 @@ export class LocationUpdatePage {
         this.loader.showLoading("LOADER_MSG");
         from(this.profileService.getProfile()).pipe(
             switchMap((profileDataRes: any) => {
+                this.profileData = profileDataRes;
                 const rootOrgId = profileDataRes?.rootOrgId || '';
                 const subType = this.getStateCode(profileDataRes?.userLocations || []);
+                this.subRoles = profileDataRes?.profileUserTypes || [];
                 return this.profileService.getFormConfig(rootOrgId, subType).pipe(
                     map((formConfigRes: any) => ([formConfigRes, profileDataRes]))
                 );
@@ -75,7 +79,7 @@ export class LocationUpdatePage {
         const matchedPersona = (personaChildren[userType] || [])
             .filter((item: any) => allowedCodes.includes(item.code));
 
-        this.formData = userType;
+        this.userType = userType;
         this.userLocations = profileDataRes?.userLocations || [];
 
         return matchedPersona;
@@ -84,6 +88,7 @@ export class LocationUpdatePage {
     // Transforms API fields into the dynamic form's expected format with pre-filled values
     transformFields(fields: any[] = [], userLocations: any[] = []) {
         return fields.map(field => {
+            const isSubPersona = field.code === locationType.subPersona;
             const location = userLocations.find((loc: any) =>
                 loc.type === field.code && (field.code !== locationType.school || loc.parentId === '')
             );
@@ -91,14 +96,17 @@ export class LocationUpdatePage {
                 name: field.code,
                 label: field.templateOptions?.labelHtml?.values?.['$0'] || '',
                 value: '',
-                type: field.type,
+                type: isSubPersona ? 'chip' : field.type,
                 errorMessage: {
                     required: `${this.translateService.instant('REQUIRED')} ${field.templateOptions?.labelHtml?.values?.['$0']?.toLowerCase() || field.code
                         }`
                 },
                 // validators: this.mapValidators(field.validations),
                 validators: { required : true },
-                options: []
+                options: isSubPersona ? field.templateOptions.options : [],
+                multiple: field.templateOptions?.multiple || false,
+                code: field.code,
+                placeHolder: field.templateOptions?.placeHolder || ''
             };
 
             if (field.context) {
@@ -110,9 +118,15 @@ export class LocationUpdatePage {
                 transformed.value = locationOption.value;
                 transformed.options = [locationOption];
 
-                if (field.code === locationType.state || field.code === locationType.district) {
-                    transformed.disabled = true;
-                }
+                // if (field.code === locationType.state || field.code === locationType.district) {
+                //     transformed.disabled = true;
+                // }
+            }
+
+            if (isSubPersona) {
+                transformed.value = field.templateOptions.options.filter((option: any) => {
+                    return this.subRoles.some((role: any) => role.subType === option.value)
+                })
             }
 
             return transformed;
@@ -143,6 +157,40 @@ export class LocationUpdatePage {
         const { event: selectedEvent, control } = event;
         const selectedOption = selectedEvent?.value;
         this.resetDependentFields(control?.name);
+        if (control?.code === locationType.state) {
+            this.enableForm = false;
+            const rootOrgId = this.profileData?.rootOrgId || '';
+            const subType = selectedOption?.code || '';
+            if (rootOrgId && subType) {
+                this.loader.showLoading('LOADER_MSG');
+                this.profileService.getFormConfig(rootOrgId, subType).pipe(
+                    finalize(async () => await this.loader.dismissLoading())
+                ).subscribe((formConfigRes: any) => {
+                    const matchedPersona = this.getMatchedPersonaConfig(formConfigRes, this.profileData);
+                    this.userLocations = [{
+                        type: locationType.state,
+                        id: selectedOption.id || selectedOption.value,
+                        name: selectedOption.label,
+                        code: selectedOption.code || subType
+                    }];
+                    this.subRoles = [];
+                    this.formJson = this.transformFields(matchedPersona, []);
+                    const stateField = this.formJson.find((f: any) => f.code === locationType.state);
+                    if (stateField) {
+                        stateField.options = [{ label: selectedOption.label, value: selectedOption.value }];
+                        stateField.value = selectedOption.value;
+                    }
+                    setTimeout(() => {
+                        this.formLib?.myForm.get(locationType.state)?.setValue(selectedOption.value);
+                    }, 0);
+                    this.loadDependentOptions();
+                }, (err: any) => {
+                    this.toastService.presentToast(err?.error?.message, 'danger');
+                });
+            }
+            return;
+        }
+
         if (selectedOption?.id) {
             const childField = this.formJson.find((f: any) => f.dependsOn === control?.name);
             if (childField) {
@@ -171,6 +219,16 @@ export class LocationUpdatePage {
     // Loads options for all dependent fields that have a pre-selected parent value
     loadDependentOptions() {
         this.formJson.forEach((field: any) => {
+            if (field.code === locationType.state) {
+                this.locationService.getStateList().subscribe({
+                    next: (res: any) => {
+                        field.options = res
+                    },
+                    error: (err: any) => {
+                        this.toastService.presentToast(err?.error?.message, 'danger');
+                    }
+                })
+            }
             if (field.dependsOn && !field.disabled) {
                 const parentId = this.locationService.getParentId(this.userLocations, field.dependsOn);
                 if (parentId) {
@@ -210,6 +268,7 @@ export class LocationUpdatePage {
             for (const key of Object.keys(formValues)) {
                 const field = this.formJson.find((f: any) => f.name === key);
                 const val = formValues[key];
+                if (key === locationType.subPersona) continue;
                 if (field && typeof val === 'string' && field.options?.length) {
                     resolvedValues[key] = field.options.find((opt: any) => opt.value === val) || val;
                 } else {
@@ -237,23 +296,30 @@ export class LocationUpdatePage {
                     };
                 }
             }
-            const stateAndDistrict = this.userLocations.filter(
-                (loc: any) => loc.type === locationType.state || loc.type === locationType.district
-            );
+            const subRoles = formValues[locationType.subPersona].map((data: any) => {
+                return { type: this.userType, subType: data.value }
+            });
+            // const stateAndDistrict = this.userLocations.filter(
+            //     (loc: any) => loc.type === locationType.state || loc.type === locationType.district
+            // );
             const payload = {
                 params: {},
                 request: {
                     userId: this.userId,
-                    profileLocation: [...stateAndDistrict, ...Object.values(resolvedValues)]
+                    // profileLocation: [...stateAndDistrict, ...Object.values(resolvedValues)]
+                    profileLocation: [...Object.values(resolvedValues)],
+                    profileUserTypes: subRoles,
+                    profileCompleted: this.profileData?.profileCompleted
                 }
             }
+            const updatedProfileData = { ...resolvedValues, [locationType.subPersona] : subRoles };
             this.loader.showLoading('LOADER_MSG');
             this.locationService.updateProfile(payload).pipe(
                 finalize(async () => await this.loader.dismissLoading())
             ).subscribe(
                 (res: any) => {
                     this.encryptionService.encryptAndLog(res);
-                    this.updateLocalProfileData(resolvedValues);
+                    this.updateLocalProfileData(updatedProfileData);
                     this.toastService.presentToast('LOCATION_UPDATE_SUCCESSFULLY', 'success');
                 },
                 (err: any) => {
@@ -268,13 +334,15 @@ export class LocationUpdatePage {
 
     // Updates the localStorage profileData with the latest block, cluster, and school values
     updateLocalProfileData(resolvedValues: any) {
-        const localProfileData = localStorage.getItem('profileData');
-        const profileData = localProfileData ? JSON.parse(localProfileData) : {};
-        const updatableKeys = [locationType.block, locationType.cluster, locationType.school];
-
+        const updatableKeys = Object.values(locationType) || [];
+        const updatedData: any = {};
         for (const key of updatableKeys) {
+            if (key === locationType.subPersona) {
+                updatedData["role"] = resolvedValues[key].map((role: any) => role.subType).join(',');
+                continue;
+            }
             if (resolvedValues[key]) {
-                profileData[key] = {
+                updatedData[key] = {
                     id: resolvedValues[key].id || '',
                     name: resolvedValues[key].name || resolvedValues[key].orgName || '',
                     code: resolvedValues[key].code || resolvedValues[key].externalId || ''
@@ -282,7 +350,7 @@ export class LocationUpdatePage {
             }
         }
 
-        localStorage.setItem('profileData', JSON.stringify(profileData));
+        localStorage.setItem('profileData', JSON.stringify(updatedData));
     }
 
     goBack() {

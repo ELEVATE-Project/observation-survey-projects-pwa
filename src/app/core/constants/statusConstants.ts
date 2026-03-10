@@ -11,7 +11,8 @@ export const locationType = {
     district: "district",
     block: "block",
     cluster: "cluster",
-    school: "school"
+    school: "school",
+    subPersona: "subPersona"
 }
 
 export const formFieldCode = {
