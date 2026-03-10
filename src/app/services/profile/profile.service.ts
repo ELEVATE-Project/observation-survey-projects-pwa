@@ -459,25 +459,14 @@ async getProfile() {
     );
   }
 
-buildProfileInfo(
-  profileData: any,
-  excludeKeys: string[] = ['state', 'district']
-): string {
-
-  if (!profileData) return '';
-
-  const values: string[] = [];
-
-  Object.entries(profileData).forEach(([key, value]: [string, any]) => {
-    if (
-      !excludeKeys.includes(key) &&
-      value?.name
-    ) {
-      values.push(value.name);
-    }
-  });
-
-  return values.join(', ');
+buildProfileInfo(profileData: any): string {
+  return (
+    profileData?.school?.name ||
+    profileData?.cluster?.name ||
+    profileData?.block?.name ||
+    profileData?.district?.name ||
+    profileData?.state?.name
+  );
 }
 
 getProfileInfo() {
