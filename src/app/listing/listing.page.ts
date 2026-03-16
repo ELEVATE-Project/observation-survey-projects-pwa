@@ -58,7 +58,9 @@ export class ListingPage implements OnInit {
     this.page = 1;
     this.solutionList = { data: [], count: 0 }
     this.stateData = await this.profileService.getHomeConfig(this.listType,this.reportPage)
-    this.getProfileDetails();
+    setTimeout(() => {
+      this.getProfileDetails();
+    }, 2000);
     this.showLoading = true;
   }
 
@@ -91,6 +93,7 @@ export class ListingPage implements OnInit {
   getProfileDetails() {
     this.profileService.getProfileAndEntityConfigData().subscribe(async (mappedIds) => {
       let data = await mappedIds
+      console.log("DATA: IN LISTING PAGE", data)
       if (data) {
         this.entityData = data;
         this.getListData();
