@@ -58,7 +58,7 @@ export class LocationUpdatePage {
                     map((formConfigRes: any) => ([formConfigRes, profileDataRes]))
                 );
             }),
-            finalize(async () => await this.loader.dismissLoading())
+            finalize(() => this.loader.dismissLoading())
         ).subscribe(([formConfigRes, profileDataRes]: any) => {
             const matchedPersona = this.getMatchedPersonaConfig(formConfigRes, profileDataRes);
             this.formJson = this.transformFields(matchedPersona, this.userLocations);
@@ -164,7 +164,7 @@ export class LocationUpdatePage {
             if (rootOrgId && subType) {
                 this.loader.showLoading('LOADER_MSG');
                 this.profileService.getFormConfig(rootOrgId, subType).pipe(
-                    finalize(async () => await this.loader.dismissLoading())
+                    finalize(() => this.loader.dismissLoading())
                 ).subscribe((formConfigRes: any) => {
                     const matchedPersona = this.getMatchedPersonaConfig(formConfigRes, this.profileData);
                     this.userLocations = [{
@@ -196,7 +196,7 @@ export class LocationUpdatePage {
             if (childField) {
                 this.loader.showLoading('LOADER_MSG');
                 this.fetchOptionsForField(selectedOption.id, childField).pipe(
-                    finalize(async () => await this.loader.dismissLoading())
+                    finalize(() => this.loader.dismissLoading())
                 ).subscribe((options: any[]) => {
                     childField.options = options;
                 });
@@ -315,7 +315,7 @@ export class LocationUpdatePage {
             const updatedProfileData = { ...resolvedValues, [locationType.subPersona] : subRoles };
             this.loader.showLoading('LOADER_MSG');
             this.locationService.updateProfile(payload).pipe(
-                finalize(async () => await this.loader.dismissLoading())
+                finalize(() => this.loader.dismissLoading())
             ).subscribe(
                 (res: any) => {
                     this.encryptionService.encryptAndLog(res);
