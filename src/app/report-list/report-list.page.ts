@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { UrlConfig } from '../interfaces/main.interface';
@@ -9,7 +9,7 @@ import { ProfileService } from '../services/profile/profile.service';
   templateUrl: './report-list.page.html',
   styleUrls: ['./report-list.page.scss'],
 })
-export class ReportListPage implements OnInit {
+export class ReportListPage {
   stateData: any;
   listType!: keyof UrlConfig;
   profileInfo: any;
@@ -21,14 +21,24 @@ export class ReportListPage implements OnInit {
     })
   }
 
-  async ngOnInit() {
-    this.stateData = await this.profileService.getHomeConfig(this.listType);
-    this.profileInfo = this.profileService.getProfileInfo();
+  ionViewWillEnter(){
+    this.getProfileDetails();
   }
 
   navigateTo(data: any) {
     !data.customNavigation ?
     this.router.navigate([data?.redirectionUrl], { queryParams: { type: data.listType, reportPage: data?.reportPage } }) :
     location.href = data.redirectionUrl
+  }
+
+
+  getProfileDetails() {
+    this.profileService.getProfileAndEntityConfigData().subscribe(async (mappedIds) => {
+      let data = await mappedIds;
+      if (data) {
+        this.stateData = await this.profileService.getHomeConfig(this.listType);
+        this.profileInfo = this.profileService.getProfileInfo();
+      }
+    });
   }
 }
