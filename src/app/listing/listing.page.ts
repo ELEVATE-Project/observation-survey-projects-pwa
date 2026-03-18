@@ -58,9 +58,7 @@ export class ListingPage implements OnInit {
     this.page = 1;
     this.solutionList = { data: [], count: 0 }
     this.stateData = await this.profileService.getHomeConfig(this.listType,this.reportPage)
-    setTimeout(() => {
-      this.getProfileDetails();
-    }, 2000);
+    this.getProfileDetails();
     this.showLoading = true;
   }
 
