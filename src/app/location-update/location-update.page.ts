@@ -302,6 +302,8 @@ export class LocationUpdatePage {
             // const stateAndDistrict = this.userLocations.filter(
             //     (loc: any) => loc.type === locationType.state || loc.type === locationType.district
             // );
+            const { firstName, gender, dob, profileCompleted } = this.profileData ?? {};
+            const profileCompletedPercentage = (firstName && gender && dob) ? 100 : (firstName || gender || dob) ? 60 : profileCompleted;
             const payload = {
                 params: {},
                 request: {
@@ -309,7 +311,7 @@ export class LocationUpdatePage {
                     // profileLocation: [...stateAndDistrict, ...Object.values(resolvedValues)]
                     profileLocation: [...Object.values(resolvedValues)],
                     profileUserTypes: subRoles,
-                    profileCompleted: this.profileData?.profileCompleted
+                    profileCompleted: profileCompletedPercentage
                 }
             }
             const updatedProfileData = { ...resolvedValues, [locationType.subPersona] : subRoles };
