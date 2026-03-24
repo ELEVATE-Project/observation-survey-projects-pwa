@@ -335,7 +335,7 @@ export class LocationUpdatePage {
     }
 
     // Updates the localStorage profileData with the latest block, cluster, and school values
-    updateLocalProfileData(resolvedValues: any) {
+    async updateLocalProfileData(resolvedValues: any) {
         const updatableKeys = Object.values(locationType) || [];
         const updatedData: any = {};
         for (const key of updatableKeys) {
@@ -353,6 +353,11 @@ export class LocationUpdatePage {
         }
 
         localStorage.setItem('profileData', JSON.stringify(updatedData));
+        const options = { type:"refreshData" };
+        let response = await this.utilService.postMessageListener(options)
+        if(!response){
+            console.log("No refresh needed")
+        }
     }
 
     goBack() {
