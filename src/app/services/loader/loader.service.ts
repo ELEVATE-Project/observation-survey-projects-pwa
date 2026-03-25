@@ -23,11 +23,14 @@ export class LoaderService {
   }
 
   async dismissLoading() {
+    if (this.loadingCount <= 0) {
+      this.loadingCount = 0;
+      return;
+    }
+
     this.loadingCount--;
 
     if (this.loadingCount > 0) return;
-
-    this.loadingCount = 0;
 
     try {
       await this.loading?.dismiss();
