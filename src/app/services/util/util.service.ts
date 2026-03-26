@@ -70,7 +70,9 @@ export class UtilService {
 
   isWebView(): boolean {
     const userAgent = window.navigator.userAgent || '';
-    // Check if it's a Flutter WebView based on userAgent
-    return /flutter/i.test(userAgent) || /wv/i.test(userAgent); // webview or flutter identifier
+    const isAndroidWebview = /flutter/i.test(userAgent) || /wv/i.test(userAgent);
+    const isIOSWebView = /iphone|ipad|ipod/i.test(userAgent) && /applewebkit/i.test(userAgent) && !/safari\//i.test(userAgent);
+
+    return isAndroidWebview || isIOSWebView
   }
 }

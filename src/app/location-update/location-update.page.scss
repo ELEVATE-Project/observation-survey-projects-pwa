@@ -17,3 +17,27 @@
         margin-right: 20%;
     }
 }
+
+.back-button{
+    font-size: 25px;
+    margin-left: 12px;
+    cursor: pointer;
+}
+
+:host ::ng-deep dynamic-form {
+    .mdc-evolution-chip {
+        height: auto !important;
+    }
+
+    .mdc-evolution-chip__action--primary {
+        height: auto !important;
+        min-height: 32px !important;
+    }
+
+    .mdc-evolution-chip__text-label {
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: unset !important;
+        line-height: 1.4 !important;
+    }
+}
