@@ -4,7 +4,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { LIBRARY_CONFIG, SlAuthLibModule } from 'authentication_frontend_library';
 import { ApiInterceptor } from './services/interceptor/api.interceptor';
 import { ServiceWorkerModule, SwUpdate } from '@angular/service-worker';
@@ -35,7 +35,7 @@ export function translateHttpLoaderFactory(httpClient: HttpClient) {
 
 @NgModule({
   declarations: [AppComponent,CertificateVerificationPopoverComponent,ShareLinkPopupComponent,ShortUrlPipe,RedirectionHandlerComponent,PageNotFoundComponent,PrivacyPolicyPopupComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,FormsModule,
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FormsModule,
     SlAuthLibModule, BrowserAnimationsModule,SharedModule,
     TranslateModule.forRoot({
       loader: {
@@ -61,7 +61,7 @@ export function translateHttpLoaderFactory(httpClient: HttpClient) {
       multi: true
     },
     SwUpdate,
-    ShortUrlPipe
+    provideHttpClient(withInterceptorsFromDi()),ShortUrlPipe
   ],
   bootstrap: [AppComponent],
 })

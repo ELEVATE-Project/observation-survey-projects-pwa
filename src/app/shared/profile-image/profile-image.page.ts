@@ -3,6 +3,7 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 import { UtilService } from 'src/app/services/util/util.service';
 
 @Component({
+  standalone: false,
   selector: 'app-profile-image',
   templateUrl: './profile-image.page.html',
   styleUrls: ['./profile-image.page.scss'],

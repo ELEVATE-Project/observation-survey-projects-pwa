@@ -11,6 +11,7 @@ import { ProfileService } from '../services/profile/profile.service';
 import { PopUpComponent } from '../shared/pop-up/pop-up.component';
 
 @Component({
+  standalone: false,
   selector: 'app-program-details',
   templateUrl: './program-details.page.html',
   styleUrls: ['./program-details.page.scss'],

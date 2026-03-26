@@ -187,7 +187,7 @@ export class ProfileService {
             }
           }
         },
-        error: (error) => {
+        error: (error: any) => {
           this.toastService.presentToast(error?.error?.message || "API Error", "danger");
         }
       });

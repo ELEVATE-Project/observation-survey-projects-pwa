@@ -4,6 +4,7 @@ import { PopoverComponent } from '../popover/popover.component';
 import { actions } from 'src/app/config/actionContants';
 
 @Component({
+  standalone: false,
   selector: 'app-report-header',
   templateUrl: './report-header.component.html',
   styleUrls: ['./report-header.component.scss'],

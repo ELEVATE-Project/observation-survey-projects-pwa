@@ -1,8 +1,8 @@
-FROM node:18 AS build
+FROM node:20 AS build
 
 WORKDIR /app
 
-RUN npm install -g @angular/cli@17.0.2
+RUN npm install -g @angular/cli@19
 
 RUN npm install -g @ionic/cli@7.0.0
 
@@ -16,7 +16,7 @@ COPY . .
 
 RUN ionic build --prod
 
-FROM node:18 AS final
+FROM node:20 AS final
 
 WORKDIR /usr/src/app
 

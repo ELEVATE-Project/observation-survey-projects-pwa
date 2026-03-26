@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 
 @Component({
+  standalone: false,
   selector: 'app-certificate-listing',
   templateUrl: './certificate-listing.page.html',
   styleUrls: ['./certificate-listing.page.scss'],

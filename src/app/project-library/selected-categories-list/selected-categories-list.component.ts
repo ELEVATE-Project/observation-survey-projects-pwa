@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectsApiService } from 'src/app/services/projects-api/projects-api.service';
 
 @Component({
+  standalone: false,
   selector: 'app-selected-categories-list',
   templateUrl: './selected-categories-list.component.html',
   styleUrls: ['./selected-categories-list.component.scss'],
