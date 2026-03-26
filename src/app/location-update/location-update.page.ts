@@ -46,8 +46,8 @@ export class LocationUpdatePage {
     }
 
     // Fetches user profile and form config, then builds the dynamic form
-    loadFormAndData() {
-        this.loader.showLoading("LOADER_MSG");
+    async loadFormAndData() {
+        await this.loader.showLoading("LOADER_MSG");
         from(this.profileService.getProfile()).pipe(
             switchMap((profileDataRes: any) => {
                 this.profileData = profileDataRes;
@@ -153,7 +153,7 @@ export class LocationUpdatePage {
     }
 
     // Handles dropdown selection change, resets dependents and fetches child options
-    onOptionChange(event: any) {
+    async onOptionChange(event: any) {
         const { event: selectedEvent, control } = event;
         const selectedOption = selectedEvent?.value;
         this.resetDependentFields(control?.name);
@@ -162,7 +162,7 @@ export class LocationUpdatePage {
             const rootOrgId = this.profileData?.rootOrgId || '';
             const subType = selectedOption?.code || '';
             if (rootOrgId && subType) {
-                this.loader.showLoading('LOADER_MSG');
+                await this.loader.showLoading('LOADER_MSG');
                 this.profileService.getFormConfig(rootOrgId, subType).pipe(
                     finalize(() => this.loader.dismissLoading())
                 ).subscribe((formConfigRes: any) => {
@@ -194,7 +194,7 @@ export class LocationUpdatePage {
         if (selectedOption?.id) {
             const childField = this.formJson.find((f: any) => f.dependsOn === control?.name);
             if (childField) {
-                this.loader.showLoading('LOADER_MSG');
+                await this.loader.showLoading('LOADER_MSG');
                 this.fetchOptionsForField(selectedOption.id, childField).pipe(
                     finalize(() => this.loader.dismissLoading())
                 ).subscribe((options: any[]) => {
@@ -261,7 +261,7 @@ export class LocationUpdatePage {
     }
 
     // Validates the form, builds the payload, and submits the profile update API call
-    updateProfile() {
+    async updateProfile() {
         if (this.formLib?.myForm.valid) {
             const formValues = this.formLib?.myForm.value;
             const resolvedValues: any = {};
@@ -315,7 +315,7 @@ export class LocationUpdatePage {
                 }
             }
             const updatedProfileData = { ...resolvedValues, [locationType.subPersona] : subRoles };
-            this.loader.showLoading('LOADER_MSG');
+            await this.loader.showLoading('LOADER_MSG');
             this.locationService.updateProfile(payload).pipe(
                 finalize(() => this.loader.dismissLoading())
             ).subscribe(

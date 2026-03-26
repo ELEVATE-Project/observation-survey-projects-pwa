@@ -8,34 +8,34 @@ import { firstValueFrom } from 'rxjs';
 })
 export class LoaderService {
   private loading: HTMLIonLoadingElement | null = null;
+  private loadingCount = 0;
   constructor(private loadingCtrl : LoadingController,private translate:TranslateService) { }
 
   async showLoading(message: string) {
-    if (this.loading) return;
+    this.loadingCount++;
 
-    try {
-      const translatedMsg = await firstValueFrom(
-        this.translate.get(message)
-      );
+    if (this.loadingCount > 1) return;
 
-      this.loading = await this.loadingCtrl.create({
-        message: translatedMsg
-      });
+    const translatedMsg = await firstValueFrom(this.translate.get(message));
 
-      await this.loading.present();
-    } catch (e) {
-      console.log('Error showing loader', e);
-    }
+    this.loading = await this.loadingCtrl.create({ message: translatedMsg });
+    await this.loading.present();
   }
 
-   async dismissLoading() {
-    if (this.loading) {
-      try {
-        await this.loading.dismiss();
-      } catch (e) {
-        console.log('Loader already dismissed');
-      }
-      this.loading = null;
+  async dismissLoading() {
+    if (this.loadingCount <= 0) {
+      this.loadingCount = 0;
+      return;
     }
+
+    this.loadingCount--;
+
+    if (this.loadingCount > 0) return;
+
+    try {
+      await this.loading?.dismiss();
+    } catch {}
+
+    this.loading = null;
   }
 }
