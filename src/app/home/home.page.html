@@ -21,9 +21,9 @@
 }
 
 <ion-content [fullscreen]="true">
-  <ng-container *ngFor="let listData of solutionList">
+  @for (listData of solutionList; track listData) {
     <ng-container *ngTemplateOutlet="typeTemplateMapping[listData?.type]"></ng-container>
-  </ng-container>
+  }
 
   <ng-template #bannerTemplate>
     <ion-list lines="none">

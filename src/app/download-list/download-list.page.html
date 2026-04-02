@@ -12,13 +12,16 @@
     </ion-row>
   </ion-list>
   <ion-grid>
-    <ion-row *ngIf="projectsList.length > 0" class="ion-margin download-info">
+    @if (projectsList.length > 0) {
+      <ion-row class="ion-margin download-info">
       <ion-icon color="primary" size="large" name="information-circle-outline"></ion-icon>
       <span class="download-text-span">
         <p class="download-info-text">{{"DOWNLOADS_LOGOUT_INFO_MSG"|translate}}</p>
       </span>
     </ion-row>
-    <ion-row  *ngIf="projectsList.length > 0; else noData" >
+    }
+    @if (projectsList.length > 0) {
+      <ion-row  >
       @for (item of projectsList; track $index) {
         <ion-col size="12" size-md="6" class="listing-card">
           <ion-card class="card">
@@ -44,10 +47,10 @@
         </ion-col>
       }
     </ion-row>
-    <ng-template #noData>
+    } @else {
       <div class="no-data-container ion-margin-top" >
         <img src="/ml/assets/images/no_data.jpg" alt="No data">
       </div>
-    </ng-template>
+    }
   </ion-grid>
 </ion-content>

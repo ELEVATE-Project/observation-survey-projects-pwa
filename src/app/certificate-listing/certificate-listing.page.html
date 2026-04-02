@@ -12,7 +12,8 @@
     </ion-row>
   </ion-list>
   <ion-grid>
-    <ion-row *ngIf="certificates?.length > 0; else noData">
+    @if (certificates?.length > 0) {
+      <ion-row>
       @for(certificate of certificates;track certificate){
         <ion-col size="12" size-md="6" class="certificate-list">
           <ion-card class="card-container">
@@ -34,10 +35,10 @@
         </ion-col>
       }
     </ion-row>
-    <ng-template #noData>
+    } @else {
       <div class="no-data-container ion-margin-top">
         <img src="/ml/assets/images/no_data.jpg" alt="No data">
       </div>
-    </ng-template>
+    }
   </ion-grid>
 </ion-content>
