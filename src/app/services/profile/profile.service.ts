@@ -74,7 +74,6 @@ export class ProfileService {
     switchMap(([entityConfigRes, profileFormDataRes]: any) => {
 
       const rawProfileData = this.getRawProfileFromStorage();
-      console.log("rawProfileData", rawProfileData);
   if (!rawProfileData) {
     this.presentAlert();
     return of(null);
@@ -93,7 +92,6 @@ export class ProfileService {
         const mandatoryFields = JSON.parse(
           localStorage.getItem(stateId) || '{}'
         );
-        console.log("mandatoryFields", mandatoryFields);
 
         const validateProfile = (requiredFields: string[]) => {
 
@@ -101,12 +99,7 @@ export class ProfileService {
             this.presentAlert();
             return null;
           }
-
-          const result = this.normalizeProfileData({
-              ...rawProfileData,
-              role: normalizedRole
-            })
-          console.log("Normalized Profile Data:", result);
+          const result = this.normalizeProfileData(rawProfileData)
           return result;
         };
 
@@ -118,7 +111,6 @@ export class ProfileService {
           .get(`${urlConfig.entityTypesByLocationAndRole}${stateId}?role=${normalizedRole}`)
           .pipe(
             map((apiResponse: any) => {
-              console.log("API Response for mandatory fields(entityTypesByLocationAndRole):", apiResponse);
               if(!apiResponse?.result){
                 this.presentAlert()
                 return null

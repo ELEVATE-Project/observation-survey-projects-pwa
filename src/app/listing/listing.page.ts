@@ -91,7 +91,6 @@ export class ListingPage implements OnInit {
   getProfileDetails() {
     this.profileService.getProfileAndEntityConfigData().subscribe(async (mappedIds) => {
       let data = await mappedIds
-      console.log("DATA: IN LISTING PAGE", data)
       if (data) {
         this.entityData = data;
         this.getListData();
