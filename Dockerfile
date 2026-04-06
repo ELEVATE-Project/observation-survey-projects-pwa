@@ -2,9 +2,9 @@ FROM node:20 AS build
 
 WORKDIR /app
 
-RUN npm install -g @angular/cli@19
+RUN npm install -g @angular/cli@21.2.5
 
-RUN npm install -g @ionic/cli@7.0.0
+RUN npm install -g @ionic/cli@7.2.1
 
 RUN rm -rf node_modules
 
@@ -20,9 +20,9 @@ FROM node:20 AS final
 
 WORKDIR /usr/src/app
 
-COPY --from=build /app/www ./www/ml
+COPY --from=build /app/www/browser ./www/ml
 
-COPY --from=build /app/www/index.html ./www/index.html
+COPY --from=build /app/www/browser/index.html ./www/index.html
 
 COPY src/assets/env/env.js ./www/ml/assets/env/env.js
 

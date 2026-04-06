@@ -16,97 +16,128 @@
     <hr style="margin: 10px 0;background-color: var(--ion-color-primary);height: 1px;">
 
     <ion-list>
-      <ion-card *ngFor="let question of reportDetails; let qi = index" class="question-card">
-        <ion-card-header style="background-color: whitesmoke;">
-          <ion-card-title>{{question.questionNumber}}. {{ question.question }}</ion-card-title>
-        </ion-card-header>
-
-        <ion-card-content>
-          <ng-container [ngSwitch]="question.responseType">
-            <ion-item *ngSwitchCase="'text'">
-              <ion-label style="color: var(--ion-color-primary);">{{ question.answers[0]}}</ion-label>
-            </ion-item>
-            <ion-item *ngSwitchCase="'date'">
-              <ion-label style="color: var(--ion-color-primary);">{{ question.answers[0] | date}}</ion-label>
-            </ion-item>
-            <ion-item *ngSwitchCase="'radio'">
-              <ion-label style="color: var(--ion-color-primary);">{{ question.answers[0]}}</ion-label>
-            </ion-item>
-            <ion-item *ngSwitchCase="'slider'">
-              <ion-label style="color: var(--ion-color-primary);">{{ question.answers[0]}}</ion-label>
-            </ion-item>
-            <ion-item *ngSwitchCase="'multiselect'">
-              <ion-chip style="background-color: var(--ion-color-primary);color: white;"
-                *ngFor="let answer of question.answers">
-                <ion-label>{{ answer }}</ion-label>
-              </ion-chip>
-            </ion-item>
-            <ion-item *ngSwitchCase="'number'">
-              <ion-label style="color: var(--ion-color-primary);">{{ question.answers[0] }}</ion-label>
-            </ion-item>
-            <ion-item *ngSwitchCase="'matrix'" lines="none"
-              style="display: flex; flex-wrap: wrap; flex-grow: 1; width: 100%;">
-              <ion-grid>
-                <ion-row *ngFor="let key of objectKeys(question.instanceQuestions[0]); let k = index"
-                  style="margin-bottom: 20px;">
-                  <div style="width: 100%;" *ngIf="key !== 'instanceIdentifier'">
-                    <ion-col size="12">
-                      <h2>{{question.instanceQuestions[0][key].questionNumber}}. {{ question.instanceQuestions[0][key].question }}</h2>
-                    </ion-col>
-
-                    <ion-row style="display: flex; flex-wrap: wrap;">
-                      <ion-col size="12" size-sm="12" size-md="12" size-lg="6" size-xl="4"
-                        *ngFor="let instance of question.instanceQuestions" style="display: flex; flex: 1;">
-                        <ion-card style="width: 100%; height: auto;">
-                          <ion-item style="margin-top: 10px; color: var(--ion-color-primary);">
-                            <ion-label>
-                              <strong style="white-space: normal;">{{ instance.instanceIdentifier }}</strong>
-                            </ion-label>
-                          </ion-item>
-                          <ion-list lines="none">
-                            <ion-item *ngFor="let answer of instance[key].answers" lines="none">
-                              <ion-icon name="arrow-forward-outline" slot="start" style="margin-right: 8px;" class="custom-icon"></ion-icon>
-                              <h6 style="width: 100%; margin: 0;word-wrap: break-word;">{{ checkAnswerValue(answer) }}</h6>
-                            </ion-item>
-                          </ion-list>
-                        </ion-card>
-                      </ion-col>
-                    </ion-row>
+      @for (question of reportDetails; track question; let qi = $index) {
+        <ion-card class="question-card">
+          <ion-card-header style="background-color: whitesmoke;">
+            <ion-card-title>{{question.questionNumber}}. {{ question.question }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            @switch (question.responseType) {
+              @case ('text') {
+                <ion-item>
+                  <ion-label style="color: var(--ion-color-primary);">{{ question.answers[0]}}</ion-label>
+                </ion-item>
+              }
+              @case ('date') {
+                <ion-item>
+                  <ion-label style="color: var(--ion-color-primary);">{{ question.answers[0] | date}}</ion-label>
+                </ion-item>
+              }
+              @case ('radio') {
+                <ion-item>
+                  <ion-label style="color: var(--ion-color-primary);">{{ question.answers[0]}}</ion-label>
+                </ion-item>
+              }
+              @case ('slider') {
+                <ion-item>
+                  <ion-label style="color: var(--ion-color-primary);">{{ question.answers[0]}}</ion-label>
+                </ion-item>
+              }
+              @case ('multiselect') {
+                <ion-item>
+                  @for (answer of question.answers; track answer) {
+                    <ion-chip style="background-color: var(--ion-color-primary);color: white;"
+                      >
+                      <ion-label>{{ answer }}</ion-label>
+                    </ion-chip>
+                  }
+                </ion-item>
+              }
+              @case ('number') {
+                <ion-item>
+                  <ion-label style="color: var(--ion-color-primary);">{{ question.answers[0] }}</ion-label>
+                </ion-item>
+              }
+              @case ('matrix') {
+                <ion-item lines="none"
+                  style="display: flex; flex-wrap: wrap; flex-grow: 1; width: 100%;">
+                  <ion-grid>
+                    @for (key of objectKeys(question.instanceQuestions[0]); track key; let k = $index) {
+                      <ion-row
+                        style="margin-bottom: 20px;">
+                        @if (key !== 'instanceIdentifier') {
+                          <div style="width: 100%;">
+                            <ion-col size="12">
+                              <h2>{{question.instanceQuestions[0][key].questionNumber}}. {{ question.instanceQuestions[0][key].question }}</h2>
+                            </ion-col>
+                            <ion-row style="display: flex; flex-wrap: wrap;">
+                              @for (instance of question.instanceQuestions; track instance) {
+                                <ion-col size="12" size-sm="12" size-md="12" size-lg="6" size-xl="4"
+                                  style="display: flex; flex: 1;">
+                                  <ion-card style="width: 100%; height: auto;">
+                                    <ion-item style="margin-top: 10px; color: var(--ion-color-primary);">
+                                      <ion-label>
+                                        <strong style="white-space: normal;">{{ instance.instanceIdentifier }}</strong>
+                                      </ion-label>
+                                    </ion-item>
+                                    <ion-list lines="none">
+                                      @for (answer of instance[key].answers; track answer) {
+                                        <ion-item lines="none">
+                                          <ion-icon name="arrow-forward-outline" slot="start" style="margin-right: 8px;" class="custom-icon"></ion-icon>
+                                          <h6 style="width: 100%; margin: 0;word-wrap: break-word;">{{ checkAnswerValue(answer) }}</h6>
+                                        </ion-item>
+                                      }
+                                    </ion-list>
+                                  </ion-card>
+                                </ion-col>
+                              }
+                            </ion-row>
+                          </div>
+                        }
+                      </ion-row>
+                    }
+                  </ion-grid>
+                </ion-item>
+              }
+            }
+          </ion-card-content>
+          <div style="margin: 10px 20px;">
+            @if (question.evidences && question.evidences.length) {
+              <h4>Evidences : {{ question.evidence_count}}</h4>
+            }
+          </div>
+          <div style="display: flex;flex-direction: row;gap: 10px;margin: 0 20px;color: var(--ion-color-primary);">
+            @for (evidence of question.evidences; track evidence) {
+              @switch (evidence.extension) {
+                @case ('jpg') {
+                  <div class="iconList">
+                    <mat-icon class="customizeIcon" matTooltip="View the uploaded image" matTooltipClass="tooltip"
+                    (click)="openDialog(evidence.url,'image')">image</mat-icon>
                   </div>
-                </ion-row>
-              </ion-grid>
-            </ion-item>
-          </ng-container>
-        </ion-card-content>
-
-        <div style="margin: 10px 20px;">
-          <h4 *ngIf="question.evidences && question.evidences.length">Evidences : {{ question.evidence_count}}</h4>
-        </div>
-
-        <div style="display: flex;flex-direction: row;gap: 10px;margin: 0 20px;color: var(--ion-color-primary);">
-          <ng-container *ngFor="let evidence of question.evidences">
-            <ng-container [ngSwitch]="evidence.extension">
-              <div *ngSwitchCase="'jpg'" class="iconList">
-                <mat-icon class="customizeIcon" matTooltip="View the uploaded image" matTooltipClass="tooltip"
-                  (click)="openDialog(evidence.url,'image')">image</mat-icon>
-              </div>
-              <div *ngSwitchCase="'png'" class="iconList">
-                <mat-icon class="customizeIcon" matTooltip="View the uploaded image" matTooltipClass="tooltip"
-                  (click)="openDialog(evidence.url,'image')">image</mat-icon>
-              </div>
-              <div *ngSwitchCase="'pdf'" class="iconList">
-                <mat-icon class="customizeIcon" matTooltip="View the uploaded image" matTooltipClass="tooltip"
-                  (click)="openUrl(evidence.url)">picture_as_pdf</mat-icon>
-              </div>
-              <div *ngSwitchCase="'mp4'" class="iconList">
-                <mat-icon class="customizeIcon" matTooltip="View the uploaded video" matTooltipClass="tooltip"
-                  (click)="openDialog(evidence.url,'video')">video_file</mat-icon>
-              </div>
-            </ng-container>
-          </ng-container>
-        </div>
-
-      </ion-card>
+                }
+                @case ('png') {
+                  <div class="iconList">
+                    <mat-icon class="customizeIcon" matTooltip="View the uploaded image" matTooltipClass="tooltip"
+                    (click)="openDialog(evidence.url,'image')">image</mat-icon>
+                  </div>
+                }
+                @case ('pdf') {
+                  <div class="iconList">
+                    <mat-icon class="customizeIcon" matTooltip="View the uploaded image" matTooltipClass="tooltip"
+                    (click)="openUrl(evidence.url)">picture_as_pdf</mat-icon>
+                  </div>
+                }
+                @case ('mp4') {
+                  <div class="iconList">
+                    <mat-icon class="customizeIcon" matTooltip="View the uploaded video" matTooltipClass="tooltip"
+                    (click)="openDialog(evidence.url,'video')">video_file</mat-icon>
+                  </div>
+                }
+              }
+            }
+          </div>
+        </ion-card>
+      }
     </ion-list>
   </div>
   <ion-modal [isOpen]="isFilterModalOpen" (willDismiss)="closeFilter()" style="border-radius: 5px; height: auto;">
@@ -124,10 +155,12 @@
   
       <ion-content>
         <ion-list>
-          <ion-item *ngFor="let question of allQuestions">
+          @for (question of allQuestions; track question) {
+            <ion-item>
             <ion-label>{{ question.question }}</ion-label>
             <ion-checkbox slot="start" [(ngModel)]="question.selected"></ion-checkbox>
           </ion-item>
+          }
         </ion-list>
       </ion-content>
   
@@ -162,9 +195,15 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <img *ngIf="objectType == 'image'" [src]="objectURL" alt="Preview" class="w-100" />
-      <video *ngIf="objectType == 'video'" [src]="objectURL" controls class="w-100"></video>
-      <iframe *ngIf="objectType == 'pdf'" [src]="objectURL | sanitizeUrl"></iframe>
+      @if (objectType == 'image') {
+        <img [src]="objectURL" alt="Preview" class="w-100" />
+      }
+      @if (objectType == 'video') {
+        <video [src]="objectURL" controls class="w-100"></video>
+      }
+      @if (objectType == 'pdf') {
+        <iframe [src]="objectURL | sanitizeUrl"></iframe>
+      }
     </ion-content>
   </ng-template>
 </ion-modal>

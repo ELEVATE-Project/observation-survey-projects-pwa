@@ -2,7 +2,8 @@
 
 <ion-content>
 
-  <ion-list class="program-card" *ngIf="programData">
+  @if (programData) {
+  <ion-list class="program-card">
     <ion-row class="ion-margin">
       <ion-col size="12">
           <h1>{{ programData.programName }}</h1>
@@ -17,6 +18,7 @@
       </ion-col>
     </ion-row>
   </ion-list>
+  }
 
   
   <!-- <ion-segment class="custom-segment" [(ngModel)]="programFilter" (ionChange)="filterChanged($event)">
@@ -27,9 +29,9 @@
     }
   </ion-segment> -->
 
-  
-    <ion-list class="card-container" *ngIf="filterData?.length > 0 ; else noData" >
 
+@if (filterData?.length > 0 ) {
+  <ion-list class="card-container" >
         @for(item of filterData;track item){
           <ion-card class="expandable-card">
             <ion-card-content class="group-title" (click)="selectSection(item)">
@@ -61,9 +63,9 @@
         }
 
     </ion-list>
-
-    <ng-template #noData>
-      <div class="no-data-container" *ngIf="!showLoading">
+} @else {
+  @if (!showLoading) {
+    <div class="no-data-container">
         <!-- @if(!filteredList.length && filterData?.length){
           <h1>{{'NO_RESULTS' | translate}}</h1>
           <p>{{ 'PROGRAM_NO_FILTER_DATA_MSG' | translate: { filter: programFilter } }}</p>
@@ -72,6 +74,6 @@
           <p>{{"PROGRAM_NO_RESOURCES" | translate}}</p>
         <!-- } -->
       </div>
-    </ng-template>
-  
+  }
+}
 </ion-content>

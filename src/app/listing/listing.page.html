@@ -30,7 +30,8 @@
 
   
   <ion-grid>
-    <ion-row *ngIf="solutionList?.count > 0; else noData">
+    @if (solutionList?.count > 0) {
+      <ion-row>
         @for (solution of solutionList?.data; track solution.id) {
         <ion-col size="12" size-md="6" class="listing-card" (click)="navigateTo(solution)">
           <ion-card class="tiels">
@@ -97,11 +98,13 @@
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
       </ion-row>
-      <ng-template #noData>
-        <div class="no-data-container ion-margin-top" *ngIf="!showLoading">
+  } @else {
+    @if (!showLoading) {
+        <div class="no-data-container ion-margin-top">
           <img src="/ml/assets/images/no_data.jpg" alt="No data">
         </div>
-      </ng-template>
+      }
+   }
   </ion-grid>
   @if (listType === 'project' && filter === 'createdByMe') {
     <ion-fab horizontal="end" vertical="bottom" slot="fixed">
