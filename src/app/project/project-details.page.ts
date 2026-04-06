@@ -11,6 +11,7 @@ import { NetworkServiceService } from 'network-service';
 import { environment } from 'src/environments/environment';
 
 @Component({
+  standalone: false,
   selector: 'app-project',
   templateUrl: './project-details.page.html',
   styleUrls: ['./project-details.page.scss']

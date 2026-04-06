@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastService } from '../services/toast/toast.service';
 
 @Component({
+  standalone: false,
   selector: 'app-generic-report',
   templateUrl: './generic-report.component.html',
   styleUrls: ['./generic-report.component.scss'],

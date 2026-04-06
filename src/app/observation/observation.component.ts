@@ -10,6 +10,7 @@ import { ToastService } from '../services/toast/toast.service';
 import { Location } from '@angular/common';
 
 @Component({
+  standalone: false,
   selector: 'app-observation',
   templateUrl: './observation.component.html',
   styleUrls: ['./observation.component.scss'],

@@ -8,6 +8,7 @@ import { PageTitleService } from './services/project-title/page-title.service';
 
 
 @Component({
+  standalone: false,
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],

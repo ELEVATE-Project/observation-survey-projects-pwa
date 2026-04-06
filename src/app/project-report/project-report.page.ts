@@ -15,6 +15,7 @@ import { ProjectsApiService } from '../services/projects-api/projects-api.servic
 
 
 @Component({
+  standalone: false,
   selector: 'app-project-report',
   templateUrl: './project-report.page.html',
   styleUrls: ['./project-report.page.scss'],

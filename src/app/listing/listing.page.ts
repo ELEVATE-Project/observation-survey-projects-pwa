@@ -14,6 +14,7 @@ import { SamikshaApiService } from '../services/samiksha-api/samiksha-api.servic
 import { PrivacyPolicyPopupComponent } from '../shared/privacy-policy-popup/privacy-policy-popup.component';
 import { PageTitleService } from '../services/project-title/page-title.service';
 @Component({
+  standalone: false,
   selector: 'app-listing',
   templateUrl: './listing.page.html',
   styleUrls: ['./listing.page.scss'],

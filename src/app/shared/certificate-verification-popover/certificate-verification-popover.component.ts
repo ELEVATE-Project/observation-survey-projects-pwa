@@ -1,6 +1,7 @@
 import { Component, OnInit ,Input } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 @Component({
+  standalone: false,
   selector: 'app-certificate-verification-popover',
   templateUrl: './certificate-verification-popover.component.html',
   styleUrls: ['./certificate-verification-popover.component.scss'],

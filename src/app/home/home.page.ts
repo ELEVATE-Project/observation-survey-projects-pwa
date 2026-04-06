@@ -14,9 +14,10 @@ import { ProfileService } from '../services/profile/profile.service';
 import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 import { environment } from 'src/environments/environment';
 import { PAGE_IDS } from '../core/constants/pageIds';
-import {DbService, FormsService} from 'formstore-cache'
+import {DbService} from 'formstore-cache'
 register();
 @Component({
+  standalone: false,
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],

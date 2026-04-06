@@ -6,6 +6,7 @@ import { ProfileService } from '../services/profile/profile.service';
 import { UtilService } from '../services/util/util.service';
 
 @Component({
+  standalone: false,
   selector: 'app-report-list',
   templateUrl: './report-list.page.html',
   styleUrls: ['./report-list.page.scss'],

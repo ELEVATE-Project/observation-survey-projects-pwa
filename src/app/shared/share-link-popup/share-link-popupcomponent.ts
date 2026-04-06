@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 
 @Component({
+  standalone: false,
   selector: 'app-dialog-popup',
   templateUrl: './share-link-popup.component.html',
   styleUrls: ['./share-link-popup.component.scss'],

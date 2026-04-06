@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
+  standalone: false,
   selector: 'app-privacy-policy-popup',
   templateUrl: './privacy-policy-popup.component.html',
   styleUrls: ['./privacy-policy-popup.component.scss'],

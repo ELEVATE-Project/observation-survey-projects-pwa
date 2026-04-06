@@ -8,6 +8,7 @@ import urlConfig from 'src/app/config/url.config.json';
 import { ApiBaseService } from '../services/base-api/api-base.service';
 import { environment } from 'src/environments/environment';
 @Component({
+  standalone: false,
   selector: 'app-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],

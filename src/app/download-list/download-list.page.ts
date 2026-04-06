@@ -5,6 +5,7 @@ import { AlertService } from '../services/alert/alert.service';
 import { DbService } from '../services/db/db.service';
 
 @Component({
+  standalone: false,
   selector: 'app-download-list',
   templateUrl: './download-list.page.html',
   styleUrls: ['./download-list.page.scss'],

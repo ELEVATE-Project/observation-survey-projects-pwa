@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ProjectsApiService } from 'src/app/services/projects-api/projects-api.service';
 
 @Component({
+  standalone: false,
   selector: 'app-library-categories-list',
   templateUrl: './library-categories-list.component.html',
   styleUrls: ['./library-categories-list.component.scss'],

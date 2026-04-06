@@ -9,6 +9,7 @@ import { ProjectsApiService } from '../services/projects-api/projects-api.servic
 import { NetworkServiceService } from 'network-service';
 
 @Component({
+  standalone: false,
   selector: 'app-redirection-handler',
   templateUrl: './redirection-handler.component.html',
   styleUrls: ['./redirection-handler.component.scss'],

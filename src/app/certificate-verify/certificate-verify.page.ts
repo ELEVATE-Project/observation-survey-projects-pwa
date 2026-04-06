@@ -7,6 +7,7 @@ import { finalize } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
+  standalone: false,
   selector: 'app-certificate-verify',
   templateUrl: './certificate-verify.page.html',
   styleUrls: ['./certificate-verify.page.scss'],

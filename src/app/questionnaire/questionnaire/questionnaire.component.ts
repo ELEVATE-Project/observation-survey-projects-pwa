@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { ProfileService } from 'src/app/services/profile/profile.service';
 import { UtilService } from 'src/app/services/util/util.service';
 @Component({
+  standalone: false,
   selector: 'app-questionnaire',
   templateUrl: './questionnaire.component.html',
   styleUrls: ['./questionnaire.component.scss'],

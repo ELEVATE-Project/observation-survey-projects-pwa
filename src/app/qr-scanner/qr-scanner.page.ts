@@ -10,6 +10,7 @@ import { UtilService } from 'src/app/services/util/util.service';
 import { Location } from '@angular/common';
 import { ProjectsApiService } from '../services/projects-api/projects-api.service';
 @Component({
+  standalone: false,
   selector: 'app-qr-scanner',
   templateUrl: './qr-scanner.page.html',
   styleUrls: ['./qr-scanner.page.scss'],

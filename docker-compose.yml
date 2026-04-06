@@ -1,0 +1,8 @@
+services:
+  observation-survey-pwa:
+    build: .
+    container_name: elevate-observation-survey-pwa
+    ports:
+      - "7007:7007"
+    volumes:
+      - ./src/assets/env/env.js:/usr/src/app/www/ml/assets/env/env.js
