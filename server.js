@@ -5,7 +5,7 @@ const port = process.env.PORT || 8181;
 
 app.use('/ml', express.static(path.join(__dirname, 'www', 'browser')));
 
-app.get('/ml/*', (req, res) => {
+app.get('/ml/*path', (req, res) => {
     res.sendFile(path.join(__dirname, 'www', 'browser', 'index.html'));
   });
 
