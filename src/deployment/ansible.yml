@@ -1,9 +1,63 @@
----
 - hosts: elevate
   vars:
     project_path: /opt/frontend/elevate-project-pwa
     root_path: /opt/frontend
+
   tasks:
+
+    # -------------------------------
+    # PRE-SETUP LOGGING
+    # -------------------------------
+    - name: Check current Node and npm versions
+      shell: |
+        node -v || echo "Node not found"
+        npm -v || echo "npm not found"
+      register: version_before
+      ignore_errors: yes
+
+    - debug: msg="Versions before update - {{ version_before.stdout_lines }}"
+
+    # -------------------------------
+    # NVM + NODE SETUP
+    # -------------------------------
+
+    - name: Ensure NVM is installed
+      shell: |
+        export NVM_DIR="$HOME/.nvm"
+        if [ ! -d "$NVM_DIR" ]; then
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+        fi
+      args:
+        executable: /bin/bash
+
+    - name: Install and use Node 20.19.0
+      shell: |
+        export NVM_DIR="$HOME/.nvm"
+        . "$NVM_DIR/nvm.sh"
+        nvm install 20.19.0
+        nvm use 20.19.0
+        nvm alias default 20.19.0
+        npm install -g pm2@latest
+      args:
+        executable: /bin/bash
+
+    - name: Verify Node, npm and PM2 versions after update
+      shell: |
+        export NVM_DIR="$HOME/.nvm"
+        . "$NVM_DIR/nvm.sh"
+        node -v
+        npm -v
+        pm2 -v
+      register: version_after
+      args:
+        executable: /bin/bash
+
+    - debug: msg="Versions after update - {{ version_after.stdout_lines }}"
+
+    # -------------------------------
+    # VAULT + ENV SETUP
+    # -------------------------------
+
     - name: Slurp host file
       slurp:
         src: "/opt/backend/deployment/.token"
@@ -25,7 +79,12 @@
         version: "{{gitBranch}}"
         force: yes
     - name: Update npm
-      shell: cd {{project_path}} && npm i --force
+      shell: |
+        export NVM_DIR="$HOME/.nvm"
+        . "$NVM_DIR/nvm.sh"
+        cd {{project_path}} && npm i --force
+      args:
+        executable: /bin/bash
     - name: Set permission
       shell: chmod 744 {{ project_path }}/src/scripts/json2env.sh
     - name: Generate .env
@@ -38,10 +97,29 @@
       shell: cd {{project_path}}
     - name: Fetch pm2 config file
       shell: "curl --location --request GET '{{ vaultAddress }}projetcsPWAPm2Config' --header 'X-Vault-Token: {{ slurpfile['content'] | b64decode }}' | jq '.data.data' > '{{ project_path }}/pm2.config.json'"
-      register: pm2
+      register: pm2_fetch
     - name: Remove www folder
       shell: rm -rf www
     - name: Build pwa app
-      shell: cd {{project_path}} && ionic build --prod
+      shell: |
+        export NVM_DIR="$HOME/.nvm"
+        . "$NVM_DIR/nvm.sh"
+        cd {{project_path}} && npx ionic build --prod
+      args:
+        executable: /bin/bash
     - name: Start pm2
-      shell: cd {{project_path}} && pm2 start pm2.config.json
+      shell: |
+        export NVM_DIR="$HOME/.nvm"
+        . "$NVM_DIR/nvm.sh"
+        cd {{project_path}} && pm2 start pm2.config.json
+      args:
+        executable: /bin/bash
+    - name: Verify PM2 Status
+      shell: |
+        export NVM_DIR="$HOME/.nvm"
+        . "$NVM_DIR/nvm.sh"
+        pm2 list
+      register: pm2_status
+      args:
+        executable: /bin/bash
+    - debug: msg="PM2 Status Report - {{ pm2_status.stdout_lines }}"
