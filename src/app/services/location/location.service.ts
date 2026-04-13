@@ -39,7 +39,7 @@ export class LocationService {
                 return result.map((item: any) => ({
                     ...item,
                     label: item.orgName || item.name,
-                    value: item.id
+                    value: item.externalId
                 }));
             })
         );
