@@ -89,9 +89,12 @@ export class LocationUpdatePage {
     transformFields(fields: any[] = [], userLocations: any[] = []) {
         return fields.map(field => {
             const isSubPersona = field.code === locationType.subPersona;
+            const isSchool = field.code === locationType.school
             const location = userLocations.find((loc: any) =>
                 loc.type === field.code && (field.code !== locationType.school || loc.parentId === '')
             );
+            let schoolField = null
+            if(isSchool) schoolField = userLocations.find((loc: any) => loc.type === locationType.school);
             const transformed: any = {
                 name: field.code,
                 label: field.templateOptions?.labelHtml?.values?.['$0'] || '',
@@ -125,10 +128,13 @@ export class LocationUpdatePage {
 
             if (isSubPersona) {
                 transformed.value = field.templateOptions.options.filter((option: any) => {
-                    return this.subRoles.some((role: any) => role.subType === option.value)
+                    return this.subRoles.some((role: any) => role.subType.toLowerCase() === option.value.toLowerCase())
                 })
             }
 
+            if(schoolField){
+                transformed.value = schoolField.code;
+            }
             return transformed;
         });
     }
