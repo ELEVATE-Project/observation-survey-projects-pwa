@@ -127,8 +127,8 @@ export class LocationUpdatePage {
             }
 
             if (isSubPersona) {
-                transformed.value = field.templateOptions.options.filter((option: any) => {
-                    return this.subRoles.some((role: any) => role.subType.toLowerCase() === option.value.toLowerCase())
+                transformed.value = field?.templateOptions?.options.filter((option: any) => {
+                    return this.subRoles.some((role: any) => role?.subType?.toLowerCase() === option?.value?.toLowerCase())
                 })
             }
 
