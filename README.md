@@ -20,10 +20,10 @@ Dependencies
 
 | Requirement       | Description                                                                                                             |
 |-------------------|-------------------------------------------------------------------------------------------------------------------------|
-| Ionic CLI         | Version 7.1.1 (/usr/local/lib/node_modules/@ionic/cli)                                                                  |
-| Ionic Framework   | @ionic/angular 7.0.0 @angular-devkit/build-angular : 17.0.0 @angular-devkit/schematics : 17.0.0 @angular/cli : 17.0.0 @ionic/angular-toolkit : 11.0.1 |
-| Capacitor         | Capacitor CLI : 6.0.0 @capacitor/core : 6.0.0                     |
-| System            | [nodejs](https://nodejs.org/) : v18.20.3 npm: 10.7.0           |
+| Ionic CLI         | Version 7.2.1 (/usr/local/lib/node_modules/@ionic/cli)                                                                  |
+| Ionic Framework   | @ionic/angular 7.2.1 @angular-devkit/build-angular : 21.2.6 @angular-devkit/schematics : 21.2.6 @angular/cli : 21.2.6 @ionic/angular-toolkit : 12.3.0 |
+| Capacitor         | Capacitor CLI : 8.3.0 @capacitor/core : 8.3.0                     |
+| System            | [nodejs](https://nodejs.org/) : v20.20.0 npm: 10.8.2           |
 
 Additional information
 ----------------------
@@ -82,14 +82,31 @@ Setup and Configuration
 Setting up the Project
 ----------------------
 
-1. Go to the project folder using the below command.
-    ```
-    cd observation-survey-projects-pwa
-    ```
-2. Set the environment variables.
-   - Follow the [Environment Configuration](#environment-configuration) section.
+#### **Part 1: Basic Application Setup**
 
-3. Run `npm i -f`.
+1. **Navigate to the project folder:**
+   ```bash
+   cd observation-survey-projects-pwa
+   ```
+2. **Install dependencies:**
+   ```bash
+   npm install --force
+   ```
+3. **Configure Environment Variables:**
+   Follow the [Environment Configuration](#environment-configuration) section to set up your `env.js` file.
+
+#### **Part 2: Backend Service Integration (Optional)**
+
+If you want to connect the PWA to the full backend service:
+
+1. **Setup Backend Service**: Follow the instructions in the [Project Service Documentation](https://github.com/ELEVATE-Project/project-service/tree/main/documentation/3.4.0).
+2. **Update Base URL**: Once the backend is running (typically on port 6000), update the `baseURL` in your `src/assets/env/env.js` to `http://localhost:6001`.
+3. **Initialize Database Data**: Run the following script to populate the initial form definitions into your local database:
+   ```bash
+   node forms_migration.js
+   ```
+
+
 
 Serving the Application
 ------------------------
@@ -112,9 +129,8 @@ Debugging the Application
 
 Update the environment configuration file:
 
-```bash
-cd src/assets/env/env.js
-```
+- **Local Path:** `src/assets/env/env.js`
+- **Deployment Path:** `/usr/src/app/www/ml/assets/env/env.js`
 
 Configure the environment variables:
 
