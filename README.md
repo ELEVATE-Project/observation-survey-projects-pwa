@@ -20,10 +20,10 @@ Dependencies
 
 | Requirement       | Description                                                                                                             |
 |-------------------|-------------------------------------------------------------------------------------------------------------------------|
-| Ionic CLI         | Version 7.2.1 (/usr/local/lib/node_modules/@ionic/cli)                                                                  |
-| Ionic Framework   | @ionic/angular 7.2.1 @angular-devkit/build-angular : 21.2.6 @angular-devkit/schematics : 21.2.6 @angular/cli : 21.2.6 @ionic/angular-toolkit : 12.3.0 |
-| Capacitor         | Capacitor CLI : 8.3.0 @capacitor/core : 8.3.0                     |
-| System            | [nodejs](https://nodejs.org/) : v20.20.0 npm: 10.8.2           |
+| Ionic CLI         | Version 7.x.x+ (Global) / @ionic/angular: ^8.8.2                                                                       |
+| Ionic Framework   | @ionic/angular: ^8.8.2, @angular/build: ^21.2.5, @angular/cli: ^21.2.5, @ionic/angular-toolkit: ^12.3.0                 |
+| Capacitor         | Capacitor CLI: ^8.3.0, @capacitor/core: ^8.3.0                                                                          |
+| System            | [nodejs](https://nodejs.org/) : ^20.x.x, npm: ^10.x.x                                                                   |
 
 Additional information
 ----------------------
@@ -100,7 +100,7 @@ Setting up the Project
 If you want to connect the PWA to the full backend service:
 
 1. **Setup Backend Service**: Follow the instructions in the [Project Service Documentation](https://github.com/ELEVATE-Project/project-service/tree/main/documentation/3.4.0).
-2. **Update Base URL**: Once the backend is running (typically on port 6000), update the `baseURL` in your `src/assets/env/env.js` to `http://localhost:6001`.
+2. **Update Base URL**: Once the backend is running (typically on port 6001), update the `baseURL` in your `src/assets/env/env.js` to `http://localhost:6001`.
 3. **Initialize Database Data**: Run the following script to populate the initial form definitions into your local database:
    ```bash
    node forms_migration.js
