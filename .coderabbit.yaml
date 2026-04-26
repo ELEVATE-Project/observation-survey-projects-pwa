@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+
+language: "en-US"
+
+reviews:
+  profile: "assertive"
+  high_level_summary: true
+  poem: false
+  review_status: true
+  auto_review:
+    enabled: true
+    drafts: false
+  path_instructions:
+    - path: "src/app/**/*.ts"
+      instructions: "Ensure all subscriptions are properly handled or unsubscribed. Check for proper typing and avoid 'any' where possible."
+    - path: "src/assets/env/env.js"
+      instructions: "Ensure no sensitive information or secrets are committed here."
+    - path: "forms.json"
+      instructions: "Verify the JSON structure matches the expected form definitions SCHEMA."
+
+chat:
+  auto_reply: true
