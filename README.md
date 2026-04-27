@@ -224,24 +224,13 @@ Deploy the portal to path at the URL https://xyz.com/ml/
 3. **Install Docker** (if not already installed)
    - Download and install Docker from https://www.docker.com/get-started/
 
-4. **Navigate to the project directory**
+4. **Run using Docker Compose**
    ```bash
-   cd /path/to/project-directory
+   docker compose up -d
    ```
+   This command builds the image and starts the container in detached mode. The application will be accessible on port `7007`.
 
-5. **Log in to Docker**
+5. **Stop and Remove Containers**
    ```bash
-   docker login -u <email-id>
+   docker compose down
    ```
-
-6. **Build the Docker image**
-   ```bash
-   docker build -t <image-name>:latest .
-   ```
-   Note: Ensure the `.` at the end is present — it refers to the current directory.
-
-7. **Run the Docker container**
-   ```bash
-   docker run -p 8080:<container-port> <image-name>:latest
-   ```
-   Replace `<container-port>` with the port number exposed in the Dockerfile (refer to the Dockerfile to find the exposed port, e.g., EXPOSE 6006).
