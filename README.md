@@ -100,13 +100,33 @@ Setting up the Project
 If you want to connect the PWA to the full backend service:
 
 1. **Setup Backend Service**: Follow the instructions in the [Project Service Documentation](https://github.com/ELEVATE-Project/project-service/tree/main/documentation/3.4.0).
+
 2. **Update Base URL**: Once the backend is running (typically on port 6001), update the `baseURL` in your `src/assets/env/env.js` to `http://localhost:6001`.
+
 3. **Initialize Database Data**: Run the following script to populate the initial form definitions into your local database:
    ```bash
    node forms_migration.js
    ```
+4. **Initialize User Service Data**: Run the following script to populate forms and features in the user service database:
+   ```bash
+   chmod +x formsManager.sh
+   ./formsManager.sh
+   ```
 
+#### **Part 3: Elevate Portal Integration (Optional)**
 
+If you require a complete user management system with login, registration, and discovery of projects and programs:
+
+1. **Setup Elevate Portal**: Follow the installation guide in the [Elevate Portal Repository](https://github.com/ELEVATE-Project/elevate-portal/blob/release-1.1.1/README.md).
+
+2. **Authentication & Access**: The portal handles user sessions and provides the interface to launch specific projects and programs within this PWA.
+
+3. **Update Base URL**: Once the backend is running (typically on port 3001), update the `NEXT_PUBLIC_BASE_URL` in your `apps/shikshagraha-app/public/env-config.js` to `http://localhost:3001`.
+
+4. **Host the app**: Run the following command to serve the portal:
+   ```bash
+   nx dev shikshagraha-app --port=3000 --verbose
+   ```
 
 Serving the Application
 ------------------------
