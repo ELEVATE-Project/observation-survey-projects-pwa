@@ -2,298 +2,107 @@
     {
         "type": "homelist",
         "subType": "homelists",
-        "action": "skip",
         "data": [
+    {
+        "type": "bannerList",
+        "listingData": [
             {
-                "type": "bannerList",
-                "listingData": [
-                    {
-                        "title": "Hey, Welcome back!",
-                        "discription": ""
-                    }
-                ]
+                "title": "Hey, Welcome back!",
+                "discription": ""
+            }
+        ]
+    },
+    {
+        "type": "solutionList",
+        "listingData": [
+            {
+                "name": "Programs",
+                "description": "View and participate in educational programs active in your location and designed for the role you selected",
+                "img": "assets/images/ic_program.svg",
+                "listType": "program",
+                "redirectionUrl": "/listing/program",
+                "solutionType": "isAPrivateProgram",
+                "reportPage": false
             },
             {
-                "type": "solutionList",
-                "listingData": [
+                "name": "Projects",
+                "img": "assets/images/ic_project.svg",
+                "redirectionUrl": "/listing/project",
+                "listType": "project",
+                "solutionType": "improvementProject",
+                "reportPage": false,
+                "description": "Manage and track your school improvement easily, by creating tasks and planning project timelines"
+            },
+            {
+                "name": "Observations",
+                "img": "assets/images/ic_observation.svg",
+                "redirectionUrl": "/observations/listing/observation",
+                "listType": "listing",
+                "reportPage": true,
+                "description": "",
+                "customNavigation": true
+            },
+            {
+                "name": "Survey",
+                "img": "assets/images/ic_survey.svg",
+                "redirectionUrl": "/observations/listing/survey",
+                "listType": "survey",
+                "solutionType": "survey",
+                "reportPage": false,
+                "reportIdentifier": "surveyReportPage",
+                "description": "Provide information and feedback through quick and easy surveys",
+                "customNavigation": true
+            },
+            {
+                "name": "Reports",
+                "img": "assets/images/ic_report.svg",
+                "redirectionUrl": "/project-report",
+                "listType": "report",
+                "reportPage": true,
+                "description": "Make sense of data to enable your decision-making based on your programs with ease",
+                "list": [
                     {
-                        "name": "Projects",
+                        "name": "Improvement Project Reports",
                         "img": "assets/images/ic_project.svg",
-                        "redirectionUrl": "/listing/project",
+                        "redirectionUrl": "/project-report",
                         "listType": "project",
                         "solutionType": "improvementProject",
                         "reportPage": false,
                         "description": "Manage and track your school improvement easily, by creating tasks and planning project timelines"
                     },
                     {
-                        "name": "Observations",
-                        "img": "assets/images/ic_observation.svg",
-                        "redirectionUrl": "/observation",
-                        "listType": "listing",
-                        "reportPage": true,
-                        "description": ""
-                    },
-                    {
-                        "name": "Survey",
+                        "name": "Survey Reports",
                         "img": "assets/images/ic_survey.svg",
-                        "redirectionUrl": "/listing/survey",
+                        "redirectionUrl": "/observations/listing/surveyReports",
                         "listType": "survey",
                         "solutionType": "survey",
-                        "reportPage": false,
+                        "reportPage": true,
                         "reportIdentifier": "surveyReportPage",
-                        "description": "Provide information and feedback through quick and easy surveys"
+                        "description": "Provide information and feedback through quick and easy surveys",
+                        "customNavigation": true
                     },
                     {
-                        "name": "Reports",
-                        "img": "assets/images/ic_report.svg",
-                        "redirectionUrl": "/project-report",
-                        "listType": "report",
-                        "reportPage": true,
-                        "description": "Make sense of data to enable your decision-making based on your programs with ease",
-                        "list": [
-                            {
-                                "name": "Improvement Project Reports",
-                                "img": "assets/images/ic_project.svg",
-                                "redirectionUrl": "/project-report",
-                                "listType": "project",
-                                "solutionType": "improvementProject",
-                                "reportPage": false,
-                                "description": "Manage and track your school improvement easily, by creating tasks and planning project timelines"
-                            },
-                            {
-                                "name": "Observation Reports",
-                                "img": "assets/images/ic_observation.svg",
-                                "redirectionUrl": "/observation",
-                                "listType": "listing",
-                                "solutionType": "observation",
-                                "reportPage": true,
-                                "reportIdentifier": "surveyReportPage",
-                                "description": "Provide information and feedback through quick and easy observations"
-                            },
-                            {
-                                "name": "Survey Reports",
-                                "img": "assets/images/ic_survey.svg",
-                                "redirectionUrl": "/listing/survey",
-                                "listType": "survey",
-                                "solutionType": "survey",
-                                "reportPage": true,
-                                "reportIdentifier": "surveyReportPage",
-                                "description": "Provide information and feedback through quick and easy surveys"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Library",
-                        "img": "assets/images/library.svg",
-                        "redirectionUrl": "/project-library",
-                        "listType": "library",
-                        "description": ""
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "type": "projectHome",
-        "subType": "project",
-        "action": "skip",
-        "data": [
-            {
-                "type": "bannerList",
-                "listingData": [
-                    {
-                        "title": "Hey, Welcome back!",
-                        "discription": ""
-                    }
-                ]
-            },
-            {
-                "type": "solutionList",
-                "listingData": [
-                    {
-                        "name": "Projects",
-                        "img": "assets/images/ic_project.svg",
-                        "redirectionUrl": "/listing/project",
-                        "listType": "project",
-                        "solutionType": "improvementProject",
-                        "reportPage": false,
-                        "description": "Manage and track your school improvement easily, by creating tasks and planning project timelines"
-                    },
-                    {
-                        "name": "Reports",
-                        "img": "assets/images/ic_report.svg",
-                        "redirectionUrl": "/project-report",
-                        "listType": "report",
-                        "reportPage": true,
-                        "description": "Make sense of data to enable your decision-making based on your programs with ease",
-                        "list": [
-                            {
-                                "name": "Improvement Project Reports",
-                                "img": "assets/images/ic_project.svg",
-                                "redirectionUrl": "/project-report",
-                                "listType": "project",
-                                "solutionType": "improvementProject",
-                                "reportPage": false,
-                                "description": "Manage and track your school improvement easily, by creating tasks and planning project timelines"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Library",
-                        "img": "assets/images/library.svg",
-                        "redirectionUrl": "/project-library",
-                        "listType": "library",
-                        "description": ""
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "type": "surveyHome",
-        "subType": "survey",
-        "action": "skip",
-        "data": [
-            {
-                "type": "bannerList",
-                "listingData": [
-                    {
-                        "title": "Hey, Welcome back!",
-                        "discription": ""
-                    }
-                ]
-            },
-            {
-                "type": "solutionList",
-                "listingData": [
-                    {
-                        "name": "Observations",
+                        "name": "Observation Reports",
                         "img": "assets/images/ic_observation.svg",
-                        "redirectionUrl": "/observation",
+                        "redirectionUrl": "/observations/listing/observationReports",
                         "listType": "listing",
+                        "solutionType": "observation",
                         "reportPage": true,
-                        "description": ""
-                    },
-                    {
-                        "name": "Survey",
-                        "img": "assets/images/ic_survey.svg",
-                        "redirectionUrl": "/listing/survey",
-                        "listType": "survey",
-                        "solutionType": "survey",
-                        "reportPage": false,
                         "reportIdentifier": "surveyReportPage",
-                        "description": "Provide information and feedback through quick and easy surveys"
-                    },
-                    {
-                        "name": "Reports",
-                        "img": "assets/images/ic_report.svg",
-                        "redirectionUrl": "/project-report",
-                        "listType": "report",
-                        "reportPage": true,
-                        "description": "Make sense of data to enable your decision-making based on your programs with ease",
-                        "list": [
-                            {
-                                "name": "Observation Reports",
-                                "img": "assets/images/ic_observation.svg",
-                                "redirectionUrl": "/observation",
-                                "listType": "listing",
-                                "solutionType": "observation",
-                                "reportPage": true,
-                                "reportIdentifier": "surveyReportPage",
-                                "description": "Provide information and feedback through quick and easy observations"
-                            },
-                            {
-                                "name": "Survey Reports",
-                                "img": "assets/images/ic_survey.svg",
-                                "redirectionUrl": "/listing/survey",
-                                "listType": "survey",
-                                "solutionType": "survey",
-                                "reportPage": true,
-                                "reportIdentifier": "surveyReportPage",
-                                "description": "Provide information and feedback through quick and easy surveys"
-                            }
-                        ]
+                        "description": "Provide information and feedback through quick and easy observations",
+                        "customNavigation": true
                     }
                 ]
-            }
-        ]
-    },
-    {
-        "type": "form",
-        "subType": "formFields",
-        "action": "skip",
-        "data": [
-            {
-                "name": "name",
-                "label": "Enter your name",
-                "value": "",
-                "type": "text",
-                "placeHolder": "Ex. Enter your name",
-                "errorMessage": {
-                    "required": "Enter your name",
-                    "pattern": "This field can only contain alphabets"
-                },
-                "validators": {
-                    "required": true,
-                    "pattern": "^[a-zA-Z\\s]*$"
-                },
-                "disable": "false"
             },
             {
-                "name": "state",
-                "label": "Select your state",
-                "placeHolder": "Select your state",
-                "value": "",
-                "type": "select",
-                "errorMessage": {
-                    "required": "Please select your state"
-                },
-                "validators": {
-                    "required": true
-                },
-                "dynamicEntity": true,
-                "options": [],
-                "disable": "false"
-            },
-            {
-                "name": "roles",
-                "label": "Choose your role",
-                "value": "",
-                "type": "chip",
-                "dynamicUrl": "/entity-management/v1/entities/targetedRoles/",
-                "errorMessage": {
-                    "required": "Select a role"
-                },
-                "validators": {
-                    "required": true
-                },
-                "options": [],
-                "dependsOn": "state",
-                "multiple": true,
-                "disable": "false"
+                "name": "Library",
+                "img": "assets/images/library.svg",
+                "redirectionUrl": "/project-library",
+                "listType": "library",
+                "description": ""
             }
         ]
-    },
-    {
-        "subType": "KR001",
-        "type": "KR001",
-        "data": [
-            {
-                "name": "district",
-                "label": "Select your district",
-                "placeHolder": "Select your district",
-                "value": "",
-                "type": "select",
-                "errorMessage": {
-                    "required": "Please select your district"
-                },
-                "validators": {
-                    "required": true
-                },
-                "options": [],
-                "dependsOn": "state",
-                "disable": "false"
-            }
-        ]
+    }
+]
     }
 ]

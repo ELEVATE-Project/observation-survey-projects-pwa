@@ -20,10 +20,10 @@ Dependencies
 
 | Requirement       | Description                                                                                                             |
 |-------------------|-------------------------------------------------------------------------------------------------------------------------|
-| Ionic CLI         | Version 7.1.1 (/usr/local/lib/node_modules/@ionic/cli)                                                                  |
-| Ionic Framework   | @ionic/angular 7.0.0 @angular-devkit/build-angular : 17.0.0 @angular-devkit/schematics : 17.0.0 @angular/cli : 17.0.0 @ionic/angular-toolkit : 11.0.1 |
-| Capacitor         | Capacitor CLI : 6.0.0 @capacitor/core : 6.0.0                     |
-| System            | [nodejs](https://nodejs.org/) : v18.20.3 npm: 10.7.0           |
+| Ionic CLI         | Version 7.x.x+ (Global) / @ionic/angular: ^8.8.2                                                                       |
+| Ionic Framework   | @ionic/angular: ^8.8.2, @angular/build: ^21.2.5, @angular/cli: ^21.2.5, @ionic/angular-toolkit: ^12.3.0                 |
+| Capacitor         | Capacitor CLI: ^8.3.0, @capacitor/core: ^8.3.0                                                                          |
+| System            | [nodejs](https://nodejs.org/) : ^20.x.x, npm: ^10.x.x                                                                   |
 
 Additional information
 ----------------------
@@ -82,14 +82,47 @@ Setup and Configuration
 Setting up the Project
 ----------------------
 
-1. Go to the project folder using the below command.
-    ```
-    cd observation-survey-projects-pwa
-    ```
-2. Set the environment variables.
-   - Follow the [Environment Configuration](#environment-configuration) section.
+#### **Part 1: Basic Application Setup**
 
-3. Run `npm i -f`.
+1. **Navigate to the project folder:**
+   ```bash
+   cd observation-survey-projects-pwa
+   ```
+2. **Install dependencies:**
+   ```bash
+   npm install --force
+   ```
+3. **Configure Environment Variables:**
+   Follow the [Environment Configuration](#environment-configuration) section to set up your `env.js` file.
+
+#### **Part 2: Backend Service Integration (Optional)**
+
+If you want to connect the PWA to the full backend service:
+
+1. **Setup Backend Service**: Follow the instructions in the [Project Service Documentation](https://github.com/ELEVATE-Project/project-service/tree/main/documentation/3.4.0).
+
+2. **Update Base URL**: Once the backend is running (typically on port 6001), update the `baseURL` in your `src/assets/env/env.js` to `http://localhost:6001`.
+
+3. **Initialize Database Data**: Run the following script to populate the initial form definitions into your local database:
+   ```bash
+   node forms_migration.js
+   ```
+
+
+#### **Part 3: Elevate Portal Integration (Optional)**
+
+If you require a complete user management system with login, registration, and discovery of projects and programs:
+
+1. **Setup Elevate Portal**: Follow the installation guide in the [Elevate Portal Repository](https://github.com/ELEVATE-Project/elevate-portal/blob/release-1.1.1/README.md).
+
+2. **Authentication & Access**: The portal handles user sessions and provides the interface to launch specific projects and programs within this PWA.
+
+3. **Update Base URL**: Once the backend is running (typically on port 3001), update the `NEXT_PUBLIC_BASE_URL` in your `apps/shikshagraha-app/public/env-config.js` to `http://localhost:3001`.
+
+4. **Host the app**: Run the following command to serve the portal:
+   ```bash
+   npx nx  dev shikshagraha-app --port=8000 --verbose
+   ```
 
 Serving the Application
 ------------------------
@@ -112,9 +145,8 @@ Debugging the Application
 
 Update the environment configuration file:
 
-```bash
-cd src/assets/env/env.js
-```
+- **Local Path:** `src/assets/env/env.js`
+- **Deployment Path:** `/usr/src/app/www/ml/assets/env/env.js`
 
 Configure the environment variables:
 
@@ -208,24 +240,13 @@ Deploy the portal to path at the URL https://xyz.com/ml/
 3. **Install Docker** (if not already installed)
    - Download and install Docker from https://www.docker.com/get-started/
 
-4. **Navigate to the project directory**
+4. **Run using Docker Compose**
    ```bash
-   cd /path/to/project-directory
+   docker compose up -d
    ```
+   This command builds the image and starts the container in detached mode. The application will be accessible on port `7007`.
 
-5. **Log in to Docker**
+5. **Stop and Remove Containers**
    ```bash
-   docker login -u <email-id>
+   docker compose down
    ```
-
-6. **Build the Docker image**
-   ```bash
-   docker build -t <image-name>:latest .
-   ```
-   Note: Ensure the `.` at the end is present — it refers to the current directory.
-
-7. **Run the Docker container**
-   ```bash
-   docker run -p 8080:<container-port> <image-name>:latest
-   ```
-   Replace `<container-port>` with the port number exposed in the Dockerfile (refer to the Dockerfile to find the exposed port, e.g., EXPOSE 6006).

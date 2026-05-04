@@ -1,6 +1,10 @@
 # Environment Variables Documentation
 
-This document explains all the environment variables used in the `src/assets/env/env.js` file for the Elevate Projects PWA.
+This document explains all the environment variables used in the environment configuration file for the Elevate Projects PWA.
+
+- **Local Path:** `src/assets/env/env.js`
+- **Deployment Path:** `/usr/src/app/www/ml/assets/env/env.js`
+
 
 ---
 
