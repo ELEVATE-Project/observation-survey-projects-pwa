@@ -107,11 +107,7 @@ If you want to connect the PWA to the full backend service:
    ```bash
    node forms_migration.js
    ```
-4. **Initialize User Service Data**: Run the following script to populate forms and features in the user service database:
-   ```bash
-   chmod +x formsManager.sh
-   ./formsManager.sh
-   ```
+
 
 #### **Part 3: Elevate Portal Integration (Optional)**
 
@@ -125,7 +121,7 @@ If you require a complete user management system with login, registration, and d
 
 4. **Host the app**: Run the following command to serve the portal:
    ```bash
-   nx dev shikshagraha-app --port=3000 --verbose
+   npx nx  dev shikshagraha-app --port=8000 --verbose
    ```
 
 Serving the Application
