@@ -18,6 +18,7 @@ import { PageTitleService } from '../services/project-title/page-title.service';
   selector: 'app-listing',
   templateUrl: './listing.page.html',
   styleUrls: ['./listing.page.scss'],
+  preserveWhitespaces: true,
 })
 export class ListingPage implements OnInit {
   solutionList: any = { data: [], count: 0 };

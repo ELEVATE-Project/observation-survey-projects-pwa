@@ -4,15 +4,18 @@ language: "en-US"
 
 reviews:
   profile: "assertive"
+  tone: "assertive"
   high_level_summary: true
   poem: false
   review_status: true
   auto_review:
     enabled: true
-    drafts: false
+    drafts: true
   path_instructions:
     - path: "src/app/**/*.ts"
       instructions: "Ensure all subscriptions are properly handled or unsubscribed. Check for proper typing and avoid 'any' where possible."
+    - path: "src/app/**/*.html"
+      instructions: "Check for accessibility (ARIA labels) and ensure consistent use of Ionic components."
     - path: "src/assets/env/env.js"
       instructions: "Ensure no sensitive information or secrets are committed here."
     - path: "forms.json"
