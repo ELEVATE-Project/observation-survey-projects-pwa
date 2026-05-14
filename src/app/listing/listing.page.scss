@@ -227,3 +227,7 @@ ion-button{
   --padding-start: 5px !important;
   --padding-end: 5px !important;
 }
+
+.solution-name, .solution-name * {
+  white-space: break-spaces !important;
+}
