@@ -127,11 +127,83 @@ If you require a complete user management system with login, registration, and d
 Serving the Application
 ------------------------
 
-1. Run the project on your local system using the following command:
+1. **Configure Angular.json**:
+   Open `angular.json` and add the following key-value pairs in `app.architect.build.options`:
+   ```json
+   "baseHref": "/ml/",
+   "deployUrl": "/ml/"
+   ```
+
+2. Run the project on your local system using the following command:
 
     ```
     ionic serve
     ```
+
+### **Local Development with Nginx Reverse Proxy**
+
+This setup allows you to run both the **Elevate Portal** and **Projects Portal** locally using a single URL and port through **Nginx**. This is useful for testing end-to-end user login, listing, and consuming projects.
+
+#### **Architecture Overview**
+
+| Application | Local URL |
+|--------------|------------|
+| Elevate Portal | `http://localhost:8000` |
+| Projects Portal | `http://localhost:4200/ml/` |
+| Nginx Unified URL | `http://localhost:8080` |
+
+**Using Nginx:**
+- `http://localhost:8080/` → Elevate Portal
+- `http://localhost:8080/ml/` → Projects Portal
+
+#### **1. Install Nginx**
+
+- **Ubuntu/Debian**: `sudo apt update && sudo apt install nginx -y`
+- **macOS**: `brew install nginx`
+- **Windows**: Download from [nginx.org](http://nginx.org/en/download.html), extract to `C:\nginx`, and run `start nginx`.
+
+#### **2. Verify Installation**
+Run `nginx -v` and open `http://localhost` to see the welcome page.
+
+#### **3. Configure Nginx**
+Open your Nginx configuration file:
+- **Linux**: `/etc/nginx/nginx.conf`
+- **macOS**: `/usr/local/etc/nginx/nginx.conf`
+- **Windows**: `C:\nginx\conf\nginx.conf`
+
+Add the following `server` block inside the `http {}` block:
+
+```nginx
+server {
+    listen 8080;
+
+    location / {
+        proxy_pass http://localhost:8000;
+        proxy_set_header Host $host;
+    }
+
+    location /ml/ {
+        proxy_pass http://localhost:4200/ml/;
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+}
+```
+
+#### **4. Validate and Restart**
+- **Validate**: `sudo nginx -t` (Linux/macOS) or `nginx -t` (Windows)
+- **Restart**:
+    - **Linux**: `sudo systemctl restart nginx`
+    - **macOS**: `brew services restart nginx`
+    - **Windows**: `nginx -s reload`
+
+#### **5. Access Applications**
+- Elevate Portal: `http://localhost:8080/`
+- Projects Portal: `http://localhost:8080/ml/`
+
 
 Debugging the Application
 -------------------------
