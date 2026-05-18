@@ -110,6 +110,12 @@ export class ListingPage implements OnInit {
 
   async getListData($event?:any) {
     this.showLoading = true;
+    if ($event) {
+      const activeElement = document.activeElement as HTMLElement;
+      if (activeElement && activeElement.blur) {
+        activeElement.blur();
+      }
+    }
     await this.loader.showLoading("LOADER_MSG");
     if(this.listType !== 'project'){
       this.filter = '';
